@@ -1,0 +1,41 @@
+#upload-button {
+  background-color: #AEA5A5;
+}
+
+#title {
+  margin-top: 40px;
+  text-align: center;
+}
+
+/* Table styles */
+
+.overviewTable {
+  cursor: pointer;
+}
+
+.overviewTableTd {
+  margin: 30px;
+}
+
+#tabel{
+  width: 460px!important;
+}
+
+.tableHeader{
+  padding: 17px;
+}
+
+td.overviewTableTd{
+    padding: 17px;
+}
+
+table.table-md.table-bordered {
+  width: 300px;
+  margin-left: 50px;
+}
+
+.btn-primary {
+  margin-top: 2px;
+  margin-left: 68px;
+}
+

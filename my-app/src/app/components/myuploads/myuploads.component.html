@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-6 table-responsive">
+      <table class="table-md table-bordered" id="table">
+        <div class="title">
+          <h4 id="title"> My uploads </h4>
+        </div>
+        <tr>
+          <th class="tableHeader">Title  </th>
+          <th class="tableHeader">Publicity </th>
+          <th class="tableHeader">Actions </th>
+        </tr>
+        <tr *ngFor="let dataset of datasets;">
+          <td class="overviewTableTd"> {{dataset.title}} </td>
+          <td class="overviewTableTd"> {{dataset.publicity}} </td>
+          <td class="overviewTableTd"> <button type="button">test</button></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-md-6">
+      <button type="button" class="btn btn-defaul" id="upload-button"> Uploaden</button>
+    </div>
+
+  </div>
+</div>
