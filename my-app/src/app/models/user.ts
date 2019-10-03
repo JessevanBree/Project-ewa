@@ -20,4 +20,14 @@ export class User {
 		this.dateCreated = new Date(Date.now());
 		this.dateEdited = new Date(Date.now());
 	}
+
+	equals(user: User): Boolean {
+		return this.firstName === user.firstName &&
+		this.surName === user.surName &&
+		this.mail === user.mail &&
+		this.isAdmin === user.isAdmin &&
+		this.organisation === user.organisation &&
+		this.isDeleted === user.isDeleted &&
+		this.dateCreated === user.dateCreated;
+	}
 }
