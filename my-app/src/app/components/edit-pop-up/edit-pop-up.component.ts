@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./edit-pop-up.component.css']
 })
 export class EditPopUpComponent implements OnInit {
+  isClicked: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
+    this.isClicked = true;   // if modal is instantiated, isClicked is set to true
   }
 
+
+
+  private setClickedToFalse(){
+    this.isClicked = false;
+  }
 }
