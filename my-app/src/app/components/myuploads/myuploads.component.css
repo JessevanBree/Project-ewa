@@ -1,13 +1,22 @@
 #upload-button {
   background-color: #AEA5A5;
+  margin-top: 87px;
+  color: white;
+  width: 150px;
+  height: 50px;
 }
 
 #title {
   margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 /* Table styles */
+
+#datasetTitle {
+  cursor: pointer;
+}
 
 .overviewTable {
   cursor: pointer;
@@ -15,6 +24,9 @@
 
 .overviewTableTd {
   margin: 30px;
+  background-color: #f2f2f2;
+  text-align: center;
+  padding: 17px;
 }
 
 #tabel{
@@ -23,10 +35,7 @@
 
 .tableHeader{
   padding: 17px;
-}
-
-td.overviewTableTd{
-    padding: 17px;
+  text-align: center;
 }
 
 table.table-md.table-bordered {
@@ -39,3 +48,23 @@ table.table-md.table-bordered {
   margin-left: 68px;
 }
 
+/* Style action buttons */
+.actionBtn {
+  background-color: #AEA5A5;
+  border: none;
+  color: white;
+  padding: 6px 9px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 85px;
+  margin: 5px;
+}
+
+/* Darker background on mouse-over */
+.actionBtn:hover {
+  background-color: #5e594d;
+}
+
+.actionBtn:focus {
+  border: none;
+}

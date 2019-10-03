@@ -12,16 +12,17 @@
           <th class="tableHeader">Actions </th>
         </tr>
         <tr *ngFor="let dataset of datasets;">
-          <td class="overviewTableTd"> {{dataset.title}} </td>
+          <td class="overviewTableTd" id="datasetTitle"> {{dataset.title}} </td>
           <td class="overviewTableTd"> {{dataset.publicity}} </td>
-          <td class="overviewTableTd"> <button type="button">test</button></td>
+          <td class="overviewTableTd">
+            <button class="actionBtn"><i class="fa fa-trash"></i> Delete</button>
+            <button class="actionBtn"><i class="fa fa-edit"></i> Edit</button>
+          </td>
         </tr>
       </table>
     </div>
-
     <div class="col-md-6">
-      <button type="button" class="btn btn-defaul" id="upload-button"> Uploaden</button>
+      <button type="button" class="btn btn-defaul" id="upload-button"> Upload</button>
     </div>
-
   </div>
 </div>
