@@ -14,12 +14,8 @@ import {ADatasetService} from '../../../services/a-dataset.service';
 export class AdminDatasetsComponent implements OnInit {
 	datasets: Dataset[] = [];
 
-	constructor() {
-		this.datasets.push(new Dataset("test"));
-		this.datasets.push(new Dataset("test"));
-		this.datasets.push(new Dataset("test"));
-		this.datasets.push(new Dataset("test"));
-		this.datasets.push(new Dataset("test"));
+	constructor(private aDatasetService: ADatasetService) {
+		this.datasets = aDatasetService.getDatasets();
 	}
 
 	ngOnInit() {

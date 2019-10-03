@@ -13,14 +13,10 @@ import { AUserService } from '../../../services/a-user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: User[] = [];
+	users: User[];
 
-	constructor() {
-		this.users.push(new User("Sjaak", "Peter", "mail.test@test.edu", false));
-		this.users.push(new User("Sjaak", "Peter", "mail.test@test.edu", false));
-		this.users.push(new User("Sjaak", "Peter", "mail.test@test.edu", false));
-		this.users.push(new User("Sjaak", "Peter", "mail.test@test.edu", false));
-		this.users.push(new User("Sjaak", "Peter", "mail.test@test.edu", false));
+	constructor(private aUserService: AUserService) {
+		this.users = aUserService.getUsers();
 	}
 
 	ngOnInit() {
