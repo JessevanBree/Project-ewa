@@ -2,16 +2,20 @@ import { Injectable } from '@angular/core';
 
 //Models
 import { User } from 'src/app/models/user';
-import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData'
+import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class AUserService {
-	private users: User[] = [];
+	private users: User[];
 
 	constructor() {
+		this.users = [];
 		
+		for (let i = 0; i < 100; i++) {
+			this.users[i] = this.genRandomUser();
+		}
 	}
 
 	public getUser(index: number): User{
@@ -41,13 +45,7 @@ export class AUserService {
 	}
 
 	getUsers(): User[]{
-		let users: User[] = [];
-
-		for (let i = 0; i < 100; i++) {
-			users[i] = this.genRandomUser();
-		}
-
-		return users;
+		return this.users;
 	}
 
 	genRandomUser(): User{

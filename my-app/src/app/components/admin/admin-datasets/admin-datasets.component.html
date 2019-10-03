@@ -1,15 +1,18 @@
 <div class="row">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Datasets</h5>
-            <hr>
-            <table>
-                <tr *ngFor="let item of datasets">
-                    <td>{{item.name}}</td>
-                    <td><button>Edit</button></td>
-                    <td><button>Delete</button></td>
-                </tr>
-            </table>
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Datasets
         </div>
+        <ul class="dataList list-group list-group-flush">
+            <li class="list-group-item p-1 " *ngFor="let item of datasets">
+                <span class="row mx-1 align-middle">
+					<p class="col-lg-7">{{item.name}}</p>
+					<span class="btn-group col-lg-4 h-75">
+						<i class="btn btn-primary fa fa-edit" aria-hidden="true"></i>
+						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"></i>
+					</span>
+				</span>
+            </li>
+        </ul>
     </div>
 </div>

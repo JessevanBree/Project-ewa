@@ -14,4 +14,11 @@ export class Organisation {
 		this.dateCreated = new Date(Date.now());
 		this.dateEdited = new Date(Date.now());
 	}
+
+	equals(org: Organisation): Boolean {
+		return this.name === org.name &&
+		this.orgAdmin.equals(org.orgAdmin) &&
+		this.isDeleted === org.isDeleted &&
+		this.dateCreated === org.dateCreated;
+	}
 }

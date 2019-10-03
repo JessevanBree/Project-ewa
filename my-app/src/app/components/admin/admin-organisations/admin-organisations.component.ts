@@ -15,12 +15,8 @@ import { AOrganisationService } from '../../../services/a-organisation.service';
 export class AdminOrganisationsComponent implements OnInit {
 	organisations: Organisation[] = [];
 
-	constructor() {
-		this.organisations.push(new Organisation("test1", new User("Sjaak", "Peter", "mail.test@test.edu", false)));
-		this.organisations.push(new Organisation("test1", new User("Sjaak", "Peter", "mail.test@test.edu", false)));
-		this.organisations.push(new Organisation("test1", new User("Sjaak", "Peter", "mail.test@test.edu", false)));
-		this.organisations.push(new Organisation("test1", new User("Sjaak", "Peter", "mail.test@test.edu", false)));
-		this.organisations.push(new Organisation("test1", new User("Sjaak", "Peter", "mail.test@test.edu", false)));
+	constructor(private aOrganisationService: AOrganisationService) {
+		this.organisations = aOrganisationService.getOrganisations();
 	}
 
 	ngOnInit() {
