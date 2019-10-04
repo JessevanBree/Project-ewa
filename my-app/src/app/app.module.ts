@@ -7,13 +7,17 @@ import { NavbarComponent } from './components/mainpage/navbar/navbar.component';
 import { DatasetOverviewComponent } from './components/mainpage/dataset-overview/dataset-overview.component';
 import { DatasetDetailComponent } from './components/mainpage/dataset-detail/dataset-detail.component';
 import {FormsModule} from "@angular/forms";
+import { SearchPipePipe } from './components/search-pipe.pipe';
+import { DatasetSearchPipe } from './components/pipes/dataset-search.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     DatasetOverviewComponent,
-    DatasetDetailComponent
+    DatasetDetailComponent,
+    SearchPipePipe,
+    DatasetSearchPipe
   ],
   imports: [
     BrowserModule,
