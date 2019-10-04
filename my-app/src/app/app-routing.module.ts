@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {DatasetOverviewComponent} from "./components/mainpage/dataset-overview/dataset-overview.component";
-import {DatasetDetailComponent} from "./components/mainpage/dataset-detail/dataset-detail.component";
+import {DatasetOverviewComponent} from "./components/homepage/dataset-overview/dataset-overview.component";
+import {DatasetDetailComponent} from "./components/homepage/dataset-detail/dataset-detail.component";
 
 
 const routes: Routes = [

@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/mainpage/navbar/navbar.component';
-import { DatasetOverviewComponent } from './components/mainpage/dataset-overview/dataset-overview.component';
-import { DatasetDetailComponent } from './components/mainpage/dataset-detail/dataset-detail.component';
 import {FormsModule} from "@angular/forms";
-import { SearchPipePipe } from './components/search-pipe.pipe';
-import { DatasetSearchPipe } from './components/pipes/dataset-search.pipe';
+import {SearchDatasetsPipe} from "./components/homepage/pipes/search-datasets.pipe";
+import {DatasetOverviewComponent} from "./components/homepage/dataset-overview/dataset-overview.component";
+import {DatasetDetailComponent} from "./components/homepage/dataset-detail/dataset-detail.component";
+import {NavbarComponent} from "./components/homepage/navbar/navbar.component";
+
 
 @NgModule({
   declarations: [
@@ -16,8 +16,7 @@ import { DatasetSearchPipe } from './components/pipes/dataset-search.pipe';
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-    SearchPipePipe,
-    DatasetSearchPipe
+    SearchDatasetsPipe
   ],
   imports: [
     BrowserModule,

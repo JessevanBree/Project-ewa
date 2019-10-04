@@ -3,20 +3,22 @@
   <div class="col-6">
     <div class="row">
       <div class="col search-bar">
-    <div class="input-group">
-      <input type="text" class="form-control">
-      <div class="input-group-append"><button type="button" class="btn btn-primary">Search</button></div>
-    </div>
+        <div class="input-group">
+          <input type="text" class="form-control" [(ngModel)]="searchQuery">
+          <div class="input-group-append">
+            <button type="button" class="btn btn-primary">Search</button>
+          </div>
+        </div>
       </div>
       <div class="col filter-option">
-      <div class="btn-group">
-      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item">European Level</a>
-        <a class="dropdown-item">National Level</a>
-        <a class="dropdown-item">Urban Level</a>
-      </div>
-    </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item">European Level</a>
+            <a class="dropdown-item">National Level</a>
+            <a class="dropdown-item">Urban Level</a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -26,18 +28,18 @@
       <th>Dataset title</th>
       </thead>
       <tbody>
+      <tr>
       <th [rowSpan]="datasets.length + 1">European Level</th>
-      <tr *ngFor="let dataset of datasets; let index = index" (click)="onSelection(index)" >
+      </tr>
+      <tr *ngFor="let dataset of (datasets | searchDatasets: searchQuery); let index = index"
+          (click)="onSelection(index)">
         <td>{{dataset.name}}</td>
       </tr>
-      <tr>
-        <td colspan="2">
-          <hr/>
-        </td>
-      </tr>
+
       <tr>
         <th [rowSpan]="datasets.length + 1">National level</th>
       </tr>
+
       </tbody>
     </table>
   </div>
