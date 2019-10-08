@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AUserService } from 'src/app/services/a-user.service';
 
 //Models
-import { User } from 'src/app/models/User';
+import { User } from 'src/app/models/user';
 import { Organisation } from 'src/app/models/organisation';
 import { SUR_NAMES } from 'src/app/models/testData';
 
