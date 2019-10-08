@@ -8,10 +8,11 @@ import { AdminDetailComponent } from './components/admin/admin-detail/admin-deta
 
 //Unkown pages
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import {ModalTestComponent} from "./components/modal-test/modal-test.component";
 
 const routes: Routes = [
-	{ 
-		path: 'admin', 
+	{
+		path: 'admin',
 		component: AdminPanelComponent,
 		children: [{
 			path: 'edit',
@@ -23,6 +24,10 @@ const routes: Routes = [
 		redirectTo: '/admin',
 		pathMatch: 'full'
 	},
+  {
+    path: 'modal',
+    component: ModalTestComponent
+  },
 	{ path: '**', component: PageNotFoundComponent }
 ];
 

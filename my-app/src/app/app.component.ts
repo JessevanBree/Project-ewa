@@ -6,7 +6,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'my-app';
+  title = 'y-app';
   uploadIsClicked: boolean = false;
   editIsClicked: boolean = false;
 
