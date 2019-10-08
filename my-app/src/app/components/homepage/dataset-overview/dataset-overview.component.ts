@@ -12,20 +12,32 @@ import {SearchDatasetsPipe} from "../pipes/search-datasets.pipe";
 })
 export class DatasetOverviewComponent implements OnInit {
   private datasets: Dataset[];
+  private EUdatasets: Dataset[];
+  private NATdatasets: Dataset[];
+  private URBdatasets: Dataset[];
+
   private selectedDataset: Dataset;
   private activeIndex: number;
   private searchQuery: any;
 
   constructor(private datasetService: DatasetService, private router: Router, private activatedRoute: ActivatedRoute) {
     this.datasets = datasetService.getDatasets();
+    this.EUdatasets =  datasetService.getEUDatasets();
+    this.NATdatasets = datasetService.getNATDatasets();
+    this.URBdatasets = datasetService.getURBDatasets();
+
+    console.log(this.datasets);
+    console.log(this.NATdatasets);
+    console.log(this.URBdatasets);
     this.activeIndex = null;
     this.searchQuery = "";
+    console.log(this.EUdatasets);
+
   }
 
-  onSelection(index) {
+  onEUSelection(index) {
     this.activeIndex = index;
-    this.selectedDataset = this.datasets[this.activeIndex];
-    //console.log(this.datasets[this.activeIndex])
+    this.selectedDataset = this.EUdatasets[this.activeIndex];
     this.router.navigate(['edit'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}

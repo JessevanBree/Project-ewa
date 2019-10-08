@@ -9,11 +9,34 @@ export class DatasetService {
   datasets: Dataset[];
 
   constructor() {
-    this.datasets = [new Dataset(Dataset.generateRandomID(), "Dataset 1"), new Dataset(Dataset.generateRandomID(), "Dataset 2")];
+    this.datasets = [];
+    for(let i = 0; i < 10; i++){
+      this.datasets.push(Dataset.generateDataset());
+    }
   }
 
   getDatasets(){
     return this.datasets;
   }
+
+  getEUDatasets(){
+    return this.datasets.filter( dataset =>
+       dataset.region.includes("European level")
+    );
+  }
+
+  getNATDatasets(){
+    return this.datasets.filter( dataset =>
+      dataset.region == "National level"
+    );
+  }
+
+  getURBDatasets(){
+    return this.datasets.filter( dataset =>
+      dataset.region == "Urban level"
+    );
+  }
+
+
 
 }

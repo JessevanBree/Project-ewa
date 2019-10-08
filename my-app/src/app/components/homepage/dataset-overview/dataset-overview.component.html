@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col search-bar">
         <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="searchQuery">
+          <input type="text" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="searchQuery">
           <div class="input-group-append">
-            <button type="button" class="btn btn-primary">Search</button>
+            <span class="input-group-text" id="basic-addon1">Search</span>
           </div>
         </div>
       </div>
@@ -29,15 +29,15 @@
       </thead>
       <tbody>
       <tr>
-      <th [rowSpan]="datasets.length + 1">European Level</th>
+      <th [rowSpan]="EUdatasets.length + 1">European Level</th>
       </tr>
-      <tr *ngFor="let dataset of (datasets | searchDatasets: searchQuery); let index = index"
-          (click)="onSelection(index)">
+      <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index"
+          (click)="onEUSelection(index)">
         <td>{{dataset.name}}</td>
       </tr>
 
       <tr>
-        <th [rowSpan]="datasets.length + 1">National level</th>
+        <th [rowSpan]="NATdatasets.length + 1">National level</th>
       </tr>
 
       </tbody>
