@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../models/dataset";
 import {DatasetService} from "../services/dataset.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {Subscription} from "rxjs";
-import {SearchDatasetsPipe} from "../pipes/search-datasets.pipe";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -30,14 +28,14 @@ export class DatasetOverviewComponent implements OnInit {
     console.log(this.NATdatasets);
     console.log(this.URBdatasets);
     this.activeIndex = null;
-    this.searchQuery = "";
+    this.searchQuery = '';
     console.log(this.EUdatasets);
 
   }
 
   onSelection(index:number, dataset: Dataset) {
-    switch(dataset.region){
-      case"European level":
+    switch (dataset.region){
+      case "European level":
         this.activeIndex = index;
         this.selectedDataset = this.EUdatasets[this.activeIndex];
         this.router.navigate(['edit'], {
