@@ -13,6 +13,7 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
 
 const routes: Routes = [
+  {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
     component: AdminPanelComponent,
@@ -29,13 +30,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-	{ path: '**', component: PageNotFoundComponent },
   {
     path: 'homepage', component: DatasetOverviewComponent,
     children: [
       {path: ':edit', component: DatasetDetailComponent}]
   },
-  {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {path: '**', component: PageNotFoundComponent}
 
 
