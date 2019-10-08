@@ -1,0 +1,26 @@
+<div *ngIf="activeIndex != null" class="bg-success">
+  <h2>Dataset details</h2>
+  <form class="bg-primary">
+    <div class="form-group">
+      <label for="datasetID">Dataset ID</label>
+      <input type="number" class="form-control" [(ngModel)]="editedDataset.id" name="id" id="datasetID"
+             placeholder="Dataset ID">
+    </div>
+    <div class="form-group">
+      <label for="datasetName">Dataset name</label>
+      <input type="text" class="form-control" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
+             placeholder="Dataset name">
+    </div>
+    <div class="form-group">
+    <label for="datasetRegion">Region</label>
+    <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region" id="datasetRegion">
+      <option class="form-control" *ngFor="let region of keys(regionLevel)">
+        {{regionLevel[region]}}
+      </option>
+    </select>
+    </div>
+
+  </form>
+
+</div>
+
