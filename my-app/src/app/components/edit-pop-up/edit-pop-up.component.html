@@ -3,40 +3,53 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Upload Doc</h5>
+        <h5 class="modal-title" id="editModalLabel">Edit Doc</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
           <div class="form-row">
             <label for="titleInput">Title</label>
-            <input type="text" class="form-control" id="titleInput" placeholder="Title" [minLength]="2">
+            <input
+              required minlength="10"
+              type="text"
+              name="titleInput"
+              class="form-control"
+              id="titleInput"
+              placeholder='Title'
+              ngModel>
           </div>
           <div class="form-group">
             <label for="descriptionInput">Description</label>
             <textarea
               class="form-control"
               id="descriptionInput"
-              placeholder='E.g. There are many households which produce their own electricity'>
-            </textarea>
+              name="descriptionInput"
+              placeholder='E.g. There are many households which produce their own electricity'
+              ngModel></textarea>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>
-              <select id="publicityInput" class="form-control">
+              <select
+                class="form-control"
+                id="publicityInput"
+                name="publicityInput"
+                ngModel
+                required>
                 <option selected>Private</option>
                 <option>Group</option>
                 <option>Public</option>
               </select>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="formElement.invalid">Save Changes</button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save Changes</button>
       </div>
     </div>
   </div>
