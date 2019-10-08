@@ -1,0 +1,56 @@
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Doc</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+          <div class="form-row">
+            <label for="titleInput">Title</label>
+            <input
+              required minlength="10"
+              type="text"
+              name="titleInput"
+              class="form-control"
+              id="titleInput"
+              placeholder='Title'
+              ngModel>
+          </div>
+          <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <textarea
+              class="form-control"
+              id="descriptionInput"
+              name="descriptionInput"
+              placeholder='E.g. There are many households which produce their own electricity'
+              ngModel></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="publicityInput">Publicity</label>
+              <select
+                class="form-control"
+                id="publicityInput"
+                name="publicityInput"
+                ngModel
+                required>
+                <option selected>Private</option>
+                <option>Group</option>
+                <option>Public</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" [disabled]="formElement.invalid">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

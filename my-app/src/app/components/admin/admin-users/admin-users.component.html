@@ -1,0 +1,18 @@
+<div class="row">
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+            Users
+        </div>
+        <ul class="userList list-group list-group-flush">
+            <li class="list-group-item p-1 " *ngFor="let item of users">
+                <span class="row mx-1 align-middle">
+					<p class="col-lg-6">{{item.firstName + " " + item.surName}}</p>
+					<span class="btn-group col-lg-4 h-75">
+						<i class="btn btn-primary fa fa-edit" aria-hidden="true"></i>
+						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"></i>
+					</span>
+				</span>
+            </li>
+        </ul>
+    </div>
+</div>

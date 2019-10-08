@@ -1,0 +1,77 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<!-- <div class="alert alert-success" role="alert">
+  Project Enterprise Web Application: Urban Analytics
+</div> -->
+<!-- <script>
+    window.onload = () => {
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [90, 60, 50, 50, 100],
+                    backgroundColor: "#00AAFB",
+                }]
+            },
+            options: {
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }]
+                }
+            }
+        });
+    };
+    window.onload = function() {
+        var c=document.getElementById("myCanvas");
+        var cxt=c.getContext("2d");
+        cxt.fillStyle="#FF0000";
+        cxt.fillRect(0,0,150,75);
+    }
+</script> -->
+
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+<div class="container-fluid">
+  <button type="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#uploadModal"
+          (click)="onUploadButtonClick()">Upload Doc
+  </button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+          (click)="onEditButtonClick()">Edit Doc
+  </button>
+</div>
+
+<app-edit-pop-up *ngIf="editIsClicked"></app-edit-pop-up>
+<app-upload-pop-up *ngIf="uploadIsClicked"></app-upload-pop-up>
+
+<body>
+<div id="chartContainerBar" style="height: 500px; width: 50%;"></div>
+<div id="chartContainerCircle" style="height: 500px; width: 50%;"></div>
+
