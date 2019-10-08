@@ -16,10 +16,20 @@ export class AdminUsersComponent implements OnInit {
 	users: User[];
 
 	constructor(private aUserService: AUserService) {
-		this.users = aUserService.getUsers();
+		this.users = aUserService.users;
 	}
-
+	
 	ngOnInit() {
 	}
 
+
+	delete(user: User){
+		if(confirm("Delete user: "+ user.firstName + " " + user.surName)){
+			this.aUserService.deleteUser(user);
+		} 
+	}
+
+	edit(){
+
+	}
 }

@@ -8,7 +8,7 @@ import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData';
 	providedIn: 'root'
 })
 export class AUserService {
-	private users: User[];
+	private _users: User[];
 
 	constructor() {
 		this.users = [];
@@ -18,13 +18,21 @@ export class AUserService {
 		}
 	}
 
+	set users(users: User[]){
+		this._users = users; 
+	}
+
+	get users() {
+		return this._users;
+	}
+
 	public getUser(index: number): User{
 		return this.users[index];
 	}
 
 	public deleteUser(user: User): Boolean {
 		let userIndex: number = this.users.indexOf(user);
-		if( userIndex != -1 ){
+		if( userIndex != -1 && this.users.length > 0){
 			this.users.splice(userIndex, 1)
 			return this.users[userIndex].equals(user);
 		} else {
@@ -42,10 +50,6 @@ export class AUserService {
 		
 		this.users[index] = user;
 		return this.users[index].equals(user);
-	}
-
-	getUsers(): User[]{
-		return this.users;
 	}
 
 	genRandomUser(): User{
