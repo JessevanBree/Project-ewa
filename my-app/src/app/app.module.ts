@@ -13,7 +13,8 @@ import {AdminOrganisationsComponent} from './components/admin/admin-organisation
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
-import {ProfileComponent} from "./components/profile/profile.component";
+import {ProfileComponent} from "./components/profile/profile-page/profile.component";
+import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {ProfileComponent} from "./components/profile/profile.component";
     AdminDetailComponent,
     ModalTestComponent,
     ProfileComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,

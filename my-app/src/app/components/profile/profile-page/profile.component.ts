@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  editProfileIsClicked: boolean = false;
+
+  constructor() {
+  }
 
   ngOnInit() {
+
+  }
+
+
+  onEditButtonClick() {
+    this.editProfileIsClicked = true;
   }
 
 }
