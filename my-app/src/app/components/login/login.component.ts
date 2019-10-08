@@ -11,8 +11,8 @@ import {AUserService} from "../../services/a-user.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email: String;
-  password: String;
+  email: string;
+  password: string;
   isValidCredentials: boolean;
 
   @ViewChild("formElement", {static: false}) editForm: NgForm;
@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       (params: Params) => {
         console.log(params['isValidCredentials']);
       }
-
     )
   }
 

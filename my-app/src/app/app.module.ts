@@ -16,8 +16,8 @@ import {ModalTestComponent} from './components/modal-test/modal-test.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
-import {NavbarComponent} from './components/homepage/navbar/navbar.component';
-import {LoginComponent} from "./components/login/login.component";
+import {NavbarComponent} from './components/navbar/navbar.component';
+import {LoginComponent} from './components/login/login.component';
 
 
 // @ts-ignore
