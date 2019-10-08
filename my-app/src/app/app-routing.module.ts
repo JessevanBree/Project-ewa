@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-=======
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
->>>>>>> master
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
 
@@ -16,12 +11,10 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
 
 const routes: Routes = [
-<<<<<<< HEAD
   {path: 'homepage', component: DatasetOverviewComponent,
     children: [
       {path: ':edit', component: DatasetDetailComponent}]},
-  {path: '', pathMatch: 'full', redirectTo: 'homepage'}
-=======
+  {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
     component: AdminPanelComponent,
@@ -34,16 +27,8 @@ const routes: Routes = [
     path: 'modal',
     component: ModalTestComponent
   },
-  {
-    path: 'homepage', component: DatasetOverviewComponent,
-    children: [
-      {path: ':edit', component: DatasetDetailComponent}]
-  },
-  {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {path: '**', component: PageNotFoundComponent},
 
-
->>>>>>> master
 ];
 
 @NgModule({
