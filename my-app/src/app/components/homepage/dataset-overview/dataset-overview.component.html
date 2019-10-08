@@ -32,12 +32,22 @@
       <th [rowSpan]="EUdatasets.length + 1">European Level</th>
       </tr>
       <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index"
-          (click)="onEUSelection(index)">
+          (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
 
       <tr>
         <th [rowSpan]="NATdatasets.length + 1">National level</th>
+      </tr>
+      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery) let index = index;" (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
+      </tr>
+
+      <tr>
+        <th [rowSpan]="URBdatasets.length + 1">Urban level</th>
+      </tr>
+      <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;" (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
       </tr>
 
       </tbody>

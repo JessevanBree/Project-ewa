@@ -35,13 +35,36 @@ export class DatasetOverviewComponent implements OnInit {
 
   }
 
-  onEUSelection(index) {
-    this.activeIndex = index;
-    this.selectedDataset = this.EUdatasets[this.activeIndex];
-    this.router.navigate(['edit'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {id: this.selectedDataset.id}
-    });
+  onSelection(index:number, dataset: Dataset) {
+    switch(dataset.region){
+      case"European level":
+        this.activeIndex = index;
+        this.selectedDataset = this.EUdatasets[this.activeIndex];
+        this.router.navigate(['edit'], {
+          relativeTo: this.activatedRoute,
+          queryParams: {id: this.selectedDataset.id}
+        });
+        break;
+      case "National level":
+        this.activeIndex = index;
+        this.selectedDataset = this.NATdatasets[this.activeIndex];
+        this.router.navigate(['edit'], {
+          relativeTo: this.activatedRoute,
+          queryParams: {id: this.selectedDataset.id}
+        });
+        break;
+      case "Urban level":
+        this.activeIndex = index;
+        this.selectedDataset = this.URBdatasets[this.activeIndex];
+        this.router.navigate(['edit'], {
+          relativeTo: this.activatedRoute,
+          queryParams: {id: this.selectedDataset.id}
+        });
+        break;
+    }
+
+
+
   }
 
   onSearch() {
