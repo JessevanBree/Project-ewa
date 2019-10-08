@@ -1,0 +1,11 @@
+.navbar button {
+  margin-left: 10px;
+  margin-top: 5px;
+  border-radius: inherit;
+  padding: 35px;
+}
+
+.navbar-brand img {
+  height: 80px;
+  width: 200px;
+}

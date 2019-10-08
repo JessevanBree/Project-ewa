@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -13,9 +13,15 @@ import {AdminOrganisationsComponent} from './components/admin/admin-organisation
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
-import {ProfileComponent} from "./Aris/profile/profile.component";
+import {ProfileComponent} from './Aris/profile/profile.component';
+import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
+import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
+import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
+import {NavbarComponent} from './components/homepage/navbar/navbar.component';
 
 
+
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +35,10 @@ import {ProfileComponent} from "./Aris/profile/profile.component";
     AdminDetailComponent,
     ModalTestComponent,
     ProfileComponent,
+    NavbarComponent,
+    DatasetOverviewComponent,
+    DatasetDetailComponent,
+    SearchDatasetsPipe
   ],
   imports: [
     BrowserModule,
