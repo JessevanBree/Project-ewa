@@ -6,11 +6,14 @@ import {DatasetDetailComponent} from './components/homepage/dataset-detail/datas
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 
+//Unkown pages
+import {LoginComponent} from "./components/login/login.component";
 
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
 
 const routes: Routes = [
+
   {path: 'homepage', component: DatasetOverviewComponent,
     children: [
       {path: ':edit', component: DatasetDetailComponent}]},
@@ -27,7 +30,12 @@ const routes: Routes = [
     path: 'modal',
     component: ModalTestComponent
   },
-  {path: '**', component: PageNotFoundComponent},
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {path: '**', component: PageNotFoundComponent}
+
 
 ];
 

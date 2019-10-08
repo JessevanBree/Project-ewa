@@ -1,35 +1,53 @@
-<div class="row">
+<div class="container-fluid">
+  <div class="row">
 
-  <div class="col-6">
-    <div class="row">
-      <div class="col search-bar">
-        <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="searchQuery">
-          <div class="input-group-append">
-            <span class="input-group-text" id="basic-addon1">Search</span>
-          </div>
-        </div>
+    <div class="col-12">
+      <div class="row">
+
+
       </div>
-      <div class="col filter-option">
-        <div class="btn-group">
-          <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item">European Level</a>
-            <a class="dropdown-item">National Level</a>
-            <a class="dropdown-item">Urban Level</a>
-          </div>
+    </div>
+    <div class="col-12">
+      <div class="row">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid ml-3">
+  <div class="row">
+    <div class="search-bar">
+      <div class="input-group">
+        <input type="text" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="searchQuery">
+        <div class="input-group-append">
+          <span class="input-group-text" id="basic-addon1">Search</span>
         </div>
       </div>
     </div>
 
-    <table class="table table-hover table-bordered table-primary">
+    <div class="filter-option">
+      <div class="btn-group">
+        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item">European Level</a>
+          <a class="dropdown-item">National Level</a>
+          <a class="dropdown-item">Urban Level</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <table class="col-4 table table-hover table-bordered table-primary">
       <thead>
       <th>Region level</th>
       <th>Dataset title</th>
       </thead>
       <tbody>
       <tr>
-      <th [rowSpan]="EUdatasets.length + 1">European Level</th>
+        <th [rowSpan]="EUdatasets.length + 1">European Level</th>
       </tr>
       <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index"
           (click)="onSelection(index, dataset)">
@@ -39,22 +57,24 @@
       <tr>
         <th [rowSpan]="NATdatasets.length + 1">National level</th>
       </tr>
-      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery) let index = index;" (click)="onSelection(index, dataset)">
+      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery) let index = index;"
+          (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
 
       <tr>
         <th [rowSpan]="URBdatasets.length + 1">Urban level</th>
       </tr>
-      <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;" (click)="onSelection(index, dataset)">
+      <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"
+          (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
 
       </tbody>
     </table>
-  </div>
-  <div class="col-6">
 
-    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
+    <div class="col-5 float-right">
+      <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
+    </div>
   </div>
 </div>
