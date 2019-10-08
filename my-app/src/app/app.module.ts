@@ -17,7 +17,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
-import {NavbarComponent} from './components/homepage/navbar/navbar.component';
+import {NavbarComponent} from './components/navbar/navbar.component';
 
 
 
