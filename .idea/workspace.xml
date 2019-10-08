@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e0157643-756a-4fc1-b523-064a59fdc717" name="Default Changelist" comment="" />
+    <list default="true" id="e0157643-756a-4fc1-b523-064a59fdc717" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin page_CMS.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/Admin page_CMS.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Admin page_CMS.png" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/Admin page_CMS.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProfilePage.PNG" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/ProfilePage.PNG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web-Application_Architecture.png" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/Web-Application_Architecture.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit-dataset-popup.png" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/edit-dataset-popup.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/Aris/profile/profile.component.css" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/components/profile/profile.component.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/Aris/profile/profile.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/components/profile/profile.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/Aris/profile/profile.component.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/components/profile/profile.component.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/Aris/profile/profile.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/components/profile/profile.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my-app/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project-ewa" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload-dataset-popup.png" beforeDir="false" afterPath="$PROJECT_DIR$/my-app/mockups/upload-dataset-popup.png" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,11 +58,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\mockups" />
+      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa" />
+      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\app\components" />
       <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\assets\images" />
       <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\assets" />
-      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\app\components\mainpage\pipes" />
-      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\app\components\mainpage" />
-      <recent name="C:\Users\user\Documents\HBO-ICT\Project Enterprise Web Application\project-ewa\my-app\src\app\components\mainpage\services" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -124,6 +141,7 @@
       <workItem from="1570540461525" duration="145000" />
       <workItem from="1570540639582" duration="467000" />
       <workItem from="1570541126540" duration="573000" />
+      <workItem from="1570541736848" duration="434000" />
     </task>
     <servers />
   </component>
