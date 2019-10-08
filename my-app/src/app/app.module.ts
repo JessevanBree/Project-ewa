@@ -13,6 +13,7 @@ import { AdminOrganisationsComponent } from './components/admin/admin-organisati
 import { AdminDatasetsComponent } from './components/admin/admin-datasets/admin-datasets.component';
 import { AdminDetailComponent } from './components/admin/admin-detail/admin-detail.component';
 import { ModalTestComponent } from './components/modal-test/modal-test.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ModalTestComponent } from './components/modal-test/modal-test.component
 	AdminOrganisationsComponent,
 	AdminDatasetsComponent,
 	AdminDetailComponent,
-	ModalTestComponent
+	ModalTestComponent,
+	LoginComponent
   ],
   imports: [
     BrowserModule,

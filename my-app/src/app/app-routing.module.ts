@@ -9,6 +9,7 @@ import { AdminDetailComponent } from './components/admin/admin-detail/admin-deta
 //Unkown pages
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import {ModalTestComponent} from "./components/modal-test/modal-test.component";
+import {LoginComponent} from "./components/login/login.component";
 
 const routes: Routes = [
 	{
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'modal',
     component: ModalTestComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
 	{ path: '**', component: PageNotFoundComponent }
 ];
