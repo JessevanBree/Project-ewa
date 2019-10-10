@@ -38,7 +38,7 @@ import { MyuploadsComponent } from './components/myuploads/myuploads.component';
     DatasetDetailComponent,
     SearchDatasetsPipe,
     MyuploadsComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
