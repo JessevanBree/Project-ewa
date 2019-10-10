@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-
-import { Dataset } from '../models/dataset';
+import {Dataset, Publicity} from '../models/dataset';
 import { AUserService } from './a-user.service';
 import { AOrganisationService } from './a-organisation.service';
 import { User } from '../models/user';
 import { SUR_NAMES } from '../models/testData';
 import { Organisation } from '../models/organisation';
+
+import { LoremIpsum } from "lorem-ipsum";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class ADatasetService {
 
 	constructor( private aUserService: AUserService, private aOrganisationService: AOrganisationService) {
 		this.datasets = [];
-		
-		for (let i = 0; i < 100; i++) {
+
+		for (let i = 0; i < 10; i++) {
 			this.datasets[i] = this.genRandomDataset();
 		}
 	}
@@ -42,7 +43,7 @@ export class ADatasetService {
 
 	public updateDataset(index:number, dataset: Dataset): Boolean {
 		if( !this.datasets[index] || !dataset ) return false;
-		
+
 		this.datasets[index] = dataset;
 		return this.datasets[index].equals(dataset);
 	}
@@ -51,11 +52,29 @@ export class ADatasetService {
 		return this.datasets;
 	}
 
+	getRandomText(): string{
+    const lorem = new LoremIpsum({
+      sentencesPerParagraph: {
+        max: 1,
+        min: 0
+      },
+      wordsPerSentence: {
+        max: 16,
+        min: 4
+      }
+    });
+
+    return lorem.generateWords()
+  }
+
 	genRandomDataset(): Dataset{
 		let user: User = this.aUserService.genRandomUser();
 		let org: Organisation = this.aOrganisationService.genRandomOrganisation();
-		let datasetName: String = SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + "Set";
+		let datasetName: string = SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + "Set";
+		let datasetDescription: string = this.getRandomText();
+    let publicityKeys = Object.keys(Publicity);
+    let datasetPublicity = publicityKeys[Math.floor(Math.random() * 3)];
 
-		return new Dataset(datasetName, user, org);
+		return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
 	}
 }

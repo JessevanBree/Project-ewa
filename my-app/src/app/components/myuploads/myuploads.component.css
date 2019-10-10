@@ -1,0 +1,21 @@
+.dataList {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+#list {
+  margin-top: 75px;
+  margin-left: 150px;
+}
+
+#uploadButton {
+  margin-top: 75px;
+}
+
+span.row.mx-1.align-middle {
+  margin: 5px 0px;
+}
+
+.datasettekst{
+  margin-bottom:0px;
+}

@@ -18,7 +18,7 @@ import {DatasetOverviewComponent} from './components/homepage/dataset-overview/d
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {LoginComponent} from './components/login/login.component';
-
+import { MyuploadsComponent } from './components/myuploads/myuploads.component';
 
 // @ts-ignore
 @NgModule({
@@ -37,6 +37,7 @@ import {LoginComponent} from './components/login/login.component';
     DatasetOverviewComponent,
     DatasetDetailComponent,
     SearchDatasetsPipe,
+    MyuploadsComponent,
     LoginComponent
   ],
   imports: [

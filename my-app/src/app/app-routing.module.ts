@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
-
+import { MyuploadsComponent } from "./components/myuploads/myuploads.component";
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 
@@ -27,7 +27,23 @@ const routes: Routes = [
     }]
   },
   {
-    path: 'modal',
+    path: "admin",
+    component: AdminPanelComponent,
+    children: [
+      {
+        path: "edit",
+        component: AdminDetailComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    redirectTo: "/admin",
+    pathMatch: "full"
+  },
+  { path: "myuploads", component: MyuploadsComponent },
+  {
+    path: "modal",
     component: ModalTestComponent
   },
   {
@@ -35,8 +51,6 @@ const routes: Routes = [
     component: LoginComponent
   },
   {path: '**', component: PageNotFoundComponent}
-
-
 ];
 
 @NgModule({
@@ -47,3 +61,4 @@ export class AppRoutingModule {
 
 
 }
+
