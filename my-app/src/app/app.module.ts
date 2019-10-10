@@ -16,7 +16,6 @@ import { AdminDetailComponent } from './components/admin/admin-detail/admin-deta
 import { ModalTestComponent } from './components/modal-test/modal-test.component';
 import { MyuploadsComponent } from './components/myuploads/myuploads.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ADatasetService} from "../../services/a-dataset.service";
+import {Dataset} from "../../models/dataset";
 
 @Component({
   selector: 'app-myuploads',
@@ -7,21 +9,58 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyuploadsComponent implements OnInit {
 
-  datasets: object;
+  // datasets: object;
+  datasets: Dataset[] = [];
+  uploadIsClicked: boolean = false;
+  editIsClicked: boolean = false;
+  selectedDataset: Dataset;
+  private activeIndex;
 
-  constructor() {
-    //Construct some fake datasets
-    this.datasets = [
-      {"title":"Energy productivity", "publicity":"Private"},
-      {"title":"Electricity prices by type of use", "publicity":"Registered users"},
-      {"title":"Total energy supply by product", "publicity":"Public"},
-      {"title":"Final energy consumption by sector", "publicity":"Private"},
-      {"title":"Energy balances", "publicity":"Private"},
-      {"title":"Energy flow", "publicity":"Registered users"},
-      {"title":"Share of energy from renewable sources", "publicity":"Public"}
-    ]
-
+  constructor(private aDatasetService: ADatasetService) {
+    this.datasets = aDatasetService.getDatasets();
   }
+
+  //This method gets the event from child component (edit-pop-up) to save the edited dataset
+  saveRequest($event){
+    //Update (save) the dataset in both arrays
+    this.datasets[this.activeIndex] = $event;
+    this.aDatasetService.updateDataset(this.activeIndex, this.aDatasetService.getDatasets()[this.activeIndex]);
+    console.log("Dataset has been saved");
+      }
+
+  //Check if edit button is clicked to open pop-up
+  onEditButtonClick(datasetIndex) {
+    this.activeIndex = datasetIndex;
+
+    //Create a copy of the dataset so it won't immediately change in dataset overview while editing
+    this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
+
+    this.editIsClicked = true;
+  }
+
+  //Onclick function to delete a dataset
+  onDeletebuttonClick(datasetIndex) {
+    if (confirm("Are you sure to delete this dataset?")) {
+      let selectedDataset: Dataset;
+
+      //Get the dataset
+      for (let i = 0; i < this.aDatasetService.getDatasets().length; i++) {
+        if (datasetIndex == i) {
+          selectedDataset = this.aDatasetService.getDatasets()[i];
+        }
+      }
+
+      //Delete the dataset
+      console.log(selectedDataset)
+      this.aDatasetService.deleteDataset(selectedDataset);
+    }
+  }
+
+  //Check if upload button is clicked to open pop-up
+  onUploadButtonClick() {
+    this.uploadIsClicked = true;
+  }
+
 
   ngOnInit() {
   }
