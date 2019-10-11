@@ -19,6 +19,7 @@ import {DatasetDetailComponent} from './components/homepage/dataset-detail/datas
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {LoginComponent} from './components/login/login.component';
 import { MyuploadsComponent } from './components/myuploads/myuploads.component';
+import {ProfileComponent} from "./components/profile/profile.component";
 
 // @ts-ignore
 @NgModule({
@@ -39,6 +40,7 @@ import { MyuploadsComponent } from './components/myuploads/myuploads.component';
     SearchDatasetsPipe,
     MyuploadsComponent,
     LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

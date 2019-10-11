@@ -11,6 +11,7 @@ import {LoginComponent} from "./components/login/login.component";
 
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
+import {ProfileComponent} from "./components/profile/profile.component";
 
 const routes: Routes = [
 
@@ -42,6 +43,7 @@ const routes: Routes = [
     pathMatch: "full"
   },
   { path: "myuploads", component: MyuploadsComponent },
+  { path: 'profile', component: ProfileComponent},
   {
     path: "modal",
     component: ModalTestComponent
