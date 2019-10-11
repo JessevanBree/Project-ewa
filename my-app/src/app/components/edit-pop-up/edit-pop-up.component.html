@@ -33,17 +33,15 @@
               ngModel></textarea>
           </div>
           <div class="form-group">
-
               <label for="publicityInput">Publicity</label>
               <select [(ngModel)]="editingDataset.publicity" class="form-control" name="publicityInput" id="publicityInput" required>
                 <option class="form-control" *ngFor="let publicity of keys(Publicity)">
                   {{Publicity[publicity]}}</option>
               </select>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="formElement.invalid">Save Changes</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()" [disabled]="formElement.invalid">Save Changes</button>
           </div>
         </form>
       </div>

@@ -22,6 +22,7 @@ export class MyuploadsComponent implements OnInit {
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
   saveRequest($event){
+    this.editIsClicked = false;
     //Update (save) the dataset in both arrays
     this.datasets[this.activeIndex] = $event;
     this.aDatasetService.updateDataset(this.activeIndex, this.aDatasetService.getDatasets()[this.activeIndex]);

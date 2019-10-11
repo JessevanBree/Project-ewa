@@ -16,8 +16,6 @@ declare var jQuery:any;
 })
 export class UploadPopUpComponent implements OnInit {
 
-  newDataset: Dataset;
-
   @ViewChild('formElement', {static:false})
   private detailForm: NgForm;
 
@@ -28,17 +26,21 @@ export class UploadPopUpComponent implements OnInit {
 
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm){
+    console.log("onSubmit is aangeroepen!")
     let user: User = this.aUserService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
     let newDataset = new Dataset(form.value.titleInput, form.value.description, form.value.publicityInput, user, org);
-
+    console.log(newDataset);
     //Add new dataset to the service
     this.aDataService.addDataset(newDataset);
 
     //Use JQuery to hide the modal
-    jQuery('#uploadModal').modal('hide');
-    this.detailForm.onReset();
+    // jQuery('#uploadModal').modal('hide');
+
+    // form.reset();
+    form.resetForm();
+    // this.detailForm.reset();
   }
 
 }

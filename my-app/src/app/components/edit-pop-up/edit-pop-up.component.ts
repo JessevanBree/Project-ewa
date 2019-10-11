@@ -27,9 +27,6 @@ export class EditPopUpComponent implements OnInit {
   //This method saves the edited changes of a dataset
   saveChanges(){
     this.savedDataset.emit(this.editingDataset);
-
-    //Use JQuery to hide the modal
-    jQuery('#editModal').modal('hide');
   }
 
   private setClickedToFalse(){
