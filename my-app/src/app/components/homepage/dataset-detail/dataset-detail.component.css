@@ -2,3 +2,7 @@ form {
   background-color: forestgreen;
   padding: 10px;
 }
+
+canvas {
+  background-color: white;
+}

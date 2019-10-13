@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-// import {Dataset, RegionLevel} from "../../models/dataset";
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Dataset, RegionLevel} from "../models/dataset";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {DatasetService} from "../services/dataset.service";
+import {ChartDataSets} from "chart.js";
+import * as Chart from "chart.js";
 
 @Component({
   selector: 'app-dataset-detail',
@@ -12,17 +13,25 @@ import {DatasetService} from "../services/dataset.service";
 })
 export class DatasetDetailComponent implements OnInit {
   @Input() activeIndex: number;
+  private listDataset: Dataset;
   private editedDataset: Dataset;
-  private copyDataset: Dataset;
+
+  private chartData: Chart;
+  private barChartData: ChartDataSets[];
+  private barChartLabels: string[];
 
   queryParamSubscription: Subscription;
   private keys = Object.keys;
   private regionLevel;
 
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService) {
-    this.editedDataset = null;
+    this.listDataset = null;
     this.regionLevel = RegionLevel;
-    console.log(this.regionLevel);
+
+    this.barChartData = [
+      {data: [55, 12, 13, 87], label:'Electricity consumption'}];
+    this.barChartLabels = ["2008", "2009", "2010"]
+
   }
 
   ngOnInit() {
@@ -31,16 +40,16 @@ export class DatasetDetailComponent implements OnInit {
         const id = params.id;
         for(let i = 0; i < this.datasetService.getDatasets().length; i++){
           if (this.datasetService.getDatasets()[i].id == id){
-            this.editedDataset = this.datasetService.getDatasets()[i];
-            this.copyDataset = Dataset.trueCopy(this.editedDataset);
+            this.listDataset = this.datasetService.getDatasets()[i];
+            this.editedDataset = Dataset.trueCopy(this.listDataset);
           }
         }
-        console.log(this.copyDataset);
       });
   }
 
   ngOnDestroy(){
     this.queryParamSubscription.unsubscribe();
   }
+
 
 }
