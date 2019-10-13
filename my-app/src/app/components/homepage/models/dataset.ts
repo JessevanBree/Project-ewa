@@ -1,4 +1,4 @@
-import {Chart} from 'chart.js';
+import {Chart, ChartData, ChartDataSets} from 'chart.js';
 
 export enum RegionLevel {
   NAT_LEVEL = "National level",
@@ -10,16 +10,19 @@ export class Dataset {
   id: number;
   name: string;
   region: string;
-  chartData: Chart;
+  chartData: ChartDataSets;
+  chartLabels: string[];
 
-  constructor(id: number, name: string, region: string){
+  constructor(id: number, name: string, region: string, chartData: ChartDataSets, chartLabels: string[]){
     this.id = id;
     this.name = name;
     this.region = region;
+    this.chartData = chartData;
+    this.chartLabels = chartLabels;
   }
 
   static trueCopy(dataset: Dataset): Dataset{
-    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region), dataset);
+    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region, dataset.chartData, dataset.chartLabels), dataset);
   }
 
   static generateRandomID(){
@@ -27,20 +30,31 @@ export class Dataset {
     return randomId;
   }
 
-  static generateDataset(){
-    let randomID = this.generateRandomID();
-    let datasetName = "";
+  static generateRandomDataset(){
+    let randomID = this.generateRandomID(); //Generates a random dataset id
+
+    let arrayNumbers: number[] = [];
+    for(let i = 0; i < 5; i++) {
+      let number = Math.floor(Math.random() * 3000);
+      arrayNumbers.push(number);
+    }
+    let chartData: ChartDataSets = {data: arrayNumbers};
+    let chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+
+    //Randomly selects one of the three region levels
     let regionLevels = Object.keys(RegionLevel);
     let randomPropertyName = regionLevels[Math.floor(Math.random() * 3)]
+    //Randomly generates a dataset name
+    let datasetName = "";
     let listOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     for(let i = 0; i < 7; i++){
       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
     }
-    return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName]);
+    return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName], chartData, chartLabels);
   }
 
   static generateChart(): Chart{
-    let ctx = 'myChart'
+    let ctx = 'myChart';
     return new Chart(ctx, {
         type: 'bar',
         data: {

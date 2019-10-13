@@ -16,7 +16,6 @@ export class DatasetDetailComponent implements OnInit {
   private listDataset: Dataset;
   private editedDataset: Dataset;
 
-  private chartData: Chart;
   private barChartData: ChartDataSets[];
   private barChartLabels: string[];
 
@@ -28,9 +27,7 @@ export class DatasetDetailComponent implements OnInit {
     this.listDataset = null;
     this.regionLevel = RegionLevel;
 
-    this.barChartData = [
-      {data: [55, 12, 13, 87], label:'Electricity consumption'}];
-    this.barChartLabels = ["2008", "2009", "2010"]
+
 
   }
 
@@ -42,10 +39,15 @@ export class DatasetDetailComponent implements OnInit {
           if (this.datasetService.getDatasets()[i].id == id){
             this.listDataset = this.datasetService.getDatasets()[i];
             this.editedDataset = Dataset.trueCopy(this.listDataset);
+            this.barChartData = [this.editedDataset.chartData];
+            this.barChartLabels = this.editedDataset.chartLabels;
           }
         }
       });
+
   }
+
+
 
   ngOnDestroy(){
     this.queryParamSubscription.unsubscribe();
