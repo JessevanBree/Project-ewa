@@ -19,8 +19,15 @@
       </option>
     </select>
     </div>
-
   </form>
+
+  <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]=barChartLegen
+          [chartType]="'bar'">
+  </canvas>
 
 </div>
 
