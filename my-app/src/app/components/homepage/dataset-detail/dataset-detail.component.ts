@@ -27,8 +27,6 @@ export class DatasetDetailComponent implements OnInit {
     this.listDataset = null;
     this.regionLevel = RegionLevel;
 
-
-
   }
 
   ngOnInit() {
