@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-// import {Dataset, RegionLevel} from "../../models/dataset";
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Dataset, RegionLevel} from "../models/dataset";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {DatasetService} from "../services/dataset.service";
-import {absFloor} from "ngx-bootstrap/chronos/utils";
+import {ChartDataSets} from "chart.js";
+import * as Chart from "chart.js";
 
 @Component({
   selector: 'app-dataset-detail',
@@ -13,58 +13,41 @@ import {absFloor} from "ngx-bootstrap/chronos/utils";
 })
 export class DatasetDetailComponent implements OnInit {
   @Input() activeIndex: number;
+  private listDataset: Dataset;
   private editedDataset: Dataset;
-  private copyDataset: Dataset;
 
-  public barChartOptions = {
-    scaleShowVericalLines: false,
-    responsive: true,
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-        }
-      }]
-    }
-  };
-  public barChartLabels = ['2006', '2008', '2010'];
-  public barChartType = 'bar';
-  public barChartLegen = true;
-  public barChartData = [];
-
+  private barChartData: ChartDataSets[];
+  private barChartLabels: string[];
 
   queryParamSubscription: Subscription;
   private keys = Object.keys;
   private regionLevel;
 
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService) {
-    this.editedDataset = null;
+    this.listDataset = null;
     this.regionLevel = RegionLevel;
-    console.log(this.regionLevel);
+
   }
 
   ngOnInit() {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const id = params.id;
-        for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-          if (this.datasetService.getDatasets()[i].id == id) {
-            this.editedDataset = this.datasetService.getDatasets()[i];
-            this.copyDataset = Dataset.trueCopy(this.editedDataset);
-            this.barChartData = [
-              {
-                data: [absFloor(Math.random() * 100), absFloor(Math.random() * 100), absFloor(Math.random() * 100)],
-                label: this.editedDataset.region
-              }
-            ]
+        for(let i = 0; i < this.datasetService.getDatasets().length; i++){
+          if (this.datasetService.getDatasets()[i].id == id){
+            this.listDataset = this.datasetService.getDatasets()[i];
+            this.editedDataset = Dataset.trueCopy(this.listDataset);
+            this.barChartData = [this.editedDataset.chartData];
+            this.barChartLabels = this.editedDataset.chartLabels;
           }
         }
-        console.log(this.copyDataset);
       });
+
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(){
     this.queryParamSubscription.unsubscribe();
   }
+
 
 }

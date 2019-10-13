@@ -60,9 +60,20 @@ export class DatasetOverviewComponent implements OnInit {
         });
         break;
     }
+  }
 
-
-
+  onFilter(level: string){
+    switch(level){
+      case ("EU"):
+        console.log("EU filter");
+        break;
+      case ("NAT"):
+        console.log("NAT filter");
+        break;
+      case ("URB"):
+        console.log("URB filter");
+        break;
+    }
   }
 
   onSearch() {

@@ -13,7 +13,7 @@
       <div class="btn-group">
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item">European Level</a>
+          <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>
           <a class="dropdown-item">National Level</a>
           <a class="dropdown-item">Urban Level</a>
         </div>
@@ -22,20 +22,12 @@
   </div>
 
   <div class="row">
-    <table class="col-4 table table-hover table-bordered table-primary">
+    <table class="col-4 table table-hover table-bordered table-primary ">
       <thead>
       <th>Region level</th>
       <th>Dataset title</th>
       </thead>
       <tbody>
-      <!--      <tr>-->
-      <!--        <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length">European level</th>-->
-      <!--      </tr>-->
-      <!--      <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery) let index = index;"-->
-      <!--          (click)="onSelection(index, dataset)">-->
-      <!--        <td>{{dataset.name}}</td>-->
-      <!--      </tr>-->
-
       <tr>
         <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>
       </tr>
