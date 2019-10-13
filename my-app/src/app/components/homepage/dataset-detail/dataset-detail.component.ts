@@ -45,8 +45,6 @@ export class DatasetDetailComponent implements OnInit {
 
   }
 
-
-
   ngOnDestroy(){
     this.queryParamSubscription.unsubscribe();
   }

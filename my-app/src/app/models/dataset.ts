@@ -11,7 +11,7 @@ export class Dataset {
   title: string;
   description: string;
   publicity: string;
-  uploader: User;
+  uploader: User;zz
   organisation: Organisation;
 
   constructor(title: string, description: string, publicity: string, uploader: User, organisation: Organisation) {

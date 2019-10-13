@@ -38,7 +38,9 @@ export class Dataset {
       let number = Math.floor(Math.random() * 3000);
       arrayNumbers.push(number);
     }
-    let chartData: ChartDataSets = {data: arrayNumbers};
+    let randomDataLabel = ["Eletricity consumption", "Solar power", "Houses"]
+    let chartData: ChartDataSets = {data: arrayNumbers, label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
+      )]};
     let chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
 
     //Randomly selects one of the three region levels
