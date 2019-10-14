@@ -11,7 +11,7 @@ export class DatasetService {
   constructor() {
     this.datasets = [];
     for(let i = 0; i < 10; i++){
-      this.datasets.push(Dataset.generateDataset());
+      this.datasets.push(Dataset.generateRandomDataset());
     }
   }
 

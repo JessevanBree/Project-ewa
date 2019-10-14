@@ -26,6 +26,7 @@
     "jquery": "^3.4.1",
     "lorem-ipsum": "^2.0.3",
     "mdbootstrap": "^4.8.10",
+    "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^2.0.5",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",

@@ -1,15 +1,43 @@
-<div class="alert alert-success" role="alert">
-  Project Enterprise Web Application: Urban Analytics
-</div>
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--<a class="navbar-brand" href="#">-->
+<!--    <img src="assets/images/UA_logo.png" alt="Urban Analytics">-->
+<!--</a>-->
+<!--  <form class="form-inline justify-content-end">-->
+<!--    <button routerLink="/myuploads" class="btn btn-outline-success btn-lg" type="button">My uploads</button>-->
+<!--    <button class="btn btn-outline-success btn-lg" type="button">Profile</button>-->
+<!--    <button routerLink="/login" class="btn btn-outline-success btn-lg" type="button">Login</button>-->
+<!--    <button routerLink="/admin" class="btn btn-outline-success btn-lg" type="button">Admin</button>-->
+<!--  </form>-->
+<!--</nav>-->
 
-<nav class="navbar navbar-light bg-light">
-<a class="navbar-brand" href="#">
-    <img src="assets/images/UA_logo.png" alt="Urban Analytics">
-</a>
-  <form class="form-inline justify-content-end">
-    <button routerLink="/myuploads" class="btn btn-outline-success btn-lg" type="button">My uploads</button>
-    <button class="btn btn-outline-success btn-lg" type="button">Profile</button>
-    <button routerLink="/login" class="btn btn-outline-success btn-lg" type="button">Login</button>
-  </form>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" href="#">
+    <img src="assets/images/UA_logo.png" alt="Urban Analytics" style="width: 120px; height: 40px">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+          aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="float-right">
+    <div class="collapse navbar-collapse mx-auto" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/myuploads">My Uploads</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/login">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 

@@ -6,3 +6,7 @@ html{
 i.btn {
 	cursor: pointer;
 }
+
+body{
+  background-color: beige;
+}
