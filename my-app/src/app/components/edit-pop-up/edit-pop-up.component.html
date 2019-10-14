@@ -1,4 +1,4 @@
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+<div class="modal fade" #editModal id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
      aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -13,7 +13,8 @@
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input
-              required minlength="10"
+              [(ngModel)]="editingDataset.title"
+              required minlength="5"
               type="text"
               name="titleInput"
               class="form-control"
@@ -24,30 +25,23 @@
           <div class="form-group">
             <label for="descriptionInput">Description</label>
             <textarea
+              [(ngModel)]="editingDataset.description"
               class="form-control"
               id="descriptionInput"
               name="descriptionInput"
               placeholder='E.g. There are many households which produce their own electricity'
               ngModel></textarea>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
+          <div class="form-group">
               <label for="publicityInput">Publicity</label>
-              <select
-                class="form-control"
-                id="publicityInput"
-                name="publicityInput"
-                ngModel
-                required>
-                <option selected>Private</option>
-                <option>Group</option>
-                <option>Public</option>
+              <select [(ngModel)]="editingDataset.publicity" class="form-control" name="publicityInput" id="publicityInput" required>
+                <option class="form-control" *ngFor="let publicity of keys(Publicity)">
+                  {{Publicity[publicity]}}</option>
               </select>
-            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" [disabled]="formElement.invalid">Save Changes</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()" [disabled]="formElement.invalid">Save Changes</button>
           </div>
         </form>
       </div>
