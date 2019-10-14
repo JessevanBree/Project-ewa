@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       return this.route.navigate([''], {queryParams: {isValidCredentials: this.isValidCredentials}})
     }
     this.isValidCredentials = false;
-    return this.route.navigate([], {queryParams: {isValidCredentials: this.isValidCredentials}})
+    return this.route.navigate(['/login'], {queryParams: {isValidCredentials: this.isValidCredentials}})
   }
 
 }
