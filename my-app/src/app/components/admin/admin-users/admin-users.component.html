@@ -1,12 +1,12 @@
 <div class="row">
-    <div class="card" style="width: 18rem;">
+    <div class="card w-100">
         <div class="card-header">
             Users
         </div>
         <ul class="userList list-group list-group-flush">
             <li class="list-group-item p-1 " *ngFor="let user of users">
                 <span class="row mx-1 align-middle">
-					<p class="col-md-6">{{user.firstName + " " + user.surName}}</p>
+					<p class="col-md-8">{{user.firstName + " " + user.surName}}</p>
 					<span class="btn-group col-md-4 h-75">
 						<button class="btn btn-primary" (click)="edit(user)">
                             <i class="fa fa-edit" aria-hidden="true"></i>

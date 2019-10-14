@@ -9,3 +9,7 @@
   height: 80px;
   width: 200px;
 }
+
+nav.navbar {
+	border-bottom: 4px solid #009ae4;
+}
