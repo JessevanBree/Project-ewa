@@ -16,6 +16,7 @@ nav.navbar {
 }
 
 .active {
-  color: #000;
-  font-weight: bold;
+	border-bottom: 3px solid #009ae4;
+    font-weight: 500;
+    color: #4c7bfc;
 }
