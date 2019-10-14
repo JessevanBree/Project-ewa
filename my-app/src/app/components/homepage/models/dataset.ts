@@ -58,7 +58,7 @@ export class Dataset {
     console.log(randomChartType);
     let randomNumber = Math.floor(Math.random() * randomChartType.length-1);
     let randomDataLabel = ["Eletricity consumption", "Solar power", "Houses"];
-    return { type: randomChartType[0],
+    return {type: randomChartType[0],
       data: arrayNumbers, label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
       )],
       backgroundColor: [

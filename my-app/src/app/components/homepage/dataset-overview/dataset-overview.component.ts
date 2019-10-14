@@ -29,9 +29,9 @@ export class DatasetOverviewComponent implements OnInit {
     console.log(this.datasets);
     console.log(this.NATdatasets);
     console.log(this.URBdatasets);
+    console.log(this.EUdatasets);
     this.activeIndex = null;
     this.searchQuery = '';
-    console.log(this.EUdatasets);
 
   }
 
@@ -68,12 +68,21 @@ export class DatasetOverviewComponent implements OnInit {
     switch(level){
       case ("EU"):
         console.log("EU filter");
+        this.EUdatasets = this.datasetService.getEUDatasets();
+        this.NATdatasets = [];
+        this.URBdatasets = [];
         break;
         case ("NAT"):
         console.log("NAT filter");
-        break;
+          this.NATdatasets = this.datasetService.getNATDatasets();
+          this.EUdatasets = [];
+          this.URBdatasets = [];
+          break;
       case ("URB"):
         console.log("URB filter");
+        this.URBdatasets = this.datasetService.getURBDatasets();
+        this.EUdatasets = [];
+        this.NATdatasets = [];
         break;
     }
   }

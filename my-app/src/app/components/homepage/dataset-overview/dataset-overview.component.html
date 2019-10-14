@@ -14,8 +14,8 @@
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>
-          <a class="dropdown-item">National Level</a>
-          <a class="dropdown-item">Urban Level</a>
+          <a class="dropdown-item" (click)="onFilter('NAT')" >National Level</a>
+          <a class="dropdown-item" (click)="onFilter('URB')">Urban Level</a>
         </div>
       </div>
     </div>
