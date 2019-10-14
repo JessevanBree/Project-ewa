@@ -13,3 +13,8 @@
 nav.navbar {
 	border-bottom: 4px solid #009ae4;
 }
+
+.active {
+  color: #000;
+  font-weight: bold;
+}
