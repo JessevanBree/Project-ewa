@@ -39,7 +39,7 @@
       <tr>
         <th [rowSpan]="(NATdatasets | searchDatasets: searchQuery).length + 1">National level</th>
       </tr>
-      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery) let index = index;"
+      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery ) let index = index;"
           (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
