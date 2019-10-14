@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../models/dataset";
 import {DatasetService} from "../services/dataset.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import { RegionFiltersPipe } from "../pipes/region-filters.pipe";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -18,7 +19,8 @@ export class DatasetOverviewComponent implements OnInit {
   private activeIndex: number;
   private searchQuery: any;
 
-  constructor(private datasetService: DatasetService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private datasetService: DatasetService, private router: Router, private activatedRoute: ActivatedRoute,
+              private regionFilters: RegionFiltersPipe) {
     this.datasets = datasetService.getDatasets();
     this.EUdatasets =  datasetService.getEUDatasets();
     this.NATdatasets = datasetService.getNATDatasets();
@@ -27,9 +29,9 @@ export class DatasetOverviewComponent implements OnInit {
     console.log(this.datasets);
     console.log(this.NATdatasets);
     console.log(this.URBdatasets);
+    console.log(this.EUdatasets);
     this.activeIndex = null;
     this.searchQuery = '';
-    console.log(this.EUdatasets);
 
   }
 
@@ -66,12 +68,21 @@ export class DatasetOverviewComponent implements OnInit {
     switch(level){
       case ("EU"):
         console.log("EU filter");
+        this.EUdatasets = this.datasetService.getEUDatasets();
+        this.NATdatasets = [];
+        this.URBdatasets = [];
         break;
-      case ("NAT"):
+        case ("NAT"):
         console.log("NAT filter");
-        break;
+          this.NATdatasets = this.datasetService.getNATDatasets();
+          this.EUdatasets = [];
+          this.URBdatasets = [];
+          break;
       case ("URB"):
         console.log("URB filter");
+        this.URBdatasets = this.datasetService.getURBDatasets();
+        this.EUdatasets = [];
+        this.NATdatasets = [];
         break;
     }
   }
@@ -81,8 +92,6 @@ export class DatasetOverviewComponent implements OnInit {
     this.datasets.filter(eachItem => {
         return eachItem['name'].toLowerCase().includes(this.searchQuery.toLowerCase())
     });
-
-
   }
 
   ngOnInit() {
