@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 html{
-	max-height: 100vh;
+	min-height: 100vh;
 }
 
 i.btn {
@@ -11,3 +11,6 @@ body.bg{
   	background-color: white !important;
 }
 
+.page-container {
+	min-height: calc(100vh - 70px);
+}

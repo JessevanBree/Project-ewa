@@ -20,3 +20,7 @@ nav.navbar {
     font-weight: 500;
     color: #4c7bfc;
 }
+
+ul.navbar-nav.nav li.nav-link {
+	color: #98c222 !important;
+}

@@ -16,7 +16,7 @@ export class ADatasetService {
 	constructor( private aUserService: AUserService, private aOrganisationService: AOrganisationService) {
 		this.datasets = [];
 
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 100; i++) {
 			this.datasets[i] = this.genRandomDataset();
 		}
 	}
