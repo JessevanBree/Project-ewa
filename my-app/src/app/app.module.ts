@@ -14,7 +14,7 @@ import {AdminOrganisationsComponent} from './components/admin/admin-organisation
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
-import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import {EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
@@ -22,7 +22,6 @@ import {NavbarComponent} from './components/navbar/navbar.component';
 import {LoginComponent} from './components/login/login.component';
 import { MyuploadsComponent } from './components/myuploads/myuploads.component';
 import {ProfileComponent} from "./components/profile/profile.component";
-import { ChartsModule } from 'ng2-charts';
 import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pipe';
 
 
@@ -46,6 +45,7 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
+    // EditProfileComponent,
     EditProfileComponent,
     RegionFiltersPipe
   ],
