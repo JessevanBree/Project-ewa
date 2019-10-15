@@ -26,7 +26,6 @@ export class MyuploadsComponent implements OnInit {
 		//Update (save) the dataset in both arrays
 		this.datasets[this.activeIndex] = $event;
 		this.aDatasetService.updateDataset(this.activeIndex, this.aDatasetService.getDatasets()[this.activeIndex]);
-		console.log("Dataset has been saved");
 	}
 
 	//Check if edit button is clicked to open pop-up
@@ -44,15 +43,8 @@ export class MyuploadsComponent implements OnInit {
 		if (confirm("Are you sure to delete this dataset?")) {
 			let selectedDataset: Dataset;
 
-			//Get the dataset
-			for (let i = 0; i < this.aDatasetService.getDatasets().length; i++) {
-				if (datasetIndex == i) {
-					selectedDataset = this.aDatasetService.getDatasets()[i];
-				}
-			}
+      selectedDataset = this.aDatasetService.getDatasets()[datasetIndex];
 
-			//Delete the dataset
-			console.log(selectedDataset)
 			this.aDatasetService.deleteDataset(selectedDataset);
 		}
 	}
@@ -61,7 +53,6 @@ export class MyuploadsComponent implements OnInit {
 	onUploadButtonClick() {
 		this.uploadIsClicked = true;
 	}
-
 
 	ngOnInit() {
 	}
