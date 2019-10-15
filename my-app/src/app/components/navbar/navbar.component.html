@@ -24,10 +24,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="this.sessionService.userMail">
           <a class="nav-link" routerLinkActive="active" routerLink="/myuploads">My Uploads</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="this.sessionService.userMail">
           <a class="nav-link" routerLinkActive="active" routerLink="/profile">Profile</a>
         </li>
       </ul>
