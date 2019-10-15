@@ -35,8 +35,8 @@ export class AdminDatasetsComponent implements OnInit {
 	}
 
 	//Check if edit button is clicked to open pop-up
-	onEditButtonClick(datasetIndex) {
-		this.activeIndex = datasetIndex;
+	onEditButtonClick(dataset) {
+		this.activeIndex = this.datasets.indexOf(dataset);
 
 		//Create a copy of the dataset so it won't immediately change in dataset overview while editing
 		this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
