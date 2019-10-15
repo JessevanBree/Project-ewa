@@ -11,7 +11,7 @@ export class SessionService {
   constructor(private userService: AUserService) { }
 
   signOn(eMail: string, passWord: string){
-    for (let i = 0; i < this.userService.getUsers().length - 1; i++) {
+    for (let i = 0; i < this.userService.getUsers().length; i++) {
       if (eMail == this.userService.getUser(i).mail && passWord == this.userService.getUser(i).password) {
         this.userMail = eMail;
         return this.isValid = true;
