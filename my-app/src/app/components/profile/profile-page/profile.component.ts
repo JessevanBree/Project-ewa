@@ -13,11 +13,12 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
+
 
   onEditButtonClick() {
     this.editProfileIsClicked = true;
   }
 
 }
-
