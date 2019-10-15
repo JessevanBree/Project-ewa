@@ -22,6 +22,7 @@ import { MyuploadsComponent } from './components/myuploads/myuploads.component';
 import {ProfileComponent} from "./components/profile/profile.component";
 import { ChartsModule } from 'ng2-charts';
 import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pipe';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 // @ts-ignore
 @NgModule({
@@ -44,6 +45,7 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
     LoginComponent,
     ProfileComponent,
     RegionFiltersPipe,
+    ForgotPasswordComponent,
 
 
   ],

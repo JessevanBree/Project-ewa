@@ -5,7 +5,6 @@ import { AOrganisationService } from './a-organisation.service';
 import { User } from '../models/user';
 import { SUR_NAMES } from '../models/testData';
 import { Organisation } from '../models/organisation';
-
 import { LoremIpsum } from "lorem-ipsum";
 
 @Injectable({
