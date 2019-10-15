@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {ChartsModule} from "ng2-charts";
+import {ChartsModule} from 'ng2-charts';
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -21,9 +21,9 @@ import {DatasetDetailComponent} from './components/homepage/dataset-detail/datas
 import {NavbarComponent} from './components/navbar/navbar.component';
 import {LoginComponent} from './components/login/login.component';
 import { MyuploadsComponent } from './components/myuploads/myuploads.component';
-import {ProfileComponent} from "./components/profile/profile.component";
+import {ProfileComponent} from './components/profile/profile.component';
 import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pipe';
-
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 // @ts-ignore
 @NgModule({
@@ -45,9 +45,9 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
-    // EditProfileComponent,
-    EditProfileComponent,
-    RegionFiltersPipe
+    RegionFiltersPipe,
+    ForgotPasswordComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
