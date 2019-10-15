@@ -9,3 +9,14 @@
   height: 80px;
   width: 200px;
 }
+
+nav.navbar {
+	background-color: #ebebeb;
+	border-bottom: 4px solid #009ae4;
+}
+
+.active {
+	border-bottom: 3px solid #009ae4;
+    font-weight: 500;
+    color: #4c7bfc;
+}

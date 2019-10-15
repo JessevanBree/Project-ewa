@@ -7,6 +7,7 @@ i.btn {
 	cursor: pointer;
 }
 
-body{
-  background-color: beige;
+body.bg{
+  	background-color: white !important;
 }
+
