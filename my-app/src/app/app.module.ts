@@ -14,7 +14,7 @@ import {AdminOrganisationsComponent} from './components/admin/admin-organisation
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
-import { EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
+import {EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
@@ -45,6 +45,7 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
+    // EditProfileComponent,
     EditProfileComponent,
     RegionFiltersPipe
   ],
