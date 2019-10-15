@@ -25,14 +25,15 @@ export class ForgotPasswordComponent implements OnInit {
         exists++;
       }
     }
+    //Email exists if 'exists' == 1
     if (exists == 1){
       this.isValidCredentials = true;
+      alert("A link to re-issue your password has been sent to your email.");
       return true;
     } else {
       this.isValidCredentials = false;
       return false;
     }
-
   }
 
   inputChanged(email: string) {
