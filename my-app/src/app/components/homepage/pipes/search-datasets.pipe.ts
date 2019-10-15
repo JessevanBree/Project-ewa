@@ -9,6 +9,9 @@ export class SearchDatasetsPipe implements PipeTransform {
     return value.filter( eachItem => {
       return eachItem['name'].toLowerCase().includes(args.toLowerCase())
     });
+
   }
+
+
 
 }
