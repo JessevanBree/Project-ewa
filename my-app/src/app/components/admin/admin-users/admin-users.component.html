@@ -1,15 +1,19 @@
 <div class="row">
-    <div class="card" style="width: 18rem;">
+    <div class="card w-100">
         <div class="card-header">
             Users
         </div>
         <ul class="userList list-group list-group-flush">
-            <li class="list-group-item p-1 " *ngFor="let item of users">
+            <li class="list-group-item p-1 " *ngFor="let user of users">
                 <span class="row mx-1 align-middle">
-					<p class="col-lg-6">{{item.firstName + " " + item.surName}}</p>
-					<span class="btn-group col-lg-4 h-75">
-						<i class="btn btn-primary fa fa-edit" aria-hidden="true"></i>
-						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"></i>
+					<p class="col-md-8">{{user.firstName + " " + user.surName}}</p>
+					<span class="btn-group col-md-4 h-75">
+						<button class="btn btn-primary" (click)="edit(user)">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
+                        </button>
+						<button class="btn btn-danger" (click)="delete(user)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
 					</span>
 				</span>
             </li>

@@ -6,3 +6,8 @@ html{
 i.btn {
 	cursor: pointer;
 }
+
+body.bg{
+  	background-color: white !important;
+}
+
