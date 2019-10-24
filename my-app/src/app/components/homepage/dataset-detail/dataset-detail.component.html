@@ -1,6 +1,9 @@
-<div *ngIf="activeIndex != null" class="bg-outline-primary">
-  <h2>Dataset details</h2>
-  <form class="rounded">
+<div class="card mb-2 w-100" *ngIf="activeIndex != null">
+  <div class="card-header"><h3>Dataset details</h3></div>
+  <div class="card-body p-1 m-0">
+    <h5 class="card-title"></h5>
+    <div class="card-text">
+  <form class="rounded p-0 m-0">
     <div class="form-group">
       <label for="datasetID">Dataset ID</label>
       <input class="form-control" [(ngModel)]="editedDataset.id" name="id" id="datasetID"
@@ -24,6 +27,7 @@
 
   </form>
 
-
+    </div>
+  </div>
 </div>
 
