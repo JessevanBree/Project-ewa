@@ -1,13 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-html{
-	max-height: 100vh;
+html {
+  max-height: 100vh;
 }
 
 i.btn {
-	cursor: pointer;
+  cursor: pointer;
 }
 
-body.bg{
-  	background-color: white !important;
+body.bg {
+  /*background: white !important;*/
+  background: linear-gradient(to right, #ebebeb, white);
+}
+
+.btn-primary {
+  background: #97CB3B !important;
+  border-color: #97CB3B !important;
 }
 
