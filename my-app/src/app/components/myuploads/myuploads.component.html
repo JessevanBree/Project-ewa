@@ -1,30 +1,33 @@
-<app-edit-pop-up *ngIf="editIsClicked" (savedDataset)="saveRequest($event)" [editingDataset]="selectedDataset"></app-edit-pop-up> <!-- Open the Edit pop-up when an edit button is clicked -->
-<app-upload-pop-up *ngIf="uploadIsClicked"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
+<app-edit-pop-up *ngIf="editIsClicked" (savedDataset)="saveRequest($event)"
+                 [editingDataset]="selectedDataset"></app-edit-pop-up> <!-- Open the Edit pop-up when an edit button is clicked -->
+<app-upload-pop-up
+  *ngIf="uploadIsClicked"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
 
-<div class="row">
-  <div class="col-md-6">
-  <div class="card" id="list" style="width: 18rem;">
-    <div class="card-header">
-      My uploaded datasets
-    </div>
-    <ul class="dataList list-group list-group-flush">
-      <li class="list-group-item p-1 " *ngFor="let item of datasets; index as i">
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="card" id="list">
+        <div class="card-header">
+          My uploaded datasets
+        </div>
+        <ul class="dataList list-group list-group-flush">
+          <li class="list-group-item p-1 " *ngFor="let item of datasets; index as i">
                 <span class="row mx-1 align-middle">
-					<p class="col-lg-7 datasettekst">{{item.title}}</p>
+					<p class="col-lg-8 datasettekst">{{item.title}}</p>
 					<span class="btn-group col-lg-4 h-75">
-						<i class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal" data-target="#editModal" (click)="onEditButtonClick(i)"></i>
+						<i class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal" data-target="#editModal"
+               (click)="onEditButtonClick(i)"></i>
 						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDeletebuttonClick(i)"></i>
 					</span>
 				</span>
-      </li>
-    </ul>
-  </div>
-  </div>
-  <div class="col-md-6">
-    <button type="button" id="uploadButton" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal"
-            (click)="onUploadButtonClick()">Upload dataset
-    </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+      <button type="button" id="uploadButton" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal"
+              (click)="onUploadButtonClick()">Upload dataset
+      </button>
+    </div>
   </div>
 </div>
-
-
