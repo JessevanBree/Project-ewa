@@ -22,12 +22,14 @@
   </div>
 
   <div class="row mt-2 ml-0 mr-0">
-    <table class="col-md-4 p-0 m-0 col-sm-12 table table-hover table-bordered table-primary ">
-      <thead>
-      <th>Region level</th>
-      <th>Dataset title</th>
+    <table class="col-md-4 p-0 m-0 col-sm-12 table table-bordered">
+      <thead class="thead-dark table-borderless">
+      <tr>
+        <th>Region level</th>
+        <th>Dataset title</th>
+      </tr>
       </thead>
-      <tbody>
+      <tbody class="table-light">
       <tr>
         <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>
       </tr>
