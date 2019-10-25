@@ -57,7 +57,7 @@ export class Dataset {
       arrayNumbers.push(number);
     }
     let randomChartType = ["bar", "horizontalBar", "pie"];
-    console.log(randomChartType);
+    //console.log(randomChartType);
     let randomNumber = Math.floor(Math.random() * randomChartType.length-1);
     let randomDataLabel = ["Eletricity consumption", "Solar power", "Houses"];
     return {type: randomChartType[0],
