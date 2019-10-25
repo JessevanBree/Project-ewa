@@ -3,6 +3,11 @@
   margin-top: 5px;
   border-radius: inherit;
   padding: 35px;
+  color: #97CB3B;
+}
+
+.nav-link {
+  color: #97CB3B !important;
 }
 
 .navbar-brand img {
@@ -11,14 +16,14 @@
 }
 
 nav.navbar {
-	background-color: #ebebeb;
-	border-bottom: 4px solid #009ae4;
+  background-color: white;
+  border-bottom: 4px solid #97CB3B;
 }
 
 .active {
-	border-bottom: 3px solid #009ae4;
-    font-weight: 500;
-    color: #4c7bfc;
+  border-bottom: 3px solid #97CB3B;
+  font-weight: 500;
+  color: #83b63b;
 }
 
 ul.navbar-nav.nav li.nav-link {

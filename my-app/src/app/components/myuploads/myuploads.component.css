@@ -3,13 +3,10 @@
   overflow: auto;
 }
 
-#list {
-  margin-top: 75px;
-  margin-left: 150px;
-}
-
 #uploadButton {
-  margin-top: 75px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  float: right;
   /*background-color: #28a745;*/
   /*border: none;*/
 }

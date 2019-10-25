@@ -1,5 +1,5 @@
-<div class="container-fluid ml-3">
-  <div class="row">
+<div class="container p-0">
+  <div class="row ml-1 mr-0">
     <div class="search-bar">
       <div class="input-group">
         <input type="text" class="form-control" aria-describedby="basic-addon1" [(ngModel)]="searchQuery">
@@ -14,20 +14,22 @@
         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
         <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>
-          <a class="dropdown-item" (click)="onFilter('NAT')" >National Level</a>
+          <a class="dropdown-item" (click)="onFilter('NAT')">National Level</a>
           <a class="dropdown-item" (click)="onFilter('URB')">Urban Level</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <table class="col-4 table table-hover table-bordered table-primary ">
-      <thead>
-      <th>Region level</th>
-      <th>Dataset title</th>
+  <div class="row mt-2 ml-0 mr-0">
+    <table class="col-md-4 p-0 m-0 col-sm-12 table table-bordered">
+      <thead class="thead-dark table-borderless">
+      <tr>
+        <th>Region level</th>
+        <th>Dataset title</th>
+      </tr>
       </thead>
-      <tbody>
+      <tbody class="table-light">
       <tr>
         <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>
       </tr>
@@ -54,7 +56,7 @@
       </tbody>
     </table>
 
-    <div class="col-5 float-right">
+    <div class="col-md-8 col-sm-12 float-right">
       <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
     </div>
   </div>
