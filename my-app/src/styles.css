@@ -1,11 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-<<<<<<< HEAD
-html{
-	min-height: 100vh;
-=======
 html {
   max-height: 100vh;
->>>>>>> master
 }
 
 i.btn {
