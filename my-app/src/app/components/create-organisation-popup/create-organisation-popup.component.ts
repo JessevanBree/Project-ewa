@@ -24,15 +24,20 @@ export class CreateOrganisationPopupComponent implements OnInit {
 
   constructor(private aOrganisationService: AOrganisationService, private aUserService: AUserService) {
     this.users = aUserService.getUsers();
-    console.log(this.users);
   }
 
   ngOnInit() {
     this.isClicked = true;   // if modal is instantiated, isClicked is set to true
   }
+
   //This method saves the edited changes of a dataset
   onSubmit(form: NgForm) {
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, form.value.adminInput));
+    let user = this.users.find(user => {
+      return user.mail === form.value.adminInput;
+    });
+
+    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,
+      new User(user.firstName, user.surName, form.value.adminInput, user.password, user.isAdmin)));
   }
 
   private setClickedToFalse() {
