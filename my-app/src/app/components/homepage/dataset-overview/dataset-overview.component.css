@@ -1,9 +1,18 @@
-.input-group {
-  max-width: 375px;
-  min-width: 180px;
-
+td {
+  border: 1px solid;
+  cursor: pointer;
+  /*border-bottom: 1px solid;*/
 }
 
-.btn-group{
-margin-left: 105px;
+tr{
+  border: 1px solid;
+}
+
+tbody tr th{
+  border: 1px solid;
+}
+
+td:hover {
+  transition: .35s ease-in-out;
+  background: lightgray;
 }
