@@ -5,6 +5,7 @@ import { Dataset } from '../../../models/dataset';
 
 //Services
 import {ADatasetService} from '../../../services/a-dataset.service';
+import {DatasetService} from "../../../services/dataset.service";
 
 @Component({
 	selector: 'app-admin-datasets',
@@ -18,8 +19,8 @@ export class AdminDatasetsComponent implements OnInit {
 	selectedDataset: Dataset;
 	private activeIndex;
 
-	constructor(private aDatasetService: ADatasetService) {
-		this.datasets = [] = aDatasetService.getDatasets();
+	constructor(private datasetService: DatasetService) {
+		this.datasets = [] = datasetService.getDatasets();
 	}
 
 	ngOnInit() {
@@ -30,7 +31,7 @@ export class AdminDatasetsComponent implements OnInit {
 		this.editIsClicked = false;
 		//Update (save) the dataset in both arrays
 		this.datasets[this.activeIndex] = $event;
-		this.aDatasetService.updateDataset(this.activeIndex, this.aDatasetService.getDatasets()[this.activeIndex]);
+		//this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
 		console.log("Dataset has been saved");
 	}
 

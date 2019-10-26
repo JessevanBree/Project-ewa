@@ -1,8 +1,8 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Dataset, Publicity, RegionLevel} from "../models/dataset";
+import {Dataset, Publicity, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
-import {DatasetService} from "../services/dataset.service";
+import {DatasetService} from "../../../services/dataset.service";
 import {ChartDataSets} from "chart.js";
 import * as Chart from "chart.js";
 

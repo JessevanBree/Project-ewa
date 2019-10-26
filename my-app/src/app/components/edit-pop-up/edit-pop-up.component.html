@@ -13,7 +13,7 @@
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input
-              [(ngModel)]="editingDataset.title"
+              [(ngModel)]="editingDataset.name"
               required minlength="5"
               type="text"
               name="titleInput"
@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="descriptionInput">Description</label>
             <textarea
-              [(ngModel)]="editingDataset.description"
+              [(ngModel)]="editingDataset.chartLabels"
               class="form-control"
               id="descriptionInput"
               name="descriptionInput"
