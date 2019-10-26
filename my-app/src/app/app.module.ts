@@ -24,6 +24,8 @@ import { MyuploadsComponent } from './components/myuploads/myuploads.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pipe';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { CreateOrganisationPopupComponent } from './components/create-organisation-popup/create-organisation-popup.component';
+import { EditOrganisationPopupComponent } from './components/edit-organisation-popup/edit-organisation-popup.component';
 
 // @ts-ignore
 @NgModule({
@@ -47,7 +49,9 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     ProfileComponent,
     RegionFiltersPipe,
     ForgotPasswordComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    CreateOrganisationPopupComponent,
+    EditOrganisationPopupComponent
   ],
   imports: [
     BrowserModule,
