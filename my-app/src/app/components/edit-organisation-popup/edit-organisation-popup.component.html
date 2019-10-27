@@ -1,0 +1,43 @@
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Organisation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+          <div class="form-row">
+            <label for="titleInput">Title</label>
+            <input
+              [(ngModel)]="editingOrganisation.name"
+              required minlength="5"
+              type="text"
+              name="titleInput"
+              class="form-control"
+              id="titleInput"
+              placeholder='Title'
+              ngModel>
+          </div>
+          <div class="form-group">
+            <label for="publicityInput">Publicity</label>
+            <select [(ngModel)]="editingOrganisation.orgAdmin.mail" class="form-control" name="publicityInput"
+                    id="publicityInput" required>
+              <option class="form-control" *ngFor="let organisation of this.aOrganisationService.getOrganisations()">
+                {{organisation.orgAdmin.mail}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSaveChanges()"
+                    [disabled]="formElement.invalid">Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

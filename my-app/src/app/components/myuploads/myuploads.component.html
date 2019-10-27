@@ -13,7 +13,7 @@
         <ul class="dataList list-group list-group-flush">
           <li class="list-group-item p-1 " *ngFor="let item of datasets; index as i">
                 <span class="row mx-1 align-middle">
-					<p class="col-lg-8 datasettekst">{{item.title}}</p>
+					<p class="col-lg-8 datasettekst">{{item.name}}</p>
 					<span class="btn-group col-lg-4 h-75">
 						<i class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal" data-target="#editModal"
                (click)="onEditButtonClick(i)"></i>

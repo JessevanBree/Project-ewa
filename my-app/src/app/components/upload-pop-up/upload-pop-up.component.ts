@@ -1,11 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Dataset} from "../../models/dataset";
-import {ADatasetService} from "../../services/a-dataset.service";
 import {NgForm} from "@angular/forms";
 import {User} from "../../models/user";
 import {Organisation} from "../../models/organisation";
 import {AUserService} from "../../services/a-user.service";
 import {AOrganisationService} from "../../services/a-organisation.service";
+import {DatasetService} from "../../services/dataset.service";
 
 // declare var jQuery:any;
 
@@ -19,7 +19,7 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('formElement', {static:false})
   private detailForm: NgForm;
 
-  constructor(private aDataService: ADatasetService, private aUserService: AUserService, private aOrganisationService: AOrganisationService) { }
+  constructor(private datasetService: DatasetService, private aUserService: AUserService, private aOrganisationService: AOrganisationService) { }
 
   ngOnInit() {
   }
@@ -29,11 +29,11 @@ export class UploadPopUpComponent implements OnInit {
     let user: User = this.aUserService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
-    let newDataset = new Dataset(form.value.titleInput, form.value.description, form.value.publicityInput, user, org);
+    let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
     console.log(newDataset);
 
     //Add new dataset to the service
-    this.aDataService.addDataset(newDataset);
+    this.datasetService.getDatasets().push(newDataset);
 
     // jQuery('#uploadModal').modal('hide');
     form.resetForm();
