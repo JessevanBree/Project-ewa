@@ -1,15 +1,13 @@
-
-<div class="container-fluid">
-  	<div class="col-md-10 offset-md-1">
+<div class="container-fluid mt-4">
+	<div class="col-md-10 offset-md-1">
 		<div class="row">
-			<div class=""></div>
 			<app-admin-users class="col-md-4"></app-admin-users>
 			<app-admin-datasets class="col-md-3 mx-auto"></app-admin-datasets>
 			<app-admin-organisations class="col-md-4"></app-admin-organisations>
-      <app-create-organisation-popup (savedOrganisation)="saveRequest($event)"></app-create-organisation-popup>
-      <button type="button" id="createOrganizationButton" class="btn btn-primary" data-toggle="modal" data-target="#createOrganizationModal"
-              (click)="onCreateButtonClick()">Create Organisation
-      </button>
-    	</div>
-  	</div>
+			<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"></app-create-organisation-popup>
+			<button type="button" id="createOrganizationButton" class="btn btn-primary" data-toggle="modal"
+				data-target="#createOrganizationModal" (click)="onCreateButtonClick()">Create Organisation
+			</button>
+		</div>
+	</div>
 </div>
