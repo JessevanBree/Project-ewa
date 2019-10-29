@@ -21,4 +21,8 @@ export class Organisation {
 		this.isDeleted === org.isDeleted &&
 		this.dateCreated === org.dateCreated;
 	}
+
+  static trueCopy(originalOrganisation: Organisation):Organisation{
+    return Object.assign(new Organisation(null, null), originalOrganisation)
+  }
 }

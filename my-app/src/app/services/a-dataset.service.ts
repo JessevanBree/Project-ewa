@@ -5,7 +5,7 @@ import { AOrganisationService } from './a-organisation.service';
 import { User } from '../models/user';
 import { SUR_NAMES } from '../models/testData';
 import { Organisation } from '../models/organisation';
-import { LoremIpsum } from "lorem-ipsum";
+import { LoremIpsum } from 'lorem-ipsum';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class ADatasetService {
 		let datasetIndex: number = this.datasets.indexOf(dataset);
 		if( datasetIndex != -1 ){
 			this.datasets.splice(datasetIndex, 1)
-			return this.datasets[datasetIndex].equals(dataset);
+			// return this.datasets[datasetIndex].equals(dataset);
 		} else {
 			return;
 		}
@@ -37,14 +37,16 @@ export class ADatasetService {
 
 	public addDataset(dataset: Dataset): Boolean{
 		this.datasets.push(dataset);
-		return this.datasets[this.datasets.length-1].equals(dataset);
+		// return this.datasets[this.datasets.length-1].equals(dataset);
+    return null;
 	}
 
 	public updateDataset(index:number, dataset: Dataset): Boolean {
 		if( !this.datasets[index] || !dataset ) return false;
 
 		this.datasets[index] = dataset;
-		return this.datasets[index].equals(dataset);
+		// return this.datasets[index].equals(dataset);
+    return null;
 	}
 
 	getDatasets(): Dataset[]{
@@ -74,6 +76,7 @@ export class ADatasetService {
     let publicityKeys = Object.keys(Publicity);
     let datasetPublicity = publicityKeys[Math.floor(Math.random() * 3)];
 
-		return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
+		// return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
+    return null;
 	}
 }
