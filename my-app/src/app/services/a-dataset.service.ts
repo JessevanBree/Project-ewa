@@ -66,7 +66,7 @@ export class ADatasetService {
     return lorem.generateWords()
   }
 
-	genRandomDataset(): Dataset{
+	/*genRandomDataset(): Dataset{
 		let user: User = this.aUserService.genRandomUser();
 		let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 		let datasetName: string = SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + "Set";
@@ -75,5 +75,5 @@ export class ADatasetService {
     let datasetPublicity = publicityKeys[Math.floor(Math.random() * 3)];
 
 		return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
-	}
+	}*/
 }
