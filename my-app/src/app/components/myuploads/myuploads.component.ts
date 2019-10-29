@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ADatasetService } from "../../services/a-dataset.service";
 import { Dataset } from "../../models/dataset";
 import {DatasetService} from "../../services/dataset.service";
 
@@ -26,7 +25,7 @@ export class MyuploadsComponent implements OnInit {
 		this.editIsClicked = false;
 		//Update (save) the dataset in both arrays
 		this.datasets[this.activeIndex] = $event;
-		//this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
+		this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
 	}
 
 	//Check if edit button is clicked to open pop-up
@@ -46,7 +45,7 @@ export class MyuploadsComponent implements OnInit {
 
       selectedDataset = this.datasetService.getDatasets()[datasetIndex];
 
-			//this.datasetService.getDatasets().pop();
+			this.datasetService.deleteDataset(selectedDataset);
 		}
 	}
 
