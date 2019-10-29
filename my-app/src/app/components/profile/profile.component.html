@@ -1,57 +1,59 @@
-<div class="row">
-  <div class="column1">
-    <p></p>
-  </div>
+<div class="container" style="padding-top:60px;">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card-group">
+        <div class="card p-4">
+          <div class="card-body">
 
-  <div class="column2">
-    <h2>John Bakker</h2>
-    <br>
+            <h2>John Bakker</h2>
+            <br>
 
-    <table>
-      <tr>
-        <th>Firstname:</th>
-        <td>John</td>
-      </tr>
-      <tr>
-        <th>Lastname:</th>
-        <td>bakker</td>
-      </tr>
-    </table>
+            <table>
+              <tr>
+                <th>Firstname:</th>
+                <td>John</td>
+              </tr>
+              <tr>
+                <th>Lastname:</th>
+                <td>Bakker</td>
+              </tr>
+            </table>
 
-    <br>
+            <br>
 
-    <table>
-      <tr>
-        <th>E-mail:</th>
-        <td>john.bakker@gmail.com</td>
-      </tr>
-      <tr>
-        <th>Organisation:</th>
-        <td>Gemeente Zaandam</td>
-      </tr>
-    </table>
+            <table>
+              <tr>
+                <th>E-mail:</th>
+                <td>{{ this.sessionService.userMail }}</td>
+              </tr>
+              <tr>
+                <th>Organisation:</th>
+                <td>Gemeente Zaandam</td>
+              </tr>
+            </table>
 
-    <br>
+            <br>
 
-    <table>
-      <tr>
-        <th>Nationality:</th>
-        <td>The Netherlands</td>
-      </tr>
-    </table>
-  </div>
+            <table>
+              <tr>
+                <th>Nationality:</th>
+                <td>The Netherlands</td>
+              </tr>
+            </table>
 
-  <div class="column3">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
-            (click)="onEditButtonClick()">Edit Profile
-    </button>
-
-    <app-edit-profile *ngIf="editProfileIsClicked"></app-edit-profile>
-
-  </div>
+            <br>
 
 
-  <div class="column4">
-    <p></p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+                    (click)="onEditButtonClick()" style="float:right;">
+              Edit Profile
+            </button>
+
+            <app-edit-profile *ngIf="editProfileIsClicked"></app-edit-profile>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

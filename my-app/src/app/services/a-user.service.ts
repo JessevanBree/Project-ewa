@@ -17,12 +17,12 @@ export class AUserService {
 			this.users.push(this.genRandomUser());
 		}
 		this.users.push(
-			new User("Abdul", "Zor", "abdul@test.nl", "test", true),
-			new User("Jesse", "Van Bree", "jesse@test.nl", "test", true),
-			new User("Ferran", "Tombal", "ferran@test.nl", "test", false),
-			new User("Mohamed", "Ben Ali", "mohamed@test.nl", "test", false),
-			new User("Aris", "Rosbach", "aris@test.nl", "test", false),
-		)
+    new User("Abdul", "Zor", "abdul@test.nl", "test", true),
+      new User("Jesse", "Van Bree", "jesse@test.nl", "test", true),
+      new User("Ferran", "Tombal", "ferran@test.nl", "test", false),
+      new User("Mohamed", "Ben Ali", "mohamed@test.nl", "test", false),
+      new User("Aris", "Rosbach", "aris@test.nl", "test", false),
+  )
 	}
 
 	public getUser(index: number): User {
