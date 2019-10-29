@@ -19,22 +19,24 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
 
-  constructor(private datasetService: DatasetService, private aUserService: AUserService, private aOrganisationService: AOrganisationService) { }
+  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) { }
 
   ngOnInit() {
   }
 
-  // Retreive form data and upload new dataset
-  onSubmit(form: NgForm) {
-    const user: User = this.aUserService.genRandomUser();
-    const org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
+  //Retreive form data and upload new dataset
+  onSubmit(form: NgForm){
+    //let user: User = this.datasetService.genRandomUser();
+    let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
     //let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
     //console.log(newDataset);
 
     //Add new dataset to the service
     //this.datasetService.getDatasets().push(newDataset);
+
+
 
 
     // jQuery('#uploadModal').modal('hide');
