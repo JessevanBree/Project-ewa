@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ADatasetService } from "../../services/a-dataset.service";
 import { Dataset } from "../../models/dataset";
+import {DatasetService} from "../../services/dataset.service";
 
 @Component({
 	selector: 'app-myuploads',
@@ -16,8 +17,8 @@ export class MyuploadsComponent implements OnInit {
 	selectedDataset: Dataset;
 	private activeIndex;
 
-	constructor(private aDatasetService: ADatasetService) {
-		this.datasets = aDatasetService.getDatasets();
+	constructor(private datasetService: DatasetService) {
+		this.datasets = datasetService.getDatasets();
 	}
 
 	//This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -25,7 +26,7 @@ export class MyuploadsComponent implements OnInit {
 		this.editIsClicked = false;
 		//Update (save) the dataset in both arrays
 		this.datasets[this.activeIndex] = $event;
-		this.aDatasetService.updateDataset(this.activeIndex, this.aDatasetService.getDatasets()[this.activeIndex]);
+		//this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
 	}
 
 	//Check if edit button is clicked to open pop-up
@@ -43,9 +44,9 @@ export class MyuploadsComponent implements OnInit {
 		if (confirm("Are you sure to delete this dataset?")) {
 			let selectedDataset: Dataset;
 
-      selectedDataset = this.aDatasetService.getDatasets()[datasetIndex];
+      selectedDataset = this.datasetService.getDatasets()[datasetIndex];
 
-			this.aDatasetService.deleteDataset(selectedDataset);
+			//this.datasetService.getDatasets().pop();
 		}
 	}
 

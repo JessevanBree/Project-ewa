@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Dataset} from "../models/dataset";
-import {DatasetService} from "../services/dataset.service";
+import {Dataset} from "../../../models/dataset";
+import {DatasetService} from "../../../services/dataset.service";
 import {ActivatedRoute, Router} from "@angular/router";
 
 
