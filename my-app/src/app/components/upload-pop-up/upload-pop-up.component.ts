@@ -29,11 +29,11 @@ export class UploadPopUpComponent implements OnInit {
     let user: User = this.aUserService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
-    let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
-    console.log(newDataset);
+    //let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
+    //console.log(newDataset);
 
     //Add new dataset to the service
-    this.datasetService.getDatasets().push(newDataset);
+    //this.datasetService.getDatasets().push(newDataset);
 
     // jQuery('#uploadModal').modal('hide');
     form.resetForm();

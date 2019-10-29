@@ -36,6 +36,10 @@ export class Dataset {
     this.chartLabels = chartLabels;
   }
 
+  equals(dataset: Dataset): boolean{
+    return this.id == dataset.id;
+  }
+
   static trueCopy(dataset: Dataset): Dataset {
     return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region, dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user), dataset);
   }
