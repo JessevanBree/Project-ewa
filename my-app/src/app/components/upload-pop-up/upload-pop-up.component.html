@@ -36,11 +36,13 @@
               <label for="uploadModalControlFile1">Choose dataset file</label>
               <input
                 type="file"
+                #csvReader
+                (change)="uploadListener($event)"
                 class="form-control-file pt-2"
                 id="uploadModalControlFile1"
                 name="fileInput"
                 ngModel
-                required>
+                required accept=".csv"/>
             </div>
             <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>
@@ -58,8 +60,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<!--            <button type="file" class="btn btn-primary" [disabled]="formElement.invalid" (change)="changeListener($event.target.files)">Upload</button>-->
-            <input type="file" class="btn btn-primary" [disabled]="formElement.invalid" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
+            <button type="button" class="btn btn-primary" [disabled]="formElement.invalid">Upload</button>
           </div>
         </form>
       </div>
