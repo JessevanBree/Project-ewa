@@ -26,7 +26,7 @@ export class UploadPopUpComponent implements OnInit {
 
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm){
-    let user: User = this.datasetService.genRandomUser();
+    //let user: User = this.datasetService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
     //let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);

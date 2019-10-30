@@ -1,3 +1,8 @@
+<div class="mb-2 w-100" *ngIf="activeIndex != null">
+  <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels" width="400" height="400">
+  </canvas>
+</div>
+
 <div class="card mb-2 w-100" *ngIf="activeIndex != null">
   <div class="card-header"><h3>Dataset details</h3></div>
   <div class="card-body p-1 m-0">
@@ -35,12 +40,11 @@
       <input type="text" class="form-control" disabled="true" name="userMail" id="userName" [ngModel]="editedDataset.user.mail">
 
     </div>
-    <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels" width="400" height="400">
-    </canvas>
 
   </form>
-
     </div>
   </div>
 </div>
+
+
 
