@@ -5,7 +5,7 @@ import { AOrganisationService } from './a-organisation.service';
 import { User } from '../models/user';
 import { SUR_NAMES } from '../models/testData';
 import { Organisation } from '../models/organisation';
-import { LoremIpsum } from "lorem-ipsum";
+import { LoremIpsum } from 'lorem-ipsum';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ADatasetService {
 		this.datasets = [];
 
 		for (let i = 0; i < 10; i++) {
-			this.datasets[i] = this.genRandomDataset();
+			//this.datasets[i] = this.genRandomDataset();
 		}
 	}
 
@@ -38,6 +38,7 @@ export class ADatasetService {
 	public addDataset(dataset: Dataset): Boolean{
 		this.datasets.push(dataset);
 		return this.datasets[this.datasets.length-1].equals(dataset);
+    return null;
 	}
 
 	public updateDataset(index:number, dataset: Dataset): Boolean {
@@ -45,6 +46,7 @@ export class ADatasetService {
 
 		this.datasets[index] = dataset;
 		return this.datasets[index].equals(dataset);
+    return null;
 	}
 
 	getDatasets(): Dataset[]{
@@ -73,7 +75,11 @@ export class ADatasetService {
 		let datasetDescription: string = this.getRandomText();
     let publicityKeys = Object.keys(Publicity);
     let datasetPublicity = publicityKeys[Math.floor(Math.random() * 3)];
-
-		return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
+<<<<<<< HEAD
+    return null;
+		//return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
 	}*/
+
+
+
 }

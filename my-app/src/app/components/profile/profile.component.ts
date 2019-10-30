@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {SessionService} from "../../services/session/session.service";
+import {AUserService} from "../../services/a-user.service";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +13,13 @@ export class ProfileComponent implements OnInit {
 
   editProfileIsClicked: boolean = false;
 
-  constructor() {
+  users: User[];
+  private index;
+
+  constructor(private sessionService: SessionService) {
+
+    //Todo: zorgen dat voornaam, achternaam en organisatie van ingelogde persoon te zien zijn.
+
   }
 
   ngOnInit() {

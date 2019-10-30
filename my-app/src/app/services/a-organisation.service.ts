@@ -13,7 +13,7 @@ import { SUR_NAMES } from 'src/app/models/testData';
 export class AOrganisationService {
 	private organisations: Organisation[];
 
-	constructor(private aUserService: AUserService) { 
+	constructor(private aUserService: AUserService) {
 		this.organisations = [];
 		for (let i = 0; i < 100; i++) {
 			this.organisations[i] = this.genRandomOrganisation();
