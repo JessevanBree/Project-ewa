@@ -18,7 +18,8 @@ export class UploadPopUpComponent implements OnInit {
 
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
-  
+  private records: any[];
+
   constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) { }
 
 
@@ -30,13 +31,13 @@ export class UploadPopUpComponent implements OnInit {
   onSubmit(form: NgForm){
     //let user: User = this.datasetService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
-    
+
     //let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
     //console.log(newDataset);
 
     //Add new dataset to the service
     //this.datasetService.getDatasets().push(newDataset);
-    
+
     // jQuery('#uploadModal').modal('hide');
     form.resetForm();
   }
@@ -124,7 +125,7 @@ export class UploadPopUpComponent implements OnInit {
 
   //Reset file
   fileReset() {
-    this.csvReader.nativeElement.value = "";
+    // this.csvReader.nativeElement.value = "";
     this.records = [];
   }
 
