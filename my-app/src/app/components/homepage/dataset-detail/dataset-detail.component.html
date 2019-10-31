@@ -1,47 +1,58 @@
-<div class="mb-2 w-100" *ngIf="activeIndex != null">
-  <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels" width="400" height="400">
-  </canvas>
-</div>
+<div class="row ml-1 mt-2">
 
-<div class="card mb-2 w-100" *ngIf="activeIndex != null">
-  <div class="card-header"><h3>Dataset details</h3></div>
-  <div class="card-body p-1 m-0">
-    <h5 class="card-title"></h5>
-    <div class="card-text">
-  <form class="rounded p-0 m-0">
-    <div class="form-group">
-      <label for="datasetID">Dataset ID</label>
-      <input class="form-control" [(ngModel)]="editedDataset.id" name="id" id="datasetID"
-             placeholder="Dataset ID">
+  <div class="col-10 col-sm-8 col-md-7">
+    <div class="mb-2 w-100" *ngIf="activeIndex != null">
+      <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels"
+              width="400" height="400">
+      </canvas>
     </div>
-    <div class="form-group">
-      <label for="datasetName">Dataset name</label>
-      <input type="text" class="form-control" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
-             placeholder="Dataset name">
-    </div>
-    <div class="form-group">
-    <label for="datasetRegion">Region</label>
-    <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region" id="datasetRegion">
-      <option class="form-control" *ngFor="let region of keys(regionLevel)">
-        {{regionLevel[region]}}
-      </option>
-    </select>
-    </div>
-    <div class="form-group">
-      <label for="publicityOption">Publicity</label>
-      <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option" id="publicityOption">
-      <option class="form-control" *ngFor="let publicity of keys(publicityOptions) ">
-      {{publicityOptions[publicity]}}
-      </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="userName">Uploaded by:</label>
-      <input type="text" class="form-control" disabled="true" name="userMail" id="userName" [ngModel]="editedDataset.user.mail">
+  </div>
 
-    </div>
+  <div class="col">
+    <div class="card mb-2 w-100" *ngIf="activeIndex != null">
+      <div class="card-header"><h3>Dataset details</h3></div>
+      <div class="card-body p-1 m-0">
+        <h5 class="card-title"></h5>
+        <div class="card-text">
+          <form class="rounded p-0 m-0">
+            <div class="form-group">
+              <label for="datasetID">Dataset ID</label>
+              <input class="form-control" [(ngModel)]="editedDataset.id" name="id" id="datasetID"
+                     placeholder="Dataset ID">
+            </div>
+            <div class="form-group">
+              <label for="datasetName">Dataset name</label>
+              <input type="text" class="form-control" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
+                     placeholder="Dataset name">
+            </div>
+            <div class="form-group">
+              <label for="datasetRegion">Region</label>
+              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
+                      id="datasetRegion">
+                <option class="form-control" *ngFor="let region of keys(regionLevel)">
+                  {{regionLevel[region]}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="publicityOption">Publicity</label>
+              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
+                      id="publicityOption">
+                <option class="form-control" *ngFor="let publicity of keys(publicityOptions) ">
+                  {{publicityOptions[publicity]}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="userName">Uploaded by:</label>
+              <input type="text" class="form-control" disabled="true" name="userMail" id="userName"
+                     [ngModel]="editedDataset.user.mail">
 
-  </form>
+            </div>
+
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
