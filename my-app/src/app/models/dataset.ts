@@ -36,7 +36,7 @@ export class Dataset {
     this.chartLabels = chartLabels;
   }
 
-  equals(dataset: Dataset): boolean{
+  equals (dataset: Dataset): boolean{
     return this.id == dataset.id;
   }
 

@@ -1,9 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Dataset} from '../../models/dataset';
 import {NgForm} from '@angular/forms';
-import {User} from '../../models/user';
 import {Organisation} from '../../models/organisation';
-import {AUserService} from '../../services/a-user.service';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
 
