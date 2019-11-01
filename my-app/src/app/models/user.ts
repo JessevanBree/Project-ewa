@@ -1,6 +1,7 @@
 import {Organisation} from './organisation';
 
 export class User {
+
   firstName: String;
   surName: String;
   mail: String;

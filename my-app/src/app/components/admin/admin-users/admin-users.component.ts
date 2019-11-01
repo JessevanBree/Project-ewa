@@ -5,7 +5,7 @@ import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 
 //Services
-import { AUserService } from '../../../services/a-user.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -15,10 +15,10 @@ import { AUserService } from '../../../services/a-user.service';
 export class AdminUsersComponent implements OnInit {
 	users: User[];
 
-	constructor(private aUserService: AUserService) {
+	constructor(private aUserService: UserService) {
 		this.users = aUserService.getUsers();
 	}
-	
+
 	ngOnInit() {
 	}
 
@@ -26,7 +26,7 @@ export class AdminUsersComponent implements OnInit {
 	delete(user: User){
 		if(confirm("Delete user: "+ user.firstName + " " + user.surName)){
 			this.aUserService.deleteUser(user);
-		} 
+		}
 	}
 
 	edit(){

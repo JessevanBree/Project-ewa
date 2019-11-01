@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
-import {DatasetService} from "../../../services/dataset.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 
 
 @Component({
@@ -19,23 +19,23 @@ export class DatasetOverviewComponent implements OnInit {
   private activeIndex: number;
   private searchQuery: any;
 
-  constructor(private datasetService: DatasetService, private router: Router, private activatedRoute: ActivatedRoute) {
-    this.datasets = datasetService.getDatasets();
-    this.EUdatasets =  datasetService.getEUDatasets();
-    this.NATdatasets = datasetService.getNATDatasets();
-    this.URBdatasets = datasetService.getURBDatasets();
+  constructor(private datasetService: FirebaseDatasetService, private router: Router, private activatedRoute: ActivatedRoute) {
+    this.datasets = [];
+    this.NATdatasets = [];
+    this.EUdatasets = [];
+    this.URBdatasets = [];
 
-    console.log(this.datasets);
+    /*console.log(this.datasets);
     console.log(this.NATdatasets);
     console.log(this.URBdatasets);
-    console.log(this.EUdatasets);
+    console.log(this.EUdatasets);*/
     this.activeIndex = null;
     this.searchQuery = '';
 
   }
 
-  onSelection(index:number, dataset: Dataset) {
-    switch (dataset.region){
+  onSelection(index: number, dataset: Dataset) {
+    switch (dataset.region) {
       case "European level":
         this.activeIndex = index;
         this.selectedDataset = this.EUdatasets[this.activeIndex];
@@ -63,38 +63,50 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
-  onFilter(level: string){
-    switch(level){
+  onFilter(option: string) {
+    switch (option) {
       case ("EU"):
         console.log("EU filter");
+        this.activeIndex = null;
         this.EUdatasets = this.datasetService.getEUDatasets();
         this.NATdatasets = [];
         this.URBdatasets = [];
         break;
-        case ("NAT"):
+      case ("NAT"):
         console.log("NAT filter");
-          this.NATdatasets = this.datasetService.getNATDatasets();
-          this.EUdatasets = [];
-          this.URBdatasets = [];
-          break;
+        this.activeIndex = null;
+        this.NATdatasets = this.datasetService.getNATDatasets();
+        this.EUdatasets = [];
+        this.URBdatasets = [];
+        break;
       case ("URB"):
         console.log("URB filter");
+        this.activeIndex = null;
         this.URBdatasets = this.datasetService.getURBDatasets();
         this.EUdatasets = [];
         this.NATdatasets = [];
         break;
+      case ("ALL"):
+        console.log("Displays all datasets");
+        this.activeIndex = null;
+        this.URBdatasets = this.datasetService.getURBDatasets();
+        this.NATdatasets = this.datasetService.getNATDatasets();
+        this.EUdatasets = this.datasetService.getEUDatasets();
     }
   }
 
   onSearch() {
-    console.log("Search button clicked!")
+    console.log("Search button clicked!");
     this.datasets.filter(eachItem => {
-        return eachItem['name'].toLowerCase().includes(this.searchQuery.toLowerCase())
+      return eachItem['name'].toLowerCase().includes(this.searchQuery.toLowerCase())
     });
   }
 
   ngOnInit() {
-
+    this.datasets = this.datasetService.getPublicDatasets();
+    this.EUdatasets = this.datasetService.getEUDatasets();
+    this.NATdatasets = this.datasetService.getNATDatasets();
+    this.URBdatasets = this.datasetService.getURBDatasets();
   }
 
 }

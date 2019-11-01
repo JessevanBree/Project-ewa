@@ -20,20 +20,26 @@ export class DatasetService {
     return this.datasets;
   }
 
-  getEUDatasets(){
+  getPublicDatasets(){
     return this.datasets.filter( dataset =>
+      dataset.publicity.includes("Public")
+    );
+  }
+
+  getEUDatasets(){
+    return this.getPublicDatasets().filter( dataset =>
        dataset.region.includes("European level")
     );
   }
 
   getNATDatasets(){
-    return this.datasets.filter( dataset =>
+    return this.getPublicDatasets().filter( dataset =>
       dataset.region == "National level"
     );
   }
 
   getURBDatasets() {
-    return this.datasets.filter(dataset =>
+    return this.getPublicDatasets().filter(dataset =>
       dataset.region == "Urban level"
     );
   }

@@ -4,7 +4,7 @@ import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {DatasetService} from "../../../services/dataset.service";
 import {ChartDataSets} from "chart.js";
-import * as Chart from "chart.js";
+import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 
 @Component({
   selector: 'app-dataset-detail',
@@ -24,7 +24,7 @@ export class DatasetDetailComponent implements OnInit {
   private regionLevel;
   private publicityOptions;
 
-  constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService) {
+  constructor(private activatedRoute: ActivatedRoute, private datasetService: FirebaseDatasetService) {
     this.listDataset = null;
     this.regionLevel = RegionLevel;
     this.publicityOptions = Publicity;
@@ -44,8 +44,6 @@ export class DatasetDetailComponent implements OnInit {
           }
         }
       });
-
-
   }
 
   ngOnDestroy(){

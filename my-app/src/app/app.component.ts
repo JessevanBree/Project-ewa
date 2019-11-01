@@ -6,21 +6,21 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'y-app';
-  uploadIsClicked: boolean = false;
-  editIsClicked: boolean = false;
-
-  @ViewChild('myCanvas', {static: false}) myCanvas: ElementRef;
-  public context: CanvasRenderingContext2D;
+  title = 'Urban Analytics';
 
   ngOnInit() {
+   let firebaseConfig = {
+      apiKey: "api-key",
+      authDomain: "project-id.firebaseapp.com",
+      databaseURL: "https://project-id.firebaseio.com",
+      projectId: "project-id",
+      storageBucket: "project-id.appspot.com",
+      messagingSenderId: "sender-id",
+      appId: "app-id",
+      measurementId: "G-measurement-id",
+    };
+
   }
 
-  onUploadButtonClick() {
-    this.uploadIsClicked = true;
-  }
 
-  onEditButtonClick() {
-    this.editIsClicked = true;
-  }
 }

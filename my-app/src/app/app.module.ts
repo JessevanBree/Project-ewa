@@ -26,6 +26,7 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CreateOrganisationPopupComponent } from './components/create-organisation-popup/create-organisation-popup.component';
 import { EditOrganisationPopupComponent } from './components/edit-organisation-popup/edit-organisation-popup.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 // @ts-ignore
 @NgModule({
@@ -57,7 +58,8 @@ import { EditOrganisationPopupComponent } from './components/edit-organisation-p
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
   providers: [RegionFiltersPipe],
   bootstrap: [AppComponent]

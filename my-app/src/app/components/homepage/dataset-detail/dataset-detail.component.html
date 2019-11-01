@@ -1,7 +1,7 @@
-<div class="row ml-1 mt-2">
+<div class="row ml-1 mt-2" *ngIf="activeIndex != null">
 
-  <div class="col-10 col-sm-8 col-md-7">
-    <div class="mb-2 w-100" *ngIf="activeIndex != null">
+  <div class="col-10 col-sm-8 col-md-7 col-xl-8">
+    <div class="mb-2 w-100">
       <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels"
               width="400" height="400">
       </canvas>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="col">
-    <div class="card mb-2 w-100" *ngIf="activeIndex != null">
+    <div class="card mb-2 w-100">
       <div class="card-header"><h3>Dataset details</h3></div>
       <div class="card-body p-1 m-0">
         <h5 class="card-title"></h5>

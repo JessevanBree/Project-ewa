@@ -1,7 +1,7 @@
 import {Chart, ChartDataSets} from 'chart.js';
 import {Organisation} from "./organisation";
 import {User} from "./user";
-import {AUserService} from "../services/a-user.service";
+import {UserService} from "../services/user.service";
 
 export enum RegionLevel {
   NAT_LEVEL = "National level",
@@ -63,7 +63,7 @@ export class Dataset {
     let publicityOptions = Object.keys(Publicity);
     let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
     //Randomly generates a user
-    let userService = new AUserService();
+    let userService = new UserService();
     let randomUser = userService.genRandomUser();
 
     //Randomly generates a dataset name
