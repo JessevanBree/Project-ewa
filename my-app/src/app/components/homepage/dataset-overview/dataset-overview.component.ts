@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
@@ -66,28 +66,28 @@ export class DatasetOverviewComponent implements OnInit {
   onFilter(option: string) {
     switch (option) {
       case ("EU"):
-        console.log("EU filter");
+        // console.log("EU filter");
         this.activeIndex = null;
         this.EUdatasets = this.datasetService.getEUDatasets();
         this.NATdatasets = [];
         this.URBdatasets = [];
         break;
       case ("NAT"):
-        console.log("NAT filter");
+        // console.log("NAT filter");
         this.activeIndex = null;
         this.NATdatasets = this.datasetService.getNATDatasets();
         this.EUdatasets = [];
         this.URBdatasets = [];
         break;
       case ("URB"):
-        console.log("URB filter");
+        // console.log("URB filter");
         this.activeIndex = null;
         this.URBdatasets = this.datasetService.getURBDatasets();
         this.EUdatasets = [];
         this.NATdatasets = [];
         break;
       case ("ALL"):
-        console.log("Displays all datasets");
+        // console.log("Displays all datasets");
         this.activeIndex = null;
         this.URBdatasets = this.datasetService.getURBDatasets();
         this.NATdatasets = this.datasetService.getNATDatasets();
@@ -103,10 +103,15 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasets = this.datasetService.getPublicDatasets();
+    setTimeout(() =>{
+    this.datasets = this.datasetService.getDatasets();
     this.EUdatasets = this.datasetService.getEUDatasets();
     this.NATdatasets = this.datasetService.getNATDatasets();
     this.URBdatasets = this.datasetService.getURBDatasets();
+      console.log(this.datasets)
+    }, 700);
   }
+
+
 
 }

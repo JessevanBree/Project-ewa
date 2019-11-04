@@ -13,6 +13,8 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {ModalTestComponent} from './components/modal-test/modal-test.component';
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {FbSessionService} from "./services/session/fb-session.service";
+import {FirebaseLoginComponent} from "./components/firebase-login/firebase-login.component";
 
 const routes: Routes = [
 
@@ -52,6 +54,9 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {path: 'firebase-login',
+  component: FirebaseLoginComponent
   },
   {
     path: 'forgot-password',

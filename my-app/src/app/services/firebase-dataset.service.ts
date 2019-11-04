@@ -7,16 +7,34 @@ import {Dataset} from "../models/dataset";
 })
 export class FirebaseDatasetService {
   private datasets: Dataset[];
-  private readonly DB_Datasets = "https://projectewa-a2355.firebaseio.com/Dataset.json";
+  private readonly DB_DATASETS = 'https://projectewa-a2355.firebaseio.com/Dataset.json';
 
   constructor(private httpClient: HttpClient) {
     this.datasets = [];
     this.getAllDatasets();
-    console.log(this.datasets);
+    //console.log(this.datasets);
+  }
+
+  getDatasets(): Dataset[] {
+    return this.datasets;
+  }
+
+  updateDataset(index: number, dataset: Dataset): boolean{
+    this.datasets[index] = dataset;
+    this.saveAllDatasets();
+    return true;
+  }
+
+  deleteDataset(selectedDataset: Dataset): boolean{
+    this.datasets = this.datasets.filter( dataset => {
+      dataset != selectedDataset
+    });
+    this.saveAllDatasets();
+    return true;
   }
 
   saveAllDatasets() {
-    return this.httpClient.put<Dataset[]>(this.DB_Datasets, this.datasets).subscribe(
+    return this.httpClient.put<Dataset[]>(this.DB_DATASETS, this.datasets).subscribe(
       {
         error: err => {
           console.log(err)
@@ -26,22 +44,17 @@ export class FirebaseDatasetService {
   }
 
   getAllDatasets() {
-    return this.httpClient.get<Dataset[]>(this.DB_Datasets).subscribe(
+    // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS).subscribe(
       (data: Dataset[]) => {
-        data.map((o) => {
-          console.log(o);
-          o ? this.datasets.push(o) : [];
-          });
+        console.log(data);
+        data.map((o) => {o ? this.datasets.push(o) : []});
       }
     );
   }
 
-  getDatasets(): Dataset[]{
-    return this.datasets;
-  }
-
   getPublicDatasets(){
-    return this.datasets.filter( dataset =>
+    return this.getDatasets().filter( dataset =>
       dataset.publicity.includes("Public")
     );
   }

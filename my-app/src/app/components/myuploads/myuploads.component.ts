@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dataset } from "../../models/dataset";
 import {DatasetService} from "../../services/dataset.service";
+import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 
 @Component({
 	selector: 'app-myuploads',
@@ -16,7 +17,7 @@ export class MyuploadsComponent implements OnInit {
 	selectedDataset: Dataset;
 	private activeIndex;
 
-	constructor(private datasetService: DatasetService) {
+	constructor(private datasetService: FirebaseDatasetService) {
 		this.datasets = datasetService.getDatasets();
 	}
 

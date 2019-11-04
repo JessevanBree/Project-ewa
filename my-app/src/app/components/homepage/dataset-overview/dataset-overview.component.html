@@ -35,7 +35,7 @@
       <tr>
         <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>
       </tr>
-      <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery) let index = index;"
+      <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index;"
           (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
