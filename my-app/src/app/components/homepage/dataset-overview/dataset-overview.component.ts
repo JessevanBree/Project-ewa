@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
+import {FbUserService} from "../../../services/fb-user.service";
 
 
 @Component({
@@ -15,16 +16,20 @@ export class DatasetOverviewComponent implements OnInit {
   private NATdatasets: Dataset[];
   private URBdatasets: Dataset[];
 
+  private dataAvailable: boolean;
+
   private selectedDataset: Dataset;
   private activeIndex: number;
   private searchQuery: any;
 
-  constructor(private datasetService: FirebaseDatasetService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private datasetService: FirebaseDatasetService, private router: Router,
+              private activatedRoute: ActivatedRoute, private userService: FbUserService) {
     this.datasets = [];
     this.NATdatasets = [];
     this.EUdatasets = [];
     this.URBdatasets = [];
 
+    this.dataAvailable = false;
     /*console.log(this.datasets);
     console.log(this.NATdatasets);
     console.log(this.URBdatasets);
@@ -103,15 +108,15 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    setTimeout(() =>{
-    this.datasets = this.datasetService.getDatasets();
-    this.EUdatasets = this.datasetService.getEUDatasets();
-    this.NATdatasets = this.datasetService.getNATDatasets();
-    this.URBdatasets = this.datasetService.getURBDatasets();
-      console.log(this.datasets)
-    }, 700);
-  }
+    setTimeout(() => {
+      this.datasets = this.datasetService.getDatasets();
+      this.EUdatasets = this.datasetService.getEUDatasets();
+      this.NATdatasets = this.datasetService.getNATDatasets();
+      this.URBdatasets = this.datasetService.getURBDatasets();
+      console.log(this.EUdatasets);
+    }, 300)
 
+  }
 
 
 }
