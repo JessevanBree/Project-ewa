@@ -15,11 +15,12 @@ import {DatasetService} from '../../services/dataset.service';
   styleUrls: ['./upload-pop-up.component.css']
 })
 export class UploadPopUpComponent implements OnInit {
-
+  private records: any[] = [];
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
 
-  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) { }
+  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
+  }
 
 
   ngOnInit() {
@@ -27,7 +28,7 @@ export class UploadPopUpComponent implements OnInit {
 
 
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     //let user: User = this.datasetService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
@@ -61,11 +62,16 @@ export class UploadPopUpComponent implements OnInit {
 
   //Method to upload
   uploadListener($event: any): void {
+    let handle = $event;
+    console.log($event.target.files[0]);
+
+
     let text = [];
     // let files = $event.srcElement.files;
     let files = $event.target.files;
 
     if (this.isValidCSVFile(files[0])) {
+      console.log("It is valid CSV");
       let input = $event.target;
       let reader = new FileReader();
       reader.readAsText(input.files[0]);
@@ -76,7 +82,21 @@ export class UploadPopUpComponent implements OnInit {
 
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
-        // this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
+        console.log("Headers: " + headersRow);
+
+        console.log("Data: " + JSON.stringify(this.records[0]));
+        let data = [];
+        for (let i = 0; i < this.records.length; i++) {
+          let hoi = [];
+          for (let j = 0; j < headersRow.length; j++) {
+            hoi.push();
+            // data.push({headersRow[0]: })
+          }
+          data.push()
+        }
+
+        // let dataset1 = new Dataset(1111, this.records[0], "Urban leven", "private", )
       };
 
       reader.onerror = function () {
@@ -95,6 +115,12 @@ export class UploadPopUpComponent implements OnInit {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let curruntRecord = (<string>csvRecordsArray[i]).split(',');
       if (curruntRecord.length == headerLength) {
+        let csvRow = [];
+        for (let j = 0; j < curruntRecord.length; j++) {
+          // console.log("j: " + j + "\tcurrentRecord: " + curruntRecord[j].trim());
+          csvRow.push(curruntRecord[j].trim());
+        }
+        csvArr.push(csvRow);
         // let csvRecord: CSVRecord = new CSVRecord();
         // csvRecord.id = curruntRecord[0].trim();
         // csvRecord.firstName = curruntRecord[1].trim();
