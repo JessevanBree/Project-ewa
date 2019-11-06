@@ -4,6 +4,7 @@ import {Organisation} from '../../models/organisation';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
 import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.component";
+import { Papa } from "ngx-papaparse";
 
 // declare var jQuery:any;
 
@@ -19,11 +20,13 @@ export class UploadPopUpComponent implements OnInit {
   private records: any[];
   private listOfYears: number[];
 
-  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
+  constructor(private datasetService: DatasetService,
+              private aOrganisationService: AOrganisationService, private papa: Papa) {
     this.listOfYears = [];
     for (let i = 1980; i < 2019; i++) {
       this.listOfYears.push(i);
     }
+
   }
 
 
@@ -65,25 +68,46 @@ export class UploadPopUpComponent implements OnInit {
 
 
   //Method to upload
-  uploadListener($event: any): void {
-    let handle = $event;
-    console.log($event.target.files[0]);
-
-
-    let text = [];
+  uploadListener(files: FileList): void {
     // let files = $event.srcElement.files;
-    let files = $event.target.files;
+    let arrayOfNumber = [];
+    let arrayOfStrings = [];
+    let file = files.item(0);
+    this.papa.parse(file, {
+        header: true,
+        dynamicTyping: true,
+        complete: (results) => {
+          let object = results.data;
+          for (let i = 0; i < object.length; i++) {
+            Object.keys(object[i]).forEach( key => {
+              let value = object[i][key];
+              console.log(value);
+              if(typeof value === "string"){
+                arrayOfStrings.push(value);
+              } else if(typeof value === "number" ){
+                arrayOfNumber.push(value);
+              }
+            })
+          }
+        }
+      }
+    );
+    console.log(arrayOfNumber);
+    console.log(arrayOfStrings);
 
-    if (this.isValidCSVFile(files[0])) {
+
+    /*if (this.isValidCSVFile(file)) {
       console.log("It is valid CSV");
-      let input = $event.target;
+      let input = file;
       let reader = new FileReader();
-      reader.readAsText(input.files[0]);
+      reader.readAsText(file);
+
 
       reader.onload = () => {
         let csvData = reader.result;
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+        console.log(csvRecordsArray);
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
         this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
@@ -110,7 +134,7 @@ export class UploadPopUpComponent implements OnInit {
     } else {
       alert("Please import valid .csv file.");
       this.fileReset();
-    }
+    }*/
   }
 
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
