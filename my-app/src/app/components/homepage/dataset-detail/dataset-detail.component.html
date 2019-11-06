@@ -1,7 +1,7 @@
-<div class="row ml-1 mt-2">
+<div class="row ml-1 mt-2" *ngIf="activeIndex != null">
 
-  <div class="col-10 col-sm-8 col-md-7">
-    <div class="mb-2 w-100" *ngIf="activeIndex != null">
+  <div class="col-10 col-sm-8 col-md-7 col-xl-8">
+    <div class="mb-2 w-100">
       <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels"
               width="400" height="400">
       </canvas>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="col">
-    <div class="card mb-2 w-100" *ngIf="activeIndex != null">
+    <div class="card mb-2 w-100">
       <div class="card-header"><h3>Dataset details</h3></div>
       <div class="card-body p-1 m-0">
         <h5 class="card-title"></h5>
@@ -27,26 +27,41 @@
             </div>
             <div class="form-group">
               <label for="datasetRegion">Region</label>
-              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
+              <!--select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
                       id="datasetRegion">
                 <option class="form-control" *ngFor="let region of keys(regionLevel)">
                   {{regionLevel[region]}}
                 </option>
-              </select>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.region"
+              name="region" id="datasetRegion">
             </div>
             <div class="form-group">
               <label for="publicityOption">Publicity</label>
-              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
+              <!--<select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
                       id="publicityOption">
                 <option class="form-control" *ngFor="let publicity of keys(publicityOptions) ">
                   {{publicityOptions[publicity]}}
                 </option>
-              </select>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.publicity"
+                     name="publicity" id="publicityOption" readonly>
+            </div>
+            <div class="form-group">
+              <label for="displayYear">Year</label>
+              <!--<select readonly class="form-control btn-outline-success" [(ngModel)]="editedDataset.year" name="year" id="yearOptions">
+                <option class="form-control" *ngFor="let index of listOfYears" >
+                  {{index}}
+                </option>
+                 </select>-->
+              <input type="text" readonly class="form-control bg-white border-success" [(ngModel)]="editedDataset.year"
+                     name="year" id="displayYear">
+
             </div>
             <div class="form-group">
               <label for="userName">Uploaded by:</label>
-              <input type="text" class="form-control" disabled="true" name="userMail" id="userName"
-                     [ngModel]="editedDataset.user.mail">
+              <input type="text" class="form-control border-success" name="userMail" id="userName"
+                     [ngModel]="editedDataset.user.email" readonly>
 
             </div>
 

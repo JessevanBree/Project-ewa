@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { AUserService } from 'src/app/services/a-user.service';
+import { UserService } from 'src/app/services/user.service';
 
 //Models
 import { User } from 'src/app/models/user';
@@ -13,7 +13,7 @@ import { SUR_NAMES } from 'src/app/models/testData';
 export class AOrganisationService {
 	private organisations: Organisation[];
 
-	constructor(private aUserService: AUserService) {
+	constructor(private aUserService: UserService) {
 		this.organisations = [];
 		for (let i = 0; i < 100; i++) {
 			this.organisations[i] = this.genRandomOrganisation();

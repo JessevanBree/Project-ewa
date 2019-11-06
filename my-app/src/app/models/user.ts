@@ -1,6 +1,8 @@
 import {Organisation} from './organisation';
+import {Dataset} from "./dataset";
 
 export class User {
+
   firstName: String;
   surName: String;
   mail: String;
@@ -9,14 +11,16 @@ export class User {
   organisation?: Organisation;
   isDeleted: Boolean;
   dateCreated: Date;
+  uploadedDatasets: Dataset[];
   dateEdited?: Date;
 
-  constructor(firstName: String, surName: String, mail: String, password: String, isAdmin: Boolean, organisation?: Organisation) {
+  constructor(firstName: String, surName: String, mail: String, password: String, isAdmin: Boolean, uploadedDatasets?: Dataset[], organisation?: Organisation) {
     this.firstName = firstName;
     this.surName = surName;
     this.mail = mail;
     this.password = password;
     this.isAdmin = isAdmin;
+    this.uploadedDatasets = uploadedDatasets == null ? null : uploadedDatasets;
     this.organisation = organisation != null ? organisation : null;
     this.isDeleted = false;
     this.dateCreated = new Date(Date.now());
@@ -32,5 +36,11 @@ export class User {
       this.organisation === user.organisation &&
       this.isDeleted === user.isDeleted &&
       this.dateCreated === user.dateCreated;
+  }
+
+  addDataset(dataset: Dataset){
+    if(dataset != null){
+      this.uploadedDatasets.push(dataset);
+    }
   }
 }
