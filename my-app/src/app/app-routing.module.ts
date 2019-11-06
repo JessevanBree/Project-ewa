@@ -15,6 +15,8 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
 import {FbSessionService} from "./services/session/fb-session.service";
 import {FirebaseLoginComponent} from "./components/firebase-login/firebase-login.component";
+import {AuthGuardService} from "./services/auth-guard.service";
+import {AuthGuardAdminService} from "./services/auth-guard-admin.service";
 
 const routes: Routes = [
 
@@ -24,29 +26,14 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
-    component: AdminPanelComponent,
+    component: AdminPanelComponent, canActivate: [AuthGuardAdminService],
     children: [{
       path: 'edit',
       component: AdminDetailComponent
     }]
   },
-  {
-    path: 'admin',
-    component: AdminPanelComponent,
-    children: [
-      {
-        path: 'edit',
-        component: AdminDetailComponent
-      }
-    ]
-  },
-  {
-    path: '',
-    redirectTo: '/admin',
-    pathMatch: 'full'
-  },
-  { path: 'myuploads', component: MyuploadsComponent },
-  { path: 'profile', component: ProfileComponent},
+  { path: 'myuploads', component: MyuploadsComponent, canActivate: [AuthGuardService] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {
     path: 'modal',
     component: ModalTestComponent

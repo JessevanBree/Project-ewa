@@ -14,6 +14,7 @@ import {FirebaseDatasetService} from "../../../services/firebase-dataset.service
 export class DatasetDetailComponent implements OnInit {
   @Input() activeIndex: number;
   private listDataset: Dataset;
+  public listOfYears: number[];
   private editedDataset: Dataset;
 
   private barChartData: ChartDataSets[];
@@ -28,6 +29,10 @@ export class DatasetDetailComponent implements OnInit {
     this.listDataset = null;
     this.regionLevel = RegionLevel;
     this.publicityOptions = Publicity;
+    this.listOfYears = [];
+    for (let i = 1980; i < 2020; i++) {
+      this.listOfYears.push(i);
+    }
   }
 
   ngOnInit() {

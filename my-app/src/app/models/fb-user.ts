@@ -2,11 +2,11 @@ export class FbUser {
   public email: string;
   public userId: string;
   public dateCreated: Date;
-  private isAdmin: boolean;
+  public isAdmin: boolean;
 
   constructor(email: string, dateCreated: string, isAdmin?: boolean, userId?: string){
     this.email = email;
-    this.isAdmin = isAdmin != null;
+    this.isAdmin = isAdmin;
     this.dateCreated = new Date(dateCreated);
     this.userId = userId;
   }

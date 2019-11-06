@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Organisation} from '../../models/organisation';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
+import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.component";
 
 // declare var jQuery:any;
 
@@ -16,8 +17,14 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
   private records: any[];
+  private listOfYears: number[];
 
-  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) { }
+  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
+    this.listOfYears = [];
+    for (let i = 1980; i < 2019; i++) {
+      this.listOfYears.push(i);
+    }
+  }
 
 
   ngOnInit() {

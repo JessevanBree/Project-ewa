@@ -69,10 +69,12 @@ export class FirebaseDatasetService {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
     return this.httpClient.get<Dataset[]>(this.DB_DATASETS).subscribe(
       (data: Dataset[]) => {
-        data.map((o) => {
-          o ? this.datasets.push(o) : []
-        });
-        console.log(this.datasets);
+        if(data != null){
+          data.map((o) => {
+            o ? this.datasets.push(o) : []
+          });
+          console.log(this.datasets);
+        }
       }
     );
   }
@@ -80,7 +82,7 @@ export class FirebaseDatasetService {
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
-      dataset.user.userId == user.uid
+      dataset.user.userId == user.userId
     )
   }
 
@@ -110,6 +112,8 @@ export class FirebaseDatasetService {
 
   generateRandomDataset() {
     let randomID = Dataset.generateRandomID(); //Generates a random dataset id
+    //Generate random year
+    let year: number = Math.floor(Math.random() * (2019 - 1980)) + 1980;
 
     //Generates a random chart
     let chartData: ChartDataSets = Dataset.generateChartDataset();
@@ -131,7 +135,8 @@ export class FirebaseDatasetService {
     for (let i = 0; i < 7; i++) {
       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
     }
-    return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName], Publicity[randomPublicity], chartData, chartLabels, randomUser);
+    return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName],
+      Publicity[randomPublicity], chartData, chartLabels, randomUser, year);
   }
 
   ngOnInit() {

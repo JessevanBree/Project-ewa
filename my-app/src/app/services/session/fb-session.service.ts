@@ -41,6 +41,10 @@ export class FbSessionService {
     return this.token;
   }
 
+  public isAuthenticated(){
+    return this.authenticated;
+  }
+
   ngOnInit(){
     const firebaseConfig = {
       apiKey: "AIzaSyCihkANi0RepQRSxrqVV6N2GZ9hkgico8A",

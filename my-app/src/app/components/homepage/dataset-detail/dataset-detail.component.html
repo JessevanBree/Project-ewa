@@ -27,26 +27,41 @@
             </div>
             <div class="form-group">
               <label for="datasetRegion">Region</label>
-              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
+              <!--select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
                       id="datasetRegion">
                 <option class="form-control" *ngFor="let region of keys(regionLevel)">
                   {{regionLevel[region]}}
                 </option>
-              </select>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.region"
+              name="region" id="datasetRegion">
             </div>
             <div class="form-group">
               <label for="publicityOption">Publicity</label>
-              <select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
+              <!--<select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
                       id="publicityOption">
                 <option class="form-control" *ngFor="let publicity of keys(publicityOptions) ">
                   {{publicityOptions[publicity]}}
                 </option>
-              </select>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.publicity"
+                     name="publicity" id="publicityOption" readonly>
+            </div>
+            <div class="form-group">
+              <label for="displayYear">Year</label>
+              <!--<select readonly class="form-control btn-outline-success" [(ngModel)]="editedDataset.year" name="year" id="yearOptions">
+                <option class="form-control" *ngFor="let index of listOfYears" >
+                  {{index}}
+                </option>
+                 </select>-->
+              <input type="text" readonly class="form-control bg-white border-success" [(ngModel)]="editedDataset.year"
+                     name="year" id="displayYear">
+
             </div>
             <div class="form-group">
               <label for="userName">Uploaded by:</label>
-              <input type="text" class="form-control" disabled="true" name="userMail" id="userName"
-                     [ngModel]="editedDataset.user.email">
+              <input type="text" class="form-control border-success" name="userMail" id="userName"
+                     [ngModel]="editedDataset.user.email" readonly>
 
             </div>
 

@@ -18,7 +18,13 @@ export class FbUserService {
   }
 
   public getLoggedInUser(){
-    return firebase.auth().currentUser;
+    let user: FbUser;
+    for (let i = 0; i < this.users.length; i++) {
+      if(this.users[i].email == firebase.auth().currentUser.email){
+        user = this.users[i];
+      }
+    }
+    return user;
   }
 
   public saveAllUsers(){

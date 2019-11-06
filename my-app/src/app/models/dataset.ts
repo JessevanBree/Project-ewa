@@ -22,17 +22,19 @@ export class Dataset {
   region: string;
   publicity: string;
   organisation?: Organisation;
+  year: number;
   user: FbUser;
   chartData: ChartDataSets;
   chartLabels: string[];
 
   constructor(id: number, name: string, region: string, publicity: string,
               chartData: ChartDataSets, chartLabels: string[],
-              user: FbUser, organisation?: Organisation, ) {
+              user: FbUser, year: number, organisation?: Organisation, ) {
     this.id = id;
     this.name = name;
     this.region = region;
     this.publicity = publicity;
+    this.year = year;
     this.user = user;
     this.organisation = this.organisation == null ? null : organisation;
     this.chartData = chartData;
@@ -44,7 +46,8 @@ export class Dataset {
   }
 
   static trueCopy(dataset: Dataset): Dataset {
-    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region, dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user), dataset);
+    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region,
+      dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user, dataset.year), dataset);
   }
 
   static generateRandomID() {

@@ -51,7 +51,9 @@ export class MyuploadsComponent implements OnInit {
 
   //Testing purposes function, adds a random dataset
   onAdd(){
-
+    this.datasetService.add(this.datasetService.generateRandomDataset());
+    this.datasets = this.datasetService.getMyDatasets();
+    console.log("Adding random dataset..");
   }
 
   //Check if upload button is clicked to open pop-up
