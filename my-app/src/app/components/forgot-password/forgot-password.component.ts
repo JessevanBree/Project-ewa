@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AUserService} from "../../services/a-user.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,7 +11,7 @@ export class ForgotPasswordComponent implements OnInit {
   isValidCredentials: boolean;
   email: string;
 
-  constructor(private userService: AUserService) {
+  constructor(private userService: UserService) {
     this.isValidCredentials = true;
   }
 

@@ -1,7 +1,8 @@
 import {Chart, ChartDataSets} from 'chart.js';
 import {Organisation} from "./organisation";
-import {User} from "./user";
-import {AUserService} from "../services/a-user.service";
+import {FbUserService} from "../services/fb-user.service";
+import {HttpClient, HttpHandler} from "@angular/common/http";
+import {FbUser} from "./fb-user";
 
 export enum RegionLevel {
   NAT_LEVEL = "National level",
@@ -21,15 +22,19 @@ export class Dataset {
   region: string;
   publicity: string;
   organisation?: Organisation;
-  user: User;
+  year: number;
+  user: FbUser;
   chartData: ChartDataSets;
   chartLabels: string[];
 
-  constructor(id: number, name: string, region: string, publicity: string, chartData: ChartDataSets, chartLabels: string[], user: User, organisation?: Organisation) {
+  constructor(id: number, name: string, region: string, publicity: string,
+              chartData: ChartDataSets, chartLabels: string[],
+              user: FbUser, year: number, organisation?: Organisation, ) {
     this.id = id;
     this.name = name;
     this.region = region;
     this.publicity = publicity;
+    this.year = year;
     this.user = user;
     this.organisation = this.organisation == null ? null : organisation;
     this.chartData = chartData;
@@ -41,7 +46,8 @@ export class Dataset {
   }
 
   static trueCopy(dataset: Dataset): Dataset {
-    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region, dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user), dataset);
+    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region,
+      dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user, dataset.year), dataset);
   }
 
   static generateRandomID() {
@@ -49,7 +55,7 @@ export class Dataset {
     return randomId;
   }
 
-  static generateRandomDataset() {
+ /* static generateRandomDataset() {
     let randomID = this.generateRandomID(); //Generates a random dataset id
 
     //Generates a random chart
@@ -63,8 +69,7 @@ export class Dataset {
     let publicityOptions = Object.keys(Publicity);
     let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
     //Randomly generates a user
-    let userService = new AUserService();
-    let randomUser = userService.genRandomUser();
+    let randomUser = this.userService.getUsers()
 
     //Randomly generates a dataset name
     let datasetName = "";
@@ -73,7 +78,7 @@ export class Dataset {
       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
     }
     return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName], Publicity[randomPublicity],chartData, chartLabels, randomUser);
-  }
+  }*/
 
 
   static generateChartDataset(): ChartDataSets{
@@ -85,7 +90,7 @@ export class Dataset {
     let randomChartType = ["bar", "horizontalBar", "pie"];
     //console.log(randomChartType);
     let randomNumber = Math.floor(Math.random() * randomChartType.length-1);
-    let randomDataLabel = ["Eletricity consumption", "Solar power", "Houses"];
+    let randomDataLabel = ["Eletricity consumption" , "Solar power", "Houses"];
     return {type: randomChartType[0],
       data: arrayNumbers, label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
       )],

@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Organisation} from '../../models/organisation';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
+import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.component";
 
 // declare var jQuery:any;
 
@@ -12,11 +13,17 @@ import {DatasetService} from '../../services/dataset.service';
   styleUrls: ['./upload-pop-up.component.css']
 })
 export class UploadPopUpComponent implements OnInit {
-  private records: any[] = [];
+
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
+  private records: any[];
+  private listOfYears: number[];
 
   constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
+    this.listOfYears = [];
+    for (let i = 1980; i < 2019; i++) {
+      this.listOfYears.push(i);
+    }
   }
 
 
@@ -25,7 +32,7 @@ export class UploadPopUpComponent implements OnInit {
 
 
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm) {
+  onSubmit(form: NgForm){
     //let user: User = this.datasetService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
@@ -148,7 +155,7 @@ export class UploadPopUpComponent implements OnInit {
   //Reset file
   fileReset() {
     // this.csvReader.nativeElement.value = "";
-    // this.records = [];
+    this.records = [];
   }
 
 }

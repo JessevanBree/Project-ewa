@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModalTestComponent } from './modal-test.component';
+import {EditPopUpComponent} from "../edit-pop-up/edit-pop-up.component";
+import {UploadPopUpComponent} from "../upload-pop-up/upload-pop-up.component";
+import {FormsModule} from "@angular/forms";
 
 describe('ModalTestComponent', () => {
   let component: ModalTestComponent;
@@ -8,7 +11,9 @@ describe('ModalTestComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalTestComponent ]
+      declarations: [ ModalTestComponent, EditPopUpComponent,
+        UploadPopUpComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));

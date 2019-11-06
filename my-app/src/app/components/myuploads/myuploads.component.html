@@ -17,17 +17,22 @@
 					<span class="btn-group col-lg-4 h-75">
 						<i class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal" data-target="#editModal"
                (click)="onEditButtonClick(i)"></i>
-						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDeletebuttonClick(i)"></i>
+						<i class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></i>
 					</span>
 				</span>
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
-      <button type="button" id="uploadButton" class="btn btn-primary" data-toggle="modal" data-target="#uploadModal"
+    <div class="col-md-3 col-sm-12 mt-5">
+      <button type="button" id="uploadButton" class="btn btn-primary float-right" data-toggle="modal" data-target="#uploadModal"
               (click)="onUploadButtonClick()">Upload dataset
       </button>
+    </div>
+
+    <div class="col-md-3 col-sm-12 mt-5 ">
+      <button type="button" id="addDataset" class="btn btn-primary float-right"
+      (click)="onAdd()">Add dataset</button>
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {NavbarComponent} from "./components/navbar/navbar.component";
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,7 +10,8 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        NavbarComponent
       ],
     }).compileComponents();
   }));
@@ -20,10 +22,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'my-app'`, () => {
+  it(`should have as title 'Urban Analytics'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('my-app');
+    expect(app.title).toEqual('Urban Analytics');
   });
 
   it('should render title', () => {
