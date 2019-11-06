@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {DatasetService} from "../../services/dataset.service";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
+import {Subscription} from "rxjs";
+import {ActivatedRoute, Params} from "@angular/router";
+import {FbUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -16,9 +19,14 @@ export class MyuploadsComponent implements OnInit {
   editIsClicked: boolean = false;
   selectedDataset: Dataset;
   private activeIndex;
+  public userId: string;
+  queryParamSubscription: Subscription;
 
-  constructor(private datasetService: FirebaseDatasetService) {
+  constructor(private datasetService: FirebaseDatasetService,
+              private activatedRoute: ActivatedRoute, private userService: FbUserService) {
     this.datasets = [];
+    this.userId = userService.getLoggedInUser().email;
+
   }
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -61,12 +69,13 @@ export class MyuploadsComponent implements OnInit {
     this.uploadIsClicked = true;
   }
 
-  //Generates a random new dataset and adds it to the user's dataset
-  onAddDataset() {
-
-  }
-
   ngOnInit() {
+    /*this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(
+      (params: Params) =>{
+        const id = params.id;
+        console.log(id);
+      }
+    );*/
     this.datasets = this.datasetService.getMyDatasets();
     console.log(this.datasets);
   }

@@ -114,7 +114,7 @@ export class DatasetOverviewComponent implements OnInit {
       this.NATdatasets = this.datasetService.getNATDatasets();
       this.URBdatasets = this.datasetService.getURBDatasets();
       console.log(this.EUdatasets);
-    }, 300)
+    }, 500)
 
   }
 

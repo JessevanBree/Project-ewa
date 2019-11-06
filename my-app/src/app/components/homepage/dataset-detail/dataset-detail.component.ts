@@ -39,6 +39,7 @@ export class DatasetDetailComponent implements OnInit {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const id = params.id;
+        console.log(params);
         for(let i = 0; i < this.datasetService.getDatasets().length; i++){
           if (this.datasetService.getDatasets()[i].id == id){
             this.listDataset = this.datasetService.getDatasets()[i];

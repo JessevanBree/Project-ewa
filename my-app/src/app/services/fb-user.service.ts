@@ -37,7 +37,7 @@ export class FbUserService {
         newUser = new FbUser(user.email, user.metadata.creationTime, true);
         break;
       }else{
-        newUser = new FbUser(user.email, user.metadata.creationTime); }
+        newUser = new FbUser(user.email, user.metadata.creationTime, false); }
     }
     console.log(newUser);
     this.httpClient.put(this.DB_USERS + '/' + user.uid + '.json', newUser).subscribe(

@@ -32,8 +32,8 @@ const routes: Routes = [
       component: AdminDetailComponent
     }]
   },
-  { path: 'myuploads', component: MyuploadsComponent, canActivate: [AuthGuardService] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
+  { path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService] },
+  { path: 'profile/:email', component: ProfileComponent, canActivate: [AuthGuardService]},
   {
     path: 'modal',
     component: ModalTestComponent
