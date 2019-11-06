@@ -23,8 +23,24 @@ td:hover {
   }
 }
 
+.form-control{
+  border: 3px solid grey;
+  transition: all 2s ease;
+
+  /*transition: border-color 2s ease-in-out;*/
+}
+
 .form-control:focus {
   box-shadow: none;
+  border: 3px solid #83b63b;
+  border-radius: 100px 100px 100px 100px;
+
+  /*border-image-source: linear-gradient(45deg, #83b63b, rgb(250,224,66));*/
+  /*border-image-slice: 3;*/
+  /*transition: border-radius 5s;*/
+  /*transition: all 4s;*/
+  /*transition-delay: 3s;*/
+  /*animation-delay: 1s;*/
 }
 
 .has-search .form-control {
