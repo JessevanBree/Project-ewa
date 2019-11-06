@@ -1,11 +1,6 @@
-<div class="row mt-2 ml-0 mr-0">
-    <div class="col-4">
-      <div class="form-group has-search">
-        <span class="fa fa-search form-control-feedback float-left"></span>
-        <input type="text" class="form-control float-left" placeholder="Search" [(ngModel)]="searchQuery">
-      </div>
-    </div>
-    <div class="btn-group">
+<div class="row mt-0 ml-0 mr-0">
+  <div class="small-screen col-sm-11 col-md-8 col-lg-4 ml-3 align-content-center align-items-center text-center flex-center">
+    <div class="btn-group ml-0 float-right">
       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>
@@ -16,10 +11,15 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <div class="col-8 form-group has-search float-right">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery">
+    </div>
+  </div>
 </div>
 
 
-<div class="row mt-2 ml-0 mr-0">
+<div class="row mt-1 ml-0 mr-0">
   <table class="small-screen col-sm-11 col-md-8 col-lg-4 ml-3 table table-bordered">
     <thead class="thead-dark table-borderless">
     <tr>
