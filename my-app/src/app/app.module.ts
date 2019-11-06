@@ -26,6 +26,10 @@ import { RegionFiltersPipe } from './components/homepage/pipes/region-filters.pi
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { CreateOrganisationPopupComponent } from './components/create-organisation-popup/create-organisation-popup.component';
 import { EditOrganisationPopupComponent } from './components/edit-organisation-popup/edit-organisation-popup.component';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
+import { FirebaseLoginComponent } from './components/firebase-login/firebase-login.component';
+import {FbSessionService} from "./services/session/fb-session.service";
+import {AuthInterceptor} from "./auth-interceptor";
 
 // @ts-ignore
 @NgModule({
@@ -51,15 +55,20 @@ import { EditOrganisationPopupComponent } from './components/edit-organisation-p
     ForgotPasswordComponent,
     EditProfileComponent,
     CreateOrganisationPopupComponent,
-    EditOrganisationPopupComponent
+    EditOrganisationPopupComponent,
+    FirebaseLoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    HttpClientModule
   ],
-  providers: [RegionFiltersPipe],
+  providers: [
+    [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+    [RegionFiltersPipe]
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

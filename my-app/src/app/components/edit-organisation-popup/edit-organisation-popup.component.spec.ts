@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditOrganisationPopupComponent } from './edit-organisation-popup.component';
+import {FormsModule} from "@angular/forms";
 
 describe('EditOrganisationPopupComponent', () => {
   let component: EditOrganisationPopupComponent;
@@ -8,7 +9,8 @@ describe('EditOrganisationPopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditOrganisationPopupComponent ]
+      declarations: [ EditOrganisationPopupComponent ],
+      imports: [ FormsModule ]
     })
     .compileComponents();
   }));
