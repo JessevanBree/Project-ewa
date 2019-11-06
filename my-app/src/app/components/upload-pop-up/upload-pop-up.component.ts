@@ -104,7 +104,7 @@ export class UploadPopUpComponent implements OnInit {
       };
 
       reader.onerror = function () {
-        console.log('error is occured while reading file!');
+        console.log('error occurred while reading file!');
       };
 
     } else {
@@ -117,12 +117,12 @@ export class UploadPopUpComponent implements OnInit {
     let csvArr = [];
 
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
-      if (curruntRecord.length == headerLength) {
+      let currentRecord = (<string>csvRecordsArray[i]).split(',');
+      if (currentRecord.length == headerLength) {
         let csvRow = [];
-        for (let j = 0; j < curruntRecord.length; j++) {
-          // console.log("j: " + j + "\tcurrentRecord: " + curruntRecord[j].trim());
-          csvRow.push(curruntRecord[j].trim());
+        for (let j = 0; j < currentRecord.length; j++) {
+          console.log("j: " + j + "\tcurrentRecord: " + currentRecord[j].trim());
+          csvRow.push(currentRecord[j].trim());
         }
         csvArr.push(csvRow);
         // let csvRecord: CSVRecord = new CSVRecord();

@@ -11,6 +11,7 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if(!this.sessionService.isAuthenticated()){
+      console.log(state.url);
       this.router.navigate(['/firebase-login'], {queryParams: {return: state.url}});
       return false;
     }

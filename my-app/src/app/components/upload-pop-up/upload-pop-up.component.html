@@ -38,6 +38,7 @@
               <input
                 type="file"
                 class="form-control-file pt-2"
+                (change)="uploadListener($event)"
                 id="uploadModalControlFile1"
                 name="fileInput"
                 ngModel
@@ -61,7 +62,8 @@
             <div class="form-group col-md-3">
               <label for="yearOptions">Year</label>
               <select class="form-control" id="yearOptions" name="years">
-                <option *ngFor="let year of listOfYears">{{year}}
+                <option [value]="year" *ngFor="let year of listOfYears"
+                name="yearOption">{{year}}</option>
               </select>
             </div>
             <div class="form-group col-md-9" id="regionOptions">
