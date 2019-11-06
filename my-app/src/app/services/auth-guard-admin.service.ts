@@ -10,7 +10,6 @@ export class AuthGuardAdminService implements CanActivate {
   constructor(private userService: FbUserService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    console.log(this.userService.getLoggedInUser().isAdmin);
     if(this.userService.getLoggedInUser() == null || undefined){
       this.router.navigate(['**']);
       return false;

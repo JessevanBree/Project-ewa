@@ -15,6 +15,7 @@ export class FbUserService {
     this.users = [];
     this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
       "jesse@hva.nl"]
+    // Password for admins and test users: testing
   }
 
   public getLoggedInUser(){
