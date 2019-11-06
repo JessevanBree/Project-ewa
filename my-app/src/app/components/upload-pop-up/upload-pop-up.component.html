@@ -37,11 +37,13 @@
               <label for="uploadModalControlFile1">Choose dataset file</label>
               <input
                 type="file"
+                #csvReader
+                (change)="uploadListener($event)"
                 class="form-control-file pt-2"
                 id="uploadModalControlFile1"
                 name="fileInput"
                 ngModel
-                required>
+                required accept=".csv,.xlsx"/>
             </div>
             <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>

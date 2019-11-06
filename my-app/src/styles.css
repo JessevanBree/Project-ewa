@@ -7,11 +7,6 @@ i.btn {
   cursor: pointer;
 }
 
-.btn.btn-primary:hover:enabled {
-  /*font-weight: 500;*/
-  background: #89bd3c !important;
-}
-
 body.bg {
   /*background: white !important;*/
   background: linear-gradient(to right, #ebebeb, white);
@@ -20,5 +15,11 @@ body.bg {
 .btn-primary {
   background: #97CB3B !important;
   border-color: #97CB3B !important;
+  transition: all .5s ease !important;
+}
+
+.btn.btn-primary:hover:enabled {
+  /*font-weight: 500;*/
+  background: #89bd3c !important;
 }
 

@@ -4,7 +4,9 @@ import {Organisation} from '../../models/organisation';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
 import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.component";
-
+// import {XLSX} from '../../../../node_modules/xlsx/dist/xlsx';
+import * as XLSX from 'xlsx';
+import {AOA2SheetOpts} from "xlsx";
 // declare var jQuery:any;
 
 @Component({
@@ -17,6 +19,7 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
   private records: any[];
+  private records2: any;
   private listOfYears: number[];
 
   constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
@@ -32,7 +35,7 @@ export class UploadPopUpComponent implements OnInit {
 
 
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm){
+  onSubmit(form: NgForm) {
     //let user: User = this.datasetService.genRandomUser();
     let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 
@@ -107,6 +110,25 @@ export class UploadPopUpComponent implements OnInit {
         console.log('error is occured while reading file!');
       };
 
+    } else if (this.isValidXLSXFile(files[0])) {
+      const target: DataTransfer = <DataTransfer>($event.target);
+      if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        /* read workbook */
+        const bstr: string = e.target.result;
+        const wb: XLSX.WorkBook = XLSX.read(bstr, {type: 'binary'});
+
+        /* grab first sheet */
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+        /* save data */
+        this.records2 = <AOA2SheetOpts>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+        console.log("JDNAJKDN");
+        console.log(this.records2);
+      };
+      reader.readAsBinaryString(target.files[0]);
     } else {
       alert("Please import valid .csv file.");
       this.fileReset();
@@ -157,5 +179,39 @@ export class UploadPopUpComponent implements OnInit {
     // this.csvReader.nativeElement.value = "";
     this.records = [];
   }
+
+  //This method checks if the uploaded csv file is valid
+  isValidXLSXFile(file: any) {
+    // let n = /[.xls|.]/
+    return file.name.endsWith(".xlsx");
+  }
+
+  ExcelToJSON(file) {
+
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      var data = e.target.result;
+      var workbook = XLSX.read(data, {
+        type: 'binary'
+      });
+
+      workbook.SheetNames.forEach(function(sheetName) {
+        // Here is your object
+        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        var json_object = JSON.stringify(XL_row_object);
+        console.log(json_object);
+
+      })
+
+    };
+
+    reader.onerror = function (ex) {
+      console.log(ex);
+    };
+
+    reader.readAsBinaryString(file);
+  };
 
 }
