@@ -17,6 +17,8 @@ export class UploadPopUpComponent implements OnInit {
 
   @ViewChild('formElement', {static: false})
   private detailForm: NgForm;
+  @ViewChild('csvReader', {static: false})
+  private csvReader: NgForm;
   private records: any[];
   private listOfYears: number[];
 
@@ -50,7 +52,6 @@ export class UploadPopUpComponent implements OnInit {
 
   //Method to upload
   uploadListener(files: FileList): void {
-    // let files = $event.srcElement.files;
     if (this.isValidCSVFile(files)) {
       let arrayOfNumber = [];
       let arrayOfStrings = [];
@@ -86,13 +87,14 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(file: any) {
-    return file.name.endsWith(".csv");
+  isValidCSVFile(files: FileList) {
+    return files.item(0).name.endsWith(".csv");
   }
 
   //Reset file
   fileReset() {
-    // this.csvReader.nativeElement.value = "";
+    // this.csvReader.form.reset();
+    this.detailForm.controls['fileInput'].reset();
     this.records = [];
   }
 
