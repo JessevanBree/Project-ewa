@@ -72,16 +72,21 @@ export class UploadPopUpComponent implements OnInit {
     // let files = $event.srcElement.files;
     let arrayOfNumber = [];
     let arrayOfStrings = [];
+    let arrayOfObjects = [];
+
     let file = files.item(0);
     this.papa.parse(file, {
         header: true,
         dynamicTyping: true,
         complete: (results) => {
           let object = results.data;
+          console.log(Object.keys(object[0]));
+
           for (let i = 0; i < object.length; i++) {
+            arrayOfObjects.push(object[i]);
             Object.keys(object[i]).forEach( key => {
               let value = object[i][key];
-              console.log(value);
+              // console.log(value);
               if(typeof value === "string"){
                 arrayOfStrings.push(value);
               } else if(typeof value === "number" ){
@@ -92,8 +97,6 @@ export class UploadPopUpComponent implements OnInit {
         }
       }
     );
-    console.log(arrayOfNumber);
-    console.log(arrayOfStrings);
 
 
     /*if (this.isValidCSVFile(file)) {
@@ -149,14 +152,14 @@ export class UploadPopUpComponent implements OnInit {
           csvRow.push(currentRecord[j].trim());
         }
         csvArr.push(csvRow);
-        // let csvRecord: CSVRecord = new CSVRecord();
-        // csvRecord.id = curruntRecord[0].trim();
-        // csvRecord.firstName = curruntRecord[1].trim();
-        // csvRecord.lastName = curruntRecord[2].trim();
-        // csvRecord.age = curruntRecord[3].trim();
-        // csvRecord.position = curruntRecord[4].trim();
-        // csvRecord.mobile = curruntRecord[5].trim();
-        // csvArr.push(csvRecord);
+       /* let csvRecord: CSVRecord = new CSVRecord();
+        csvRecord.id = curruntRecord[0].trim();
+        csvRecord.firstName = curruntRecord[1].trim();
+        csvRecord.lastName = curruntRecord[2].trim();
+        csvRecord.age = curruntRecord[3].trim();
+        csvRecord.position = curruntRecord[4].trim();
+        csvRecord.mobile = curruntRecord[5].trim();
+        csvArr.push(csvRecord);*/
       }
     }
     return csvArr;

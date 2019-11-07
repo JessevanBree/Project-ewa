@@ -18,12 +18,12 @@
             <div class="form-group">
               <label for="datasetID">Dataset ID</label>
               <input class="form-control" [(ngModel)]="editedDataset.id" name="id" id="datasetID"
-                     placeholder="Dataset ID">
+                     placeholder="Dataset ID" readonly>
             </div>
             <div class="form-group">
               <label for="datasetName">Dataset name</label>
               <input type="text" class="form-control" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
-                     placeholder="Dataset name">
+                     placeholder="Dataset name" readonly>
             </div>
             <div class="form-group">
               <label for="datasetRegion">Region</label>
@@ -34,7 +34,7 @@
                 </option>
               </select>-->
               <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.region"
-              name="region" id="datasetRegion">
+              name="region" id="datasetRegion" readonly>
             </div>
             <div class="form-group">
               <label for="publicityOption">Publicity</label>
