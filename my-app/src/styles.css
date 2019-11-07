@@ -21,12 +21,14 @@ body.bg {
   /*background: linear-gradient(to right, #f79d00, #64f38c); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
 }
 
-body{
-  font-family: Poppins,sans-serif !important;
+body {
+  /*Choose Poppins or Candara*/
+  font-family: Poppins, sans-serif !important;
+  /*padding right because when opening popup there comes unwanted padding*/
+  padding-right: 0 !important;
 }
 
 .btn-primary {
   background: #97CB3B !important;
   border-color: #97CB3B !important;
 }
-

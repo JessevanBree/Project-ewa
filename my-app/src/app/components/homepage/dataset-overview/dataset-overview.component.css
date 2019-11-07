@@ -12,6 +12,10 @@ tbody tr th {
   border: 1px solid;
 }
 
+th {
+  font-size: 19px ;
+}
+
 td:hover {
   transition: .35s ease-in-out;
   background: lightgray;
@@ -23,6 +27,10 @@ td:hover {
   }
 }
 
+.tablehead {
+  background: linear-gradient(to right, #dce35b, #45b649); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .form-control{
   border: 3px solid grey;
   transition: all 2s ease;
@@ -32,7 +40,7 @@ td:hover {
 
 .form-control:focus {
   box-shadow: none;
-  border: 3px solid #83b63b;
+  border: 3px solid black;
   border-radius: 100px 100px 100px 100px;
 
   /*border-image-source: linear-gradient(45deg, #83b63b, rgb(250,224,66));*/
@@ -57,8 +65,4 @@ td:hover {
   text-align: center;
   pointer-events: none;
   color: #aaa;
-}
-
-.fa-search:focus::after{
-  color: red;
 }
