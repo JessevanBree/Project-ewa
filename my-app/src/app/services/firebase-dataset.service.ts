@@ -79,6 +79,7 @@ export class FirebaseDatasetService {
     );
   }
 
+
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>

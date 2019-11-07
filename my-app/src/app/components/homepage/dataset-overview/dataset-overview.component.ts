@@ -44,7 +44,7 @@ export class DatasetOverviewComponent implements OnInit {
       case "European level":
         this.activeIndex = index;
         this.selectedDataset = this.EUdatasets[this.activeIndex];
-        this.router.navigate(['edit'], {
+        this.router.navigate(['detail'], {
           relativeTo: this.activatedRoute,
           queryParams: {id: this.selectedDataset.id}
         });
@@ -52,7 +52,7 @@ export class DatasetOverviewComponent implements OnInit {
       case "National level":
         this.activeIndex = index;
         this.selectedDataset = this.NATdatasets[this.activeIndex];
-        this.router.navigate(['edit'], {
+        this.router.navigate(['detail'], {
           relativeTo: this.activatedRoute,
           queryParams: {id: this.selectedDataset.id}
         });
@@ -60,7 +60,7 @@ export class DatasetOverviewComponent implements OnInit {
       case "Urban level":
         this.activeIndex = index;
         this.selectedDataset = this.URBdatasets[this.activeIndex];
-        this.router.navigate(['edit'], {
+        this.router.navigate(['detail'], {
           relativeTo: this.activatedRoute,
           queryParams: {id: this.selectedDataset.id}
         });
