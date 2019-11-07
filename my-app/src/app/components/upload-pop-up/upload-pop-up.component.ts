@@ -7,6 +7,7 @@ import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.
 // import {XLSX} from '../../../../node_modules/xlsx/dist/xlsx';
 import * as XLSX from 'xlsx';
 import {AOA2SheetOpts} from "xlsx";
+
 // declare var jQuery:any;
 
 @Component({
@@ -122,9 +123,12 @@ export class UploadPopUpComponent implements OnInit {
         /* grab first sheet */
         const wsname: string = wb.SheetNames[0];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+        console.log(wsname);
+        console.log(ws);
 
         /* save data */
-        this.records2 = <AOA2SheetOpts>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+        // this.records2 = <AOA2SheetOpts>(XLSX.utils.sheet_to_json(ws, {header: 1}));
+        this.records2 = <AOA2SheetOpts>(XLSX.utils.sheet_to_html(ws));
         console.log("JDNAJKDN");
         console.log(this.records2);
       };
@@ -185,33 +189,4 @@ export class UploadPopUpComponent implements OnInit {
     // let n = /[.xls|.]/
     return file.name.endsWith(".xlsx");
   }
-
-  ExcelToJSON(file) {
-
-
-    var reader = new FileReader();
-
-    reader.onload = function(e) {
-      var data = e.target.result;
-      var workbook = XLSX.read(data, {
-        type: 'binary'
-      });
-
-      workbook.SheetNames.forEach(function(sheetName) {
-        // Here is your object
-        var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-        var json_object = JSON.stringify(XL_row_object);
-        console.log(json_object);
-
-      })
-
-    };
-
-    reader.onerror = function (ex) {
-      console.log(ex);
-    };
-
-    reader.readAsBinaryString(file);
-  };
-
 }
