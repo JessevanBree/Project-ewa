@@ -7,14 +7,22 @@ i.btn {
   cursor: pointer;
 }
 
-.btn.btn-primary:hover:enabled {
-  /*font-weight: 500;*/
-  background: #89bd3c !important;
-}
+/*.btn.btn-primary:hover:enabled {*/
+/*  !*font-weight: 500;*!*/
+/*  background: #89bd3c !important;*/
+/*}*/
 
 body.bg {
   /*background: white !important;*/
-  background: linear-gradient(to right, #ebebeb, white);
+  /*background: linear-gradient(to right, #ebebeb, white);*/
+  /*background: linear-gradient(to right, #00b09b, #96c93d);*/
+  /*background: linear-gradient(to right, #76b852, #8dc26f); */
+  background: linear-gradient(to right, #56ab2f, #a8e063); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /*background: linear-gradient(to right, #f79d00, #64f38c); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+}
+
+body{
+  font-family: Poppins,sans-serif !important;
 }
 
 .btn-primary {
