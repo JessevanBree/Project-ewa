@@ -10,10 +10,8 @@ import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail
 import {LoginComponent} from './components/login/login.component';
 
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
-import {ModalTestComponent} from './components/modal-test/modal-test.component';
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
-import {FbSessionService} from "./services/session/fb-session.service";
 import {FirebaseLoginComponent} from "./components/firebase-login/firebase-login.component";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AuthGuardAdminService} from "./services/auth-guard-admin.service";
@@ -32,12 +30,8 @@ const routes: Routes = [
       component: AdminDetailComponent
     }]
   },
-  { path: 'myuploads', component: MyuploadsComponent, canActivate: [AuthGuardService] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
-  {
-    path: 'modal',
-    component: ModalTestComponent
-  },
+  { path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService] },
+  { path: 'profile/:email', component: ProfileComponent, canActivate: [AuthGuardService]},
   {
     path: 'login',
     component: LoginComponent

@@ -22,6 +22,7 @@ export class Dataset {
   region: string;
   publicity: string;
   organisation?: Organisation;
+  description?: string;
   year: number;
   user: FbUser;
   chartData: ChartDataSets;
@@ -29,14 +30,15 @@ export class Dataset {
 
   constructor(id: number, name: string, region: string, publicity: string,
               chartData: ChartDataSets, chartLabels: string[],
-              user: FbUser, year: number, organisation?: Organisation, ) {
+              user: FbUser, year: number, description?: string, organisation?: Organisation, ) {
     this.id = id;
     this.name = name;
     this.region = region;
     this.publicity = publicity;
     this.year = year;
     this.user = user;
-    this.organisation = this.organisation == null ? null : organisation;
+    this.description =  description == null ? null : description;
+    this.organisation = organisation == null ? null : organisation;
     this.chartData = chartData;
     this.chartLabels = chartLabels;
   }
@@ -87,12 +89,14 @@ export class Dataset {
       let number = Math.floor(Math.random() * 3000);
       arrayNumbers.push(number);
     }
-    let randomChartType = ["bar", "horizontalBar", "pie"];
+    let chartType = ["bar", "horizontalBar", "pie"];
     //console.log(randomChartType);
-    let randomNumber = Math.floor(Math.random() * randomChartType.length-1);
+    let randomNumber = Math.floor(Math.random() * chartType.length-1);
     let randomDataLabel = ["Eletricity consumption" , "Solar power", "Houses"];
-    return {type: randomChartType[0],
-      data: arrayNumbers, label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
+    return {
+      type: chartType[0],
+      data: arrayNumbers,
+      label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
       )],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',

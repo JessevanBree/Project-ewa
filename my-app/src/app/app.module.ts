@@ -13,7 +13,6 @@ import {AdminUsersComponent} from './components/admin/admin-users/admin-users.co
 import {AdminOrganisationsComponent} from './components/admin/admin-organisations/admin-organisations.component';
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
-import {ModalTestComponent} from './components/modal-test/modal-test.component';
 import {EditProfileComponent } from './components/profile/edit-profile/edit-profile.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
@@ -30,6 +29,7 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import { FirebaseLoginComponent } from './components/firebase-login/firebase-login.component';
 import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
+import {PapaParseModule} from "ngx-papaparse";
 
 // @ts-ignore
 @NgModule({
@@ -43,7 +43,6 @@ import {AuthInterceptor} from "./auth-interceptor";
     AdminOrganisationsComponent,
     AdminDatasetsComponent,
     AdminDetailComponent,
-    ModalTestComponent,
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
@@ -63,7 +62,8 @@ import {AuthInterceptor} from "./auth-interceptor";
     AppRoutingModule,
     FormsModule,
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    PapaParseModule
   ],
   providers: [
     [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],

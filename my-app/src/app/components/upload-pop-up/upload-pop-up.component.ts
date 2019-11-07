@@ -4,6 +4,7 @@ import {Organisation} from '../../models/organisation';
 import {AOrganisationService} from '../../services/a-organisation.service';
 import {DatasetService} from '../../services/dataset.service';
 import {DatasetDetailComponent} from "../homepage/dataset-detail/dataset-detail.component";
+import { Papa } from "ngx-papaparse";
 
 // declare var jQuery:any;
 
@@ -19,11 +20,13 @@ export class UploadPopUpComponent implements OnInit {
   private records: any[];
   private listOfYears: number[];
 
-  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) {
+  constructor(private datasetService: DatasetService,
+              private aOrganisationService: AOrganisationService, private papa: Papa) {
     this.listOfYears = [];
     for (let i = 1980; i < 2019; i++) {
       this.listOfYears.push(i);
     }
+
   }
 
 
@@ -65,25 +68,49 @@ export class UploadPopUpComponent implements OnInit {
 
 
   //Method to upload
-  uploadListener($event: any): void {
-    let handle = $event;
-    console.log($event.target.files[0]);
-
-
-    let text = [];
+  uploadListener(files: FileList): void {
     // let files = $event.srcElement.files;
-    let files = $event.target.files;
+    let arrayOfNumber = [];
+    let arrayOfStrings = [];
+    let arrayOfObjects = [];
 
-    if (this.isValidCSVFile(files[0])) {
+    let file = files.item(0);
+    this.papa.parse(file, {
+        header: true,
+        dynamicTyping: true,
+        complete: (results) => {
+          let object = results.data;
+          console.log(Object.keys(object[0]));
+
+          for (let i = 0; i < object.length; i++) {
+            arrayOfObjects.push(object[i]);
+            Object.keys(object[i]).forEach( key => {
+              let value = object[i][key];
+              // console.log(value);
+              if(typeof value === "string"){
+                arrayOfStrings.push(value);
+              } else if(typeof value === "number" ){
+                arrayOfNumber.push(value);
+              }
+            })
+          }
+        }
+      }
+    );
+
+
+    /*if (this.isValidCSVFile(file)) {
       console.log("It is valid CSV");
-      let input = $event.target;
+      let input = file;
       let reader = new FileReader();
-      reader.readAsText(input.files[0]);
+      reader.readAsText(file);
+
 
       reader.onload = () => {
         let csvData = reader.result;
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
+        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
+        console.log(csvRecordsArray);
         let headersRow = this.getHeaderArray(csvRecordsArray);
 
         this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
@@ -104,35 +131,35 @@ export class UploadPopUpComponent implements OnInit {
       };
 
       reader.onerror = function () {
-        console.log('error is occured while reading file!');
+        console.log('error occurred while reading file!');
       };
 
     } else {
       alert("Please import valid .csv file.");
       this.fileReset();
-    }
+    }*/
   }
 
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
     let csvArr = [];
 
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
-      if (curruntRecord.length == headerLength) {
+      let currentRecord = (<string>csvRecordsArray[i]).split(',');
+      if (currentRecord.length == headerLength) {
         let csvRow = [];
-        for (let j = 0; j < curruntRecord.length; j++) {
-          // console.log("j: " + j + "\tcurrentRecord: " + curruntRecord[j].trim());
-          csvRow.push(curruntRecord[j].trim());
+        for (let j = 0; j < currentRecord.length; j++) {
+          console.log("j: " + j + "\tcurrentRecord: " + currentRecord[j].trim());
+          csvRow.push(currentRecord[j].trim());
         }
         csvArr.push(csvRow);
-        // let csvRecord: CSVRecord = new CSVRecord();
-        // csvRecord.id = curruntRecord[0].trim();
-        // csvRecord.firstName = curruntRecord[1].trim();
-        // csvRecord.lastName = curruntRecord[2].trim();
-        // csvRecord.age = curruntRecord[3].trim();
-        // csvRecord.position = curruntRecord[4].trim();
-        // csvRecord.mobile = curruntRecord[5].trim();
-        // csvArr.push(csvRecord);
+       /* let csvRecord: CSVRecord = new CSVRecord();
+        csvRecord.id = curruntRecord[0].trim();
+        csvRecord.firstName = curruntRecord[1].trim();
+        csvRecord.lastName = curruntRecord[2].trim();
+        csvRecord.age = curruntRecord[3].trim();
+        csvRecord.position = curruntRecord[4].trim();
+        csvRecord.mobile = curruntRecord[5].trim();
+        csvArr.push(csvRecord);*/
       }
     }
     return csvArr;
