@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
-import { MyuploadsComponent } from './components/myuploads/myuploads.component';
+import {MyuploadsComponent} from './components/myuploads/myuploads.component';
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
 import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 
@@ -15,12 +15,16 @@ import {ForgotPasswordComponent} from "./components/forgot-password/forgot-passw
 import {FirebaseLoginComponent} from "./components/firebase-login/firebase-login.component";
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AuthGuardAdminService} from "./services/auth-guard-admin.service";
+import {EditMetadataPopupComponent} from "./components/edit-metadata-popup/edit-metadata-popup.component";
+import {EditDatasetPopupComponent} from "./components/edit-dataset-popup/edit-dataset-popup.component";
 
 const routes: Routes = [
 
-  {path: 'homepage', component: DatasetOverviewComponent,
+  {
+    path: 'homepage', component: DatasetOverviewComponent,
     children: [
-      {path: ':detail', component: DatasetDetailComponent}]},
+      {path: ':detail', component: DatasetDetailComponent}]
+  },
   {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
@@ -30,14 +34,25 @@ const routes: Routes = [
       component: AdminDetailComponent
     }]
   },
-  { path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService] },
-  { path: 'profile/:email', component: ProfileComponent, canActivate: [AuthGuardService]},
+  {
+    path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService],
+    children: [{
+      path: 'editMetaData',
+      component: EditMetadataPopupComponent
+    },
+      {
+        path: 'editDataset',
+        component: EditDatasetPopupComponent
+      }]
+  },
+  {path: 'profile/:email', component: ProfileComponent, canActivate: [AuthGuardService]},
   {
     path: 'login',
     component: LoginComponent
   },
-  {path: 'firebase-login',
-  component: FirebaseLoginComponent
+  {
+    path: 'firebase-login',
+    component: FirebaseLoginComponent
   },
   {
     path: 'forgot-password',

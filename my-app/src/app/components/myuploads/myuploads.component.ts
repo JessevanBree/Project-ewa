@@ -26,7 +26,6 @@ export class MyuploadsComponent implements OnInit {
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
               private userService: FbUserService, private router: Router) {
     this.datasets = [];
-    this.userId = userService.getLoggedInUser().email;
 
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
@@ -49,7 +48,7 @@ export class MyuploadsComponent implements OnInit {
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
     this.router.navigate(['editMetaData'], {
       relativeTo: this.activatedRoute,
-      queryParams: {editMetadata: this.selectedDataset.id}
+      queryParams: {id: this.selectedDataset.id}
     });
 
     this.editMetaDataToggle = true;
@@ -63,6 +62,10 @@ export class MyuploadsComponent implements OnInit {
   onEditDatasetClick(datasetIndex: number){
     this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
     this.editDatasetToggle = true;
+    this.router.navigate(['editDataset'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: this.selectedDataset.id}
+    })
   }
 
   //Function to delete a dataset
@@ -83,6 +86,13 @@ export class MyuploadsComponent implements OnInit {
   }
 
 
+  onCloseReq() {
+    console.log("Closing modal..");
+    this.uploadDatasetToggle = false;
+    this.editDatasetToggle = false;
+    this.editMetaDataToggle = false;
+  }
+
 
   ngOnInit() {
 
@@ -92,7 +102,7 @@ export class MyuploadsComponent implements OnInit {
         console.log(id);
       }
     );*/
-
+    this.userId = this.userService.getLoggedInUser().email;
     this.datasets = this.datasetService.getMyDatasets();
   }
 

@@ -1,10 +1,10 @@
 <div class="modal fade" #editModal id="editMetaModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-     aria-hidden="true">
+     data-backdrop="static" data-keyboard="false" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="editModalLabel">Edit Metadata</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="descriptionInput">Description</label>
             <textarea
-              [(ngModel)]="editingDataset.chartLabels"
+              [(ngModel)]="editingDataset.description"
               class="form-control"
               id="descriptionInput"
               name="descriptionInput"
@@ -40,7 +40,7 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()" [disabled]="formElement.invalid">Save Changes</button>
           </div>
         </form>

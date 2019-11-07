@@ -1,8 +1,8 @@
-<app-edit-metadata-popup *ngIf="editMetaDataToggle" (savedDataset)="saveRequest($event)"
-                         [editingDataset]="selectedDataset"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
+<app-edit-metadata-popup *ngIf="editMetaDataToggle" (savedDataset)="saveRequest($event)">
+</app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
 <app-upload-pop-up
   *ngIf="uploadDatasetToggle"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
-<app-edit-dataset-popup *ngIf="editDatasetToggle" [editingDataset]="selectedDataset"></app-edit-dataset-popup>
+<app-edit-dataset-popup (closingToggle)="onCloseReq()" *ngIf="editDatasetToggle" ></app-edit-dataset-popup>
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-sm-12">
@@ -18,8 +18,7 @@
             <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
                     (click)="onEditDatasetClick(i)"></button>
             <button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
-                    data-target="#editMetaModal"
-                    (click)="onEditMetaDataClick(i)"></button>
+                    data-target="#editMetaModal" (click)="onEditMetaDataClick(i)"></button>
 						<button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
 					</span>
 				</span>
