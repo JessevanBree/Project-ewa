@@ -1,6 +1,6 @@
-
 <div class="row mt-0 ml-0 mr-0">
-  <div class="small-screen col-sm-11 col-md-8 col-lg-5 ml-3 align-content-center align-items-center text-center flex-center">
+  <div
+    class="small-screen col-sm-11 col-md-8 col-lg-5 ml-3 align-content-center align-items-center text-center flex-center">
     <div class="btn-group ml-0 float-right">
       <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>
       <div class="dropdown-menu dropdown-menu-right">
@@ -19,43 +19,74 @@
   </div>
 </div>
 
-
 <div class="row mt-1 ml-0 mr-0">
-  <table class="small-screen col-sm-11 col-md-8 col-lg-4 ml-3 table table-bordered">
-    <thead class="thead-dark table-borderless">
-    <tr>
-      <th>Region level</th>
-      <th>Dataset title</th>
-    </tr>
-    </thead>
-    <tbody class="table-light">
-    <tr>
-      <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>
-    </tr>
-    <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index;"
-        (click)="onSelection(index, dataset)">
-      <td>{{dataset.name}}</td>
-    </tr>
-
-    <tr>
-      <th [rowSpan]="(NATdatasets | searchDatasets: searchQuery).length + 1">National level</th>
-    </tr>
-    <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery ) let index = index;"
-        (click)="onSelection(index, dataset)">
-      <td>{{dataset.name}}</td>
-    </tr>
-
-    <tr *ngIf="URBdatasets.length >= 0">
-      <th [rowSpan]="(URBdatasets | searchDatasets: searchQuery).length + 1">Urban level</th>
-    </tr>
-    <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"
-        (click)="onSelection(index, dataset)">
-      <td>{{dataset.name}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <div class="overflow-auto custom-table-fixed small-screen col-sm-11 col-md-8 col-lg-4 ml-3 p-0"
+  style="max-height: 400px;">
+    <table
+      class="table table-bordered">
+      <thead class="thead-dark table-borderless">
+      <tr>
+        <th>Datasets</th>
+      </tr>
+      </thead>
+      <tbody class="table-light"  >
+      <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index;"
+          (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
+      </tr>
+      <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery ) let index = index;"
+          (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
+      </tr>
+      <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"
+          (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div>
     <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
+
+<!--<div class="row mt-1 ml-0 mr-0">-->
+<!--  <table class="small-screen col-sm-11 col-md-8 col-lg-4 ml-3 table table-bordered">-->
+<!--    <thead class="thead-dark table-borderless">-->
+<!--    <tr>-->
+<!--      <th>Region level</th>-->
+<!--      <th>Dataset title</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody class="table-light">-->
+<!--    <tr>-->
+<!--      <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index;"-->
+<!--        (click)="onSelection(index, dataset)">-->
+<!--      <td>{{dataset.name}}</td>-->
+<!--    </tr>-->
+
+<!--    <tr>-->
+<!--      <th [rowSpan]="(NATdatasets | searchDatasets: searchQuery).length + 1">National level</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery ) let index = index;"-->
+<!--        (click)="onSelection(index, dataset)">-->
+<!--      <td>{{dataset.name}}</td>-->
+<!--    </tr>-->
+
+<!--    <tr *ngIf="URBdatasets.length >= 0">-->
+<!--      <th [rowSpan]="(URBdatasets | searchDatasets: searchQuery).length + 1">Urban level</th>-->
+<!--    </tr>-->
+<!--    <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"-->
+<!--        (click)="onSelection(index, dataset)">-->
+<!--      <td>{{dataset.name}}</td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--  </table>-->
+
+<!--  <div>-->
+<!--    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>-->
+<!--  </div>-->
+<!--</div>-->

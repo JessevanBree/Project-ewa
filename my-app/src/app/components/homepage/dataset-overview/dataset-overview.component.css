@@ -58,3 +58,7 @@ td:hover {
   pointer-events: none;
   color: #aaa;
 }
+
+.fa-search:focus::after{
+  color: red;
+}
