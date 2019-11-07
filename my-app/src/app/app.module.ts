@@ -5,7 +5,6 @@ import {ChartsModule} from 'ng2-charts';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {EditPopUpComponent} from './components/edit-pop-up/edit-pop-up.component';
 import {UploadPopUpComponent} from './components/upload-pop-up/upload-pop-up.component';
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
@@ -30,12 +29,13 @@ import { FirebaseLoginComponent } from './components/firebase-login/firebase-log
 import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
 import {PapaParseModule} from "ngx-papaparse";
+import { EditDatasetPopupComponent } from './components/edit-dataset-popup/edit-dataset-popup.component';
+import { EditMetadataPopupComponent } from './components/edit-metadata-popup/edit-metadata-popup.component';
 
 // @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
-    EditPopUpComponent,
     AdminPanelComponent,
     UploadPopUpComponent,
     PageNotFoundComponent,
@@ -55,7 +55,9 @@ import {PapaParseModule} from "ngx-papaparse";
     EditProfileComponent,
     CreateOrganisationPopupComponent,
     EditOrganisationPopupComponent,
-    FirebaseLoginComponent
+    FirebaseLoginComponent,
+    EditDatasetPopupComponent,
+    EditMetadataPopupComponent
   ],
   imports: [
     BrowserModule,

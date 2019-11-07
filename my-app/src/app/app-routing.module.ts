@@ -20,7 +20,7 @@ const routes: Routes = [
 
   {path: 'homepage', component: DatasetOverviewComponent,
     children: [
-      {path: ':edit', component: DatasetDetailComponent}]},
+      {path: ':detail', component: DatasetDetailComponent}]},
   {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
