@@ -16,8 +16,8 @@ export class ADatasetService {
 	constructor( private aUserService: AUserService, private aOrganisationService: AOrganisationService) {
 		this.datasets = [];
 
-		for (let i = 0; i < 100; i++) {
-			this.datasets[i] = this.genRandomDataset();
+		for (let i = 0; i < 10; i++) {
+			//this.datasets[i] = this.genRandomDataset();
 		}
 	}
 
@@ -29,7 +29,7 @@ export class ADatasetService {
 		let datasetIndex: number = this.datasets.indexOf(dataset);
 		if( datasetIndex != -1 ){
 			this.datasets.splice(datasetIndex, 1)
-			// return this.datasets[datasetIndex].equals(dataset);
+			return this.datasets[datasetIndex].equals(dataset);
 		} else {
 			return;
 		}
@@ -37,7 +37,7 @@ export class ADatasetService {
 
 	public addDataset(dataset: Dataset): Boolean{
 		this.datasets.push(dataset);
-		// return this.datasets[this.datasets.length-1].equals(dataset);
+		return this.datasets[this.datasets.length-1].equals(dataset);
     return null;
 	}
 
@@ -45,7 +45,7 @@ export class ADatasetService {
 		if( !this.datasets[index] || !dataset ) return false;
 
 		this.datasets[index] = dataset;
-		// return this.datasets[index].equals(dataset);
+		return this.datasets[index].equals(dataset);
     return null;
 	}
 
@@ -68,15 +68,17 @@ export class ADatasetService {
     return lorem.generateWords()
   }
 
-	genRandomDataset(): Dataset{
+	/*genRandomDataset(): Dataset{
 		let user: User = this.aUserService.genRandomUser();
 		let org: Organisation = this.aOrganisationService.genRandomOrganisation();
 		let datasetName: string = SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + "Set";
 		let datasetDescription: string = this.getRandomText();
     let publicityKeys = Object.keys(Publicity);
     let datasetPublicity = publicityKeys[Math.floor(Math.random() * 3)];
-
-		// return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
     return null;
-	}
+		//return new Dataset(datasetName, datasetDescription, datasetPublicity, user, org);
+	}*/
+
+
+
 }

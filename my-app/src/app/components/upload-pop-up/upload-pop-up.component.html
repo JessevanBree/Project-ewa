@@ -58,7 +58,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid">Upload</button>
+<!--            <button type="file" class="btn btn-primary" [disabled]="formElement.invalid" (change)="changeListener($event.target.files)">Upload</button>-->
+            <input type="file" class="btn btn-primary" [disabled]="formElement.invalid" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
           </div>
         </form>
       </div>
