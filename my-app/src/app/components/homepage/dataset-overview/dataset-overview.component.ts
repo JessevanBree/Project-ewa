@@ -41,7 +41,7 @@ export class DatasetOverviewComponent implements OnInit {
 
   onSelection(index: number, dataset: Dataset) {
     switch (dataset.region) {
-      case "European level":
+      case "European":
         this.activeIndex = index;
         this.selectedDataset = this.EUdatasets[this.activeIndex];
         this.router.navigate(['detail'], {
@@ -49,7 +49,7 @@ export class DatasetOverviewComponent implements OnInit {
           queryParams: {id: this.selectedDataset.id}
         });
         break;
-      case "National level":
+      case "National":
         this.activeIndex = index;
         this.selectedDataset = this.NATdatasets[this.activeIndex];
         this.router.navigate(['detail'], {
@@ -57,7 +57,7 @@ export class DatasetOverviewComponent implements OnInit {
           queryParams: {id: this.selectedDataset.id}
         });
         break;
-      case "Urban level":
+      case "Urban":
         this.activeIndex = index;
         this.selectedDataset = this.URBdatasets[this.activeIndex];
         this.router.navigate(['detail'], {
@@ -113,7 +113,7 @@ export class DatasetOverviewComponent implements OnInit {
       this.EUdatasets = this.datasetService.getEUDatasets();
       this.NATdatasets = this.datasetService.getNATDatasets();
       this.URBdatasets = this.datasetService.getURBDatasets();
-      console.log(this.EUdatasets);
+      console.log(this.NATdatasets);
     }, 500)
 
   }

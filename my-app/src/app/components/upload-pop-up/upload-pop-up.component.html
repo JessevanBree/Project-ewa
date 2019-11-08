@@ -63,7 +63,7 @@
             <div class="form-group col-md-3">
               <label for="yearOptions">Year</label>
               <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
-                <option [value]="year" *ngFor="let year of listOfYears"
+                <option [ngValue]="year" *ngFor="let year of listOfYears"
                         name="yearOption">{{year}}</option>
               </select>
             </div>
@@ -89,7 +89,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" type="submit" [disabled]="formElement.invalid">Upload</button>
           </div>
         </form>

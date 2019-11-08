@@ -4,9 +4,9 @@ import {FbUser} from "./fb-user";
 import {ViewChild} from "@angular/core";
 
 export enum RegionLevel {
-  NAT_LEVEL = "National level",
-  EU_LEVEL = "European level",
-  URBAN_LEVEL = "Urban level"
+  NAT_LEVEL = "National",
+  EU_LEVEL = "European",
+  URBAN_LEVEL = "Urban"
 }
 
 export enum Publicity {

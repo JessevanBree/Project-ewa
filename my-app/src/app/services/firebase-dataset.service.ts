@@ -2,10 +2,7 @@ import {Injectable, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import * as firebase from "firebase";
-import {ChartDataSets} from "chart.js";
 import {FbUserService} from "./fb-user.service";
-import {FbUser} from "../models/fb-user";
-import * as Chart from "chart.js";
 
 @Injectable({
   providedIn: 'root'
@@ -96,19 +93,19 @@ export class FirebaseDatasetService {
 
   getEUDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-      dataset.region.includes("European level")
+      dataset.region.includes("European")
     );
   }
 
   getNATDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-        dataset.region == "National level"
+        dataset.region.includes("National")
     );
   }
 
   getURBDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-       dataset.region == "Urban level"
+       dataset.region.includes("Urban")
     );
   }
 

@@ -34,33 +34,26 @@ export class UploadPopUpComponent implements OnInit {
   constructor(private datasetService: FirebaseDatasetService, private papa: Papa,
               private userService: FbUserService, private router: Router) {
     this.listOfYears = [];
-    for (let i = 1980; i < 2019; i++) {
+    for (let i = 1980; i < 2020; i++) {
       this.listOfYears.push(i);
     }
 
   }
-
 
   ngOnInit() {
   }
 
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm) {
-    console.log(this.descriptionInput, this.nameInput, this.publicityInput, this.regionInput, this.yearInput);
-   let uploadingUser = this.userService.getLoggedInUser();
-
-   let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
-     this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
-
-   this.datasetService.getDatasets().push(createdDataset);
-   this.router.navigate(['myuploads', uploadingUser.email]);
-
-
+    // console.log(this.descriptionInput, this.nameInput, this.publicityInput, this.regionInput, this.yearInput);
+    let uploadingUser = this.userService.getLoggedInUser();
+    let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
+      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
+    this.datasetService.getDatasets().push(createdDataset);
+    this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();
   }
-
-
 
   //Method to upload
   uploadListener(files: FileList): void {
@@ -96,13 +89,10 @@ export class UploadPopUpComponent implements OnInit {
           }
         }
       );
-    }else {
+    } else {
       alert("Please import valid .csv file.");
       this.fileReset();
     }
-
-
-
   }
 
   //This method checks if the uploaded csv file is valid
@@ -135,10 +125,10 @@ export class UploadPopUpComponent implements OnInit {
     }
 
     //Gets the values which are used to define a csv record example:  '# of votes'
-    for (let i = 0; i < objectsArray.length ; i++) {
+    for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
       console.log(object);
-      for (let j = 0; j < valueLabel.length; j++){
+      for (let j = 0; j < valueLabel.length; j++) {
         console.log(object[valueLabel[j]]);
         let valueRecord = object[valueLabel[j]];
         chartData.push(valueRecord);
@@ -147,7 +137,7 @@ export class UploadPopUpComponent implements OnInit {
 
     console.log(chartLabels, chartData);
     let chartDatasets = ({
-      type: 'pie',
+      type: 'bar',
       label: valueLabel,
       data: chartData
     });
@@ -155,9 +145,6 @@ export class UploadPopUpComponent implements OnInit {
     this.chart = chartDatasets;
     this.chartLabels = chartLabels;
   }
-
-
-
 
 
 }

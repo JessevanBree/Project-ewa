@@ -57,7 +57,9 @@ export class MyuploadsComponent implements OnInit {
   //Check if upload button is clicked to open pop-up
   onUploadButtonClick() {
     this.uploadDatasetToggle = true;
-    this.router.navigate(['uploadDataset'])
+    this.router.navigate(['uploadDataset'], {
+      relativeTo: this.activatedRoute
+    })
   }
 
   onEditDatasetClick(datasetIndex: number){
