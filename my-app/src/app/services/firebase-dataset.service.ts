@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import * as firebase from "firebase";
 import {ChartDataSets} from "chart.js";
 import {FbUserService} from "./fb-user.service";
 import {FbUser} from "../models/fb-user";
+import * as Chart from "chart.js";
 
 @Injectable({
   providedIn: 'root'
@@ -117,7 +118,8 @@ export class FirebaseDatasetService {
     let year: number = Math.floor(Math.random() * (2019 - 1980)) + 1980;
 
     //Generates a random chart
-    let chartData: ChartDataSets = Dataset.generateChartDataset();
+    let chart = Dataset.generateChartDataset();
+    console.log(chart);
     let chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
 
     //Randomly selects one of the three region levels
@@ -137,7 +139,7 @@ export class FirebaseDatasetService {
       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
     }
     return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName],
-      Publicity[randomPublicity], chartData, chartLabels, randomUser, year);
+      Publicity[randomPublicity], randomUser, year, chart, chartLabels);
   }
 
   ngOnInit() {

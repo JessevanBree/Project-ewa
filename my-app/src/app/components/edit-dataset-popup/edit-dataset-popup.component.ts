@@ -1,10 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {ChartDataSets} from "chart.js";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {FbSessionService} from "../../services/session/fb-session.service";
+import * as Chart from "chart.js";
 
 @Component({
   selector: 'app-edit-dataset-popup',
@@ -14,6 +15,7 @@ import {FbSessionService} from "../../services/session/fb-session.service";
 export class EditDatasetPopupComponent implements OnInit {
   @Output() closingToggle;
   private editingDataset: Dataset;
+  private chartOfDataset: Chart;
   private datasets: Dataset[];
   private queryParamSubscription: Subscription;
 
@@ -32,7 +34,7 @@ export class EditDatasetPopupComponent implements OnInit {
           for (let i = 0; i < this.datasets.length; i++) {
             if(this.datasets[i].id == id){
               this.editingDataset = Dataset.trueCopy(this.datasets[i]);
-              console.log(this.editingDataset);
+              console.log(this.editingDataset.chart);
               break;
             }
           }

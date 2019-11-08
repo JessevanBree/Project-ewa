@@ -2,7 +2,7 @@
 
   <div class="col-10 col-sm-8 col-md-7 col-xl-8">
     <div class="mb-2 w-100">
-      <canvas baseChart [chartType]="editedDataset.chartData.type" [datasets]="barChartData" [labels]="barChartLabels"
+      <canvas baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]" [labels]="editedDataset.chartLabels"
               width="400" height="400">
       </canvas>
     </div>

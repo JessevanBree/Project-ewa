@@ -1,8 +1,7 @@
 import {Chart, ChartDataSets} from 'chart.js';
 import {Organisation} from "./organisation";
-import {FbUserService} from "../services/fb-user.service";
-import {HttpClient, HttpHandler} from "@angular/common/http";
 import {FbUser} from "./fb-user";
+import {ViewChild} from "@angular/core";
 
 export enum RegionLevel {
   NAT_LEVEL = "National level",
@@ -25,12 +24,13 @@ export class Dataset {
   description?: string;
   year: number;
   user: FbUser;
-  chartData: ChartDataSets;
+  chart: ChartDataSets;
   chartLabels: string[];
 
+
   constructor(id: number, name: string, region: string, publicity: string,
-              chartData: ChartDataSets, chartLabels: string[],
-              user: FbUser, year: number, description?: string, organisation?: Organisation, ) {
+              user: FbUser, year: number, chart: ChartDataSets, chartLabels: string[],
+               description?: string, organisation?: Organisation) {
     this.id = id;
     this.name = name;
     this.region = region;
@@ -39,7 +39,7 @@ export class Dataset {
     this.user = user;
     this.description =  description == null ? null : description;
     this.organisation = organisation == null ? null : organisation;
-    this.chartData = chartData;
+    this.chart = chart;
     this.chartLabels = chartLabels;
   }
 
@@ -47,9 +47,14 @@ export class Dataset {
     return this.id == dataset.id;
   }
 
+  setChart(chart: ChartDataSets, chartLabels: string[]) {
+    this.chartLabels = chartLabels;
+    this.chart = chart;
+  }
+
   static trueCopy(dataset: Dataset): Dataset {
     return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region,
-      dataset.publicity, dataset.chartData, dataset.chartLabels, dataset.user, dataset.year), dataset);
+      dataset.publicity, dataset.user, dataset.year, dataset.chart, dataset.chartLabels), dataset);
   }
 
   static generateRandomID() {
@@ -90,10 +95,12 @@ export class Dataset {
       arrayNumbers.push(number);
     }
     let chartType = ["bar", "horizontalBar", "pie"];
+
+
     //console.log(randomChartType);
     let randomNumber = Math.floor(Math.random() * chartType.length-1);
     let randomDataLabel = ["Eletricity consumption" , "Solar power", "Houses"];
-    return {
+    return ({
       type: chartType[0],
       data: arrayNumbers,
       label: randomDataLabel[Math.floor(Math.random() * randomDataLabel.length
@@ -106,7 +113,26 @@ export class Dataset {
         'rgba(153, 102, 255, 0.2)',
         'rgba(255, 159, 64, 0.2)'
       ]
-    };
+    });
+
+    /*new Chart('canvas', {
+      data: {
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+          label: '# of Votes',
+          data: arrayNumbers,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ]
+        }]
+      }
+    });*/
+
   }
 
 }

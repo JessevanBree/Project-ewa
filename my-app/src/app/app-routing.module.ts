@@ -17,6 +17,7 @@ import {AuthGuardService} from "./services/auth-guard.service";
 import {AuthGuardAdminService} from "./services/auth-guard-admin.service";
 import {EditMetadataPopupComponent} from "./components/edit-metadata-popup/edit-metadata-popup.component";
 import {EditDatasetPopupComponent} from "./components/edit-dataset-popup/edit-dataset-popup.component";
+import {UploadPopUpComponent} from "./components/upload-pop-up/upload-pop-up.component";
 
 const routes: Routes = [
 
@@ -37,6 +38,9 @@ const routes: Routes = [
   {
     path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService],
     children: [{
+      path: 'uploadDataset',
+      component: UploadPopUpComponent
+    }, {
       path: 'editMetaData',
       component: EditMetadataPopupComponent
     },

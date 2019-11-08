@@ -8,8 +8,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <canvas baseChart [chartType]="editingDataset.chartData.type" [datasets]="[editingDataset.chartData]"
+        <div class="modal-body">
+        <canvas baseChart [chartType]="editingDataset.chart.type" [datasets]="[editingDataset.chart]"
                 [labels]="editingDataset.chartLabels"></canvas>
       </div>
       <div class="modal-footer">

@@ -45,8 +45,6 @@ export class DatasetDetailComponent implements OnInit {
             this.listDataset = this.datasetService.getDatasets()[i];
             this.editedDataset = Dataset.trueCopy(this.listDataset);
             console.log(this.editedDataset);
-            this.barChartData = [this.editedDataset.chartData];
-            this.barChartLabels = this.editedDataset.chartLabels;
           }
         }
       });
