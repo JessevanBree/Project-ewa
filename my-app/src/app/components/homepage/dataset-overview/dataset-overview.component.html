@@ -14,7 +14,7 @@
         <option value="2" (click)="onFilterRegion('NAT')">National Level</option>
         <option value="3" (click)="onFilterRegion('URB')">Urban Level</option>
       </select>
-      <select class="custom-select" style="cursor: pointer">
+      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">
         <option selected>Publicity</option>
         <option value="1" (click)="onFilterPublicity('ALL')">All shared</option>
         <option value="2" (click)="onFilterPublicity('EU')">Public shared</option>
