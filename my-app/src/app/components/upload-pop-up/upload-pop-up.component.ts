@@ -7,7 +7,6 @@ import {FbUserService} from "../../services/fb-user.service";
 import {Router} from "@angular/router";
 
 
-
 @Component({
   selector: 'app-upload-pop-up',
   templateUrl: './upload-pop-up.component.html',
@@ -19,7 +18,6 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('csvReader', {static: false})
 
   private detailForm: NgForm;
-
   private csvReader: NgForm;
 
   protected nameInput: string;
@@ -27,7 +25,6 @@ export class UploadPopUpComponent implements OnInit {
   protected publicityInput: string;
   protected regionInput: string;
   protected yearInput: number;
-
 
   private listOfYears: number[];
   private chart;
@@ -48,7 +45,6 @@ export class UploadPopUpComponent implements OnInit {
 
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm) {
-
     // console.log(this.descriptionInput, this.nameInput, this.publicityInput, this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
@@ -57,7 +53,6 @@ export class UploadPopUpComponent implements OnInit {
     this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();
-
   }
 
   //Method to upload
@@ -94,7 +89,6 @@ export class UploadPopUpComponent implements OnInit {
           }
         }
       );
-
     } else {
       alert("Please import valid .csv file.");
       this.fileReset();
@@ -157,5 +151,6 @@ export class UploadPopUpComponent implements OnInit {
     this.chart = chartDatasets;
     this.chartLabels = chartLabels;
   }
+
 
 }
