@@ -7,14 +7,11 @@ i.btn {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .btn.btn-primary:hover:enabled {
   font-weight: 500;
   background: #89bd3c !important;
 }
 
-=======
->>>>>>> Ferran
 body.bg {
   /*background: white !important;*/
   /*background: linear-gradient(to right, #ebebeb, white);*/
