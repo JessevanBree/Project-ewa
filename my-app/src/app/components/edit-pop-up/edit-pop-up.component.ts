@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Dataset, Publicity} from "../../models/dataset";
 import {DatasetService} from "../../services/dataset.service";
+import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 
 
 @Component({
@@ -18,7 +19,7 @@ export class EditPopUpComponent implements OnInit {
   @Input() editingDataset: Dataset;
   @Output() savedDataset = new EventEmitter<Dataset>();
 
-  constructor(private datasetService: DatasetService) { }
+  constructor(private datasetService: FirebaseDatasetService) { }
 
   //This method saves the edited changes of a dataset
   saveChanges(){

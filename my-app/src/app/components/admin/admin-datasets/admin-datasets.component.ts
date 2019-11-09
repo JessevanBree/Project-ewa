@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 //Model
 import { Dataset } from '../../../models/dataset';
-
 //Services
-import {ADatasetService} from '../../../services/a-dataset.service';
-import {DatasetService} from "../../../services/dataset.service";
+import {User} from "../../../models/user";
+import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 
 @Component({
 	selector: 'app-admin-datasets',
@@ -13,17 +12,16 @@ import {DatasetService} from "../../../services/dataset.service";
 	styleUrls: ['./admin-datasets.component.css']
 })
 export class AdminDatasetsComponent implements OnInit {
-	datasets: Dataset[];
+
+	datasets: Dataset[] = [];
 	uploadIsClicked: boolean = false;
 	editIsClicked: boolean = false;
 	selectedDataset: Dataset;
 	private activeIndex;
 
-	constructor(private datasetService: DatasetService) {
-		this.datasets = [] = datasetService.getDatasets();
-	}
-
-	ngOnInit() {
+	constructor(private datasetService: FirebaseDatasetService) {
+		// this.datasets = [] = datasetService.getDatasets();
+    this.datasets = [];
 	}
 
 	//This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -31,7 +29,7 @@ export class AdminDatasetsComponent implements OnInit {
 		this.editIsClicked = false;
 		//Update (save) the dataset in both arrays
 		this.datasets[this.activeIndex] = $event;
-		//this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
+		this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
 		console.log("Dataset has been saved");
 	}
 
@@ -44,5 +42,16 @@ export class AdminDatasetsComponent implements OnInit {
 
 		this.editIsClicked = true;
 	}
+
+	//Deletes a ataset
+  delete(dataset: Dataset){
+    if(confirm("Dataset to be deleted: " + dataset.name)){
+      this.datasetService.remove(dataset);
+    }
+  }
+
+  ngOnInit() {
+    this.datasets = this.datasetService.getMyDatasets();
+  }
 
 }
