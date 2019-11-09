@@ -1,3 +1,7 @@
 .form-row {
   margin-left: 0px;
 }
+
+.form-control-file {
+  cursor: pointer !important;
+}
