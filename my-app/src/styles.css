@@ -17,7 +17,8 @@ body.bg {
   /*background: linear-gradient(to right, #ebebeb, white);*/
   /*background: linear-gradient(to right, #00b09b, #96c93d);*/
   /*background: linear-gradient(to right, #76b852, #8dc26f); */
-  background: linear-gradient(to right, #56ab2f, #92c35d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #11998e, #38ef7d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /*background: linear-gradient(to right, #56ab2f, #92c35d); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
   /*background: linear-gradient(to right, #f79d00, #64f38c); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
 }
 
@@ -31,10 +32,4 @@ body {
 .btn-primary {
   background: #97CB3B !important;
   border-color: #97CB3B !important;
-  transition: all .5s ease !important;
-}
-
-.btn.btn-primary:hover:enabled {
-  /*font-weight: 500;*/
-  background: #89bd3c !important;
 }

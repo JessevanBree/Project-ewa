@@ -22,13 +22,14 @@ export class AdminUsersComponent implements OnInit {
 	ngOnInit() {
 	}
 
+
 	delete(user: User){
 		if(confirm("Delete user: "+ user.firstName + " " + user.surName)){
 			this.aUserService.deleteUser(user);
 		}
 	}
 
-	edit(user: User){
+	edit(){
 
 	}
 }

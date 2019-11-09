@@ -32,8 +32,10 @@ export class FbUserService {
     let user = firebase.auth().currentUser;
     let newUser;
 
+    console.log("HHAHA: " + user.metadata.creationTime);
     for (let i = 0; i < this.listOfAdmins.length; i++) {
-      if(user.email == this.listOfAdmins[i]){
+      // && user.email != "abdul@hva.nl" is only to demonstrate that no admin users cannot
+      if(user.email == this.listOfAdmins[i] && user.email != "abdul@hva.nl"){
         newUser = new FbUser(user.email, user.metadata.creationTime, true);
         break;
       }else{

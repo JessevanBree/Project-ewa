@@ -2,11 +2,3 @@
 	max-height: 80vh;
 	overflow: auto;
 }
-
-span.row.mx-1.align-middle {
-  margin: 5px 0px;
-}
-
-.datasettekst{
-  margin-bottom:0px;
-}
