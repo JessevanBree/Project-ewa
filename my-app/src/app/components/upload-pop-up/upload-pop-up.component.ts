@@ -137,9 +137,15 @@ export class UploadPopUpComponent implements OnInit {
 
     console.log(chartLabels, chartData);
     let chartDatasets = ({
-      type: 'bar',
+      type: 'pie',
       label: valueLabel,
-      data: chartData
+      data: chartData,
+      options: {
+        legend: {
+          display: false
+        },
+        responsive: false,
+      }
     });
 
     this.chart = chartDatasets;
