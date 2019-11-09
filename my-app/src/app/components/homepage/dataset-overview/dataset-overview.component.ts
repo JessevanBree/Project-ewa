@@ -3,6 +3,7 @@ import {Dataset} from "../../../models/dataset";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
+import {FbSessionService} from "../../../services/session/fb-session.service";
 
 
 @Component({
@@ -23,7 +24,8 @@ export class DatasetOverviewComponent implements OnInit {
   private searchQuery: any;
 
   constructor(private datasetService: FirebaseDatasetService, private router: Router,
-              private activatedRoute: ActivatedRoute, private userService: FbUserService) {
+              private activatedRoute: ActivatedRoute, private userService: FbUserService,
+              private sessionService: FbSessionService) {
     this.datasets = [];
     this.NATdatasets = [];
     this.EUdatasets = [];
@@ -68,7 +70,39 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
-  onFilter(option: string) {
+  onFilterRegion(option: string) {
+    switch (option) {
+      case ("EU"):
+        // console.log("EU filter");
+        this.activeIndex = null;
+        this.EUdatasets = this.datasetService.getEUDatasets();
+        this.NATdatasets = [];
+        this.URBdatasets = [];
+        break;
+      case ("NAT"):
+        // console.log("NAT filter");
+        this.activeIndex = null;
+        this.NATdatasets = this.datasetService.getNATDatasets();
+        this.EUdatasets = [];
+        this.URBdatasets = [];
+        break;
+      case ("URB"):
+        // console.log("URB filter");
+        this.activeIndex = null;
+        this.URBdatasets = this.datasetService.getURBDatasets();
+        this.EUdatasets = [];
+        this.NATdatasets = [];
+        break;
+      case ("ALL"):
+        // console.log("Displays all datasets");
+        this.activeIndex = null;
+        this.URBdatasets = this.datasetService.getURBDatasets();
+        this.NATdatasets = this.datasetService.getNATDatasets();
+        this.EUdatasets = this.datasetService.getEUDatasets();
+    }
+  }
+
+  onFilterPublicity(option: string) {
     switch (option) {
       case ("EU"):
         // console.log("EU filter");
