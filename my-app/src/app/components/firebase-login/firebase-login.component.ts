@@ -20,7 +20,6 @@ export class FirebaseLoginComponent implements OnInit {
 
   constructor(private sessionService: FbSessionService, private route: ActivatedRoute, private router: Router,
               private userService: FbUserService) {
-
   }
 
   onLogin(){
@@ -32,12 +31,10 @@ export class FirebaseLoginComponent implements OnInit {
     console.log(error);
     this.errorMessage = error}
     );
-
-
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => this.returnUrl = params['return'] || '/' )
+    this.route.queryParams.subscribe(params => this.returnUrl = params['return'] || '/' );
   }
 
 }
