@@ -25,3 +25,14 @@ body.bg {
 .page-container {
 	min-height: calc(100vh - 70px);
 }
+
+.crud-btn-group{
+	width: 35%;
+}
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	.crud-btn-group{
+		width: 50%;
+	}
+}

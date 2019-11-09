@@ -1,22 +1,38 @@
 <div class="row">
-	<div class="card w-100">
-		<div class="card-header">
-			Users
-		</div>
-		<ul class="userList list-group list-group-flush">
-			<li class="list-group-item p-1 " *ngFor="let user of users">
-				<span class="row mx-1 align-middle">
-					<p class="col-md-8">{{user.firstName + " " + user.surName}}</p>
-					<span class="btn-group col-md-4 h-75">
-						<button class="btn btn-primary" (click)="edit(user)">
-							<i class="fa fa-edit" aria-hidden="true"></i>
+    <div class="card w-100">
+        <div class="card-header">
+            <div class="row">
+                <p class="pl-3 card-title my-auto">
+                    Users
+                </p>
+                <span class="ml-auto mr-3 btn-group">
+					<button class="btn btn-primary" id="createUserButton" data-target="#createUserModal" (click)="onCreateButtonClick()" data-toggle="modal">
+						<i class="fa fa-plus fa-lg"></i>
+					</button>
+				</span>
+            </div>
+        </div>
+        <ul class="userList list-group list-group-flush">
+            <li class="list-group-item p-2 pl-3" *ngIf="users.length == 0">
+                <span class="row mx-1 align-middle">
+					<p class="my-auto">No users available</p>
+				</span>
+            </li>
+
+            <li class="list-group-item p-2 pl-3" *ngFor="let user of users; index as index">
+                <span class="row mx-1 align-middle">
+					<p class="my-auto">{{user.firstName + " " + user.surName}}</p>
+					<span class="btn-group crud-btn-group ml-auto mr-3">
+						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal" data-target="#editModal">
+							<i class="fa fa-edit fa-lg"></i>
 						</button>
-						<button class="btn btn-danger" (click)="delete(user)">
-							<i class="fa fa-trash" aria-hidden="true"></i>
+						
+						<button class="btn btn-danger" (click)="onDeleteClick(user)">
+							<i class="fa fa-trash fa-lg"></i>
 						</button>
 					</span>
-				</span>
-			</li>
-		</ul>
-	</div>
+                </span>
+            </li>
+        </ul>
+    </div>
 </div>

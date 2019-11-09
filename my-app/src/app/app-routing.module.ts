@@ -22,26 +22,7 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
-    component: AdminPanelComponent,
-    children: [{
-      path: 'edit',
-      component: AdminDetailComponent
-    }]
-  },
-  {
-    path: 'admin',
-    component: AdminPanelComponent,
-    children: [
-      {
-        path: 'edit',
-        component: AdminDetailComponent
-      }
-    ]
-  },
-  {
-    path: '',
-    redirectTo: '/admin',
-    pathMatch: 'full'
+    component: AdminPanelComponent
   },
   { path: 'myuploads', component: MyuploadsComponent },
   { path: 'profile', component: ProfileComponent},
@@ -64,8 +45,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
-
-}
+export class AppRoutingModule {}
 

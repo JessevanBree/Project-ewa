@@ -14,22 +14,38 @@ import { AUserService } from '../../../services/a-user.service';
 })
 export class AdminUsersComponent implements OnInit {
 	users: User[];
+	editIsClicked: boolean = false;
+	createIsClicked: boolean = false;
+	activeIndex: number = null;
+	selectedUser: User = null;
 
 	constructor(private aUserService: AUserService) {
 		this.users = aUserService.getUsers();
 	}
 	
-	ngOnInit() {
+	ngOnInit(): void {
 	}
 
+	onEditClick(originalUserIndex: number): void {
+		this.editIsClicked = true;
+		let copyUser = User.trueCopy(this.aUserService.getUser(originalUserIndex));
+		this.activeIndex = originalUserIndex;
+		this.selectedUser = copyUser;
+	}
+	
+	onCreateButtonClick() {
+		this.createIsClicked = true;
+	}
+	
+	saveRequest($event): void {
+		this.editIsClicked = false;
+		this.users[this.activeIndex] = $event;
+		this.aUserService.updateUser(this.activeIndex, this.users[this.activeIndex]);
+	}
 
-	delete(user: User){
+	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.firstName + " " + user.surName)){
 			this.aUserService.deleteUser(user);
 		} 
-	}
-
-	edit(){
-
 	}
 }

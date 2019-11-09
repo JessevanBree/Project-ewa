@@ -44,5 +44,11 @@ export class AdminDatasetsComponent implements OnInit {
 
 		this.editIsClicked = true;
 	}
+	
+	onDeleteClick(dataset: Dataset){
+		if(confirm("Delete dataset: "+ dataset.name)){
+			this.datasetService.deleteDataset(dataset);
+		} 
+	}
 
 }

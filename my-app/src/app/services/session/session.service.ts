@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
-import {AUserService} from "../a-user.service";
+import { AUserService } from "../a-user.service";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class SessionService {
-  userMail: string;
-  isValid : boolean = false;
+	userMail: string;
+	isAdmin: Boolean;
+	isValid: boolean = false;
 
-  constructor(private userService: AUserService) { }
+	constructor(private userService: AUserService) { }
 
-  signOn(eMail: string, passWord: string){
-    for (let i = 0; i < this.userService.getUsers().length; i++) {
-      if (eMail == this.userService.getUser(i).mail && passWord == this.userService.getUser(i).password) {
-        this.userMail = eMail;
-        return this.isValid = true;
-      }
-    }
-    return this.isValid;
-  }
+	signOn(eMail: string, passWord: string) {
+		for (let i = 0; i < this.userService.getUsers().length; i++) {
+			let user = this.userService.getUser(i);
+			if (eMail == user.mail && passWord == user.password) {
+				this.userMail = eMail;
+				this.isAdmin = user.isAdmin; 
+				return this.isValid = true;
+			}
+		}
+		return this.isValid;
+	}
 
-  SignOff(){
-    this.userMail = null;
-    this.isValid = true;
-  }
+	SignOff() {
+		this.userMail = null;
+		this.isValid = true;
+		this.isAdmin = false;
+	}
 }

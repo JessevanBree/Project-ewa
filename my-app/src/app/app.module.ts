@@ -1,6 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -57,7 +58,8 @@ import { EditOrganisationPopupComponent } from './components/edit-organisation-p
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ChartsModule
+	ChartsModule,
+	FontAwesomeModule
   ],
   providers: [RegionFiltersPipe],
   bootstrap: [AppComponent]

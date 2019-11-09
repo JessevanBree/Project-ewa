@@ -33,4 +33,8 @@ export class User {
 			this.isDeleted === user.isDeleted &&
 			this.dateCreated === user.dateCreated;
 	}
+
+	static trueCopy(user: User): User{
+		return Object.assign(new User(null, null, null, null, null, null), user)
+	}
 }
