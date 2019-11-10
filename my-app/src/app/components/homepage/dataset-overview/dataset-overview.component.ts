@@ -4,8 +4,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
-import {FbUser} from "../../../models/fb-user";
-
 
 @Component({
   selector: 'app-dataset-overview',
@@ -76,28 +74,24 @@ export class DatasetOverviewComponent implements OnInit {
   onFilterRegion(option: string) {
     switch (option) {
       case ("EU"):
-        // console.log("EU filter");
         this.activeIndex = null;
         this.EUdatasets = this.datasetService.getEUDatasets();
         this.NATdatasets = [];
         this.URBdatasets = [];
         break;
       case ("NAT"):
-        // console.log("NAT filter");
         this.activeIndex = null;
         this.NATdatasets = this.datasetService.getNATDatasets();
         this.EUdatasets = [];
         this.URBdatasets = [];
         break;
       case ("URB"):
-        // console.log("URB filter");
         this.activeIndex = null;
         this.URBdatasets = this.datasetService.getURBDatasets();
         this.EUdatasets = [];
         this.NATdatasets = [];
         break;
       case ("ALL"):
-        // console.log("Displays all datasets");
         this.activeIndex = null;
         this.URBdatasets = this.datasetService.getURBDatasets();
         this.NATdatasets = this.datasetService.getNATDatasets();
@@ -105,28 +99,25 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
-  onFilterPublicity(option: string) {
-    // this.copyDatasets = Object.assign([], this.datasets);
-    switch (option) {
+  /**
+   * Filter the datasets per publicity
+   * @param publicityOption the wanted publicity
+   */
+  onFilterPublicity(publicityOption: string) {
+    switch (publicityOption) {
       case ("PUBLIC"):
-        console.log("PUBLIC filter");
         this.activeIndex = null;
         this.copyDatasets = this.datasetService.getPublicDatasets();
         break;
       case ("GROUP"):
-        console.log("GROUP filter");
         this.activeIndex = null;
-        this.copyDatasets = this.datasetService.getDatasets().filter(dataset => {
-          dataset.publicity.toLowerCase().indexOf(option.toLowerCase());
-        });
+        this.copyDatasets = this.datasetService.getGroupDatasets();
         break;
       case ("PRIVATE"):
-        console.log("PRIVATE filter");
         this.activeIndex = null;
         this.copyDatasets = this.datasetService.getMyDatasets();
         break;
       case ("ALL"):
-        console.log("Displays all datasets");
         this.activeIndex = null;
         this.copyDatasets = this.datasets;
         break;
@@ -135,6 +126,35 @@ export class DatasetOverviewComponent implements OnInit {
         this.copyDatasets = this.datasets;
     }
   }
+
+  /**
+   * Filter the datasets per publicity
+   * @param publicityOption the wanted publicity
+   */
+  // !! alleen gebruiken als je geen copyDatasets gaat gebruiken -NOG NIET AF
+  // onFilterPublicity(publicityOption: string) {
+  //   switch (publicityOption) {
+  //     case ("PUBLIC"):
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getPublicDatasets();
+  //       break;
+  //     case ("GROUP"):
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getGroupDatasets();
+  //       break;
+  //     case ("PRIVATE"):
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getMyDatasets();
+  //       break;
+  //     case ("ALL"):
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getEUDatasets();
+  //       break;
+  //     default :
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getEUDatasets();
+  //   }
+  // }
 
   onSearch() {
     console.log("Search button clicked!");
@@ -148,21 +168,35 @@ export class DatasetOverviewComponent implements OnInit {
     this.datasets = this.datasetService.getDatasets();
 
     setTimeout(() => {
-      this.datasets.push(new Dataset(1, "Private Dataset", "URB", "Private",
-        new FbUser("appie@hva.nl", "", true, "Im1mVR5U0MVlkJpMn8S2gH141ln2"),
-        2000, null, null));
-
-      this.datasets.forEach(dataset => console.log(dataset.id + "\t" + dataset.region)
-      );
       this.copyDatasets = Object.assign([], this.datasets);
     }, 600);
     setTimeout(() => {
-
       this.EUdatasets = this.datasetService.getEUDatasets();
       this.NATdatasets = this.datasetService.getNATDatasets();
       this.URBdatasets = this.datasetService.getURBDatasets();
       console.log(this.NATdatasets);
     }, 500)
-
   }
+
+  // ngOnInit() {
+  //   this.EUdatasets = this.datasetService.getEUDatasets();
+  //   this.NATdatasets = this.datasetService.getNATDatasets();
+  //   this.URBdatasets = this.datasetService.getURBDatasets();
+  //   setTimeout(() => {
+  //     this.datasets.push(new Dataset(1, "Private Dataset", "URB", "Private",
+  //       new FbUser("appie@hva.nl", "", true, "Im1mVR5U0MVlkJpMn8S2gH141ln2"),
+  //       2000, null, null));
+  //     // this.datasets = this.datasetService.getDatasets();
+  //     this.EUdatasets.forEach(dataset => {
+  //       this.datasets.push(dataset);
+  //     });
+  //     this.NATdatasets.forEach(dataset => {
+  //       this.datasets.push(dataset);
+  //     });
+  //     this.URBdatasets.forEach(dataset => {
+  //       this.datasets.push(dataset);
+  //     });
+  //     this.copyDatasets = Object.assign([], this.datasets);
+  //   }, 500);
+  // }
 }

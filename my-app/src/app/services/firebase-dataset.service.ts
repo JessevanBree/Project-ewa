@@ -92,6 +92,12 @@ export class FirebaseDatasetService {
     );
   }
 
+  getGroupDatasets() :Dataset[]{
+    return this.getDatasets().filter(dataset => {
+      dataset.publicity.includes("Group");
+    })
+  }
+
   getEUDatasets() {
     return this.getPublicDatasets().filter(dataset =>
       dataset.region.includes("European")
