@@ -47,7 +47,7 @@ export class FirebaseDatasetService {
     return true;
   }
 
-  add(dataset: Dataset): boolean{
+  add(dataset: Dataset): boolean {
     this.datasets.push(dataset);
     this.saveAllDatasets();
     return true;
@@ -67,7 +67,7 @@ export class FirebaseDatasetService {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
     return this.httpClient.get<Dataset[]>(this.DB_DATASETS).subscribe(
       (data: Dataset[]) => {
-        if(data != null){
+        if (data != null) {
           data.map((o) => {
             o ? this.datasets.push(o) : []
           });
@@ -81,13 +81,14 @@ export class FirebaseDatasetService {
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
-      dataset.user.userId == user.userId
+      // dataset.user.userId == user.userId
+      dataset.publicity === "Private" && dataset.user.userId == user.userId
     )
   }
 
   getPublicDatasets() {
     return this.getDatasets().filter(dataset =>
-       dataset.publicity.includes("Public")
+      dataset.publicity.includes("Public")
     );
   }
 
@@ -99,13 +100,13 @@ export class FirebaseDatasetService {
 
   getNATDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-        dataset.region.includes("National")
+      dataset.region.includes("National")
     );
   }
 
   getURBDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-       dataset.region.includes("Urban")
+      dataset.region.includes("Urban")
     );
   }
 

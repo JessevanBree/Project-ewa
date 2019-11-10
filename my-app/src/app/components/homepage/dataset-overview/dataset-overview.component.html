@@ -6,7 +6,7 @@
       <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery">
     </div>
     <div class="btn-group ml-0 float-left">
-<!--      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>-->
+      <!--      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>-->
 
       <select class="custom-select" style="cursor: pointer">
         <option selected (click)="onFilterRegion('ALL')">All regions</option>
@@ -14,18 +14,19 @@
         <option value="2" (click)="onFilterRegion('NAT')">National Level</option>
         <option value="3" (click)="onFilterRegion('URB')">Urban Level</option>
       </select>
-      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">
-        <option selected>Publicity</option>
+      <!--      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">-->
+      <select class="custom-select" style="cursor: pointer">
+        <option selected (click)="onFilterPublicity('')">Publicity</option>
         <option value="1" (click)="onFilterPublicity('ALL')">All shared</option>
-        <option value="2" (click)="onFilterPublicity('EU')">Public shared</option>
-        <option value="3" (click)="onFilterPublicity('NAT')">Group shared</option>
-        <option value="4" (click)="onFilterPublicity('URB')">Private shared</option>
+        <option value="2" (click)="onFilterPublicity('PUBLIC')">Public shared</option>
+        <option value="3" (click)="onFilterPublicity('GROUP')">Group shared</option>
+        <option value="4" (click)="onFilterPublicity('PRIVATE')">Private shared</option>
       </select>
-<!--      <div class="dropdown-menu dropdown-menu-right">-->
-<!--        <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>-->
-<!--        <a class="dropdown-item" (click)="onFilter('NAT')">National Level</a>-->
-<!--        <a class="dropdown-item" (click)="onFilter('URB')">Urban Level</a>-->
-<!--      </div>-->
+      <!--      <div class="dropdown-menu dropdown-menu-right">-->
+      <!--        <a class="dropdown-item" (click)="onFilter('EU')">European Level</a>-->
+      <!--        <a class="dropdown-item" (click)="onFilter('NAT')">National Level</a>-->
+      <!--        <a class="dropdown-item" (click)="onFilter('URB')">Urban Level</a>-->
+      <!--      </div>-->
     </div>
 
   </div>
@@ -50,6 +51,22 @@
         <td>{{dataset.name}}</td>
       </tr>
       <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"
+          (click)="onSelection(index, dataset)">
+        <td>{{dataset.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="overflow-auto custom-table-fixed small-screen col-sm-11 col-md-8 col-lg-4 ml-3 p-0"
+       style="max-height: 400px;">
+    <table class="table table-bordered m-0 text-center5 text-center">
+      <thead class="tablehead table-borderless">
+      <tr>
+        <th>Datasets</th>
+      </tr>
+      </thead>
+      <tbody class="table-light">
+      <tr *ngFor="let dataset of copyDatasets | searchDatasets: searchQuery; let index = index;"
           (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
