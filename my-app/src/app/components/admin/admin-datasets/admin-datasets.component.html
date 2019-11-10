@@ -1,6 +1,4 @@
-<app-edit-pop-up *ngIf="editIsClicked" (savedDataset)="saveRequest($event)" [editingDataset]="selectedDataset">
-</app-edit-pop-up>
-<!-- Open the Edit pop-up when an edit button is clicked -->
+<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
 
 <div class="row">
     <div class="card w-100">

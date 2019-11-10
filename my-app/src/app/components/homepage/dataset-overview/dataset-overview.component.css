@@ -4,15 +4,66 @@ td {
   /*border-bottom: 1px solid;*/
 }
 
-tr{
+tr {
   border: 1px solid;
 }
 
-tbody tr th{
+tbody tr th {
   border: 1px solid;
+}
+
+th {
+  font-size: 19px;
 }
 
 td:hover {
   transition: .35s ease-in-out;
   background: lightgray;
+}
+
+@media (max-width: 991.98px) {
+  .small-screen {
+    margin: auto !important;
+  }
+}
+
+.tablehead {
+  /*background: linear-gradient(to right, #dce35b, #45b649); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  background: linear-gradient(to right, #8e9eab, #eef2f3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.form-control {
+  border: 3px solid grey;
+  transition: all 2s ease;
+
+  /*transition: border-color 2s ease-in-out;*/
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border: 3px solid black;
+  border-radius: 100px 100px 100px 100px;
+
+  /*border-image-source: linear-gradient(45deg, #83b63b, rgb(250,224,66));*/
+  /*border-image-slice: 3;*/
+  /*transition: border-radius 5s;*/
+  /*transition: all 4s;*/
+  /*transition-delay: 3s;*/
+  /*animation-delay: 1s;*/
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
 }

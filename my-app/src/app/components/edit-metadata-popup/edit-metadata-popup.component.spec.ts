@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalTestComponent } from './modal-test.component';
+import { EditMetadataPopupComponent } from './edit-metadata-popup.component';
 
-describe('ModalTestComponent', () => {
-  let component: ModalTestComponent;
-  let fixture: ComponentFixture<ModalTestComponent>;
+describe('EditMetadataPopupComponent', () => {
+  let component: EditMetadataPopupComponent;
+  let fixture: ComponentFixture<EditMetadataPopupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalTestComponent ]
+      declarations: [ EditMetadataPopupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalTestComponent);
+    fixture = TestBed.createComponent(EditMetadataPopupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

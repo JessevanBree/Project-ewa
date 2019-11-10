@@ -10,16 +10,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()" novalidate>
+        <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+              novalidate>
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input
-              required minlength="8"
+              required minlength="5"
               type="text"
               class="form-control"
               id="titleInput"
               name="titleInput"
               placeholder="Title"
+              [(ngModel)]="nameInput"
               ngModel>
           </div>
           <div class="form-group">
@@ -28,19 +30,19 @@
               class="form-control"
               id="descriptionInput"
               name="descriptionInput"
+              [(ngModel)]="descriptionInput"
               placeholder='E.g. There are many households which produce their own electricity'
               ngModel></textarea>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="uploadModalControlFile1">Choose dataset file</label>
-              <input
-                type="file"
-                class="form-control-file pt-2"
-                id="uploadModalControlFile1"
-                name="fileInput"
-                ngModel
-                required>
+              <input type="file" class="form-control-file pt-2"
+                     (change)="uploadListener($event.target.files)"
+                     id="uploadModalControlFile1" name="fileInput"
+                     accept=".csv"
+                     #csvReader
+                     ngModel required>
             </div>
             <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>
@@ -48,18 +50,47 @@
                 id="publicityInput"
                 class="form-control"
                 name="publicityInput"
+                [(ngModel)]="publicityInput"
                 ngModel
                 required>
-                <option selected>Private</option>
+                <option>Private</option>
                 <option>Group</option>
                 <option>Public</option>
               </select>
             </div>
           </div>
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="yearOptions">Year</label>
+              <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
+                <option [ngValue]="year" *ngFor="let year of listOfYears"
+                        name="yearOption">{{year}}</option>
+              </select>
+            </div>
+            <div class="form-group col-md-9" id="regionOptions" >
+              <label for="regionOptions">Regional levels *</label>
+              <div class="form-group col-md-12">
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban" name="regionOptions"
+                         id="urbanLevel">
+                  <label class="form-check-label" for="urbanLevel">Urban</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European" name="regionOptions"
+                         id="europeanLevel">
+                  <label class="form-check-label" for="europeanLevel">European</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National" name="regionOptions"
+                         id="nationalLevel">
+                  <label class="form-check-label" for="nationalLevel">National</label>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-<!--            <button type="file" class="btn btn-primary" [disabled]="formElement.invalid" (change)="changeListener($event.target.files)">Upload</button>-->
-            <input type="file" class="btn btn-primary" [disabled]="formElement.invalid" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
+            <button type="button" class="btn btn-secondary"  data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" type="submit" [disabled]="formElement.invalid">Upload</button>
           </div>
         </form>
       </div>

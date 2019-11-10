@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {SessionService} from "../../services/session/session.service";
-import {AUserService} from "../../services/a-user.service";
+import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
+import {FbSessionService} from "../../services/session/fb-session.service";
 
 @Component({
   selector: 'app-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   users: User[];
   private index;
 
-  constructor(private sessionService: SessionService) {
+  constructor(private sessionService: FbSessionService) {
 
     //Todo: zorgen dat voornaam, achternaam en organisatie van ingelogde persoon te zien zijn.
 

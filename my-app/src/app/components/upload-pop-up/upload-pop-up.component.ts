@@ -1,10 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Organisation} from '../../models/organisation';
-import {AOrganisationService} from '../../services/a-organisation.service';
-import {DatasetService} from '../../services/dataset.service';
+import {Papa} from "ngx-papaparse";
+import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
+import {Dataset, Publicity} from "../../models/dataset";
+import {FbUserService} from "../../services/fb-user.service";
+import {Router} from "@angular/router";
 
-// declare var jQuery:any;
 
 @Component({
   selector: 'app-upload-pop-up',
@@ -14,116 +15,142 @@ import {DatasetService} from '../../services/dataset.service';
 export class UploadPopUpComponent implements OnInit {
 
   @ViewChild('formElement', {static: false})
+  @ViewChild('csvReader', {static: false})
+
   private detailForm: NgForm;
-  private records: any[];
+  private csvReader: NgForm;
 
-  constructor(private datasetService: DatasetService, private aOrganisationService: AOrganisationService) { }
+  protected nameInput: string;
+  protected descriptionInput: string;
+  protected publicityInput: string;
+  protected regionInput: string;
+  protected yearInput: number;
 
+  private listOfYears: number[];
+  private chart;
+  private chartLabels: string[];
+  private dataset: Dataset;
+
+  constructor(private datasetService: FirebaseDatasetService, private papa: Papa,
+              private userService: FbUserService, private router: Router) {
+    this.listOfYears = [];
+    for (let i = 1980; i < 2020; i++) {
+      this.listOfYears.push(i);
+    }
+
+  }
 
   ngOnInit() {
   }
 
-
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm){
-    //let user: User = this.datasetService.genRandomUser();
-    let org: Organisation = this.aOrganisationService.genRandomOrganisation();
+  onSubmit(form: NgForm) {
+    // console.log(this.descriptionInput, this.nameInput, this.publicityInput, this.regionInput, this.yearInput);
+    let uploadingUser = this.userService.getLoggedInUser();
+    let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
+      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
+    this.datasetService.getDatasets().push(createdDataset);
+    this.router.navigate(['myuploads', uploadingUser.email]);
 
-    //let newDataset = new Dataset(form.value.name, form.value.description, form.value.publicityInput, user, org);
-    //console.log(newDataset);
-
-    //Add new dataset to the service
-    //this.datasetService.getDatasets().push(newDataset);
-
-    // jQuery('#uploadModal').modal('hide');
-    form.resetForm();
+    // form.resetForm();
   }
 
-  // public changeListener(files: FileList){
-  //   console.log("Change listener is aangeroepen");
-  //   console.log(files);
-  //   if(files && files.length > 0) {
-  //     let file : File = files.item(0);
-  //     console.log(file.name);
-  //     console.log(file.size);
-  //     console.log(file.type);
-  //     let reader: FileReader = new FileReader();
-  //     reader.readAsText(file);
-  //     reader.onload = (e) => {
-  //       let csv: string = reader.result as string;
-  //       console.log(csv);
-  //     }
-  //   }
-  // }
-
-
   //Method to upload
-  uploadListener($event: any): void {
-    let text = [];
-    // let files = $event.srcElement.files;
-    let files = $event.target.files;
+  uploadListener(files: FileList): void {
+    let arrayOfNumber = [];
+    let arrayOfStrings = [];
+    let arrayOfObjects = [];
 
-    if (this.isValidCSVFile(files[0])) {
-      let input = $event.target;
-      let reader = new FileReader();
-      reader.readAsText(input.files[0]);
+    if (this.isValidCSVFile(files)) {
 
-      reader.onload = () => {
-        let csvData = reader.result;
-        let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);
 
-        let headersRow = this.getHeaderArray(csvRecordsArray);
+      let file = files.item(0);
+      this.papa.parse(file, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+          complete: (results) => {
+            let object = results.data;
+            console.log(object[0]);
 
-        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);
-      };
-
-      reader.onerror = function () {
-        console.log('error is occured while reading file!');
-      };
-
+            for (let i = 0; i < object.length; i++) {
+              arrayOfObjects.push(object[i]);
+              Object.keys(object[i]).forEach(key => {
+                let value = object[i][key];
+                // console.log(value);
+                if (typeof value === "string") {
+                  arrayOfStrings.push(value);
+                } else if (typeof value === "number") {
+                  arrayOfNumber.push(value);
+                }
+              })
+            }
+            return this.convertCSVToChartData(arrayOfObjects);
+          }
+        }
+      );
     } else {
       alert("Please import valid .csv file.");
       this.fileReset();
     }
   }
 
-  getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {
-    let csvArr = [];
-
-    for (let i = 1; i < csvRecordsArray.length; i++) {
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
-      if (curruntRecord.length == headerLength) {
-        // let csvRecord: CSVRecord = new CSVRecord();
-        // csvRecord.id = curruntRecord[0].trim();
-        // csvRecord.firstName = curruntRecord[1].trim();
-        // csvRecord.lastName = curruntRecord[2].trim();
-        // csvRecord.age = curruntRecord[3].trim();
-        // csvRecord.position = curruntRecord[4].trim();
-        // csvRecord.mobile = curruntRecord[5].trim();
-        // csvArr.push(csvRecord);
-      }
-    }
-    return csvArr;
-  }
-
-  getHeaderArray(csvRecordsArr: any) {
-    let headers = (<string>csvRecordsArr[0]).split(',');
-    let headerArray = [];
-    for (let j = 0; j < headers.length; j++) {
-      headerArray.push(headers[j]);
-    }
-    return headerArray;
-  }
-
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(file: any) {
-    return file.name.endsWith(".csv");
+  isValidCSVFile(files: FileList) {
+    return files.item(0).name.endsWith(".csv");
   }
+
 
   //Reset file
   fileReset() {
-    // this.csvReader.nativeElement.value = "";
-    this.records = [];
+    // this.csvReader.form.reset();
+    this.detailForm.controls['fileInput'].reset();
   }
+
+
+  convertCSVToChartData(objectsArray: any[]): void {
+    let valueLabel = [];
+    let chartData = [];
+    let chartLabels = [];
+    let headers = Object.keys(objectsArray[0]);
+    for (let i = 1; i < headers.length; i++) {
+      valueLabel.push(headers[i]);
+    }
+    console.log(valueLabel);
+    //Retrieves the first header and the records below to define the chartlabels
+    for (let i = 0; i < objectsArray.length; i++) {
+      let definingHeader = headers[0];
+      // console.log(objectsArray[i][definingHeader]);
+      chartLabels.push(objectsArray[i][definingHeader]);
+    }
+
+    //Gets the values which are used to define a csv record example:  '# of votes'
+    for (let i = 0; i < objectsArray.length; i++) {
+      let object = objectsArray[i];
+      console.log(object);
+      for (let j = 0; j < valueLabel.length; j++) {
+        console.log(object[valueLabel[j]]);
+        let valueRecord = object[valueLabel[j]];
+        chartData.push(valueRecord);
+      }
+    }
+
+    console.log(chartLabels, chartData);
+    let chartDatasets = ({
+      type: 'pie',
+      label: valueLabel,
+      data: chartData,
+      options: {
+        legend: {
+          display: false
+        },
+        responsive: false,
+      }
+    });
+
+    this.chart = chartDatasets;
+    this.chartLabels = chartLabels;
+  }
+
 
 }
