@@ -6,7 +6,6 @@ import {UserService} from "../user.service";
 })
 export class SessionService {
 	userMail: string;
-	isAdmin: Boolean;
 	isValid: boolean = false;
 
   constructor(private userService: UserService) { }
@@ -16,7 +15,6 @@ export class SessionService {
 			let user = this.userService.getUser(i);
 			if (eMail == user.mail && passWord == user.password) {
 				this.userMail = eMail;
-				this.isAdmin = user.isAdmin; 
 				return this.isValid = true;
 			}
 		}
@@ -26,6 +24,5 @@ export class SessionService {
 	SignOff() {
 		this.userMail = null;
 		this.isValid = true;
-		this.isAdmin = false;
 	}
 }

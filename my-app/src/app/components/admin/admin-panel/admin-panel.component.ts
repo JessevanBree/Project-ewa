@@ -14,9 +14,7 @@ export class AdminPanelComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if(!this.sessionService.isAdmin){
-			this.router.navigate(["/"])
-		}
+
 	}
 
 }
