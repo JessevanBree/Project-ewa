@@ -9,12 +9,12 @@
 .nav-link {
   font-size: 19px;
   font-weight: 400;
-  color: white !important;
+  color: black !important;
   transition: .3s color ease !important;
 }
 
 .nav-link:hover {
-  color: black !important;
+  color: Gray !important;
 }
 
 .navbar-brand img {
@@ -23,8 +23,9 @@
 }
 
 nav.navbar {
-  background-color: transparent;
-  /*border-bottom: 4px solid #97CB3B;*/
+  background-color: white;
+  border-bottom: 4px solid #97CB3B;
+  margin-bottom: 15px;
 }
 
 .navbar-logo:hover{
@@ -32,18 +33,18 @@ nav.navbar {
 }
 
 .active {
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid black;
   font-weight: 600;
-  color: white !important;
+  color: black !important;
 }
 
 .active:hover{
   font-weight: 600;
-  color: white !important;
+  color: gray !important;
 }
 
 .right-nav-button {
-  color: white;
+  /* color: white;
   border: 3px solid black;
   border-radius: 5px;
   background-color: #00a6a6;
@@ -52,10 +53,10 @@ nav.navbar {
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
-  transition-duration: .4s;
+  transition-duration: .4s; */
 }
 
 .right-nav-button:hover {
-  background: darkcyan !important;
+  /* background: darkcyan !important; */
 }
 
