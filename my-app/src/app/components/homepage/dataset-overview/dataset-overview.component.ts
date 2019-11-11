@@ -105,19 +105,23 @@ export class DatasetOverviewComponent implements OnInit {
    */
   onFilterPublicity(publicityOption: string) {
     switch (publicityOption) {
-      case ("PUBLIC"):
+      case ("Public"):
         this.activeIndex = null;
         this.copyDatasets = this.datasetService.getPublicDatasets();
         break;
-      case ("GROUP"):
+      case ("Group"):
         this.activeIndex = null;
-        this.copyDatasets = this.datasetService.getGroupDatasets();
+        // this.copyDatasets = this.datasetService.getGroupDatasets();
+        this.copyDatasets = this.datasetService.getDatasets().filter(dataset => {
+          return dataset.publicity.toLowerCase().trim().includes("Group".toLowerCase().trim());
+        });
+        console.log("Copy GROUP:" + this.copyDatasets);
         break;
-      case ("PRIVATE"):
+      case ("Private"):
         this.activeIndex = null;
         this.copyDatasets = this.datasetService.getMyDatasets();
         break;
-      case ("ALL"):
+      case ("All"):
         this.activeIndex = null;
         this.copyDatasets = this.datasets;
         break;
@@ -168,6 +172,7 @@ export class DatasetOverviewComponent implements OnInit {
     this.datasets = this.datasetService.getDatasets();
 
     setTimeout(() => {
+      console.log(this.datasets);
       this.copyDatasets = Object.assign([], this.datasets);
     }, 600);
     setTimeout(() => {

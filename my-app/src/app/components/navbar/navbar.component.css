@@ -64,7 +64,7 @@ nav.navbar {
   font-family: FontAwesome;
   content: "\f090";
   display: inline-block;
-  padding-right: 3px;
+  padding-right: 6px;
   vertical-align: middle;
   font-weight: 900;
 }
@@ -73,7 +73,7 @@ nav.navbar {
   font-family: FontAwesome;
   content: "\f08b";
   display: inline-block;
-  padding-right: 3px;
+  padding-right: 6px;
   vertical-align: middle;
   font-weight: 900;
 }

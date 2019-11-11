@@ -82,7 +82,7 @@ export class FirebaseDatasetService {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
       // dataset.user.userId == user.userId
-      dataset.publicity === "Private" && dataset.user.userId == user.userId
+      dataset.publicity.toLowerCase().trim().includes("Private".toLowerCase()) && dataset.user.userId == user.userId
     )
   }
 
@@ -94,7 +94,7 @@ export class FirebaseDatasetService {
 
   getGroupDatasets() :Dataset[]{
     return this.getDatasets().filter(dataset => {
-      dataset.publicity.includes("Group");
+      return dataset.publicity.toLowerCase().trim().includes("Group".toLowerCase());
     })
   }
 
