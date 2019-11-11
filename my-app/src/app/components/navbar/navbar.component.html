@@ -38,14 +38,14 @@
 					<a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
 				</li>
 				<li class="nav-item" *ngIf="!this.sessionService.displayName">
-					<a class="right-nav-button text-dark nav-link" routerLinkActive="active" routerLink="/firebase-login"><i class="fa fa-sign-in mr-1"></i>Log In</a>
+					<a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/firebase-login">Log In</a>
 				</li>
 				<li class="nav-item" *ngIf="this.sessionService.displayName">
 					<!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
 						routerLink="/login">Log
 						Out</a>-->
-          <a (click)="sessionService.signOff()" class="nav-link border-1" routerLinkActive="active"
-             routerLink="/firebase-login"><i class="fa fa-sign-out mr-1"></i>Log
+          <a (click)="sessionService.signOff()" class="nav-link sign-out border-1" routerLinkActive="active"
+             routerLink="/firebase-login">Log
             Out</a>
 				</li>
 				<li class="nav-item" *ngIf="this.sessionService.displayName">
