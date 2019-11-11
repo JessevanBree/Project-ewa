@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -17,6 +18,13 @@ export class DatasetOverviewComponent implements OnInit {
 
   // if subscribing wants to be done in the view component
   private datasets$: Observable<Dataset[]>;
+
+  // private filters: {} = {regionSearch: null, publicitySearch: null};
+  @ViewChild('formElement', {static: false})
+  private detailForm: NgForm;
+
+  private regionSearch: string = "";
+  private publicitySearch: string = "";
 
   private EUdatasets: Dataset[];
   private NATdatasets: Dataset[];
@@ -75,14 +83,49 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
-  onFilterRegion(option: string) {
-    switch (option) {
+  // onFilterRegion(option: string) {
+  //   switch (option) {
+  //     case ("EU"):
+  //       this.activeIndex = null;
+  //       this.EUdatasets = this.datasetService.getEUDatasets();
+  //       this.NATdatasets = [];
+  //       this.URBdatasets = [];
+  //       break;
+  //     case ("NAT"):
+  //       this.activeIndex = null;
+  //       this.NATdatasets = this.datasetService.getNATDatasets();
+  //       this.EUdatasets = [];
+  //       this.URBdatasets = [];
+  //       break;
+  //     case ("URB"):
+  //       this.activeIndex = null;
+  //       this.URBdatasets = this.datasetService.getURBDatasets();
+  //       this.EUdatasets = [];
+  //       this.NATdatasets = [];
+  //       break;
+  //     case ("ALL"):
+  //       this.activeIndex = null;
+  //       this.URBdatasets = this.datasetService.getURBDatasets();
+  //       this.NATdatasets = this.datasetService.getNATDatasets();
+  //       this.EUdatasets = this.datasetService.getEUDatasets();
+  //   }
+  // }
+
+  /**
+   * Filter the datasets per region
+   * @param regionOption the wanted region
+   */
+  onFilterRegion(regionOption: string) {
+    switch (regionOption) {
       case ("EU"):
         this.activeIndex = null;
         this.EUdatasets = this.datasetService.getEUDatasets();
         this.NATdatasets = [];
         this.URBdatasets = [];
-        break;
+        this.copyDatasets = this.datasetService.getEUDatasets();
+      // return this.copyDatasets.filter(datasets => {
+      //   datasets.region.trim().toLowerCase().includes(regionOption.trim().toLowerCase());
+      // });
       case ("NAT"):
         this.activeIndex = null;
         this.NATdatasets = this.datasetService.getNATDatasets();
@@ -136,6 +179,42 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
+  onFilter(): void {
+    if ((this.regionSearch !== "" && this.regionSearch !== null) && (this.publicitySearch !== "" && this.publicitySearch !== null)) {
+      this.copyDatasets = this.datasets;
+
+      console.log("Region: " + this.regionSearch + "\tPublicity: " + this.publicitySearch);
+
+      if ((this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") &&
+        this.regionSearch === "All regions") {
+        console.log("IF1");
+        return;
+      } else if (this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") {
+        console.log("IF2");
+        this.copyDatasets = this.copyDatasets.filter(dataset => {
+          return dataset.region.trim().toLowerCase().includes(this.regionSearch.trim().split(' ')[0].toLowerCase());
+        });
+      } else if (this.regionSearch === "All regions") {
+        console.log("IF3");
+        this.copyDatasets = this.copyDatasets.filter(dataset => {
+          return dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
+        });
+      } else {
+        console.log("IF4");
+        this.copyDatasets = this.copyDatasets.filter(dataset => {
+          return dataset.region.trim().toLowerCase().includes(this.regionSearch.trim().split(' ')[0].toLowerCase()) &&
+            dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
+        });
+      }
+      this.copyDatasets.forEach(dataset => {
+        console.log("Dataset name: " + dataset.name + "\nDataset publ: " + dataset.publicity + "\nRegion lvl: " +
+          dataset.region + "\n");
+      });
+    } else {
+      this.copyDatasets = this.datasets;
+    }
+  }
+
   /**
    * Filter the datasets per publicity
    * @param publicityOption the wanted publicity
@@ -173,9 +252,6 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.datasets = null;
-    // this.datasets = this.datasetService.getDatasets();
-
     // subscribing in the view component
     this.datasets$ = this.datasetService.getAllDatasets2();
 
