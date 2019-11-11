@@ -8,31 +8,33 @@
     <div class="btn-group ml-0 float-left">
       <!--      <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">Filter</button>-->
 
-<!--      <select class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="regionSearch">-->
-<!--        <option selected (click)="onFilterRegion('ALL')">All regions</option>-->
-<!--        <option value="1" (click)="onFilterRegion('EU')">European Level</option>-->
-<!--        <option value="2" (click)="onFilterRegion('NAT')">National Level</option>-->
-<!--        <option value="3" (click)="onFilterRegion('URB')">Urban Level</option>-->
-<!--      </select>-->
-<!--      &lt;!&ndash;      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">&ndash;&gt;-->
-<!--      <select class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="this.publicitySearch">-->
-<!--        <option selected (click)="onFilterPublicity('')">Publicity</option>-->
-<!--        <option value="1" (click)="onFilterPublicity('All')">All shared</option>-->
-<!--        <option value="2" (click)="onFilterPublicity('Public')">Public shared</option>-->
+      <!--      <select class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="regionSearch">-->
+      <!--        <option selected (click)="onFilterRegion('ALL')">All regions</option>-->
+      <!--        <option value="1" (click)="onFilterRegion('EU')">European Level</option>-->
+      <!--        <option value="2" (click)="onFilterRegion('NAT')">National Level</option>-->
+      <!--        <option value="3" (click)="onFilterRegion('URB')">Urban Level</option>-->
+      <!--      </select>-->
+      <!--      &lt;!&ndash;      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">&ndash;&gt;-->
+      <!--      <select class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="this.publicitySearch">-->
+      <!--        <option selected (click)="onFilterPublicity('')">Publicity</option>-->
+      <!--        <option value="1" (click)="onFilterPublicity('All')">All shared</option>-->
+      <!--        <option value="2" (click)="onFilterPublicity('Public')">Public shared</option>-->
 
-<!--&lt;!&ndash;        TODO:: Implement a *ngIf after modifying User modal so that only users in a group can see this option&ndash;&gt;-->
+      <!--&lt;!&ndash;        TODO:: Implement a *ngIf after modifying User modal so that only users in a group can see this option&ndash;&gt;-->
 
-<!--        <option value="3" (click)="onFilterPublicity('Group')">Group shared</option>-->
-<!--        <option value="4" (click)="onFilterPublicity('Private')">Private shared</option>-->
-<!--      </select>-->
-      <select name="regionSelectBox" class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="this.regionSearch">
+      <!--        <option value="3" (click)="onFilterPublicity('Group')">Group shared</option>-->
+      <!--        <option value="4" (click)="onFilterPublicity('Private')">Private shared</option>-->
+      <!--      </select>-->
+      <select name="regionSelectBox" class="custom-select" style="cursor: pointer" ngForm
+              [(ngModel)]="this.regionSearch">
         <option value="All regions" selected>All regions</option>
         <option value="European">European Level</option>
         <option value="National">National Level</option>
         <option value="Urban">Urban Level</option>
       </select>
       <!--      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">-->
-      <select name="publicitySelectBox" class="custom-select" style="cursor: pointer" ngForm [(ngModel)]="this.publicitySearch">
+      <select name="publicitySelectBox" class="custom-select" style="cursor: pointer" ngForm
+              [(ngModel)]="this.publicitySearch">
         <option value="Publicity" selected>Publicity</option>
         <option value="All shared">All shared</option>
         <option value="Public">Public shared</option>
@@ -71,22 +73,22 @@
     </table>
   </div>
 
-<!--  <div class="overflow-auto custom-table-fixed small-screen col-sm-11 col-md-8 col-lg-4 ml-3 p-0"-->
-<!--       style="max-height: 400px;">-->
-<!--    <table class="table table-bordered m-0 text-center5 text-center">-->
-<!--      <thead class="tablehead table-borderless">-->
-<!--      <tr>-->
-<!--        <th>Datasets</th>-->
-<!--      </tr>-->
-<!--      </thead>-->
-<!--      <tbody class="table-light">-->
-<!--      <tr *ngFor="let dataset of datasets$ | async; let index = index;"-->
-<!--          (click)="onSelection(index, dataset)">-->
-<!--        <td>{{dataset.name}}</td>-->
-<!--      </tr>-->
-<!--      </tbody>-->
-<!--    </table>-->
-<!--  </div>-->
+  <!--  <div class="overflow-auto custom-table-fixed small-screen col-sm-11 col-md-8 col-lg-4 ml-3 p-0"-->
+  <!--       style="max-height: 400px;">-->
+  <!--    <table class="table table-bordered m-0 text-center5 text-center">-->
+  <!--      <thead class="tablehead table-borderless">-->
+  <!--      <tr>-->
+  <!--        <th>Datasets</th>-->
+  <!--      </tr>-->
+  <!--      </thead>-->
+  <!--      <tbody class="table-light">-->
+  <!--      <tr *ngFor="let dataset of datasets$ | async; let index = index;"-->
+  <!--          (click)="onSelection(index, dataset)">-->
+  <!--        <td>{{dataset.name}}</td>-->
+  <!--      </tr>-->
+  <!--      </tbody>-->
+  <!--    </table>-->
+  <!--  </div>-->
 
   <div class="col">
     <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
