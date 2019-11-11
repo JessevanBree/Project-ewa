@@ -43,8 +43,9 @@ export class DatasetDetailComponent implements OnInit {
         for(let i = 0; i < this.datasetService.getDatasets().length; i++){
           if (this.datasetService.getDatasets()[i].id == id){
             this.listDataset = this.datasetService.getDatasets()[i];
+            // console.log("Edited is: " + this.editedDataset.id);
             this.editedDataset = Dataset.trueCopy(this.listDataset);
-            console.log(this.editedDataset);
+            console.log("Edited is2: " + this.editedDataset.id);
           }
         }
       });
