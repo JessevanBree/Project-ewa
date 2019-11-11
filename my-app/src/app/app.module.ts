@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -65,10 +65,11 @@ import { EditMetadataPopupComponent } from './components/edit-metadata-popup/edi
     AppRoutingModule,
     FormsModule,
     ChartsModule,
-	HttpClientModule,
-	FontAwesomeModule,
+    HttpClientModule,
+    FontAwesomeModule,
     PapaParseModule
   ],
+
   providers: [
     [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
     [RegionFiltersPipe]
