@@ -1,9 +1,9 @@
 <div class="ml-1 mt-2" *ngIf="activeIndex != null">
 
-  <div class="col-sm-12 col-md-12 col-lg-9 col-xl-9 float-left">
+  <div class="col-sm-12 col-md-12 col-lg-7 col-xl-6 float-left">
     <div class="mb-2 w-100">
-      <canvas baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]" [labels]="editedDataset.chartLabels"
-      style="min-height: 300px !important;">
+      <canvas baseChart  [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]" [labels]="editedDataset.chartLabels"
+      width="400" height="400">
       </canvas>
     </div>
   </div>
