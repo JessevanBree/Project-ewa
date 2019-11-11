@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {Dataset} from "../../models/dataset";
-import {ChartDataSets} from "chart.js";
+import {ChartDataSets, ChartOptions} from "chart.js";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
@@ -13,17 +13,20 @@ import * as Chart from "chart.js";
   styleUrls: ['./edit-dataset-popup.component.css']
 })
 export class EditDatasetPopupComponent implements OnInit {
+
   @Output() closingToggle;
   private editingDataset: Dataset;
   private chartOfDataset: Chart;
   private datasets: Dataset[];
   private queryParamSubscription: Subscription;
 
+
   constructor(private activatedRoute: ActivatedRoute, private datasetService: FirebaseDatasetService,
               private router: Router, private sessionService: FbSessionService) {
     this.datasets = datasetService.getMyDatasets();
     this.closingToggle = new EventEmitter<boolean>();
     // this.chartData = [this.selectedDataset.chartData];
+
   }
 
   ngOnInit() {
