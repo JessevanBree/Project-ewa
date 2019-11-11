@@ -114,6 +114,7 @@ export class DatasetOverviewComponent implements OnInit {
         if (data != null) {
           // push each dataset to the dataset array
           data.map((o) => {
+            // if (this.userService.getLoggedInUser()) // check if user is logged in and if it belongs to an organisation
             o ? this.datasets.push(o) : [];
           });
         }
