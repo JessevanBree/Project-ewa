@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
@@ -26,10 +26,6 @@ export class DatasetOverviewComponent implements OnInit {
   private regionSearch: string = "";
   private publicitySearch: string = "";
 
-  private EUdatasets: Dataset[];
-  private NATdatasets: Dataset[];
-  private URBdatasets: Dataset[];
-
   private selectedDataset: Dataset;
   private activeIndex: number;
   private searchQuery: any;
@@ -45,32 +41,12 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   onSelection(index: number, dataset: Dataset) {
-    switch (dataset.region) {
-      case "European":
-        this.activeIndex = index;
-        this.selectedDataset = this.EUdatasets[this.activeIndex];
-        this.router.navigate(['detail'], {
-          relativeTo: this.activatedRoute,
-          queryParams: {id: this.selectedDataset.id}
-        });
-        break;
-      case "National":
-        this.activeIndex = index;
-        this.selectedDataset = this.NATdatasets[this.activeIndex];
-        this.router.navigate(['detail'], {
-          relativeTo: this.activatedRoute,
-          queryParams: {id: this.selectedDataset.id}
-        });
-        break;
-      case "Urban":
-        this.activeIndex = index;
-        this.selectedDataset = this.URBdatasets[this.activeIndex];
-        this.router.navigate(['detail'], {
-          relativeTo: this.activatedRoute,
-          queryParams: {id: this.selectedDataset.id}
-        });
-        break;
-    }
+    this.activeIndex = index;
+    this.selectedDataset = this.copyDatasets[this.activeIndex];
+    this.router.navigate(['detail'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: this.selectedDataset.id}
+    });
   }
 
   /**
@@ -120,6 +96,15 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activatedRoute.queryParams.subscribe(
+      (params: Params) => {
+        console.log("in overview id=" + params['id']);
+        this.activeIndex = params['id'];
+        this.selectedDataset = this.datasets.find(dataset => dataset.id === Number.parseInt(String [params['id']]));
+        console.log("overview Index: " + this.activeIndex);
+      }
+    );
+
     // subscribing in the view component
     this.datasets$ = this.datasetService.getAllDatasets2();
 

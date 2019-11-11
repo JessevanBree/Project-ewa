@@ -91,7 +91,7 @@
   <!--  </div>-->
 
   <div class="col">
-    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
+    <app-dataset-detail *ngIf="activeIndex" [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
 
