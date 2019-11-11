@@ -30,7 +30,6 @@ export class MyuploadsComponent implements OnInit {
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
-
   }
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset

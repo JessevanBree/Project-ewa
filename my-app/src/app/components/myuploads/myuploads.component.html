@@ -1,6 +1,8 @@
-<app-edit-metadata-popup *ngIf="editMetaDataToggle" (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
-<app-upload-pop-up *ngIf="uploadDatasetToggle"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
-<app-edit-dataset-popup (closingToggle)="onCloseReq()" *ngIf="editDatasetToggle" ></app-edit-dataset-popup>
+<app-edit-metadata-popup *ngIf="editMetaDataToggle"
+                         (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
+<app-upload-pop-up
+  *ngIf="uploadDatasetToggle"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
+<app-edit-dataset-popup (closingToggle)="onCloseReq()" *ngIf="editDatasetToggle"></app-edit-dataset-popup>
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-sm-12">
@@ -11,14 +13,25 @@
         <ul class="dataList list-group list-group-flush">
           <li class="list-group-item p-1 " *ngFor="let item of datasets; index as i">
                 <span class="row mx-1 align-middle">
-					<p class="col-lg-8">{{item.name}}</p>
-					<span class="btn-group col-lg-4 h-75">
-            <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
-                    (click)="onEditDatasetClick(i)"></button>
-            <button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
-                    data-target="#editMetaModal" (click)="onEditMetaDataClick(i)"></button>
-						<button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
-					</span>
+          <!-- Check if the logged in user has any uploaded datasets, if not show a message -->
+              <ng-container *ngIf="datasets.length == 0; then thenBlock; else elseBlock"></ng-container>
+
+                  <!-- show this block if the user doesn't have any uploaded datasets -->
+                  <ng-template #thenBlock>
+                      <p> You don't have any uploaded datasets </p>
+                  </ng-template>
+
+                  <!-- show this block if the user does have uploaded datasets -->
+                  <ng-template #elseBlock>
+                    <p class="col-lg-8">{{item.name}}</p>
+					          <span class="btn-group col-lg-4 h-75">
+                      <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
+                        (click)="onEditDatasetClick(i)"></button>
+                      <button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
+                      data-target="#editMetaModal" (click)="onEditMetaDataClick(i)"></button>
+						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
+					          </span>
+                  </ng-template>
 				</span>
           </li>
         </ul>
@@ -26,12 +39,14 @@
     </div>
     <div class="col-md-3 col-sm-12 mt-5">
       <button type="button" id="uploadButton" class="btn btn-primary float-right" data-toggle="modal"
-              data-target="#uploadModal" (click)="onUploadButtonClick()">Upload dataset</button>
+              data-target="#uploadModal" (click)="onUploadButtonClick()">Upload dataset
+      </button>
     </div>
 
     <div class="col-md-3 col-sm-12 mt-5 ">
       <button type="button" id="addDataset" class="btn btn-primary float-right"
-      (click)="onAdd()">Add dataset</button>
+              (click)="onAdd()">Add dataset
+      </button>
     </div>
   </div>
 </div>

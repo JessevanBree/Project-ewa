@@ -14,7 +14,8 @@ export class FbUserService {
   constructor(private httpClient: HttpClient) {
     this.users = [];
     this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
-      "jesse@hva.nl"]
+      "jesse@hva.nl"];
+    this.getAllUsers();
     // Password for admins and test users: testing
   }
 
@@ -56,7 +57,6 @@ export class FbUserService {
       })
     );
   }
-
 
   getUsers(){
     return this.users;
