@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -13,6 +14,9 @@ import {FbSessionService} from "../../../services/session/fb-session.service";
 export class DatasetOverviewComponent implements OnInit {
   private datasets: Dataset[];
   private copyDatasets: Dataset[];
+
+  // if subscribing wants to be done in the view component
+  private datasets$: Observable<Dataset[]>;
 
   private EUdatasets: Dataset[];
   private NATdatasets: Dataset[];
@@ -112,6 +116,7 @@ export class DatasetOverviewComponent implements OnInit {
       case ("Group"):
         this.activeIndex = null;
         // this.copyDatasets = this.datasetService.getGroupDatasets();
+        //TODO:: MAKE USE OF THE GETGROUPDATASETS() METHOD IN THE DATASETSERVICE
         this.copyDatasets = this.datasetService.getDatasets().filter(dataset => {
           return dataset.publicity.toLowerCase().trim().includes("Group".toLowerCase().trim());
         });
@@ -168,13 +173,32 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.datasets = null;
-    this.datasets = this.datasetService.getDatasets();
+    // this.datasets = null;
+    // this.datasets = this.datasetService.getDatasets();
 
-    setTimeout(() => {
-      console.log(this.datasets);
-      this.copyDatasets = Object.assign([], this.datasets);
-    }, 600);
+    // subscribing in the view component
+    this.datasets$ = this.datasetService.getAllDatasets2();
+
+
+    // subscribe to get all the datasets
+    this.datasetService.getAllDatasets2().subscribe(
+      (data: Dataset[]) => {
+        if (data != null) {
+          // push each dataset to the dataset array
+          data.map((o) => {
+            o ? this.datasets.push(o) : [];
+          });
+        }
+      },
+      // log the existing error to the console
+      (error) => (console.log("Error: " + error)),
+      // when 'complete' make a new array which is a
+      // copy of the datasets array with other memory location
+      () => {
+        this.copyDatasets = Object.assign([], this.datasets);
+      }
+    );
+
     setTimeout(() => {
       this.EUdatasets = this.datasetService.getEUDatasets();
       this.NATdatasets = this.datasetService.getNATDatasets();
@@ -182,26 +206,4 @@ export class DatasetOverviewComponent implements OnInit {
       console.log(this.NATdatasets);
     }, 500)
   }
-
-  // ngOnInit() {
-  //   this.EUdatasets = this.datasetService.getEUDatasets();
-  //   this.NATdatasets = this.datasetService.getNATDatasets();
-  //   this.URBdatasets = this.datasetService.getURBDatasets();
-  //   setTimeout(() => {
-  //     this.datasets.push(new Dataset(1, "Private Dataset", "URB", "Private",
-  //       new FbUser("appie@hva.nl", "", true, "Im1mVR5U0MVlkJpMn8S2gH141ln2"),
-  //       2000, null, null));
-  //     // this.datasets = this.datasetService.getDatasets();
-  //     this.EUdatasets.forEach(dataset => {
-  //       this.datasets.push(dataset);
-  //     });
-  //     this.NATdatasets.forEach(dataset => {
-  //       this.datasets.push(dataset);
-  //     });
-  //     this.URBdatasets.forEach(dataset => {
-  //       this.datasets.push(dataset);
-  //     });
-  //     this.copyDatasets = Object.assign([], this.datasets);
-  //   }, 500);
-  // }
 }

@@ -77,6 +77,11 @@ export class FirebaseDatasetService {
     );
   }
 
+  getAllDatasets2() {
+    // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
+  }
+
 
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
