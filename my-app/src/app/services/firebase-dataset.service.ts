@@ -86,9 +86,15 @@ export class FirebaseDatasetService {
 	getMyDatasets() {
 		let user = this.userService.getLoggedInUser();
 		return this.getDatasets().filter(dataset =>
-			dataset.publicity.toLowerCase().trim().includes("Private".toLowerCase()) && dataset.user.userId == user.userId
+			dataset.user.userId == user.userId
 		)
 	}
+
+	getPrivateDatasets() {
+    return this.getDatasets().filter(dataset =>
+      dataset.publicity.includes("Private")
+    );
+  }
 
 	getPublicDatasets() {
 		return this.getDatasets().filter(dataset =>
