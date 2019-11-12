@@ -88,6 +88,7 @@ export class Dataset {
   }*/
 
 
+
   static generateChartDataset(): ChartDataSets{
     let arrayNumbers: number[] = [];
     for(let i = 0; i < 6; i++) {
@@ -132,7 +133,6 @@ export class Dataset {
         }]
       }
     });*/
-
   }
 
 }
