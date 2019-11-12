@@ -120,7 +120,7 @@ export class DatasetOverviewComponent implements OnInit {
         } else if (data != null) {
           // push each dataset to the dataset array
           data.map((o) => {
-            o.publicity === "Public" ? this.datasets.push(o) : [];
+            o && o.publicity.includes("Public") ? this.datasets.push(o) : [];
           });
         }
       },
