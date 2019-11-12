@@ -6,7 +6,6 @@ import {FbUserService} from "../fb-user.service";
   providedIn: 'root'
 })
 export class FbSessionService {
-  public isAdmin: boolean = false;
   public displayName: string;
   token: string;
   public authenticated: boolean;
@@ -25,7 +24,6 @@ export class FbSessionService {
         });
         this.authenticated = true;
         this.displayName = firebase.auth().currentUser.email;
-        // this.isAdmin = this.userService.getLoggedInUser().isAdmin;
         return response;
       }
     )
@@ -33,7 +31,6 @@ export class FbSessionService {
 
   signOff(){
     console.log("Signing out");
-    this.isAdmin = false;
     this.displayName = null;
     this.authenticated = false;
     this.token = null;
