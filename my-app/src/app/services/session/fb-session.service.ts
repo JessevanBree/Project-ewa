@@ -25,7 +25,7 @@ export class FbSessionService {
         });
         this.authenticated = true;
         this.displayName = firebase.auth().currentUser.email;
-        this.isAdmin = this.userService.getLoggedInUser().isAdmin;
+        // this.isAdmin = this.userService.getLoggedInUser().isAdmin;
         return response;
       }
     )

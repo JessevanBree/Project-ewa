@@ -1,8 +1,7 @@
-<app-edit-metadata-popup *ngIf="editMetaDataToggle"
-                         (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
-<app-upload-pop-up
-  *ngIf="uploadDatasetToggle"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
-<app-edit-dataset-popup (closingToggle)="onCloseReq()" *ngIf="editDatasetToggle"></app-edit-dataset-popup>
+<app-edit-metadata-popup *ngIf="editMetaDataToggle" (closingToggle)="onCloseReq()" (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
+<app-upload-pop-up *ngIf="uploadDatasetToggle" (closingToggle)="onCloseReq()" ></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
+<app-edit-dataset-popup *ngIf="editDatasetToggle" (closingToggle)="onCloseReq()"></app-edit-dataset-popup>
+
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-sm-12">

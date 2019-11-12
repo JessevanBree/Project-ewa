@@ -34,7 +34,12 @@ export class FirebaseDatasetService {
   }
 
   updateDataset(index: number, dataset: Dataset): boolean {
-    this.datasets[index] = dataset;
+    for (let i = 0; i < this.datasets.length; i++) {
+      if (dataset.id == this.datasets[i].id) {
+        this.datasets[i] = dataset;
+        break;
+      }
+    }
     this.saveAllDatasets();
     return true;
   }
@@ -47,7 +52,7 @@ export class FirebaseDatasetService {
     return true;
   }
 
-  add(dataset: Dataset): boolean{
+  add(dataset: Dataset): boolean {
     this.datasets.push(dataset);
     this.saveAllDatasets();
     return true;
@@ -67,7 +72,7 @@ export class FirebaseDatasetService {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
     return this.httpClient.get<Dataset[]>(this.DB_DATASETS).subscribe(
       (data: Dataset[]) => {
-        if(data != null){
+        if (data != null) {
           data.map((o) => {
             o ? this.datasets.push(o) : []
           });
@@ -75,6 +80,11 @@ export class FirebaseDatasetService {
         }
       }
     );
+  }
+
+  getAllDatasets2() {
+    // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
   }
 
 
@@ -85,10 +95,23 @@ export class FirebaseDatasetService {
     )
   }
 
+  getPrivateDatasets() {
+    let user = this.userService.getLoggedInUser();
+    return this.getDatasets().filter(dataset =>
+      dataset.publicity.toLowerCase().trim().includes("Private".toLowerCase()) && dataset.user.userId == user.userId
+    )
+  }
+
   getPublicDatasets() {
     return this.getDatasets().filter(dataset =>
-       dataset.publicity.includes("Public")
+      dataset.publicity.includes("Public")
     );
+  }
+
+  getGroupDatasets(): Dataset[] {
+    return this.getDatasets().filter(dataset => {
+      return dataset.publicity.toLowerCase().trim().includes("Group".toLowerCase().trim());
+    })
   }
 
   getEUDatasets() {
@@ -99,13 +122,13 @@ export class FirebaseDatasetService {
 
   getNATDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-        dataset.region.includes("National")
+      dataset.region.includes("National")
     );
   }
 
   getURBDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-       dataset.region.includes("Urban")
+      dataset.region.includes("Urban")
     );
   }
 
