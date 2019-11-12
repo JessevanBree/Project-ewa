@@ -34,7 +34,12 @@ export class FirebaseDatasetService {
   }
 
   updateDataset(index: number, dataset: Dataset): boolean {
-    this.datasets[index] = dataset;
+    for (let i = 0; i < this.datasets.length; i++) {
+      if (dataset.id == this.datasets[i].id) {
+        this.datasets[i] = dataset;
+        break;
+      }
+    }
     this.saveAllDatasets();
     return true;
   }
@@ -86,6 +91,13 @@ export class FirebaseDatasetService {
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
+      dataset.user.userId == user.userId
+    )
+  }
+
+  getPrivateDatasets() {
+    let user = this.userService.getLoggedInUser();
+    return this.getDatasets().filter(dataset =>
       dataset.publicity.toLowerCase().trim().includes("Private".toLowerCase()) && dataset.user.userId == user.userId
     )
   }
@@ -96,7 +108,7 @@ export class FirebaseDatasetService {
     );
   }
 
-  getGroupDatasets() :Dataset[]{
+  getGroupDatasets(): Dataset[] {
     return this.getDatasets().filter(dataset => {
       return dataset.publicity.toLowerCase().trim().includes("Group".toLowerCase().trim());
     })
