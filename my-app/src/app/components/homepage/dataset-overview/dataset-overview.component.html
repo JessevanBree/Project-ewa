@@ -1,6 +1,5 @@
 <div class="row mt-0 ml-0 mr-0">
-  <div
-    class="small-screen col-sm-11 col-md-8 col-lg-5 ml-3 align-content-center align-items-center text-center flex-center">
+  <div class="small-screen col-sm-11 col-md-8 col-lg-5 ml-3 align-content-center align-items-center text-center flex-center">
     <div class="col-5 form-group has-search float-left pr-1">
       <span class="fa fa-search form-control-feedback"></span>
       <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searchQuery">
@@ -25,7 +24,7 @@
       <!--        <option value="3" (click)="onFilterPublicity('Group')">Group shared</option>-->
       <!--        <option value="4" (click)="onFilterPublicity('Private')">Private shared</option>-->
       <!--      </select>-->
-      <select name="regionSelectBox" class="custom-select" style="cursor: pointer" ngForm
+      <select name="regionSelectBox" id="regionDropDown" class="custom-select" style="cursor: pointer" ngForm
               [(ngModel)]="this.regionSearch">
         <option value="All regions" selected>All regions</option>
         <option value="European">European Level</option>
@@ -35,7 +34,6 @@
       <!--      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">-->
       <select name="publicitySelectBox" class="custom-select" style="cursor: pointer" ngForm
               [(ngModel)]="this.publicitySearch">
-        <option value="Publicity" selected>Publicity</option>
         <option value="All shared">All shared</option>
         <option value="Public">Public shared</option>
 
@@ -91,7 +89,7 @@
   <!--  </div>-->
 
   <div class="col">
-    <app-dataset-detail *ngIf="activeIndex" [activeIndex]="activeIndex"></app-dataset-detail>
+    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
 

@@ -34,9 +34,11 @@ export class DatasetOverviewComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private userService: FbUserService,
               private sessionService: FbSessionService) {
     this.datasets = [];
-
     this.activeIndex = null;
     this.searchQuery = '';
+
+    this.regionSearch = "All regions";
+    this.publicitySearch = "All shared";
 
   }
 
@@ -57,8 +59,6 @@ export class DatasetOverviewComponent implements OnInit {
     if ((this.regionSearch !== "" && this.regionSearch !== null) && (this.publicitySearch !== "" && this.publicitySearch !== null)) {
       // reset the copyDatasets to the orgininal complete dataset array
       this.copyDatasets = this.datasets;
-
-      console.log("Region: " + this.regionSearch + "\tPublicity: " + this.publicitySearch);
 
       // if 'no' filters are selected return
       if ((this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") &&
@@ -96,14 +96,14 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activatedRoute.queryParams.subscribe(
+    /*this.activatedRoute.queryParams.subscribe(
       (params: Params) => {
         console.log("in overview id=" + params['id']);
         this.activeIndex = params['id'];
         this.selectedDataset = this.datasets.find(dataset => dataset.id === Number.parseInt(String [params['id']]));
         console.log("overview Index: " + this.activeIndex);
       }
-    );
+    );*/
 
     // subscribing in the view component
     this.datasets$ = this.datasetService.getAllDatasets2();
@@ -111,11 +111,16 @@ export class DatasetOverviewComponent implements OnInit {
     // subscribe to get all the datasets
     this.datasetService.getAllDatasets2().subscribe(
       (data: Dataset[]) => {
-        if (data != null) {
+       if(data != null && this.sessionService.displayName != null || undefined){
+          let userEmail: String = this.sessionService.displayName;
+          data.map((o) => {
+            o.publicity.includes("Public") || o.user.email == userEmail ?
+              this.datasets.push(o) : [];
+          });
+        } else if (data != null) {
           // push each dataset to the dataset array
           data.map((o) => {
-            // if (this.userService.getLoggedInUser()) // check if user is logged in and if it belongs to an organisation
-            o ? this.datasets.push(o) : [];
+            o.publicity === "Public" ? this.datasets.push(o) : [];
           });
         }
       },
