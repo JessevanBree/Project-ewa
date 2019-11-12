@@ -30,7 +30,6 @@ export class MyuploadsComponent implements OnInit {
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
-
   }
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -38,7 +37,7 @@ export class MyuploadsComponent implements OnInit {
     this.editMetaDataToggle = false;
     //Update (save) the dataset in both arrays
     this.datasets[this.activeIndex] = $event;
-    this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
+    this.datasetService.updateDataset(this.activeIndex, this.datasets[this.activeIndex]);
   }
 
   //Check if edit button is clicked to open pop-up
@@ -75,7 +74,7 @@ export class MyuploadsComponent implements OnInit {
   onDelete(datasetIndex: number) {
     if (confirm("Are you sure to delete this dataset?")) {
       let selectedDataset: Dataset;
-      selectedDataset = this.datasetService.getMyDatasets()[datasetIndex];
+      selectedDataset = this.datasets[datasetIndex];
       this.datasetService.remove(selectedDataset);
       this.datasets = this.datasetService.getMyDatasets();
     }

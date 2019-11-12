@@ -72,7 +72,6 @@ export class FirebaseDatasetService {
 					data.map((o) => {
 						o ? this.datasets.push(o) : []
 					});
-					console.log(this.datasets);
 				}
 			}
 		);

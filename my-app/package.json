@@ -34,6 +34,7 @@
     "ng2-charts": "^2.3.0",
     "ngx-bootstrap": "^2.0.5",
     "ngx-papaparse": "^3.0.4",
+    "nodemailer": "^6.3.1",
     "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
@@ -59,5 +60,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.",
+  "main": "karma.conf.js",
+  "author": "",
+  "license": "ISC"
 }
