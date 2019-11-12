@@ -4,7 +4,6 @@ import {DatasetOverviewComponent} from './components/homepage/dataset-overview/d
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
 import {MyuploadsComponent} from './components/myuploads/myuploads.component';
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
-import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 
 // Unkown pages
 import {LoginComponent} from './components/login/login.component';
