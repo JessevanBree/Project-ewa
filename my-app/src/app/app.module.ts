@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -12,7 +12,6 @@ import {PageNotFoundComponent} from './components/page-not-found/page-not-found.
 import {AdminUsersComponent} from './components/admin/admin-users/admin-users.component';
 import {AdminOrganisationsComponent} from './components/admin/admin-organisations/admin-organisations.component';
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
-import {AdminDetailComponent} from './components/admin/admin-detail/admin-detail.component';
 import {EditProfileComponent} from './components/profile/edit-profile/edit-profile.component';
 import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
@@ -43,7 +42,6 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
     AdminUsersComponent,
     AdminOrganisationsComponent,
     AdminDatasetsComponent,
-    AdminDetailComponent,
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,

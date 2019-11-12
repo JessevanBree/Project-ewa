@@ -39,6 +39,14 @@
                 {{Publicity[publicity]}}</option>
             </select>
           </div>
+          <div class="form-group">
+            <label for="regionInput">Region</label>
+            <select [(ngModel)]="editingDataset.region" class="form-control" name="regionInput" id="regionInput" required>
+              <option>European</option>
+              <option>National</option>
+              <option>Urban</option>
+            </select>
+          </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()" [disabled]="formElement.invalid">Save Changes</button>
