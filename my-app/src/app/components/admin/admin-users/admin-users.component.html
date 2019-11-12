@@ -21,7 +21,7 @@
 
             <li class="list-group-item p-2 pl-3" *ngFor="let user of users; index as index">
                 <span class="row mx-1 align-middle">
-					<p class="my-auto">{{user.firstName + " " + user.surName}}</p>
+					<p class="my-auto">{{user.email}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">
 						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal" data-target="#editModal">
 							<i class="fa fa-edit fa-lg"></i>

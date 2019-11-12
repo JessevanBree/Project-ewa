@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Dataset } from '../../../models/dataset';
 
 //Services
-import {ADatasetService} from '../../../services/a-dataset.service';
-import {DatasetService} from "../../../services/dataset.service";
+import { FirebaseDatasetService } from 'src/app/services/firebase-dataset.service';
 
 @Component({
 	selector: 'app-admin-datasets',
@@ -19,7 +18,7 @@ export class AdminDatasetsComponent implements OnInit {
 	selectedDataset: Dataset;
 	private activeIndex;
 
-	constructor(private datasetService: DatasetService) {
+	constructor(private datasetService: FirebaseDatasetService) {
 		this.datasets = [] = datasetService.getDatasets();
 	}
 
