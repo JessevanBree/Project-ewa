@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" #uploadModal id="uploadModal"  tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
+<div class="modal fade" #uploadModal id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
      data-backdrop="false" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -59,6 +59,30 @@
               </select>
             </div>
           </div>
+
+          <div id="headersRow" class="form-row my-4" *ngIf="headers">
+            <div class="form-group">
+              <div class="card mx-5">
+                <div class="card-header">Headers</div>
+                <div class="card-body">
+                  <div class="form-group" id="headerOptions">
+                    <label for="xAxisOptions">X axis</label>
+                    <select [(ngModel)]="xAxisInput" class="form-control my-1" id="xAxisOptions" name="xAxis" required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="xOption">{{i}}. {{header}}</option>
+                    </select>
+                    <label for="yAxisOptions">Y axis</label>
+                    <select [(ngModel)]="yAxisInput" class="form-control my-1" name="yAxis" id="yAxisOptions" required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="yOption">{{i}}. {{header}}</option>
+                    </select>
+                  </div>
+                  <button type="button" class="btn btn-primary float-right" (click)="onConfirm()">Confirm</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="form-row">
             <div class="form-group col-md-3">
               <label for="yearOptions">Year</label>
@@ -67,21 +91,24 @@
                         name="yearOption">{{year}}</option>
               </select>
             </div>
-            <div class="form-group col-md-9" id="regionOptions" >
+            <div class="form-group col-md-9" id="regionOptions">
               <label for="regionOptions">Regional levels *</label>
               <div class="form-group col-md-12">
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban" name="regionOptions"
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
+                         name="regionOptions"
                          id="urbanLevel">
                   <label class="form-check-label" for="urbanLevel">Urban</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European" name="regionOptions"
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European"
+                         name="regionOptions"
                          id="europeanLevel">
                   <label class="form-check-label" for="europeanLevel">European</label>
                 </div>
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National" name="regionOptions"
+                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National"
+                         name="regionOptions"
                          id="nationalLevel">
                   <label class="form-check-label" for="nationalLevel">National</label>
                 </div>
