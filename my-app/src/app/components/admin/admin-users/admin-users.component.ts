@@ -6,6 +6,8 @@ import { User } from 'src/app/models/user';
 
 //Services
 import { UserService } from '../../../services/user.service';
+import { FbUser } from 'src/app/models/fb-user';
+import { FbUserService } from 'src/app/services/fb-user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -13,13 +15,13 @@ import { UserService } from '../../../services/user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: User[];
+	users: FbUser[];
 	editIsClicked: boolean = false;
 	createIsClicked: boolean = false;
 	activeIndex: number = null;
-	selectedUser: User = null;
+	selectedUser: FbUser = null;
 
-	constructor(private aUserService: UserService) {
+	constructor(private aUserService: FbUserService) {
 		this.users = aUserService.getUsers();
 	}
 
@@ -28,7 +30,7 @@ export class AdminUsersComponent implements OnInit {
 
 	onEditClick(originalUserIndex: number): void {
 		this.editIsClicked = true;
-		let copyUser = User.trueCopy(this.aUserService.getUser(originalUserIndex));
+		let copyUser = this.aUserService.getUsers()[originalUserIndex];
 		this.activeIndex = originalUserIndex;
 		this.selectedUser = copyUser;
 	}
@@ -40,12 +42,12 @@ export class AdminUsersComponent implements OnInit {
 	saveRequest($event): void {
 		this.editIsClicked = false;
 		this.users[this.activeIndex] = $event;
-		this.aUserService.updateUser(this.activeIndex, this.users[this.activeIndex]);
+		this.aUserService.saveAllUsers();
 	}
 
-	onDeleteClick(user: User){
-		if(confirm("Delete user: "+ user.firstName + " " + user.surName)){
-			this.aUserService.deleteUser(user);
+	onDeleteClick(user: FbUser){
+		if(confirm("Delete user: "+ user.email)){
+			this.aUserService.deleteUser(user);				
 		}
 	}
 }
