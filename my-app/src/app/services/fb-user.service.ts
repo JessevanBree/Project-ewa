@@ -35,7 +35,7 @@ export class FbUserService {
     console.log("HHAHA: " + user.metadata.creationTime);
     for (let i = 0; i < this.listOfAdmins.length; i++) {
       // && user.email != "abdul@hva.nl" is only to demonstrate that no admin users cannot
-      if(user.email == this.listOfAdmins[i] && user.email != "abdul@hva.nl"){
+      if(user.email == this.listOfAdmins[i]){
         newUser = new FbUser(user.email, user.metadata.creationTime, true);
         break;
       }else{

@@ -28,7 +28,7 @@ nav.navbar {
   margin-bottom: 15px;
 }
 
-.navbar-logo:hover{
+.navbar-logo:hover {
   opacity: 1 !important;
 }
 
@@ -38,9 +38,9 @@ nav.navbar {
   color: black !important;
 }
 
-.active:hover{
+.active:hover {
   font-weight: 600;
-  color: gray !important;
+  color: black !important;
 }
 
 .right-nav-button {
@@ -60,3 +60,20 @@ nav.navbar {
   /* background: darkcyan !important; */
 }
 
+.sign-in::before {
+  font-family: FontAwesome;
+  content: "\f090";
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: middle;
+  font-weight: 900;
+}
+
+.sign-out::before {
+  font-family: FontAwesome;
+  content: "\f08b";
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: middle;
+  font-weight: 900;
+}

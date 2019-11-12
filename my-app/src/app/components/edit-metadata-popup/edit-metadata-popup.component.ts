@@ -18,8 +18,8 @@ export class EditMetadataPopupComponent implements OnInit {
   private datasets: Dataset[];
 
   private editingDataset: Dataset;
-  @Output() savedDataset;
-  @Output() closingToggle;
+  @Output() savedDataset: EventEmitter<Dataset>;
+  @Output() closingToggle: EventEmitter<boolean>;
 
   constructor(private datasetService: FirebaseDatasetService,
               private router: Router,
