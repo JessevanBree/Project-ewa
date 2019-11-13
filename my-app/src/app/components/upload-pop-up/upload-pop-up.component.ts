@@ -23,13 +23,16 @@ export class UploadPopUpComponent implements OnInit {
   private headers: string[];
   private csvData: object[];
 
+
   protected nameInput: string;
   protected descriptionInput: string;
   protected publicityInput: string;
   protected regionInput: string;
   protected yearInput: number;
+
   protected xAxisInput: number;
   protected yAxisInput: number;
+  protected confirmToggle: boolean;
 
   private listOfYears: number[];
   private chart;
@@ -45,6 +48,7 @@ export class UploadPopUpComponent implements OnInit {
       this.listOfYears.push(i);
     }
     this.closingToggle = new EventEmitter<boolean>();
+    this.confirmToggle = false;
   }
 
   ngOnInit() {
@@ -66,11 +70,10 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   onConfirm() {
-    console.log(this.xAxisInput, this.yAxisInput);
-    console.log("Confirming headers..");
-
-    this.convertCSVToChartData(this.csvData);
-
+    this.confirmToggle = !this.confirmToggle;
+    if(this.confirmToggle == true){
+      this.convertCSVToChartData(this.csvData);
+    }
   }
 
   //Method to upload
@@ -160,7 +163,7 @@ export class UploadPopUpComponent implements OnInit {
     this.chart = ({
       type: 'bar',
       data: chartData,
-      label: xAxisLabel
+      label: yAxisLabel
     });
     this.chartLabels = chartLabels;
   }
