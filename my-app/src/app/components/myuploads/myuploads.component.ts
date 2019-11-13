@@ -21,7 +21,7 @@ export class MyuploadsComponent implements OnInit {
   selectedDataset: Dataset;
   private activeIndex;
   public userId: string;
-  queryParamSubscription: Subscription;
+  paramSubscription: Subscription;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
               private userService: FbUserService, private router: Router) {
@@ -97,8 +97,8 @@ export class MyuploadsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.queryParamSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-        const userEmail = params['email'];
+    this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        const userEmail = params.email;
         this.datasetService.getAllDatasets2().subscribe(
           (data: Dataset[]) => {
             data.map((o) => {

@@ -70,7 +70,7 @@ export class UploadPopUpComponent implements OnInit {
 
   onConfirm() {
     this.confirmToggle = !this.confirmToggle;
-    if(this.confirmToggle == true){
+    if (this.confirmToggle == true) {
       this.convertCSVToChartData(this.csvData);
     }
   }
@@ -92,26 +92,32 @@ export class UploadPopUpComponent implements OnInit {
           complete: (results) => {
             let csvObjects = results.data;
             console.log(csvObjects[0]);
+            this.headers = Object.keys(csvObjects[0]);
+            console.log("Headers: ", this.headers);
 
             for (let i = 0; i < csvObjects.length; i++) {
+              let firstHeader = Object.keys(csvObjects[i])[0];
+              let csvObject = csvObjects[i];
+              let object = {};
 
-              this.headers = Object.keys(csvObjects[i]);
-              arrayOfObjects.push(csvObjects[i]);
-
-             /* if(csvObjects[i][oldHeader].includes(";")){
-                let csvObject = csvObjects[i];
-                let splittedCsvObject = csvObjects[oldHeader].split;
-
-              }*/
-
-              for (let j = 0; j < this.headers.length; j++) {
-                let oldHeader = this.headers[j];
-                if (this.headers[j].includes(";")) {
-                  let tempHeader = this.headers[j];
-                  this.headers = tempHeader.split(";");
+              //If one of the headers or values contains ; then split them accordingly and check the other headers
+              if (csvObject[firstHeader].includes(";")) {
+                //Check if headers contains semicolons and split them accordingly
+                for (let j = 0; j < this.headers.length; j++) {
+                  if (this.headers[j].includes(";")) {
+                    this.headers = this.headers[j].split(";");
+                  }
                 }
-              }
-
+                //Split
+                csvObject = csvObject[firstHeader].split(";");
+                for (let j = 0; j < this.headers.length; j++) {
+                  let header = this.headers[j];
+                  object[header] = csvObject[j];
+                  console.log(object);
+                }
+                arrayOfObjects.push(object);
+              } else arrayOfObjects.push(csvObjects[i]);
+              console.log(arrayOfObjects);
 
               // Experimental code for testing purposes
               Object.keys(csvObjects[i]).forEach(key => {
