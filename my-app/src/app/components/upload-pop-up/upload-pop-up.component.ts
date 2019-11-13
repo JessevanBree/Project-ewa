@@ -85,6 +85,7 @@ export class UploadPopUpComponent implements OnInit {
 
       let file = files.item(0);
       this.papa.parse(file, {
+          delimiter: "",
           header: true,
           dynamicTyping: true,
           skipEmptyLines: true,
@@ -93,8 +94,26 @@ export class UploadPopUpComponent implements OnInit {
             console.log(csvObjects[0]);
 
             for (let i = 0; i < csvObjects.length; i++) {
-              arrayOfObjects.push(csvObjects[i]);
+
               this.headers = Object.keys(csvObjects[i]);
+              arrayOfObjects.push(csvObjects[i]);
+
+             /* if(csvObjects[i][oldHeader].includes(";")){
+                let csvObject = csvObjects[i];
+                let splittedCsvObject = csvObjects[oldHeader].split;
+
+              }*/
+
+              for (let j = 0; j < this.headers.length; j++) {
+                let oldHeader = this.headers[j];
+                if (this.headers[j].includes(";")) {
+                  let tempHeader = this.headers[j];
+                  this.headers = tempHeader.split(";");
+                }
+              }
+
+
+              // Experimental code for testing purposes
               Object.keys(csvObjects[i]).forEach(key => {
                 let value = csvObjects[i][key];
                 // console.log(value);
@@ -137,8 +156,14 @@ export class UploadPopUpComponent implements OnInit {
     let chartData = [];
 
     // Retrieves all the headers of the first record in the csv file
-    this.headers = Object.keys(objectsArray[0]);
-
+    // this.headers = Object.keys(objectsArray[0]);
+    /*for (let i = 0; i < this.headers.length; i++) {
+      if(this.headers[i].includes(";")){
+        let header = this.headers[i];
+        this.headers = header.split(";");
+      }
+    }
+*/
     //Retrieves the header to use for the x and y axes
     xAxisLabel = this.headers[this.xAxisInput];
     yAxisLabel = this.headers[this.yAxisInput];

@@ -44,7 +44,7 @@
                      #csvReader
                      ngModel
                      required
-                     [disabled] = confirmToggle>
+                     [disabled]=confirmToggle>
             </div>
             <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>
@@ -63,27 +63,33 @@
           </div>
 
           <div id="headersRow" class="form-row my-4" *ngIf="headers">
-              <div class="card mx-5" id="headerCard">
-                <div class="card-header">Headers</div>
-                <div class="card-body">
-                  <div class="form-group collapse show" id="headerOptions">
+            <div class="card mx-4" id="headerCard">
+              <div class="card-header">Headers</div>
+              <div class="card-body">
+                <div class="form-group collapse show" id="headerOptions">
+                  <div class="col-12">
                     <label for="xAxisOptions">X axis</label>
-                    <select [(ngModel)]="xAxisInput" class="form-control my-1" id="xAxisOptions" name="xAxis" required>
+                    <select [(ngModel)]="xAxisInput" class="form-control my-1 col-10" id="xAxisOptions" name="xAxis" required>
                       <option *ngFor="let header of headers; let i = index" [ngValue]="i"
                               name="xOption">{{i}}. {{header}}</option>
+
                     </select>
-                    <label for="yAxisOptions">Y axis</label>
-                    <select [(ngModel)]="yAxisInput" class="form-control my-1" name="yAxis" id="yAxisOptions" required>
-                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
-                              name="yOption">{{i}}. {{header}}</option>
-                    </select>
+                    <button class="btn btn-primary" id="addXAxes">
+                      <i class="fa fa-plus fa-lg"></i>
+                    </button>
                   </div>
-                  <button type="button" class="btn float-right" data-toggle="collapse" data-target="#headerOptions"
-                          aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
-                          [innerHTML]="this.confirmToggle ? 'Change headers' : 'Confirm' "
-                          [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary' "></button>
+                  <label for="yAxisOptions">Y axis</label>
+                  <select [(ngModel)]="yAxisInput" class="form-control my-1" name="yAxis" id="yAxisOptions" required>
+                    <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                            name="yOption">{{i}}. {{header}}</option>
+                  </select>
                 </div>
+                <button type="button" class="btn float-right" data-toggle="collapse" data-target="#headerOptions"
+                        aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
+                        [innerHTML]="this.confirmToggle ? 'Change headers' : 'Confirm' "
+                        [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary' "></button>
               </div>
+            </div>
           </div>
 
           <div class="form-row">
@@ -121,7 +127,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid || confirmToggle == false">
-              Upload</button>
+              Upload
+            </button>
           </div>
         </form>
       </div>

@@ -61,7 +61,7 @@ export class MyuploadsComponent implements OnInit {
     })
   }
 
-  onEditDatasetClick(datasetIndex: number){
+  onEditDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
     this.editDatasetToggle = true;
     this.router.navigate(['editDataset'], {
@@ -81,7 +81,7 @@ export class MyuploadsComponent implements OnInit {
   }
 
   //Testing purposes function, adds a random dataset
-  onAdd(){
+  onAdd() {
     this.datasetService.add(this.datasetService.generateRandomDataset());
     this.datasets = this.datasetService.getMyDatasets();
     console.log("Adding random dataset..");
@@ -97,15 +97,17 @@ export class MyuploadsComponent implements OnInit {
 
 
   ngOnInit() {
-
-    /*this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(
-      (params: Params) =>{
-        const id = params.id;
-        console.log(id);
+    this.queryParamSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        const userEmail = params['email'];
+        this.datasetService.getAllDatasets2().subscribe(
+          (data: Dataset[]) => {
+            data.map((o) => {
+              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+            })
+          }
+        );
       }
-    );*/
-    this.userId = this.userService.getLoggedInUser().email;
-    this.datasets = this.datasetService.getMyDatasets();
+    );
   }
 
 }
