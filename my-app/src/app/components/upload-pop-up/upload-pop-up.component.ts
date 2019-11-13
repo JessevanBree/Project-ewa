@@ -65,7 +65,6 @@ export class UploadPopUpComponent implements OnInit {
     this.datasetService.saveAllDatasets();
     this.router.navigate(['myuploads', uploadingUser.email])
 
-
     // form.resetForm();
   }
 
@@ -137,12 +136,12 @@ export class UploadPopUpComponent implements OnInit {
     let chartLabels = [];
     let chartData = [];
 
+    // Retrieves all the headers of the first record in the csv file
     this.headers = Object.keys(objectsArray[0]);
 
     //Retrieves the header to use for the x and y axes
     xAxisLabel = this.headers[this.xAxisInput];
     yAxisLabel = this.headers[this.yAxisInput];
-
 
     console.log(xAxisLabel, yAxisLabel);
     //Retrieves the records for the y axis

@@ -2,7 +2,7 @@
 <div class="modal fade" #uploadModal id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
      data-backdrop="false" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-lg">
       <div class="modal-header">
         <h5 class="modal-title" id="uploadModalLabel">Upload dataset</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -78,9 +78,10 @@
                               name="yOption">{{i}}. {{header}}</option>
                     </select>
                   </div>
-                  <button type="button" class="btn btn-primary float-right" data-toggle="collapse" data-target="#headerOptions"
+                  <button type="button" class="btn float-right" data-toggle="collapse" data-target="#headerOptions"
                           aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
-                          [innerHTML]="this.confirmToggle ? 'Change headers' : 'Confirm' "></button>
+                          [innerHTML]="this.confirmToggle ? 'Change headers' : 'Confirm' "
+                          [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary' "></button>
                 </div>
               </div>
           </div>
