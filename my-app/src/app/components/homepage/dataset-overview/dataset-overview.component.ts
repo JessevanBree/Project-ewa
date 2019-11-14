@@ -114,7 +114,7 @@ export class DatasetOverviewComponent implements OnInit {
        if(data != null && this.sessionService.displayName != null || undefined){
           let userEmail: String = this.sessionService.displayName;
           data.map((o) => {
-            o && o.publicity.includes("Public") || o.user.email == userEmail ?
+            o && o.publicity.includes("Public") || o && o.user.email == userEmail ?
               this.datasets.push(o) : [];
           });
         } else if (data != null) {

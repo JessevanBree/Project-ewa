@@ -23,20 +23,20 @@ export class UploadPopUpComponent implements OnInit {
   private headers: string[];
   private csvData: object[];
 
-
   protected nameInput: string;
   protected descriptionInput: string;
   protected publicityInput: string;
   protected regionInput: string;
   protected yearInput: number;
 
-  protected xAxisInput: number;
+  protected xAxisInputs: number[];
   protected yAxisInput: number;
   protected confirmToggle: boolean;
 
   private listOfYears: number[];
   private chart;
   private chartLabels: string[];
+  // private chartOptions;
   private dataset: Dataset;
 
   @Output() closingToggle: EventEmitter<boolean>;
@@ -49,6 +49,7 @@ export class UploadPopUpComponent implements OnInit {
     }
     this.closingToggle = new EventEmitter<boolean>();
     this.confirmToggle = false;
+    this.xAxisInputs = [2];
   }
 
   ngOnInit() {
@@ -68,11 +69,17 @@ export class UploadPopUpComponent implements OnInit {
     // form.resetForm();
   }
 
-  onConfirm() {
+  onConfirm(): void {
     this.confirmToggle = !this.confirmToggle;
     if (this.confirmToggle == true) {
       this.convertCSVToChartData(this.csvData);
     }
+  }
+
+  onAddXAxes(): void {
+    if (this.xAxisInputs.length < 2) {
+      this.xAxisInputs.push(null);
+    } else return null;
   }
 
   //Method to upload
@@ -108,7 +115,7 @@ export class UploadPopUpComponent implements OnInit {
                     this.headers = this.headers[j].split(";");
                   }
                 }
-                //Split
+                //Split values and create a new object with the attributes as values that have been split
                 csvObject = csvObject[firstHeader].split(";");
                 for (let j = 0; j < this.headers.length; j++) {
                   let header = this.headers[j];
@@ -156,6 +163,7 @@ export class UploadPopUpComponent implements OnInit {
 
   convertCSVToChartData(objectsArray: any[]): void {
     let xAxisLabel: string;
+    let xAxisLabel2: string;
     let yAxisLabel: string;
 
     let chartLabels = [];
@@ -171,7 +179,8 @@ export class UploadPopUpComponent implements OnInit {
     }
 */
     //Retrieves the header to use for the x and y axes
-    xAxisLabel = this.headers[this.xAxisInput];
+    xAxisLabel = this.headers[this.xAxisInputs[0]];
+    xAxisLabel = xAxisLabel.concat(";").concat(this.headers[this.xAxisInputs[1]]);
     yAxisLabel = this.headers[this.yAxisInput];
 
     console.log(xAxisLabel, yAxisLabel);
@@ -185,7 +194,9 @@ export class UploadPopUpComponent implements OnInit {
     //Retrieves the records for the x axis
     for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
-      let record = object[this.headers[this.xAxisInput]];
+      let record = object[this.headers[this.xAxisInputs[0]]];
+      let record2 = object[this.headers[this.xAxisInputs[1]]];
+      record = record.concat(" " + record2);
       chartLabels.push(record);
     }
 
@@ -196,7 +207,39 @@ export class UploadPopUpComponent implements OnInit {
       label: yAxisLabel
     });
     this.chartLabels = chartLabels;
-  }
+    /*this.chartOptions = {
+        scales: {
+          xAxes: [
+            {
+              id: 'xAxis1',
+              type: "category",
+              ticks: {
+                callback: function (label) {
+                  let xAxis1 = label.split(";")[0];
+                  let xAxis2 = label.split(";")[1];
+                  console.log(xAxis1);
+                  return xAxis2;
+                }
+              }
+            }, {
+              id: 'xAxis2',
+              type: "category",
+              gridLines: {
+                drawOnChartArea: false
+              },
+              ticks: {
+                callback: function (label) {
+                  let xAxis1 = label.split(";")[0];
+                  let xAxis2 = label.split(";")[1];
+                  console.log(xAxis2);
+                  return xAxis1;
+                }
+              }
+            }
+          ]
+        }
+      }*/
+    }
 
 
 }
