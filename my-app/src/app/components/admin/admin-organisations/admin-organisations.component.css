@@ -1,4 +1,5 @@
 .orgList {
-	max-height: 75vh;
+	max-height: 55vh;
+	min-height: 55vh;
 	overflow: auto;
 }

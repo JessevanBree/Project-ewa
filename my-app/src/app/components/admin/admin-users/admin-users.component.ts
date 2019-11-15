@@ -16,16 +16,22 @@ import { FbUserService } from 'src/app/services/fb-user.service';
 })
 export class AdminUsersComponent implements OnInit {
 	users: FbUser[];
-	editIsClicked: boolean = false;
-	createIsClicked: boolean = false;
-	activeIndex: number = null;
-	selectedUser: FbUser = null;
+	editIsClicked: boolean;
+	createIsClicked: boolean;
+	activeIndex: number;
+	selectedUser: FbUser;
+	searchFilter: String;
+	emptyList: boolean;
 
 	constructor(private aUserService: FbUserService) {
-		this.users = aUserService.getUsers();
+		this.activeIndex, this.selectedUser = null;
+		this.editIsClicked, this.createIsClicked = false;
+		this.searchFilter = "";
 	}
-
+	
 	ngOnInit() {
+		this.users = this.aUserService.getUsers();
+		this.emptyList = this.users.length == 0;
 	}
 
 	onEditClick(originalUserIndex: number): void {
@@ -49,5 +55,12 @@ export class AdminUsersComponent implements OnInit {
 		if(confirm("Delete user: "+ user.email)){
 			this.aUserService.deleteUser(user);				
 		}
+	}
+
+	checkIfListEmpty(): void {
+		if(this.users.length == 0) this.emptyList = true;
+		setTimeout(() => {
+			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+		}, 5)
 	}
 }

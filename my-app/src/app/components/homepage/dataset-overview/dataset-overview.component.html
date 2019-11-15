@@ -63,7 +63,7 @@
       </tr>
       </thead>
       <tbody class="table-light" *ngIf="this.datasets$ | async">
-      <tr *ngFor="let dataset of copyDatasets | searchDatasets: searchQuery; let index = index;"
+      <tr *ngFor="let dataset of copyDatasets | searchArray: [searchQuery, 'name']; let index = index;"
           (click)="onSelection(index, dataset)">
         <td>{{dataset.name}}</td>
       </tr>
@@ -103,25 +103,25 @@
 <!--    </thead>-->
 <!--    <tbody class="table-light">-->
 <!--    <tr>-->
-<!--      <th [rowSpan]="(EUdatasets | searchDatasets: searchQuery).length + 1">European level</th>-->
+<!--      <th [rowSpan]="(EUdatasets | searchArray: searchQuery).length + 1">European level</th>-->
 <!--    </tr>-->
-<!--    <tr *ngFor="let dataset of (EUdatasets | searchDatasets: searchQuery); let index = index;"-->
+<!--    <tr *ngFor="let dataset of (EUdatasets | searchArray: searchQuery); let index = index;"-->
 <!--        (click)="onSelection(index, dataset)">-->
 <!--      <td>{{dataset.name}}</td>-->
 <!--    </tr>-->
 
 <!--    <tr>-->
-<!--      <th [rowSpan]="(NATdatasets | searchDatasets: searchQuery).length + 1">National level</th>-->
+<!--      <th [rowSpan]="(NATdatasets | searchArray: searchQuery).length + 1">National level</th>-->
 <!--    </tr>-->
-<!--    <tr *ngFor="let dataset of (NATdatasets | searchDatasets: searchQuery ) let index = index;"-->
+<!--    <tr *ngFor="let dataset of (NATdatasets | searchArray: searchQuery ) let index = index;"-->
 <!--        (click)="onSelection(index, dataset)">-->
 <!--      <td>{{dataset.name}}</td>-->
 <!--    </tr>-->
 
 <!--    <tr *ngIf="URBdatasets.length >= 0">-->
-<!--      <th [rowSpan]="(URBdatasets | searchDatasets: searchQuery).length + 1">Urban level</th>-->
+<!--      <th [rowSpan]="(URBdatasets | searchArray: searchQuery).length + 1">Urban level</th>-->
 <!--    </tr>-->
-<!--    <tr *ngFor="let dataset of (URBdatasets | searchDatasets: searchQuery) let index = index;"-->
+<!--    <tr *ngFor="let dataset of (URBdatasets | searchArray: searchQuery) let index = index;"-->
 <!--        (click)="onSelection(index, dataset)">-->
 <!--      <td>{{dataset.name}}</td>-->
 <!--    </tr>-->
