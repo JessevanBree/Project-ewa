@@ -13,10 +13,10 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let url = this.route.snapshot['_routerState'].url;
 
-    if (url.includes("/homepage") && this.sessionService.authenticated == false) {
+    if (url.includes("/homepage") && !this.sessionService.sessionStorage.key(0)) {
       return next.handle(req);
-    } else if (this.sessionService.authenticated ) {
-      const token = this.sessionService.getTokenId();
+    } else if (sessionStorage.key(0)) {
+      const token = sessionStorage.getItem(sessionStorage.key(0));
       if (token) {
         const cloned = req.clone(
           {

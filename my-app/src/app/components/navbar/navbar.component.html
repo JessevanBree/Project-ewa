@@ -25,22 +25,22 @@
 				<li class="nav-item">
 					<a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
 				</li>
-				<li class="nav-item" *ngIf="this.sessionService.displayName">
+				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
 					<a class="nav-link" routerLinkActive="active"
-             [routerLink]="['/myuploads', this.sessionService.displayName]">My Uploads</a>
+             [routerLink]="['/myuploads', sessionService.sessionStorage.key(0)]">My Uploads</a>
 				</li>
-				<li class="nav-item" *ngIf="this.sessionService.displayName">
-					<a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
+				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
+					<a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', sessionService.sessionStorage.key(0)]">Profile</a>
 				</li>
 			</ul>
 			<ul class="nav justify-content-end w-100">
-				<li class="nav-item" *ngIf="this.sessionService.displayName">
+				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
 					<a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
 				</li>
-				<li class="nav-item" *ngIf="!this.sessionService.displayName">
+				<li class="nav-item" *ngIf="!sessionService.sessionStorage.key(0)">
 					<a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/firebase-login">Log In</a>
 				</li>
-				<li class="nav-item" *ngIf="this.sessionService.displayName">
+				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
 					<!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
 						routerLink="/login">Log
 						Out</a>-->
@@ -48,8 +48,8 @@
              routerLink="/firebase-login">Log
             Out</a>
 				</li>
-				<li class="nav-item" *ngIf="this.sessionService.displayName">
-					<span class="navbar-text">(User: {{ this.sessionService.displayName }})</span>
+				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
+					<span class="navbar-text">(User: {{ sessionService.sessionStorage.key(0) }})</span>
 				</li>
 			</ul>
 		</div>

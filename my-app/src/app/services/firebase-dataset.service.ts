@@ -14,8 +14,8 @@ export class FirebaseDatasetService {
 
 	constructor(private httpClient: HttpClient, private userService: FbUserService) {
 		this.userService.getAllUsers();
-		this.getAllDatasets();
-		this.datasets = [];
+    this.datasets = [];
+    this.getAllDatasets();
 
 		/*setTimeout(() => {
 		for (let i = 0; i < 10; i++) {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import * as firebase from "firebase";
 import { HttpClient } from "@angular/common/http";
 import { FbUser } from "../models/fb-user";
@@ -6,27 +6,39 @@ import { FbUser } from "../models/fb-user";
 @Injectable({
 	providedIn: 'root'
 })
-export class FbUserService {
+export class FbUserService implements OnInit{
 	private users: FbUser[];
 	private listOfAdmins: string[];
+	private loggedInUser: FbUser;
 	private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
 	private readonly DB_USERS = this.DB_URL + '/Users';
 
 	constructor(private httpClient: HttpClient) {
 		this.users = [];
 		this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
-			"jesse@hva.nl"]
+			"jesse@hva.nl"];
 		// Password for admins and test users: testing
 	}
 
+  ngOnInit(): void {
+    if (sessionStorage.key(0)){
+      this.httpClient.get<FbUser>(this.DB_USERS + ".json").subscribe(users => {
+          if (users.email === sessionStorage.key(0)){
+            this.loggedInUser = users;
+            console.log("HAB " + this.loggedInUser);
+          }
+        }
+      );
+    }
+  }
+
 	public getLoggedInUser() {
-		let user: FbUser;
-		for (let i = 0; i < this.users.length; i++) {
-			if (this.users[i].email == firebase.auth().currentUser.email) {
-				user = this.users[i];
-			}
-		}
-		return user;
+		// for (let i = 0; i < this.users.length; i++) {
+		// 	if (this.users[i].email == firebase.auth().currentUser.email) {
+		// 		this.loggedInUser = this.users[i];
+		// 	}
+		// }
+		return this.loggedInUser;
 	}
 
 	public saveAllUsers() {

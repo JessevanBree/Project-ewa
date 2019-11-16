@@ -109,16 +109,19 @@ export class DatasetOverviewComponent implements OnInit {
     this.datasets$ = this.datasetService.getAllDatasets2();
 
     // subscribe to get all the datasets
-    this.datasetService.getAllDatasets2().subscribe(
+    this.datasets$.subscribe(
       (data: Dataset[]) => {
-       if(data != null && this.sessionService.displayName != null || undefined){
-          let userEmail: String = this.sessionService.displayName;
+        console.log("Hajsdn");
+        if (data != null && sessionStorage.key(0) != null || undefined) {
+          let userEmail: String = sessionStorage.key(0);
+          console.log("Haslk " + userEmail);
           data.map((o) => {
             o && o.publicity.includes("Public") || o && o.user.email == userEmail ?
               this.datasets.push(o) : [];
           });
         } else if (data != null) {
           // push each dataset to the dataset array
+          console.log("ajndjadsja");
           data.map((o) => {
             o && o.publicity.includes("Public") ? this.datasets.push(o) : [];
           });

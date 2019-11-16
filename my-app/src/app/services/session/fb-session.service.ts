@@ -1,27 +1,34 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import * as firebase from "firebase";
 import {FbUserService} from "../fb-user.service";
+import {FbUser} from "../../models/fb-user";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FbSessionService {
+export class FbSessionService implements OnInit{
   public isAdmin: boolean = false;
   public displayName: string;
   token: string;
   public authenticated: boolean;
+  private loggedInUser: FbUser;
 
   constructor(private userService: FbUserService) {
     this.authenticated = false;
   }
 
+  public getLoggedInUser() {
+    return this.userService.getLoggedInUser();
+  }
 
-  signOn(email: string, password: string){
+  signOn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(
       response => {
-        firebase.auth().currentUser.getIdToken().then(token =>{
-        this.token = token;
-        this.userService.saveAllUsers();
+        firebase.auth().currentUser.getIdToken().then(token => {
+          this.token = token;
+          sessionStorage.setItem(email, token);
+          console.log("Session.key: " + sessionStorage.key(0) + "\t value:" + sessionStorage.getItem(email));
+          this.userService.saveAllUsers();
         });
         this.authenticated = true;
         this.displayName = firebase.auth().currentUser.email;
@@ -31,24 +38,29 @@ export class FbSessionService {
     )
   }
 
-  signOff(){
+  signOff() {
     console.log("Signing out");
     this.isAdmin = false;
     this.displayName = null;
     this.authenticated = false;
     this.token = null;
+    sessionStorage.clear();
     return firebase.auth().signOut();
   }
 
-  public getTokenId(){
+  public getTokenId() {
     return this.token;
   }
 
-  public isAuthenticated(){
+  public isAuthenticated() {
     return this.authenticated;
   }
 
-  ngOnInit(){
+  get sessionStorage() {
+    return sessionStorage;
+  }
+
+  ngOnInit() {
     const firebaseConfig = {
       apiKey: "AIzaSyCihkANi0RepQRSxrqVV6N2GZ9hkgico8A",
       authDomain: "projectewa-a2355.firebaseapp.com",
@@ -61,6 +73,7 @@ export class FbSessionService {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    this.loggedInUser = this.userService.getLoggedInUser();
   }
 
 
