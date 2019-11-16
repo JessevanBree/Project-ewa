@@ -189,7 +189,7 @@ export class UploadPopUpComponent implements OnInit {
       let recordYAxis = object[this.headers[this.yAxisInput]];
       let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
 
-      if (this.xAxisInputs != null || undefined) {
+      if (this.xAxisInputs[1] != null || undefined) {
         let record2 = object[this.headers[this.xAxisInputs[1]]];
         recordXAxis = recordXAxis.concat(" " + record2);
       }
