@@ -18,8 +18,7 @@ export class FirebaseLoginComponent implements OnInit {
 
   private readonly DB_USERS = 'https://projectewa-a2355.firebaseio.com/Users.json';
 
-  constructor(private sessionService: FbSessionService, private route: ActivatedRoute, private router: Router,
-              private userService: FbUserService) {
+  constructor(private sessionService: FbSessionService, private route: ActivatedRoute, private router: Router) {
 
   }
 

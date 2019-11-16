@@ -18,6 +18,7 @@ export class FbUserService implements OnInit{
 		this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
 			"jesse@hva.nl"];
 		// Password for admins and test users: testing
+
 	}
 
   ngOnInit(): void {

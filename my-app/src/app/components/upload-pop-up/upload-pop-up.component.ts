@@ -38,7 +38,7 @@ export class UploadPopUpComponent implements OnInit {
   private chart;
   private chartLabels: string[];
   // private chartOptions;
-  private dataset: Dataset;
+  // private dataset: Dataset;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
