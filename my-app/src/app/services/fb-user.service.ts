@@ -29,6 +29,7 @@ export class FbUserService {
     return user;
   }
 
+
   public saveAllUsers() {
     let user = firebase.auth().currentUser;
     let newUser;
