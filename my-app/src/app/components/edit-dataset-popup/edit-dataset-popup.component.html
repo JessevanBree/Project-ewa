@@ -1,6 +1,6 @@
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="editDatasetModal" tabindex="-1" role="dialog"
      aria-labelledby="editDatasetModal" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Edit dataset</h5>
@@ -10,7 +10,8 @@
       </div>
         <div class="modal-body">
         <canvas baseChart [chartType]="editingDataset.chart.type" [datasets]="[editingDataset.chart]"
-                [labels]="editingDataset.chartLabels" width="350" height="500"></canvas>
+                [labels]="editingDataset.chartLabels"
+                width="400" height="500"></canvas>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import * as firebase from "firebase";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../models/user";
@@ -6,26 +6,39 @@ import { User } from "../models/user";
 @Injectable({
 	providedIn: 'root'
 })
-export class AUserService {
+export class AUserService implements OnInit {
 	private users: User[];
 	private listOfAdmins: string[];
+	private loggedInUser: FbUser;
 	private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
 	private readonly DB_USERS = this.DB_URL + '/Users';
 
 	constructor(private httpClient: HttpClient) {
 		this.users = [];
 		this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
-			"jesse@hva.nl"]
+			"jesse@hva.nl"];
+		// Password for admins and test users: testing
 	}
 
-	public getLoggedInUser() {
-		let user: User;
-		for (let i = 0; i < this.users.length; i++) {
-			if (this.users[i].email == firebase.auth().currentUser.email) {
-				user = this.users[i];
+	ngOnInit(): void {
+		if (sessionStorage.key(0)) {
+			this.httpClient.get<User>(this.DB_USERS + ".json").subscribe(users => {
+				if (users.email === sessionStorage.key(0)) {
+					this.loggedInUser = users;
+					console.log("HAB " + this.loggedInUser);
+				}
 			}
+			);
 		}
-		return user;
+	}
+
+	async getLoggedInUser() {
+		// for (let i = 0; i < this.users.length; i++) {
+		// 	if (this.users[i].email == firebase.auth().currentUser.email) {
+		// 		this.loggedInUser = this.users[i];
+		// 	}
+		// }
+		return this.loggedInUser;
 	}
 
 	// Saves all the changes to the user array users
@@ -62,20 +75,20 @@ export class AUserService {
 		let userId = editedUser.userId;
 		delete editedUser.userId;
 
-		if(userId == null) {
+		if (userId == null) {
 			firebase.auth().createUserWithEmailAndPassword(
 				editedUser.email,
 				editedUser.password
 			)
-			.then(function (userRecord) {
-				// See the UserRecord reference doc for the contents of userRecord.
-				this.httpClient.put(this.DB_USERS + '/' + userRecord.user.uid + '.json', editedUser).subscribe(
-					{ error: err => { console.log(err) } }
-				);
-			})
-			.catch(function (error) {
-				console.log('Error creating new user:', error);
-			});
+				.then(function (userRecord) {
+					// See the UserRecord reference doc for the contents of userRecord.
+					this.httpClient.put(this.DB_USERS + '/' + userRecord.user.uid + '.json', editedUser).subscribe(
+						{ error: err => { console.log(err) } }
+					);
+				})
+				.catch(function (error) {
+					console.log('Error creating new user:', error);
+				});
 		} else {
 			this.httpClient.put(this.DB_USERS + '/' + userId + '.json', editedUser).subscribe(
 				{ error: err => { console.log(err) } }

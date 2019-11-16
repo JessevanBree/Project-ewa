@@ -14,8 +14,8 @@ export class FirebaseDatasetService {
 
 	constructor(private httpClient: HttpClient, private aUserService: AUserService) {
 		this.aUserService.getAllUsers();
-		this.getAllDatasets();
 		this.datasets = [];
+		this.getAllDatasets();
 
 		/*setTimeout(() => {
 		for (let i = 0; i < 10; i++) {
@@ -84,9 +84,12 @@ export class FirebaseDatasetService {
 
 
 	getMyDatasets() {
-		let user = this.aUserService.getLoggedInUser();
+		let user = null; 
+		this.aUserService.getLoggedInUser().then((u)=>{
+			user = u;
+		});
 		return this.getDatasets().filter(dataset =>
-			dataset.user.userId == user.userId
+			dataset.user.userId == user.userID
 		)
 	}
 
