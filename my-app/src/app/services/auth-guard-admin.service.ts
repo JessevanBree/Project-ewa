@@ -8,14 +8,19 @@ import {FbSessionService} from "./session/fb-session.service";
 })
 export class AuthGuardAdminService implements CanActivate {
 
-  constructor(private userService: AUserService, private router: Router, private sessionService: FbSessionService) { }
+  constructor(private aUserService: AUserService, private router: Router, private sessionService: FbSessionService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if(this.userService.getLoggedInUser() == null || undefined){
+	let loggedInUser = null;
+	this.aUserService.getLoggedInUser().then((user) => {
+		loggedInUser = user
+		console.log(user)
+	});
+    if(loggedInUser == null || undefined){
       console.log("Logged in user is null");
       this.router.navigate(['**']);
       return false;
-    } else if(this.userService.getLoggedInUser().isAdmin == false || undefined){
+    } else if(loggedInUser.isAdmin == false || undefined){
       console.log("Logged in user is no admin");
       this.router.navigate(['**']);
       return false;

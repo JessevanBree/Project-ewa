@@ -9,7 +9,7 @@ import { User } from "../models/user";
 export class AUserService implements OnInit {
 	private users: User[];
 	private listOfAdmins: string[];
-	private loggedInUser: FbUser;
+	private loggedInUser: User;
 	private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
 	private readonly DB_USERS = this.DB_URL + '/Users';
 
