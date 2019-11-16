@@ -28,11 +28,10 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import {FirebaseLoginComponent} from './components/firebase-login/firebase-login.component';
 import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
-import {PapaParseModule} from "ngx-papaparse";
+import {PapaParseGlobalConfig, PapaParseModule} from "ngx-papaparse";
 import {EditDatasetPopupComponent} from './components/edit-dataset-popup/edit-dataset-popup.component';
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +69,14 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
 
   providers: [
     [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-    [RegionFiltersPipe]
+    [RegionFiltersPipe],
+    /*{
+      provide: 'PapaParseGlobalConfig',
+      useValue: <PapaParseGlobalConfig> {
+        scriptPath: 'src/assets/papaparse.min.js'
+      }
+    }*/
+
   ],
   bootstrap: [AppComponent]
 })

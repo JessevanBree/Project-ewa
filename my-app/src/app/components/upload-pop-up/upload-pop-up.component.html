@@ -68,26 +68,28 @@
               <div class="card-body">
                 <div class="form-group collapse show" id="headerOptions">
                   <label for="xAxisOptions">X axis</label>
-                  <div class="form-row mb-2" >
+                  <div class="form-group form-row mb-2">
                     <select [(ngModel)]="xAxisInputs[i]" *ngFor="let input of xAxisInputs; let i = index"
                             class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
                             required>
                       <option *ngFor="let header of headers; let i = index" [ngValue]="i"
                               name="xOption">{{i}}. {{header}}</option>
                     </select>
-                    <button type="button" class="btn btn-primary btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
-                      <i class="fa fa-plus"></i>
+                    <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
+                            class="btn btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
+                      <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
                     </button>
                   </div>
                   <label for="yAxisOptions">Y axis</label>
-                  <div class="form-row">
-                    <select [(ngModel)]="yAxisInput" class="form-control my-1 col-9" name="yAxis" id="yAxisOptions" required>
+                  <div class="form-group form-row">
+                    <select [(ngModel)]="yAxisInput" class="form-control my-1 col-9" name="yAxis" id="yAxisOptions"
+                            required>
                       <option *ngFor="let header of headers; let i = index" [ngValue]="i"
                               name="yOption">{{i}}. {{header}}</option>
                     </select>
-<!--                  <button type="button" class="btn btn-primary btn-sm ml-4" id="addYAxes">-->
-<!--                    <i class="fa fa-plus"></i>-->
-<!--                  </button>-->
+                    <!--                  <button type="button" class="btn btn-primary btn-sm ml-4" id="addYAxes">-->
+                    <!--                    <i class="fa fa-plus"></i>-->
+                    <!--                  </button>-->
                   </div>
                 </div>
                 <button type="button" class="btn float-right" data-toggle="collapse" data-target="#headerOptions"
