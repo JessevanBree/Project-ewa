@@ -168,7 +168,23 @@ export class UploadPopUpComponent implements OnInit {
     console.log(xAxisLabel, yAxisLabel);
 
     //Retrieves the records from the csv file in order to visualize the charts
-    for (let i = 0; i < objectsArray.length; i++) {
+    if(objectsArray.length > 150){
+      for (let i = 0; i < 100; i++) {
+        let object = objectsArray[i];
+        let recordYAxis = object[this.headers[this.yAxisInput]];
+        let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
+
+        if (this.xAxisInputs[1] != null || undefined) {
+          let record2 = object[this.headers[this.xAxisInputs[1]]];
+          recordXAxis = recordXAxis.concat(" " + record2);
+        }
+        //Chart data
+        chartData.push(recordYAxis);
+        chartLabels.push(recordXAxis);
+      }
+
+      console.log(chartLabels, chartData);
+    } else for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
       let recordYAxis = object[this.headers[this.yAxisInput]];
       let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
