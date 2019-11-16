@@ -32,7 +32,7 @@ export class FbUserService implements OnInit{
     }
   }
 
-	public getLoggedInUser() {
+	async getLoggedInUser() {
 		// for (let i = 0; i < this.users.length; i++) {
 		// 	if (this.users[i].email == firebase.auth().currentUser.email) {
 		// 		this.loggedInUser = this.users[i];
