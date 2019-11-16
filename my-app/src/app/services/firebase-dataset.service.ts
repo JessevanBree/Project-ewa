@@ -1,8 +1,8 @@
-import {Injectable, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Dataset, Publicity, RegionLevel} from "../models/dataset";
+import { Injectable, ViewChild } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Dataset, Publicity, RegionLevel } from "../models/dataset";
 import * as firebase from "firebase";
-import {FbUserService} from "./fb-user.service";
+import { FbUserService } from "./fb-user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class FirebaseDatasetService {
 
   constructor(private httpClient: HttpClient, private userService: FbUserService) {
     this.userService.getAllUsers();
-    this.datasets = [];
     this.getAllDatasets();
+    this.datasets = [];
 
     /*setTimeout(() => {
     for (let i = 0; i < 10; i++) {
@@ -66,7 +66,7 @@ export class FirebaseDatasetService {
 
   getAllDatasets() {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
-    return this.httpClient.get<Dataset[]>(this.DB_DATASETS + '.json').subscribe(
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS+ '.json').subscribe(
       (data: Dataset[]) => {
         if (data != null) {
           data.map((o) => {
@@ -79,17 +79,14 @@ export class FirebaseDatasetService {
 
   getAllDatasets2() {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
-    return this.httpClient.get<Dataset[]>(this.DB_DATASETS + '.json');
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS+ '.json');
   }
 
 
   getMyDatasets() {
-    let user;
-    this.userService.getLoggedInUser().then(loggedInUser => {
-      user = loggedInUser.userId;
-    });
+    let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
-      dataset.user.userId == user
+      dataset.user.userId == user.userId
     )
   }
 

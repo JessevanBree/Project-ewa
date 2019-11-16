@@ -11,47 +11,47 @@
 <!--</nav>-->
 
 <nav class="navbar navbar-light navbar-expand-lg sticky-top">
-	<a class="navbar-brand" routerLink="/homepage">
-		<img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg" alt="Urban Analytics"
-    style="opacity: .9;">
-	</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-		aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	<div class="w-100">
-		<div class="collapse navbar-collapse mx-auto" id="navbarNav">
-			<ul class="navbar-nav nav w-100">
-				<li class="nav-item">
-					<a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
-				</li>
-				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
-					<a class="nav-link" routerLinkActive="active"
-             [routerLink]="['/myuploads', sessionService.sessionStorage.key(0)]">My Uploads</a>
-				</li>
-				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
-					<a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', sessionService.sessionStorage.key(0)]">Profile</a>
-				</li>
-			</ul>
-			<ul class="nav justify-content-end w-100">
-				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
-					<a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
-				</li>
-				<li class="nav-item" *ngIf="!sessionService.sessionStorage.key(0)">
-					<a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/firebase-login">Log In</a>
-				</li>
-				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
-					<!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
-						routerLink="/login">Log
-						Out</a>-->
+  <a class="navbar-brand" routerLink="/homepage">
+    <img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg" alt="Urban Analytics"
+         style="opacity: .9;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="w-100">
+    <div class="collapse navbar-collapse mx-auto" id="navbarNav">
+      <ul class="navbar-nav nav w-100">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.displayName">
+          <a class="nav-link" routerLinkActive="active"
+             [routerLink]="['/myuploads', this.sessionService.displayName]">My Uploads</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.displayName">
+          <a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
+        </li>
+      </ul>
+      <ul class="nav justify-content-end w-100">
+        <li class="nav-item" *ngIf="this.sessionService.displayName">
+          <a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
+        </li>
+        <li class="nav-item" *ngIf="!this.sessionService.displayName">
+          <a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/firebase-login">Log In</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.displayName">
+          <!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
+            routerLink="/login">Log
+            Out</a>-->
           <a (click)="sessionService.signOff()" class="nav-link sign-out border-1" routerLinkActive="active"
              routerLink="/firebase-login">Log
             Out</a>
-				</li>
-				<li class="nav-item" *ngIf="sessionService.sessionStorage.key(0)">
-					<span class="navbar-text">(User: {{ sessionService.sessionStorage.key(0) }})</span>
-				</li>
-			</ul>
-		</div>
-	</div>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.displayName">
+          <span class="navbar-text">(User: {{ this.sessionService.displayName }})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>

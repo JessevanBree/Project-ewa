@@ -1,7 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import * as firebase from "firebase";
 import {FbUserService} from "../fb-user.service";
-import {FbUser} from "../../models/fb-user";
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +10,9 @@ export class FbSessionService implements OnInit{
   public displayName: string;
   token: string;
   public authenticated: boolean;
-  private loggedInUser: FbUser;
 
   constructor(private userService: FbUserService) {
     this.authenticated = false;
-  }
-
-  public getLoggedInUser() {
-    return this.userService.getLoggedInUser();
   }
 
   signOn(email: string, password: string) {
@@ -26,8 +20,6 @@ export class FbSessionService implements OnInit{
       response => {
         firebase.auth().currentUser.getIdToken().then(token => {
           this.token = token;
-          sessionStorage.setItem(email, token);
-          console.log("Session.key: " + sessionStorage.key(0) + "\t value:" + sessionStorage.getItem(email));
           this.userService.saveAllUsers();
         });
         this.authenticated = true;
@@ -44,7 +36,6 @@ export class FbSessionService implements OnInit{
     this.displayName = null;
     this.authenticated = false;
     this.token = null;
-    sessionStorage.clear();
     return firebase.auth().signOut();
   }
 
@@ -54,10 +45,6 @@ export class FbSessionService implements OnInit{
 
   public isAuthenticated() {
     return this.authenticated;
-  }
-
-  get sessionStorage() {
-    return sessionStorage;
   }
 
   ngOnInit() {
@@ -73,7 +60,6 @@ export class FbSessionService implements OnInit{
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    this.loggedInUser = this.userService.getLoggedInUser();
   }
 
 
