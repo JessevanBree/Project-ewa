@@ -53,12 +53,17 @@ export class MyuploadsComponent implements OnInit {
     this.editMetaDataToggle = true;
   }
 
-  //Check if upload button is clicked to open pop-up
+  //Check if upload button is clicked to open upload pop-up
   onUploadButtonClick() {
     this.uploadDatasetToggle = true;
     this.router.navigate(['uploadDataset'], {
       relativeTo: this.activatedRoute
     })
+  }
+
+  //Triggers when a dataset has been uploaded to refresh the overview
+  onUploadDataset(){
+    this.datasets = this.datasetService.getMyDatasets();
   }
 
   onEditDatasetClick(datasetIndex: number) {
@@ -90,6 +95,7 @@ export class MyuploadsComponent implements OnInit {
 
   onCloseReq() {
     console.log("Closing modal..");
+    this.datasets = this.datasetService.getMyDatasets();
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
