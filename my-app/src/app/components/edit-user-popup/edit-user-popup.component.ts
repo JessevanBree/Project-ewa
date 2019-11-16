@@ -1,24 +1,34 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {FbUser} from "../../models/fb-user";
-import {FbUserService} from "../../services/fb-user.service";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from "../../models/user";
+import {AUserService} from "../../services/fb-user.service";
 
 @Component({
-  selector: 'app-edit-user-popup',
-  templateUrl: './edit-user-popup.component.html',
-  styleUrls: ['./edit-user-popup.component.css']
+	selector: 'app-edit-user-popup',
+	templateUrl: './edit-user-popup.component.html',
+	styleUrls: ['./edit-user-popup.component.css']
 })
 export class EditUserPopupComponent implements OnInit {
+	_editingUser: User;
+	@Output() savedUser: EventEmitter<User> = new EventEmitter<User>();
 
-  @Input() editingUser: FbUser;
-  @Output() savedUser: EventEmitter<FbUser> = new EventEmitter<FbUser>();
+	@Input()
+	set editingUser(user: User) {
+		console.log(user)
+		this._editingUser = User.trueCopy(user);
+		console.log(this._editingUser)
+	}
 
-  constructor(private aFbUserService: FbUserService) {
-  }
+	get editingUser(): User {
+		return this._editingUser;
+	}
 
-  ngOnInit(): void {
-  }
+	constructor(private aUserService: AUserService) {
+	}
 
-  onSaveChanges() {
-    this.savedUser.emit(this.editingUser);
-  }
+	ngOnInit(): void {
+	}
+
+	onSaveChanges() {
+		this.savedUser.emit(this._editingUser);
+	}
 }

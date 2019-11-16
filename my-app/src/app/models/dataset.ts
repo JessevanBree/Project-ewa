@@ -1,6 +1,6 @@
 import {Chart, ChartDataSets} from 'chart.js';
 import {Organisation} from "./organisation";
-import {FbUser} from "./fb-user";
+import {User} from "./user";
 import {ViewChild} from "@angular/core";
 
 export enum RegionLevel {
@@ -23,13 +23,13 @@ export class Dataset {
   organisation?: Organisation;
   description?: string;
   year: number;
-  user: FbUser;
+  user: User;
   chart: ChartDataSets;
   chartLabels: string[];
 
 
   constructor(id: number, name: string, region: string, publicity: string,
-              user: FbUser, year: number, chart: ChartDataSets, chartLabels: string[],
+              user: User, year: number, chart: ChartDataSets, chartLabels: string[],
                description?: string, organisation?: Organisation) {
     this.id = id;
     this.name = name;
@@ -76,7 +76,7 @@ export class Dataset {
     let publicityOptions = Object.keys(Publicity);
     let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
     //Randomly generates a user
-    let randomUser = this.userService.getUsers()
+    let randomUser = this.aUserService.getUsers()
 
     //Randomly generates a dataset name
     let datasetName = "";

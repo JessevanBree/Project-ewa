@@ -31,6 +31,8 @@ import {AuthInterceptor} from "./auth-interceptor";
 import {PapaParseModule} from "ngx-papaparse";
 import {EditDatasetPopupComponent} from './components/edit-dataset-popup/edit-dataset-popup.component';
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
+import {CreateUserPopupComponent} from './components/create-user-popup/create-user-popup.component';
+import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
 
 // @ts-ignore
 @NgModule({
@@ -56,7 +58,9 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
     EditOrganisationPopupComponent,
     FirebaseLoginComponent,
     EditDatasetPopupComponent,
-    EditMetadataPopupComponent,
+	EditMetadataPopupComponent,
+	EditUserPopupComponent,
+	CreateUserPopupComponent
   ],
   imports: [
     BrowserModule,

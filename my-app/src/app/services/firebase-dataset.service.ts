@@ -2,7 +2,7 @@ import { Injectable, ViewChild } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Dataset, Publicity, RegionLevel } from "../models/dataset";
 import * as firebase from "firebase";
-import { FbUserService } from "./fb-user.service";
+import {AUserService} from "./fb-user.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -12,14 +12,14 @@ export class FirebaseDatasetService {
 	private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
 	private readonly DB_DATASETS = this.DB_URL + '/Datasets';
 
-	constructor(private httpClient: HttpClient, private userService: FbUserService) {
-		this.userService.getAllUsers();
+	constructor(private httpClient: HttpClient, private aUserService: AUserService) {
+		this.aUserService.getAllUsers();
 		this.getAllDatasets();
 		this.datasets = [];
 
 		/*setTimeout(() => {
 		for (let i = 0; i < 10; i++) {
-		  console.log(this.userService.getUsers().length);
+		  console.log(this.aUserService.getUsers().length);
 		  this.datasets.push(this.generateRandomDataset())
 		}
 		console.log(this.datasets);
@@ -84,7 +84,7 @@ export class FirebaseDatasetService {
 
 
 	getMyDatasets() {
-		let user = this.userService.getLoggedInUser();
+		let user = this.aUserService.getLoggedInUser();
 		return this.getDatasets().filter(dataset =>
 			dataset.user.userId == user.userId
 		)
@@ -143,8 +143,8 @@ export class FirebaseDatasetService {
 		let publicityOptions = Object.keys(Publicity);
 		let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
 		//Randomly generates a user
-		let randomNumber = Math.floor(this.userService.getUsers().length * Math.random());
-		let randomUser = this.userService.getUsers()[randomNumber];
+		let randomNumber = Math.floor(this.aUserService.getUsers().length * Math.random());
+		let randomUser = this.aUserService.getUsers()[randomNumber];
 
 		//Randomly generates a dataset name
 		let datasetName = "";

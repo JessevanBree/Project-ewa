@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../services/user.service";
-import {FbUserService} from "../../services/fb-user.service";
+import {AUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,7 +11,7 @@ export class ForgotPasswordComponent implements OnInit {
   isValidCredentials: boolean;
   email: string;
 
-  constructor(private userService: FbUserService) {
+  constructor(private aUserService: AUserService) {
     this.isValidCredentials = true;
   }
 
@@ -22,12 +21,12 @@ export class ForgotPasswordComponent implements OnInit {
     // let exists = 0;
     // console.log("CURRENT USER EMAIL = " + this.email);
     //
-    // console.log("Length of database users: " + this.userService.getUsers().length);
+    // console.log("Length of database users: " + this.aUserService.getUsers().length);
     //
     // //Check if email exists, if so set isValidCredentials to true
-    // for (let i = 0; i < this.userService.getUsers().length; i++) {
-    //   if (this.userService.getUsers()[i].email == this.email){
-    //     console.log(" Emails from firebase: " + this.userService.getAllUsers()[i]);
+    // for (let i = 0; i < this.aUserService.getUsers().length; i++) {
+    //   if (this.aUserService.getUsers()[i].email == this.email){
+    //     console.log(" Emails from firebase: " + this.aUserService.getAllUsers()[i]);
     //     exists++;
     //   }
     // }

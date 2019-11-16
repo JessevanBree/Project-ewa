@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FbUserService } from './fb-user.service';
+import {AUserService} from './fb-user.service';
 
-describe('FbUserService', () => {
+describe('AUserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FbUserService = TestBed.get(FbUserService);
+    const service: AUserService = TestBed.get(AUserService);
     expect(service).toBeTruthy();
   });
 });

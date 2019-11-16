@@ -4,7 +4,7 @@ import {DatasetService} from "../../services/dataset.service";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FbUserService} from "../../services/fb-user.service";
+import {AUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -24,7 +24,7 @@ export class MyuploadsComponent implements OnInit {
   paramSubscription: Subscription;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private userService: FbUserService, private router: Router) {
+              private aUserService: AUserService, private router: Router) {
     this.datasets = [];
 
     this.editDatasetToggle = false;

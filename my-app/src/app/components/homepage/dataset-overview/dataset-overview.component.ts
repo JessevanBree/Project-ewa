@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Dataset} from "../../../models/dataset";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
-import {FbUserService} from "../../../services/fb-user.service";
+import {AUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
@@ -31,7 +31,7 @@ export class DatasetOverviewComponent implements OnInit {
   private searchQuery: any;
 
   constructor(private datasetService: FirebaseDatasetService, private router: Router,
-              private activatedRoute: ActivatedRoute, private userService: FbUserService,
+              private activatedRoute: ActivatedRoute, private aUserService: AUserService,
               private sessionService: FbSessionService) {
     this.datasets = [];
     this.activeIndex = null;

@@ -3,7 +3,7 @@ import {NgForm} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 
 // services
-import {UserService} from "../../services/user.service";
+import {AUserService} from "../../services/fb-user.service";
 import {SessionService} from "../../services/session/session.service";
 
 @Component({
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild("formElement", {static: false}) editForm: NgForm;
 
-  constructor(private userService: UserService,
+  constructor(private aUserService: AUserService,
               private sessionService: SessionService,
               private route: Router,
               private activeRoute: ActivatedRoute) {

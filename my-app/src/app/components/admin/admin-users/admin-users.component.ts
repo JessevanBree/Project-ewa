@@ -5,9 +5,7 @@ import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 
 //Services
-import { UserService } from '../../../services/user.service';
-import { FbUser } from 'src/app/models/fb-user';
-import { FbUserService } from 'src/app/services/fb-user.service';
+import {AUserService} from 'src/app/services/fb-user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -15,15 +13,15 @@ import { FbUserService } from 'src/app/services/fb-user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: FbUser[];
+	users: User[];
 	editIsClicked: boolean;
 	createIsClicked: boolean;
 	activeIndex: number;
-	selectedUser: FbUser;
+	selectedUser: User;
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aUserService: FbUserService) {
+	constructor(private aUserService: AUserService) {
 		this.activeIndex, this.selectedUser = null;
 		this.editIsClicked, this.createIsClicked = false;
 		this.searchFilter = "";
@@ -46,12 +44,15 @@ export class AdminUsersComponent implements OnInit {
 	}
 	
 	saveRequest($event): void {
+		console.log($event)
 		this.editIsClicked = false;
 		this.users[this.activeIndex] = $event;
+		console.log($event, this.activeIndex)
+
 		this.aUserService.saveAllUsers();
 	}
 
-	onDeleteClick(user: FbUser){
+	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.email)){
 			this.aUserService.deleteUser(user);				
 		}

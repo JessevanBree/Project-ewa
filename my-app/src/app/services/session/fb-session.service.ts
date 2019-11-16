@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as firebase from "firebase";
-import {FbUserService} from "../fb-user.service";
+import {AUserService} from "../fb-user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class FbSessionService {
   token: string;
   public authenticated: boolean;
 
-  constructor(private userService: FbUserService) {
+  constructor(private aUserService: AUserService) {
     this.authenticated = false;
   }
 
@@ -20,12 +20,12 @@ export class FbSessionService {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(
       response => {
         firebase.auth().currentUser.getIdToken().then(token =>{
-        this.token = token;
-        this.userService.saveAllUsers();
+		this.token = token;
+        this.aUserService.saveLoggedInUser();
         });
         this.authenticated = true;
         this.displayName = firebase.auth().currentUser.email;
-        // this.isAdmin = this.userService.getLoggedInUser().isAdmin;
+        // this.isAdmin = this.aUserService.getLoggedInUser().isAdmin;
         return response;
       }
     )
@@ -60,8 +60,6 @@ export class FbSessionService {
       measurementId: "G-PDGQZH7H4X"
     };
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-  }
-
-
+	firebase.initializeApp(firebaseConfig);
+	}
 }

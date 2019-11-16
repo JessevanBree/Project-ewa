@@ -1,50 +1,48 @@
 import { Organisation } from './organisation';
-import { Dataset } from "./dataset";
+import { observable } from 'rxjs';
 
 export class User {
+	public userId: string;
+	public firstName?: string;
+	public surName?: string;
+	public password: string;
+	public email: string;
+	public isAdmin: boolean;
+	public organisation?: Organisation;
+	public dateCreated: Date;
+	public dateEdited?: Date;
 
-	firstName: String;
-	surName: String;
-	mail: String;
-	password: String;
-	isAdmin: Boolean;
-	organisation?: Organisation;
-	isDeleted: Boolean;
-	dateCreated: Date;
-	uploadedDatasets: Dataset[];
-	dateEdited?: Date;
-
-	constructor(firstName: String, surName: String, mail: String, password: String, isAdmin: Boolean, uploadedDatasets?: Dataset[], organisation?: Organisation) {
-		this.firstName = firstName;
-		this.surName = surName;
-		this.mail = mail;
+	constructor(userId: string, email: string, password: string, isAdmin: boolean, firstName?: string, surName?: string, organisation? : Organisation) {
+		this.userId = userId;
+		this.email = email;
 		this.password = password;
 		this.isAdmin = isAdmin;
-		this.uploadedDatasets = uploadedDatasets == null ? null : uploadedDatasets;
-		this.organisation = organisation != null ? organisation : null;
-		this.isDeleted = false;
+		this.firstName = firstName;
+		this.surName = surName;
+		this.organisation = organisation;
 		this.dateCreated = new Date(Date.now());
-		this.dateEdited = new Date(Date.now());
 	}
 
 	equals(user: User): Boolean {
-		return this.firstName === user.firstName &&
-			this.surName === user.surName &&
-			this.mail === user.mail &&
-			this.password === user.password &&
+		return this.userId === user.userId &&
+			this.email === user.email &&
 			this.isAdmin === user.isAdmin &&
-			this.organisation === user.organisation &&
-			this.isDeleted === user.isDeleted &&
 			this.dateCreated === user.dateCreated;
 	}
 
-	addDataset(dataset: Dataset) {
-		if (dataset != null) {
-			this.uploadedDatasets.push(dataset);
-		}
+	// addDataset(dataset: Dataset) {
+	// 	if (dataset != null) {
+	// 		this.uploadedDatasets.push(dataset);
+	// 	}
+	// }
+
+	tostring(): string {
+		let tostring = "User email: " + this.email + ", User ID: " + this.userId + ", Created at: "
+			+ this.dateCreated;
+		return tostring;
 	}
-	
+
 	static trueCopy(user: User): User {
-		return Object.assign(new User(null, null, null, null, null, null), user)
+		return Object.assign(new User(null, null, null, null, null), user)
 	}
 }

@@ -1,3 +1,7 @@
+<app-create-user-popup (savedUser)="saveRequest($event)"></app-create-user-popup>
+<app-edit-user-popup *ngIf="editIsClicked" (savedUser)="saveRequest($event)"
+	[editingUser]="selectedUser"></app-edit-user-popup>
+
 <div class="row">
 	<div class="card w-100 mb-3">
 		<div class="card-header">
