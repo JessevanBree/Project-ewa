@@ -6,13 +6,14 @@ import {FbUserService} from "../fb-user.service";
   providedIn: 'root'
 })
 export class FbSessionService implements OnInit{
-  public isAdmin: boolean;;
+  public isAdmin: boolean;
   public displayName: string;
   token: string;
   public authenticated: boolean;
 
-  constructor(private aUserService: FbUserService) {
-    this.authenticated, this.isAdmin = false;
+  constructor(private userService: FbUserService) {
+    this.isAdmin = false;
+    this.authenticated = false;
   }
 
   signOn(email: string, password: string) {
@@ -20,12 +21,12 @@ export class FbSessionService implements OnInit{
       response => {
         firebase.auth().currentUser.getIdToken().then(token => {
           this.token = token;
-          this.aUserService.saveLoggedInUser();
+          this.userService.saveLoggedInUser();
         });
         this.authenticated = true;
 		this.displayName = firebase.auth().currentUser.email;
-		if(this.aUserService.getLoggedInUser() != null)
-        	this.isAdmin = this.aUserService.getLoggedInUser().isAdmin;
+		if(this.userService.getLoggedInUser() != null)
+        	this.isAdmin = this.userService.getLoggedInUser().isAdmin;
         return response;
       }
     )
