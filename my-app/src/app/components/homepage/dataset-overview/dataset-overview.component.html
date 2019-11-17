@@ -31,8 +31,8 @@
         <option value="National">National Level</option>
         <option value="Urban">Urban Level</option>
       </select>
-      <!--      <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">-->
-      <select name="publicitySelectBox" class="custom-select" style="cursor: pointer" ngForm
+<!--            <select *ngIf="this.sessionService.displayName" class="custom-select" style="cursor: pointer">-->
+      <select *ngIf="this.sessionService.displayName" name="publicitySelectBox" class="custom-select" style="cursor: pointer" ngForm
               [(ngModel)]="this.publicitySearch">
         <option value="All shared">All shared</option>
         <option value="Public">Public shared</option>
