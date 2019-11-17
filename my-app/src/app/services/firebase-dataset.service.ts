@@ -36,6 +36,9 @@ export class FirebaseDatasetService {
 
   updateDataset(index: number, dataset: Dataset): boolean {
     this.datasets[index] = dataset;
+    this.datasets.forEach(dataset => {
+      console.log(dataset);
+    });
     this.saveAllDatasets();
     return true;
   }

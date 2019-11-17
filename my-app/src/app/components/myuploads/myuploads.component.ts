@@ -5,6 +5,7 @@ import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FbUserService} from "../../services/fb-user.service";
+import {$e} from "codelyzer/angular/styles/chars";
 
 @Component({
   selector: 'app-myuploads',
@@ -52,6 +53,8 @@ export class MyuploadsComponent implements OnInit {
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
   saveRequest($event) {
     this.editMetaDataToggle = false;
+    console.log($event);
+    console.log(this.activeIndex);
     //Update (save) the dataset in both arrays
     this.datasets[this.activeIndex] = $event;
     this.datasetService.updateDataset(this.activeIndex, this.datasets[this.activeIndex]);

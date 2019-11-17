@@ -1,20 +1,20 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as firebase from "firebase";
 import {FbUserService} from "../fb-user.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FbSessionService implements OnInit{
-  public isAdmin: boolean;
+export class FbSessionService {
+  public isAdmin: boolean = false;
   public displayName: string;
   token: string;
   public authenticated: boolean;
 
   constructor(private userService: FbUserService) {
-    this.isAdmin = false;
     this.authenticated = false;
   }
+
 
   signOn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(
