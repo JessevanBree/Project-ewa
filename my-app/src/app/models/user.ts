@@ -12,7 +12,8 @@ export class User {
 	public dateCreated: Date;
 	public dateEdited?: Date;
 
-	constructor(userId: string, email: string, password: string, isAdmin: boolean, firstName?: string, surName?: string, organisation? : Organisation) {
+	constructor(userId: string, email: string, password: string, isAdmin: boolean, firstName?: string,
+              surName?: string, organisation?: Organisation) {
 		this.userId = userId;
 		this.email = email;
 		this.password = password;
