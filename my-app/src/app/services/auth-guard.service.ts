@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
   constructor(private sessionService: FbSessionService, private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if(!sessionStorage.key(0)){
+    if(!this.sessionService.isAuthenticated()){
       console.log(state.url);
       this.router.navigate(['/firebase-login'], {queryParams: {return: state.url}});
       return false;

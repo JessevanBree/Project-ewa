@@ -4,7 +4,7 @@ import {DatasetService} from "../../services/dataset.service";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {AUserService} from "../../services/fb-user.service";
+import {FbUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -24,7 +24,7 @@ export class MyuploadsComponent implements OnInit {
   paramSubscription: Subscription;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private aUserService: AUserService, private router: Router) {
+              private aUserService: FbUserService, private router: Router) {
     this.datasets = [];
 
     this.editDatasetToggle = false;
@@ -53,12 +53,17 @@ export class MyuploadsComponent implements OnInit {
     this.editMetaDataToggle = true;
   }
 
-  //Check if upload button is clicked to open pop-up
+  //Check if upload button is clicked to open upload pop-up
   onUploadButtonClick() {
     this.uploadDatasetToggle = true;
     this.router.navigate(['uploadDataset'], {
       relativeTo: this.activatedRoute
     })
+  }
+
+  //Triggers when a dataset has been uploaded to refresh the overview
+  onUploadDataset(){
+    this.datasets = this.datasetService.getMyDatasets();
   }
 
   onEditDatasetClick(datasetIndex: number) {
@@ -90,6 +95,7 @@ export class MyuploadsComponent implements OnInit {
 
   onCloseReq() {
     console.log("Closing modal..");
+    this.datasets = this.datasetService.getMyDatasets();
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;

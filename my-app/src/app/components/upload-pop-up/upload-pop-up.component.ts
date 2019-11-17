@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms';
 import {Papa} from "ngx-papaparse";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Dataset} from "../../models/dataset";
-import {AUserService} from "../../services/fb-user.service";
+import {FbUserService} from "../../services/fb-user.service";
 import {Router} from "@angular/router";
 
 
@@ -38,12 +38,12 @@ export class UploadPopUpComponent implements OnInit {
   private chart;
   private chartLabels: string[];
   // private chartOptions;
-  private dataset: Dataset;
+  // private dataset: Dataset;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
   constructor(private datasetService: FirebaseDatasetService, private papa: Papa,
-              private aUserService: AUserService, private router: Router) {
+              private aUserService: FbUserService, private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
       this.listOfYears.push(i);
@@ -59,10 +59,8 @@ export class UploadPopUpComponent implements OnInit {
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm) {
 	console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
-	let uploadingUser = null;
-	this.aUserService.getLoggedInUser().then((user) => {
-		uploadingUser = user
-	});
+	let uploadingUser = this.aUserService.getLoggedInUser();
+	
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
       this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
     this.datasetService.getDatasets().push(createdDataset);
@@ -192,7 +190,7 @@ export class UploadPopUpComponent implements OnInit {
       let recordYAxis = object[this.headers[this.yAxisInput]];
       let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
 
-      if (this.xAxisInputs != null || undefined) {
+      if (this.xAxisInputs[1] != null || undefined) {
         let record2 = object[this.headers[this.xAxisInputs[1]]];
         recordXAxis = recordXAxis.concat(" " + record2);
       }

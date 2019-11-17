@@ -3,7 +3,7 @@ import {FbSessionService} from "../../services/session/fb-session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import * as firebase from "firebase";
 import {HttpClient} from "@angular/common/http";
-import {AUserService} from "../../services/fb-user.service";
+import {FbUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-firebase-login',
@@ -18,8 +18,7 @@ export class FirebaseLoginComponent implements OnInit {
 
   private readonly DB_USERS = 'https://projectewa-a2355.firebaseio.com/Users.json';
 
-  constructor(private sessionService: FbSessionService, private route: ActivatedRoute, private router: Router,
-              private aUserService: AUserService) {
+  constructor(private sessionService: FbSessionService, private route: ActivatedRoute, private router: Router) {
 
   }
 

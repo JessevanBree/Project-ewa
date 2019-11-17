@@ -7,7 +7,7 @@ import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData';
 @Injectable({
 	providedIn: 'root'
 })
-export class OldAUserService {
+export class OldFbUserService {
 	// private users: User[];
 
 	// constructor() {

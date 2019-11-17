@@ -5,7 +5,7 @@ import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 
 //Services
-import {AUserService} from 'src/app/services/fb-user.service';
+import {FbUserService} from 'src/app/services/fb-user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -21,7 +21,7 @@ export class AdminUsersComponent implements OnInit {
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aUserService: AUserService) {
+	constructor(private aUserService: FbUserService) {
 		this.activeIndex, this.selectedUser = null;
 		this.editIsClicked, this.createIsClicked = false;
 		this.searchFilter = "";

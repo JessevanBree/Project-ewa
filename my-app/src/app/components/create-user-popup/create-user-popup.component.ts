@@ -4,7 +4,7 @@ import { ADatasetService } from "../../services/a-dataset.service";
 import { Organisation } from "../../models/organisation";
 import { User } from "../../models/user";
 import { AOrganisationService } from "../../services/a-organisation.service";
-import { AUserService } from "../../services/fb-user.service";
+import { FbUserService } from "../../services/fb-user.service";
 import { NgForm } from "@angular/forms";
 
 @Component({
@@ -22,7 +22,7 @@ export class CreateUserPopupComponent implements OnInit {
 	@Input() user: User;
 	@Output() savedUser = new EventEmitter<User>();
 
-	constructor(private aUserService: AUserService, private aOrganisationService: AOrganisationService) {
+	constructor(private aUserService: FbUserService, private aOrganisationService: AOrganisationService) {
 		this.users = aUserService.getUsers();
 	}
 

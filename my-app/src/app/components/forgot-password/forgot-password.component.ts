@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {AUserService} from "../../services/fb-user.service";
+import {FbUserService} from "../../services/fb-user.service";
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,7 +11,7 @@ export class ForgotPasswordComponent implements OnInit {
   isValidCredentials: boolean;
   email: string;
 
-  constructor(private aUserService: AUserService) {
+  constructor(private aUserService: FbUserService) {
     this.isValidCredentials = true;
   }
 

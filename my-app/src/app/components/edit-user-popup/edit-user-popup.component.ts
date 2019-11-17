@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from "../../models/user";
-import {AUserService} from "../../services/fb-user.service";
+import {FbUserService} from "../../services/fb-user.service";
 
 @Component({
 	selector: 'app-edit-user-popup',
@@ -22,7 +22,7 @@ export class EditUserPopupComponent implements OnInit {
 		return this._editingUser;
 	}
 
-	constructor(private aUserService: AUserService) {
+	constructor(private aUserService: FbUserService) {
 	}
 
 	ngOnInit(): void {
