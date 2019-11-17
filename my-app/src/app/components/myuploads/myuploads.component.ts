@@ -32,6 +32,23 @@ export class MyuploadsComponent implements OnInit {
     this.uploadDatasetToggle = false;
   }
 
+  ngOnInit() {
+    this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        const userEmail = params.email;
+        this.datasetService.getAllDatasets2().subscribe(
+          (data: Dataset[]) => {
+            // for each dataset check if dataset exists and if the email of the dataset uploader
+            // is equal to the logged in user mail which gets extracted from the URL parameter
+            // if true push the dataset to the datasets array else return an empty array
+            data.map((o) => {
+              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+            })
+          }
+        );
+      }
+    );
+  }
+
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
   saveRequest($event) {
     this.editMetaDataToggle = false;
@@ -48,7 +65,7 @@ export class MyuploadsComponent implements OnInit {
     this.router.navigate(['editMetaData'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
-    });
+    }).then(r => console.log(r));
 
     this.editMetaDataToggle = true;
   }
@@ -66,10 +83,10 @@ export class MyuploadsComponent implements OnInit {
     this.datasets = this.datasetService.getMyDatasets();
   }
 
-  onEditDatasetClick(datasetIndex: number) {
+  onViewDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
     this.editDatasetToggle = true;
-    this.router.navigate(['editDataset'], {
+    this.router.navigate(['viewDataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
     })
@@ -99,21 +116,6 @@ export class MyuploadsComponent implements OnInit {
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
-  }
-
-
-  ngOnInit() {
-    this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-        const userEmail = params.email;
-        this.datasetService.getAllDatasets2().subscribe(
-          (data: Dataset[]) => {
-            data.map((o) => {
-              o && o.user.email == userEmail ? this.datasets.push(o) : [];
-            })
-          }
-        );
-      }
-    );
   }
 
 }

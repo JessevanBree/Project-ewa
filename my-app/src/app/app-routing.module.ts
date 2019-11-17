@@ -15,7 +15,7 @@ import {FirebaseLoginComponent} from "./components/firebase-login/firebase-login
 import {AuthGuardService} from "./services/auth-guard.service";
 import {AuthGuardAdminService} from "./services/auth-guard-admin.service";
 import {EditMetadataPopupComponent} from "./components/edit-metadata-popup/edit-metadata-popup.component";
-import {EditDatasetPopupComponent} from "./components/edit-dataset-popup/edit-dataset-popup.component";
+import {ViewDatasetPopupComponent} from "./components/view-dataset-popup/view-dataset-popup.component";
 import {UploadPopUpComponent} from "./components/upload-pop-up/upload-pop-up.component";
 
 const routes: Routes = [
@@ -40,8 +40,8 @@ const routes: Routes = [
       component: EditMetadataPopupComponent
     },
       {
-        path: 'editDataset',
-        component: EditDatasetPopupComponent
+        path: 'viewDataset',
+        component: ViewDatasetPopupComponent
       }]
   },
   {path: 'profile/:email', component: ProfileComponent, canActivate: [AuthGuardService]},
