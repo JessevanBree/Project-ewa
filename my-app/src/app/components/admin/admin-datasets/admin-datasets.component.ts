@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 //Model
 import { Dataset } from '../../../models/dataset';
+import {UsersEnum} from 'src/app/models/enums/admin-sort-enums'
 
 //Services
 import { FirebaseDatasetService } from 'src/app/services/firebase-dataset.service';
+import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
 
 @Component({
 	selector: 'app-admin-datasets',
@@ -13,16 +15,21 @@ import { FirebaseDatasetService } from 'src/app/services/firebase-dataset.servic
 })
 export class AdminDatasetsComponent implements OnInit {
 	datasets: Dataset[];
-	uploadIsClicked: boolean = false;
-	editIsClicked: boolean = false;
+	uploadIsClicked: boolean;
+	editIsClicked: boolean;
 	selectedDataset: Dataset;
+	searchFilter: String;
+	emptyList: boolean;
 	private activeIndex;
 
 	constructor(private datasetService: FirebaseDatasetService) {
-		this.datasets = [] = datasetService.getDatasets();
+		this.uploadIsClicked, this.editIsClicked = false;
+		this.searchFilter = "";
 	}
-
+	
 	ngOnInit() {
+		this.datasets = [] = this.datasetService.getDatasets();
+		this.emptyList = this.datasets.length == 0;
 	}
 
 	//This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -50,4 +57,10 @@ export class AdminDatasetsComponent implements OnInit {
 		} 
 	}
 
+	checkIfListEmpty(): void {
+		if(this.datasets.length == 0) this.emptyList = true;
+		setTimeout(() => {
+			this.emptyList = document.getElementsByClassName("admin-dataset-item").length == 0;
+		}, 5)
+	}
 }

@@ -24,7 +24,7 @@ export class MyuploadsComponent implements OnInit {
   paramSubscription: Subscription;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private userService: FbUserService, private router: Router) {
+              private aUserService: FbUserService, private router: Router) {
     this.datasets = [];
 
     this.editDatasetToggle = false;

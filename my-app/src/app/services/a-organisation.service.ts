@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { UserService } from 'src/app/services/user.service';
+import {FbUserService} from 'src/app/services/fb-user.service';
 
 //Models
 import { User } from 'src/app/models/user';
@@ -13,7 +13,7 @@ import { SUR_NAMES } from 'src/app/models/testData';
 export class AOrganisationService {
 	private organisations: Organisation[];
 
-	constructor(private aUserService: UserService) {
+	constructor(private aUserService: FbUserService) {
 		this.organisations = [];
 		for (let i = 0; i < 100; i++) {
 			this.organisations[i] = this.genRandomOrganisation();
@@ -51,7 +51,7 @@ export class AOrganisationService {
 	}
 
 	genRandomOrganisation(): Organisation {
-		let org: User = this.aUserService.genRandomUser();
-		return new Organisation(SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + " & Co", org);
+		let user: User = this.aUserService.getUsers()[Math.floor(Math.random() * this.aUserService.getUsers().length)]
+		return new Organisation(SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + " & Co", user);
 	}
 }

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FbUserService } from './fb-user.service';
+import {FbUserService} from './fb-user.service';
 
 describe('FbUserService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

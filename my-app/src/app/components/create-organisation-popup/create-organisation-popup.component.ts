@@ -4,7 +4,7 @@ import {ADatasetService} from "../../services/a-dataset.service";
 import {Organisation} from "../../models/organisation";
 import {User} from "../../models/user";
 import {AOrganisationService} from "../../services/a-organisation.service";
-import {UserService} from "../../services/user.service";
+import {FbUserService} from "../../services/fb-user.service";
 import {NgForm} from "@angular/forms";
 
 @Component({
@@ -22,7 +22,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
   @Input() organisation: Organisation;
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
-  constructor(private aOrganisationService: AOrganisationService, private aUserService: UserService) {
+  constructor(private aOrganisationService: AOrganisationService, private aUserService: FbUserService) {
     this.users = aUserService.getUsers();
   }
 
@@ -33,11 +33,10 @@ export class CreateOrganisationPopupComponent implements OnInit {
   //This method saves the edited changes of a dataset
   onSubmit(form: NgForm) {
     let user = this.users.find(user => {
-      return user.mail === form.value.adminInput;
+      return user.email === form.value.adminInput;
     });
 
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,
-      new User(user.firstName, user.surName, form.value.adminInput, user.password, user.isAdmin)));
+    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,user));
   }
 
   private setClickedToFalse() {

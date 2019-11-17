@@ -1,6 +1,6 @@
 import {Chart, ChartDataSets, ChartOptions} from 'chart.js';
 import {Organisation} from "./organisation";
-import {FbUser} from "./fb-user";
+import {User} from "./user";
 import {ViewChild} from "@angular/core";
 
 export enum RegionLevel {
@@ -23,15 +23,15 @@ export class Dataset {
   organisation?: Organisation;
   description?: string;
   year: number;
-  user: FbUser;
+  user: User;
   chart: ChartDataSets;
   chartLabels: string[];
   // chartOptions?: ChartOptions;
 
 
   constructor(id: number, name: string, region: string, publicity: string,
-              user: FbUser, year: number, chart: ChartDataSets, chartLabels: string[],
-              description?: string, organisation?: Organisation) {
+              user: User, year: number, chart: ChartDataSets, chartLabels: string[],
+               description?: string, organisation?: Organisation) {
     this.id = id;
     this.name = name;
     this.region = region;

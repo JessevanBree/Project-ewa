@@ -1,27 +1,27 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import * as firebase from "firebase";
 import {FbUserService} from "../fb-user.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FbSessionService {
-  public isAdmin: boolean = false;
+export class FbSessionService implements OnInit{
+  public isAdmin: boolean;
   public displayName: string;
   token: string;
   public authenticated: boolean;
 
   constructor(private userService: FbUserService) {
+    this.isAdmin = false;
     this.authenticated = false;
   }
 
-
-  signOn(email: string, password: string){
+  signOn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(
       response => {
-        firebase.auth().currentUser.getIdToken().then(token =>{
-        this.token = token;
-        this.userService.saveAllUsers();
+        firebase.auth().currentUser.getIdToken().then(token => {
+          this.token = token;
+          this.userService.saveAllUsers();
         });
         this.authenticated = true;
         this.displayName = firebase.auth().currentUser.email;
@@ -31,7 +31,7 @@ export class FbSessionService {
     )
   }
 
-  signOff(){
+  signOff() {
     console.log("Signing out");
     this.isAdmin = false;
     this.displayName = null;
@@ -40,15 +40,15 @@ export class FbSessionService {
     return firebase.auth().signOut();
   }
 
-  public getTokenId(){
+  public getTokenId() {
     return this.token;
   }
 
-  public isAuthenticated(){
+  public isAuthenticated() {
     return this.authenticated;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     const firebaseConfig = {
       apiKey: "AIzaSyCihkANi0RepQRSxrqVV6N2GZ9hkgico8A",
       authDomain: "projectewa-a2355.firebaseapp.com",
