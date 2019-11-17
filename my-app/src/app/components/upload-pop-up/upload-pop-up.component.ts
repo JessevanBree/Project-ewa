@@ -58,9 +58,9 @@ export class UploadPopUpComponent implements OnInit {
 
   //Retreive form data and upload new dataset
   onSubmit(form: NgForm) {
-	console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
-	let uploadingUser = this.aUserService.getLoggedInUser();
-	
+    console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
+    let uploadingUser = this.aUserService.getLoggedInUser();
+
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
       this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
     this.datasetService.getDatasets().push(createdDataset);
@@ -117,6 +117,7 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     if (this.headers[j].includes(";")) {
                       this.headers = this.headers[j].split(";");
+                      console.log(this.headers);
                     }
                   }
                   //Split values and create a new object with the attributes as values that have been split
@@ -130,7 +131,7 @@ export class UploadPopUpComponent implements OnInit {
                 }
               }
             }
-            arrayOfObjects = csvObjects;
+            // arrayOfObjects = csvObjects;
             this.csvData = arrayOfObjects;
             console.log(this.csvData);
             return this.csvData;
@@ -169,11 +170,12 @@ export class UploadPopUpComponent implements OnInit {
     console.log(xAxisLabel, yAxisLabel);
 
     //Retrieves the records from the csv file in order to visualize the charts
-    if(objectsArray.length > 150){
+    if (objectsArray.length > 150) {
       for (let i = 0; i < 100; i++) {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
         let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
+        console.log(recordXAxis, recordYAxis);
 
         if (this.xAxisInputs[1] != null || undefined) {
           let record2 = object[this.headers[this.xAxisInputs[1]]];
@@ -183,7 +185,6 @@ export class UploadPopUpComponent implements OnInit {
         chartData.push(recordYAxis);
         chartLabels.push(recordXAxis);
       }
-
       console.log(chartLabels, chartData);
     } else for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
