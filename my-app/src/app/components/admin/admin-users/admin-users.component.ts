@@ -5,9 +5,7 @@ import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 
 //Services
-import { UserService } from '../../../services/user.service';
-import { FbUser } from 'src/app/models/fb-user';
-import { FbUserService } from 'src/app/services/fb-user.service';
+import {FbUserService} from 'src/app/services/fb-user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -15,17 +13,23 @@ import { FbUserService } from 'src/app/services/fb-user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: FbUser[];
-	editIsClicked: boolean = false;
-	createIsClicked: boolean = false;
-	activeIndex: number = null;
-	selectedUser: FbUser = null;
+	users: User[];
+	editIsClicked: boolean;
+	createIsClicked: boolean;
+	activeIndex: number;
+	selectedUser: User;
+	searchFilter: String;
+	emptyList: boolean;
 
 	constructor(private aUserService: FbUserService) {
-		this.users = aUserService.getUsers();
+		this.activeIndex, this.selectedUser = null;
+		this.editIsClicked, this.createIsClicked = false;
+		this.searchFilter = "";
 	}
-
+	
 	ngOnInit() {
+		this.users = this.aUserService.getUsers();
+		this.emptyList = this.users.length == 0;
 	}
 
 	onEditClick(originalUserIndex: number): void {
@@ -40,14 +44,24 @@ export class AdminUsersComponent implements OnInit {
 	}
 	
 	saveRequest($event): void {
+		console.log($event)
 		this.editIsClicked = false;
 		this.users[this.activeIndex] = $event;
+		console.log($event, this.activeIndex)
+
 		this.aUserService.saveAllUsers();
 	}
 
-	onDeleteClick(user: FbUser){
+	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.email)){
 			this.aUserService.deleteUser(user);				
 		}
+	}
+
+	checkIfListEmpty(): void {
+		if(this.users.length == 0) this.emptyList = true;
+		setTimeout(() => {
+			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+		}, 5)
 	}
 }

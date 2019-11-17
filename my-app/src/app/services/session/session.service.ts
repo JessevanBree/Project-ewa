@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserService} from "../user.service";
+import {FbUserService} from "../fb-user.service";
 
 @Injectable({
 	providedIn: 'root'
@@ -8,12 +8,12 @@ export class SessionService {
 	userMail: string;
 	isValid: boolean = false;
 
-  constructor(private userService: UserService) { }
+  constructor(private aUserService: FbUserService) { }
 
 	signOn(eMail: string, passWord: string) {
-		for (let i = 0; i < this.userService.getUsers().length; i++) {
-			let user = this.userService.getUser(i);
-			if (eMail == user.mail && passWord == user.password) {
+		for (let i = 0; i < this.aUserService.getUsers().length; i++) {
+			let user = this.aUserService.getLoggedInUser();
+			if (eMail == user.email && passWord == user.password) {
 				this.userMail = eMail;
 				return this.isValid = true;
 			}

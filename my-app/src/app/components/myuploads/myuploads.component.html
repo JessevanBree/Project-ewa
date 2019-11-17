@@ -12,10 +12,10 @@
           My uploaded datasets
         </div>
         <ul class="dataList list-group list-group-flush">
-          <li class="list-group-item p-1" *ngIf="datasets.length <= 0">
-                        <span class="row mx-1 align-middle">
+          <li class="list-group-item p-1" *ngIf="datasets.length == 0">
+            <span class="row mx-1 align-middle">
             You don't have any uploaded datasets
-                        </span>
+            </span>
           </li>
           <li class="list-group-item p-1" *ngFor="let item of datasets; index as i">
 

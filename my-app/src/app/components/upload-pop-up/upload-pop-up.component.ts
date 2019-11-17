@@ -1,11 +1,10 @@
-import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Papa} from "ngx-papaparse";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
-import {Dataset, Publicity} from "../../models/dataset";
+import {Dataset} from "../../models/dataset";
 import {FbUserService} from "../../services/fb-user.service";
 import {Router} from "@angular/router";
-import {ChartOptions} from "chart.js";
 
 
 @Component({
@@ -21,6 +20,8 @@ export class UploadPopUpComponent implements OnInit {
 
   private detailForm: NgForm;
   private csvReader: NgForm;
+  private headers: string[];
+  private csvData: object[];
 
   protected nameInput: string;
   protected descriptionInput: string;
@@ -28,10 +29,16 @@ export class UploadPopUpComponent implements OnInit {
   protected regionInput: string;
   protected yearInput: number;
 
+  protected xAxisInputs: number[];
+  protected yAxisInput: number;
+  protected removeXAxesToggle: boolean;
+  protected confirmToggle: boolean;
+
   private listOfYears: number[];
   private chart;
   private chartLabels: string[];
-  private dataset: Dataset;
+  // private chartOptions;
+  // private dataset: Dataset;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
@@ -42,6 +49,8 @@ export class UploadPopUpComponent implements OnInit {
       this.listOfYears.push(i);
     }
     this.closingToggle = new EventEmitter<boolean>();
+    this.confirmToggle = false;
+    this.xAxisInputs = [null];
   }
 
   ngOnInit() {
@@ -51,6 +60,8 @@ export class UploadPopUpComponent implements OnInit {
   onSubmit(form: NgForm) {
     console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
+    console.log(uploadingUser);
+
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
       this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
     this.datasetService.getDatasets().push(createdDataset);
@@ -58,8 +69,24 @@ export class UploadPopUpComponent implements OnInit {
     this.datasetService.saveAllDatasets();
     this.router.navigate(['myuploads', uploadingUser.email])
 
-
     // form.resetForm();
+  }
+
+  onConfirm(): void {
+    this.confirmToggle = !this.confirmToggle;
+    if (this.confirmToggle == true) {
+      this.convertCSVToChartData(this.csvData);
+    }
+  }
+
+  onAddXAxes(): void {
+    if (this.xAxisInputs.length < 2) {
+      this.xAxisInputs.push(null);
+      this.removeXAxesToggle = true;
+    } else if (this.xAxisInputs.length == 2) {
+      this.removeXAxesToggle = false;
+      this.xAxisInputs.pop();
+    } else return null;
   }
 
   //Method to upload
@@ -69,29 +96,48 @@ export class UploadPopUpComponent implements OnInit {
     let arrayOfObjects = [];
 
     if (this.isValidCSVFile(files)) {
-
       let file = files.item(0);
       this.papa.parse(file, {
           header: true,
           dynamicTyping: true,
           skipEmptyLines: true,
           complete: (results) => {
-            let object = results.data;
-            console.log(object[0]);
+            console.log(results);
+            let csvObjects = results.data;
+            this.headers = Object.keys(csvObjects[0]);
+            console.log("Headers: ", this.headers);
+            if (this.headers[0].includes(";")) {
+              for (let i = 0; i < csvObjects.length; i++) {
+                let firstHeader = Object.keys(csvObjects[i])[0];
+                let csvObject = csvObjects[i];
+                let object = {};
 
-            for (let i = 0; i < object.length; i++) {
-              arrayOfObjects.push(object[i]);
-              Object.keys(object[i]).forEach(key => {
-                let value = object[i][key];
-                // console.log(value);
-                if (typeof value === "string") {
-                  arrayOfStrings.push(value);
-                } else if (typeof value === "number") {
-                  arrayOfNumber.push(value);
+                //If one of the headers or values contains ; then split them accordingly and check the other headers
+                if (csvObject[firstHeader].includes(";")) {
+                  //Check if headers contains semicolons and split them accordingly
+                  for (let j = 0; j < this.headers.length; j++) {
+                    if (this.headers[j].includes(";")) {
+                      this.headers = this.headers[j].split(";");
+                      console.log(this.headers);
+                    }
+                  }
+                  //Split values and create a new object with the attributes as values that have been split
+                  csvObject = csvObject[firstHeader].split(";");
+                  for (let j = 0; j < this.headers.length; j++) {
+                    let header = this.headers[j];
+                    object[header] = csvObject[j];
+                    console.log(object);
+                  }
+                  arrayOfObjects.push(object);
                 }
-              })
+              }
+            } else {
+              arrayOfObjects = csvObjects
             }
-            return this.convertCSVToChartData(arrayOfObjects);
+            // arrayOfObjects = csvObjects;
+            this.csvData = arrayOfObjects;
+            console.log(this.csvData);
+            return this.csvData;
           }
         }
       );
@@ -115,40 +161,55 @@ export class UploadPopUpComponent implements OnInit {
 
 
   convertCSVToChartData(objectsArray: any[]): void {
-    let valueLabel: string[] = [];
-    let chartData = [];
-    let chartLabels = [];
-    let headers = Object.keys(objectsArray[0]);
-    for (let i = 1; i < headers.length; i++) {
-      valueLabel.push(headers[i]);
-    }
-    console.log(valueLabel[0]);
-    //Retrieves the first header and the records below to define the chartlabels
-    for (let i = 0; i < objectsArray.length; i++) {
-      let definingHeader = headers[0];
-      // console.log(objectsArray[i][definingHeader]);
-      chartLabels.push(objectsArray[i][definingHeader]);
-    }
+    let xAxisLabel: string;
+    let yAxisLabel: string;
 
-    //Gets the values which are used to define a csv record example:  '# of votes'
-    for (let i = 0; i < objectsArray.length; i++) {
-      let object = objectsArray[i];
-      console.log(object);
-      for (let j = 0; j < valueLabel.length; j++) {
-        console.log(object[valueLabel[j]]);
-        let valueRecord = object[valueLabel[j]];
-        chartData.push(valueRecord);
+    let chartLabels = [];
+    let chartData = [];
+
+    //Retrieves the header to use for the x and y axes
+    xAxisLabel = this.headers[this.xAxisInputs[0]];
+    yAxisLabel = this.headers[this.yAxisInput];
+    console.log(xAxisLabel, yAxisLabel);
+
+    //Retrieves the records from the csv file in order to visualize the charts
+    if (objectsArray.length > 150) {
+      for (let i = 0; i < 100; i++) {
+        let object = objectsArray[i];
+        let recordYAxis = object[this.headers[this.yAxisInput]];
+        let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
+        console.log(recordXAxis, recordYAxis);
+
+        if (this.xAxisInputs[1] != null || undefined) {
+          let record2 = object[this.headers[this.xAxisInputs[1]]];
+          recordXAxis = recordXAxis.concat(" " + record2);
+        }
+        //Chart data
+        chartData.push(recordYAxis);
+        chartLabels.push(recordXAxis);
       }
+      console.log(chartLabels, chartData);
+    } else for (let i = 0; i < objectsArray.length; i++) {
+      let object = objectsArray[i];
+      let recordYAxis = object[this.headers[this.yAxisInput]];
+      let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
+
+      if (this.xAxisInputs[1] != null || undefined) {
+        let record2 = object[this.headers[this.xAxisInputs[1]]];
+        recordXAxis = recordXAxis.concat(" " + record2);
+      }
+      //Chart data
+      chartData.push(recordYAxis);
+      chartLabels.push(recordXAxis);
     }
 
     console.log(chartLabels, chartData);
-    let chartDatasets = ({
+
+    this.chart = ({
       type: 'bar',
       data: chartData,
-      label: valueLabel[0]
+      label: yAxisLabel
     });
-
-    this.chart = chartDatasets;
     this.chartLabels = chartLabels;
   }
 

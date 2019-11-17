@@ -13,7 +13,7 @@ import {AdminUsersComponent} from './components/admin/admin-users/admin-users.co
 import {AdminOrganisationsComponent} from './components/admin/admin-organisations/admin-organisations.component';
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {EditProfileComponent} from './components/profile/edit-profile/edit-profile.component';
-import {SearchDatasetsPipe} from './components/homepage/pipes/search-datasets.pipe';
+import {searchArrayPipe} from './pipes/search-array.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
@@ -28,11 +28,12 @@ import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/h
 import {FirebaseLoginComponent} from './components/firebase-login/firebase-login.component';
 import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
-import {PapaParseModule} from "ngx-papaparse";
+import {PapaParseGlobalConfig, PapaParseModule} from "ngx-papaparse";
 import {EditDatasetPopupComponent} from './components/edit-dataset-popup/edit-dataset-popup.component';
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
+import {CreateUserPopupComponent} from './components/create-user-popup/create-user-popup.component';
+import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
 
-// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,7 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-    SearchDatasetsPipe,
+    searchArrayPipe,
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
@@ -56,7 +57,9 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
     EditOrganisationPopupComponent,
     FirebaseLoginComponent,
     EditDatasetPopupComponent,
-    EditMetadataPopupComponent,
+	EditMetadataPopupComponent,
+	EditUserPopupComponent,
+	CreateUserPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,14 @@ import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-
 
   providers: [
     [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-    [RegionFiltersPipe]
+    [RegionFiltersPipe],
+    /*{
+      provide: 'PapaParseGlobalConfig',
+      useValue: <PapaParseGlobalConfig> {
+        scriptPath: 'src/assets/papaparse.min.js'
+      }
+    }*/
+
   ],
   bootstrap: [AppComponent]
 })

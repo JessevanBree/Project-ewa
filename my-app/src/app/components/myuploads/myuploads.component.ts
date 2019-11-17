@@ -21,10 +21,10 @@ export class MyuploadsComponent implements OnInit {
   selectedDataset: Dataset;
   private activeIndex;
   public userId: string;
-  queryParamSubscription: Subscription;
+  paramSubscription: Subscription;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private userService: FbUserService, private router: Router) {
+              private aUserService: FbUserService, private router: Router) {
     this.datasets = [];
 
     this.editDatasetToggle = false;
@@ -53,7 +53,7 @@ export class MyuploadsComponent implements OnInit {
     this.editMetaDataToggle = true;
   }
 
-  //Check if upload button is clicked to open pop-up
+  //Check if upload button is clicked to open upload pop-up
   onUploadButtonClick() {
     this.uploadDatasetToggle = true;
     this.router.navigate(['uploadDataset'], {
@@ -61,7 +61,12 @@ export class MyuploadsComponent implements OnInit {
     })
   }
 
-  onEditDatasetClick(datasetIndex: number){
+  //Triggers when a dataset has been uploaded to refresh the overview
+  onUploadDataset(){
+    this.datasets = this.datasetService.getMyDatasets();
+  }
+
+  onEditDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
     this.editDatasetToggle = true;
     this.router.navigate(['editDataset'], {
@@ -81,7 +86,7 @@ export class MyuploadsComponent implements OnInit {
   }
 
   //Testing purposes function, adds a random dataset
-  onAdd(){
+  onAdd() {
     this.datasetService.add(this.datasetService.generateRandomDataset());
     this.datasets = this.datasetService.getMyDatasets();
     console.log("Adding random dataset..");
@@ -90,6 +95,7 @@ export class MyuploadsComponent implements OnInit {
 
   onCloseReq() {
     console.log("Closing modal..");
+    this.datasets = this.datasetService.getMyDatasets();
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
@@ -97,15 +103,17 @@ export class MyuploadsComponent implements OnInit {
 
 
   ngOnInit() {
-
-    /*this.queryParamSubscription = this.activatedRoute.queryParams.subscribe(
-      (params: Params) =>{
-        const id = params.id;
-        console.log(id);
+    this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
+        const userEmail = params.email;
+        this.datasetService.getAllDatasets2().subscribe(
+          (data: Dataset[]) => {
+            data.map((o) => {
+              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+            })
+          }
+        );
       }
-    );*/
-    this.userId = this.userService.getLoggedInUser().email;
-    this.datasets = this.datasetService.getMyDatasets();
+    );
   }
 
 }

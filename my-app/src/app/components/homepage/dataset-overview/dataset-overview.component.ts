@@ -31,7 +31,7 @@ export class DatasetOverviewComponent implements OnInit {
   private searchQuery: any;
 
   constructor(private datasetService: FirebaseDatasetService, private router: Router,
-              private activatedRoute: ActivatedRoute, private userService: FbUserService,
+              private activatedRoute: ActivatedRoute, private aUserService: FbUserService,
               private sessionService: FbSessionService) {
     this.datasets = [];
     this.activeIndex = null;
@@ -111,10 +111,10 @@ export class DatasetOverviewComponent implements OnInit {
     // subscribe to get all the datasets
     this.datasetService.getAllDatasets2().subscribe(
       (data: Dataset[]) => {
-       if(data != null && this.sessionService.displayName != null || undefined){
+        if(data != null && this.sessionService.displayName != null || undefined){
           let userEmail: String = this.sessionService.displayName;
           data.map((o) => {
-            o && o.publicity.includes("Public") || o.user.email == userEmail ?
+            o && o.publicity.includes("Public") || o && o.user.email == userEmail ?
               this.datasets.push(o) : [];
           });
         } else if (data != null) {
