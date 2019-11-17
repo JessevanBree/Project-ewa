@@ -118,7 +118,7 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     if (this.headers[j].includes(";")) {
                       this.headers = this.headers[j].split(";");
-                      console.log(this.headers);
+                      // console.log(this.headers);
                     }
                   }
                   //Split values and create a new object with the attributes as values that have been split
@@ -126,7 +126,7 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     let header = this.headers[j];
                     object[header] = csvObject[j];
-                    console.log(object);
+                    // console.log(object);
                   }
                   arrayOfObjects.push(object);
                 }
@@ -178,7 +178,7 @@ export class UploadPopUpComponent implements OnInit {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
         let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
-        console.log(recordXAxis, recordYAxis);
+        // console.log(recordXAxis, recordYAxis);
 
         if (this.xAxisInputs[1] != null || undefined) {
           let record2 = object[this.headers[this.xAxisInputs[1]]];
