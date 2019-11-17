@@ -12,8 +12,7 @@ export class FbSessionService implements OnInit{
   public authenticated: boolean;
 
   constructor(private userService: FbUserService) {
-    this.isAdmin = false;
-    this.authenticated = false;
+    this.authenticated, this.isAdmin = false;
   }
 
   signOn(email: string, password: string) {
