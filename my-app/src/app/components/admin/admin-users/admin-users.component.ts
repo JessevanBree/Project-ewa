@@ -13,7 +13,6 @@ import {FbUserService} from 'src/app/services/fb-user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: User[];
 	editIsClicked: boolean;
 	createIsClicked: boolean;
 	activeIndex: number;
@@ -28,13 +27,12 @@ export class AdminUsersComponent implements OnInit {
 	}
 	
 	ngOnInit() {
-		this.users = this.aUserService.getUsers();
-		this.emptyList = this.users.length == 0;
+		this.emptyList = this.aUserService.users.length == 0;
 	}
 
 	onEditClick(originalUserIndex: number): void {
 		this.editIsClicked = true;
-		let copyUser = this.aUserService.getUsers()[originalUserIndex];
+		let copyUser = this.aUserService.users[originalUserIndex];
 		this.activeIndex = originalUserIndex;
 		this.selectedUser = copyUser;
 	}
@@ -44,12 +42,9 @@ export class AdminUsersComponent implements OnInit {
 	}
 	
 	saveRequest($event): void {
-		console.log($event)
+		// console.log("event", $event)
 		this.editIsClicked = false;
-		this.users[this.activeIndex] = $event;
-		console.log($event, this.activeIndex)
-
-		this.aUserService.saveAllUsers();
+		this.aUserService.saveOrCreateUser($event, this.activeIndex);
 	}
 
 	onDeleteClick(user: User){
@@ -59,7 +54,7 @@ export class AdminUsersComponent implements OnInit {
 	}
 
 	checkIfListEmpty(): void {
-		if(this.users.length == 0) this.emptyList = true;
+		if(this.aUserService.users.length == 0) this.emptyList = true;
 		setTimeout(() => {
 			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
 		}, 5)

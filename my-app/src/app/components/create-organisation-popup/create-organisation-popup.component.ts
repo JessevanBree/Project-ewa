@@ -23,7 +23,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
   constructor(private aOrganisationService: AOrganisationService, private aUserService: FbUserService) {
-    this.users = aUserService.getUsers();
+    this.users = aUserService.users;
   }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
       return user.email === form.value.adminInput;
     });
 
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,user));
+    this.aOrganisationService.addOrganisation(new Organisation(this.aOrganisationService.getOrganisations().length + 2, form.value.nameInput ,user));
   }
 
   private setClickedToFalse() {

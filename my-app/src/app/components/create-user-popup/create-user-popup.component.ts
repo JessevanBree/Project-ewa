@@ -13,18 +13,12 @@ import { NgForm } from "@angular/forms";
 	styleUrls: ['./create-user-popup.component.css']
 })
 export class CreateUserPopupComponent implements OnInit {
-
 	isClicked: boolean = false;
-
-
-	users: User[];
 
 	@Input() user: User;
 	@Output() savedUser = new EventEmitter<User>();
 
-	constructor(private aUserService: FbUserService, private aOrganisationService: AOrganisationService) {
-		this.users = aUserService.getUsers();
-	}
+	constructor(private aUserService: FbUserService, private aOrganisationService: AOrganisationService) {}
 
 	ngOnInit() {
 		this.isClicked = true;   // if modal is instantiated, isClicked is set to true
@@ -32,7 +26,8 @@ export class CreateUserPopupComponent implements OnInit {
 
 	//This method saves the edited changes of a dataset
 	onSubmit(form: NgForm) {
-		this.aUserService.saveOrCreateUser(new User(null, form.value.emailInput, form.value.passwordInput, form.value.isAdmin));
+		this.aUserService.saveOrCreateUser(new User(null, form.value.emailInput, form.value.passwordInput, form.value.isAdmin, 
+			form.value.firstName, form.value.surName, this.aOrganisationService.getOrganisationById(parseInt(form.value.orgInput))));
 	}
 
 	private setClickedToFalse() {

@@ -15,9 +15,11 @@ export class AOrganisationService {
 
 	constructor(private aUserService: FbUserService) {
 		this.organisations = [];
-		for (let i = 0; i < 100; i++) {
-			this.organisations[i] = this.genRandomOrganisation();
-		}
+		this.genOrganisations();
+
+		// for (let i = 0; i < 100; i++) {
+		// 	this.organisations[i] = this.genRandomOrganisation(i);
+		// }
 	}
 
 	public getOrganisation(index: number): Organisation {
@@ -50,8 +52,24 @@ export class AOrganisationService {
 		return this.organisations;
 	}
 
-	genRandomOrganisation(): Organisation {
-		let user: User = this.aUserService.getUsers()[Math.floor(Math.random() * this.aUserService.getUsers().length)]
-		return new Organisation(SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + " & Co", user);
+	genOrganisations(): void {
+		let orgNames = ["Fexty", "Era", "HvA", "FIA", "Mercedes", "SpaceX", "Tesla", "WHO", "Honda", "Google"]
+		let user = this.aUserService.users[0];
+		for (let i = 0; i < orgNames.length; i++) {
+			this.organisations.push(
+				new Organisation(i, orgNames[i] , user)
+			)
+		}
+	}
+
+	getOrganisationById(id: number): Organisation {
+		return this.organisations.find((org) => {
+			org.orgId == id
+		});
+	}
+
+	genRandomOrganisation(id: number): Organisation {
+		let user: User = this.aUserService.users[Math.floor(Math.random() * this.aUserService.users.length)]
+		return new Organisation(id, SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + " & Co", user);
 	}
 }

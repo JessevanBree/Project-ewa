@@ -78,7 +78,7 @@ export class Dataset {
      let publicityOptions = Object.keys(Publicity);
      let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
      //Randomly generates a user
-     let randomUser = this.userService.getUsers()
+     let randomUser = this.userService.users
 
      //Randomly generates a dataset name
      let datasetName = "";

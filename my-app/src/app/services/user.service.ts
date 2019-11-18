@@ -51,7 +51,7 @@ export class OldFbUserService {
 	// 	return this.users[index].equals(user);
 	// }
 
-	// getUsers(): User[] {
+	// users: User[] {
 	// 	return this.users;
 	// }
 

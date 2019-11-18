@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // check if email == any user in getUsers()
+    // check if email == any user in users
     this.isValidCredentials = true;
     this.activeRoute.queryParams.subscribe(
       (params: Params) => {
