@@ -25,8 +25,8 @@ export class FbSessionService implements OnInit{
         });
         this.authenticated = true;
 		this.displayName = firebase.auth().currentUser.email;
-		if(this.userService.getLoggedInUser() != null)
-        	this.isAdmin = this.userService.getLoggedInUser().isAdmin;
+		// if(this.userService.getLoggedInUser() != null)
+        	// this.isAdmin = this.userService.getLoggedInUser().isAdmin;
         return response;
       }
     )
