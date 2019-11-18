@@ -1,3 +1,6 @@
+// Old user class
+
+/*
 import { Organisation } from './organisation';
 import { Dataset } from "./dataset";
 
@@ -43,8 +46,9 @@ export class User {
 			this.uploadedDatasets.push(dataset);
 		}
 	}
-	
+
 	static trueCopy(user: User): User {
 		return Object.assign(new User(null, null, null, null, null, null), user)
 	}
 }
+*/

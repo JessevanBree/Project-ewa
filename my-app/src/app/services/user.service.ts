@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 //Models
-import { User } from 'src/app/models/OLD_user';
+// import { User } from 'src/app/models/OLD_user';
 import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData';
 
 @Injectable({

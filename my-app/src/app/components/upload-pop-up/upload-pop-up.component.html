@@ -22,7 +22,11 @@
               name="titleInput"
               placeholder="Title"
               [(ngModel)]="nameInput"
+              #title="ngModel"
               ngModel>
+            <div *ngIf = "title.hasError('minlength') && !title.hasError('required')" class = "alert alert-danger">
+              <p> <span>Title should contain atleast 5 characters</span> </p>
+            </div>
           </div>
           <div class="form-group">
             <label for="descriptionInput">Description</label>

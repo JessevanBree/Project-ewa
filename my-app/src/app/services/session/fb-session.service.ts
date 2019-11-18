@@ -20,7 +20,8 @@ export class FbSessionService implements OnInit{
       response => {
         firebase.auth().currentUser.getIdToken().then(token => {
           this.token = token;
-          this.userService.saveLoggedInUser();
+          // this.userService.saveLoggedInUser();
+          this.userService.saveAllUsers();
         });
         this.authenticated = true;
 		this.displayName = firebase.auth().currentUser.email;
