@@ -33,6 +33,7 @@ export class UploadPopUpComponent implements OnInit {
   protected yAxisInput: number;
   protected removeXAxesToggle: boolean;
   protected confirmToggle: boolean;
+  protected errorMessage: string;
 
   private listOfYears: number[];
   private chart;
@@ -74,8 +75,12 @@ export class UploadPopUpComponent implements OnInit {
 
   onConfirm(): void {
     this.confirmToggle = !this.confirmToggle;
-    if (this.confirmToggle == true) {
+    if (this.confirmToggle == true && this.xAxisInputs[0] != null || undefined
+      && this.yAxisInput != null || undefined) {
+      this.errorMessage = null;
       this.convertCSVToChartData(this.csvData);
+    } else {
+      this.errorMessage = "Chart not configured properly"
     }
   }
 
