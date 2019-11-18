@@ -35,7 +35,7 @@ export class FbUserService {
 	// Saves all the changes to the user array users
 	public saveAllUsers() {
 		this.users.forEach(user => {
-			console.log(user);
+			// console.log(user);
 			this.saveOrCreateUser(user);
 		});
 	}
