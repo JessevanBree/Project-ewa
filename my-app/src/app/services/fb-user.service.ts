@@ -95,7 +95,7 @@ export class FbUserService {
 		return this.httpClient.get<User[]>(this.DB_USERS + '.json').subscribe(
 			(data) => {
 				Object.keys(data).forEach(key => {
-					this.users.push(new User(key, data[key].email, data[key].Password, data[key].isAdmin,
+					this.users.push(new User(key, data[key].email, data[key].password, data[key].isAdmin,
             data[key].firstName, data[key].surName, data[key].organisation));
 					// console.log(this.users)
 				})
