@@ -8,17 +8,17 @@
         <div class="card-body">
 <!--          <h5 class="card-title">{{this.user.email}}</h5>-->
 
-          <form #myProfile="ngForm" >
+          <form>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="firstName">Firstname</label>
                 <input type="text" id="firstName" name="firstname" class="form-control" [(ngModel)]="userCopy.firstName"
-                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your firstname">
+                       placeholder="Enter your firstname">
               </div>
               <div class="form-group col-md-6">
                 <label for="surName">Surname</label>
                 <input type="text" id="surName" name="surname" class="form-control" [(ngModel)]="userCopy.surName"
-                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your surname">
+                       placeholder="Enter your surname">
               </div>
 
             </div>
@@ -35,8 +35,7 @@
             </div>
           </form>
 
-          <button type="button" class="btn btn-primary" [disabled]="this.updateButtonToggle"
-                  (click)="onUpdateUser()">Update</button>
+          <button type="button" class="btn btn-primary" (click)="onUpdateUser()">Update</button>
 
           <!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"-->
           <!--                    (click)="onEditButtonClick()" style="float:right;">-->
