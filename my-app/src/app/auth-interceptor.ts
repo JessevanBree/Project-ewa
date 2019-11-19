@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if (url.includes("/homepage") && this.sessionService.authenticated == false) {
       return next.handle(req);
-    } else if (this.sessionService.authenticated ) {
+    } else if (this.sessionService.authenticated) {
       const token = this.sessionService.getTokenId();
       if (token) {
         const cloned = req.clone(

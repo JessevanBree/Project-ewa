@@ -9,8 +9,8 @@ import {FbUserService} from "./fb-user.service";
 })
 export class FirebaseDatasetService {
   private datasets: Dataset[];
-  private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
-  private readonly DB_DATASETS = this.DB_URL + '/Datasets';
+  private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com/';
+  private readonly DB_DATASETS = this.DB_URL + 'Datasets';
 
   constructor(private httpClient: HttpClient, private userService: FbUserService) {
     this.userService.getAllUsers();
@@ -79,7 +79,7 @@ export class FirebaseDatasetService {
 
   getAllDatasets2() {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
-    return this.httpClient.get<Dataset[]>(this.DB_DATASETS+ '.json');
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS + '.json');
   }
 
 

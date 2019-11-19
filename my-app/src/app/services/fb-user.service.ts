@@ -9,6 +9,7 @@ import { User } from "../models/user";
 export class FbUserService {
   private users: User[];
   private listOfAdmins: string[];
+  public loggedInUser: User;
 
   private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
   private readonly DB_USERS = this.DB_URL + '/Users';
@@ -19,9 +20,10 @@ export class FbUserService {
     this.listOfAdmins = ["mohamed@hva.nl", "abdul@hva.nl", "ferran@hva.nl", "aris@hva.nl",
       "jesse@hva.nl"]
     // Password for admins and test users: testing
+    this.setLoggedInUser();
   }
 
-  public getLoggedInUser() {
+  public setLoggedInUser() {
     let user: User;
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].email === firebase.auth().currentUser.email) {
@@ -29,7 +31,7 @@ export class FbUserService {
         break;
       }
     }
-    return user;
+    return this.loggedInUser = user;
   }
 
 	// Saves all the changes to the user array users

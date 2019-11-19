@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.userId = firebase.auth().currentUser.uid;
-    this.user = this.userService.getLoggedInUser();
+    this.user = this.userService.loggedInUser;
     this.userCopy = User.trueCopy(this.user);
   }
 
