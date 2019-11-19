@@ -31,9 +31,10 @@ export class UploadPopUpComponent implements OnInit {
 
   protected xAxisInputs: number[];
   protected yAxisInput: number;
+  protected chartType: string;
   protected removeXAxesToggle: boolean;
   protected confirmToggle: boolean;
-  protected errorMessage: string;
+  protected validationToggle: boolean;
 
   private listOfYears: number[];
   private chart;
@@ -68,19 +69,21 @@ export class UploadPopUpComponent implements OnInit {
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
     this.datasetService.saveAllDatasets();
-    this.router.navigate(['myuploads', uploadingUser.email])
+    this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();
   }
 
+  onChanges(){
+    if(this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined){
+      this.validationToggle = false;
+    } else this.validationToggle = true;
+  }
+
   onConfirm(): void {
-    this.confirmToggle = !this.confirmToggle;
-    if (this.confirmToggle == true && this.xAxisInputs[0] != null || undefined
-      && this.yAxisInput != null || undefined) {
-      this.errorMessage = null;
+    if (this.validationToggle == true) {
+      this.confirmToggle = !this.confirmToggle;
       this.convertCSVToChartData(this.csvData);
-    } else {
-      this.errorMessage = "Chart not configured properly"
     }
   }
 
@@ -88,6 +91,7 @@ export class UploadPopUpComponent implements OnInit {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs.push(null);
       this.removeXAxesToggle = true;
+      this.validationToggle = false;
     } else if (this.xAxisInputs.length == 2) {
       this.removeXAxesToggle = false;
       this.xAxisInputs.pop();
@@ -211,7 +215,7 @@ export class UploadPopUpComponent implements OnInit {
     console.log(chartLabels, chartData);
 
     this.chart = ({
-      type: 'bar',
+      type: this.chartType == null || undefined ? 'bar' : this.chartType,
       data: chartData,
       label: yAxisLabel
     });

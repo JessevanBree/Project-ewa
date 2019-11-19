@@ -25,7 +25,7 @@ export class AdminUsersComponent implements OnInit {
 		this.editIsClicked, this.createIsClicked = false;
 		this.searchFilter = "";
 	}
-	
+
 	ngOnInit() {
 		this.emptyList = this.aUserService.getUsers().length == 0;
 	}
@@ -36,11 +36,11 @@ export class AdminUsersComponent implements OnInit {
 		this.activeIndex = originalUserIndex;
 		this.selectedUser = copyUser;
 	}
-	
+
 	onCreateButtonClick() {
 		this.createIsClicked = true;
 	}
-	
+
 	saveRequest($event): void {
 		// console.log("event", $event)
 		this.editIsClicked = false;
@@ -52,7 +52,7 @@ export class AdminUsersComponent implements OnInit {
 
 	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.email)){
-			this.aUserService.deleteUser(user);				
+			this.aUserService.deleteUser(user);
 		}
 	}
 
