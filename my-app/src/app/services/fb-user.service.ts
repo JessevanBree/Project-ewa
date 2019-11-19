@@ -70,7 +70,6 @@ export class FbUserService {
 		let _this = this;
 		let userId = editedUser.userId;
 		editedUser.dateEdited = new Date(Date.now());
-		delete editedUser.userId;
 
 		if (userId == null) {
 			firebase.auth().createUserWithEmailAndPassword(
@@ -78,8 +77,10 @@ export class FbUserService {
 				editedUser.password
 			).then(function (userRecord) {
 				// See the UserRecord reference doc for the contents of userRecord.
+				delete editedUser.userId;
 				_this.httpClient.put(_this.DB_USERS + '/' + userRecord.user.uid + '.json', editedUser).subscribe(
 					(data) => {
+						editedUser.userId = userId;
 						_this.users.push(editedUser);
 					},
 					(err) => {
@@ -91,9 +92,25 @@ export class FbUserService {
 			});
 		} else {
 			// firebase.auth().update
+			delete editedUser.userId;
 			_this.httpClient.put(_this.DB_USERS + '/' + userId + '.json', editedUser).subscribe(
 				(data) => {
-					if(index) _this.users[index] = editedUser;
+					editedUser.userId = userId;
+
+					if(index) {
+						_this.users[index] = editedUser;
+					} else {
+						
+						let indexOf = _this.users.findIndex((u) => {
+							u.userId == editedUser.userId
+						})
+						if(indexOf == -1){
+							console.log("????", editedUser); 
+							return;
+						}
+						_this.users[indexOf] = editedUser;
+					}
+
 				},
 				(err) => {
 					console.log(err)

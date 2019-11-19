@@ -27,6 +27,8 @@ export class EditUserPopupComponent implements OnInit {
 	}
 
 	onSaveChanges() {
+		if(this._editingUser.password == undefined) this._editingUser.password = 'testen'; 
+		this.aUserService.saveOrCreateUser(this._editingUser);
 		this.savedUser.emit(this._editingUser);
 	}
 }

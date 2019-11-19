@@ -44,6 +44,6 @@ export class User {
 	}
 
 	static trueCopy(user: User): User {
-		return Object.assign(new User(null, null, null, null, null), user)
+		return Object.assign(new User(user.userId, user.email, user.password, user.isAdmin, user.firstName, user.surName, user.organisation), user)
 	}
 }

@@ -23,7 +23,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
   constructor(private aOrganisationService: AOrganisationService, private aUserService: FbUserService) {
-    this.users = aUserService.users;
+    this.users = aUserService.getUsers();
   }
 
   ngOnInit() {

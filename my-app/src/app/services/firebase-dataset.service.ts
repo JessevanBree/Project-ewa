@@ -19,7 +19,7 @@ export class FirebaseDatasetService {
 
     /*setTimeout(() => {
     for (let i = 0; i < 10; i++) {
-      console.log(this.userService.users.length);
+      console.log(this.userService.getUsers().length);
       this.datasets.push(this.generateRandomDataset())
     }
     console.log(this.datasets);
@@ -143,8 +143,8 @@ export class FirebaseDatasetService {
     let publicityOptions = Object.keys(Publicity);
     let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
     //Randomly generates a user
-    let randomNumber = Math.floor(this.userService.users.length * Math.random());
-    let randomUser = this.userService.users[randomNumber];
+    let randomNumber = Math.floor(this.userService.getUsers().length * Math.random());
+    let randomUser = this.userService.getUsers()[randomNumber];
 
     //Randomly generates a dataset name
     let datasetName = "";

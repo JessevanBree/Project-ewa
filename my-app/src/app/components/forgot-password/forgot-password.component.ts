@@ -21,11 +21,11 @@ export class ForgotPasswordComponent implements OnInit {
     // let exists = 0;
     // console.log("CURRENT USER EMAIL = " + this.email);
     //
-    // console.log("Length of database users: " + this.aUserService.users.length);
+    // console.log("Length of database users: " + this.aUserService.getUsers().length);
     //
     // //Check if email exists, if so set isValidCredentials to true
-    // for (let i = 0; i < this.aUserService.users.length; i++) {
-    //   if (this.aUserService.users[i].email == this.email){
+    // for (let i = 0; i < this.aUserService.getUsers().length; i++) {
+    //   if (this.aUserService.getUsers()[i].email == this.email){
     //     console.log(" Emails from firebase: " + this.aUserService.getAllUsers()[i]);
     //     exists++;
     //   }

@@ -54,7 +54,7 @@ export class AOrganisationService {
 
 	genOrganisations(): void {
 		let orgNames = ["Fexty", "Era", "HvA", "FIA", "Mercedes", "SpaceX", "Tesla", "WHO", "Honda", "Google"]
-		let user = this.aUserService.users[0];
+		let user = this.aUserService.getUsers()[0];
 		for (let i = 0; i < orgNames.length; i++) {
 			this.organisations.push(
 				new Organisation(i, orgNames[i] , user)
@@ -69,7 +69,7 @@ export class AOrganisationService {
 	}
 
 	genRandomOrganisation(id: number): Organisation {
-		let user: User = this.aUserService.users[Math.floor(Math.random() * this.aUserService.users.length)]
+		let user: User = this.aUserService.getUsers()[Math.floor(Math.random() * this.aUserService.getUsers().length)]
 		return new Organisation(id, SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase() + " & Co", user);
 	}
 }

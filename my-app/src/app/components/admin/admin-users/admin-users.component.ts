@@ -27,12 +27,12 @@ export class AdminUsersComponent implements OnInit {
 	}
 	
 	ngOnInit() {
-		this.emptyList = this.aUserService.users.length == 0;
+		this.emptyList = this.aUserService.getUsers().length == 0;
 	}
 
 	onEditClick(originalUserIndex: number): void {
 		this.editIsClicked = true;
-		let copyUser = this.aUserService.users[originalUserIndex];
+		let copyUser = this.aUserService.getUsers()[originalUserIndex];
 		this.activeIndex = originalUserIndex;
 		this.selectedUser = copyUser;
 	}
@@ -44,7 +44,10 @@ export class AdminUsersComponent implements OnInit {
 	saveRequest($event): void {
 		// console.log("event", $event)
 		this.editIsClicked = false;
-		this.aUserService.saveOrCreateUser($event, this.activeIndex);
+		// setTimeout(()=>{
+		// 	console.log("created")
+		// 	this.aUserService.getUsers().push(new User("JSNDKANSDK123", "test@test.tester", "test123", false));
+		// }, 1000)
 	}
 
 	onDeleteClick(user: User){
@@ -54,7 +57,7 @@ export class AdminUsersComponent implements OnInit {
 	}
 
 	checkIfListEmpty(): void {
-		if(this.aUserService.users.length == 0) this.emptyList = true;
+		if(this.aUserService.getUsers().length == 0) this.emptyList = true;
 		setTimeout(() => {
 			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
 		}, 5)

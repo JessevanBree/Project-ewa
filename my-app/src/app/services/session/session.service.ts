@@ -11,7 +11,7 @@ export class SessionService {
   constructor(private aUserService: FbUserService) { }
 
 	signOn(eMail: string, passWord: string) {
-		for (let i = 0; i < this.aUserService.users.length; i++) {
+		for (let i = 0; i < this.aUserService.getUsers().length; i++) {
 			let user = this.aUserService.getLoggedInUser();
 			if (eMail == user.email && passWord == user.password) {
 				this.userMail = eMail;
