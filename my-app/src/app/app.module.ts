@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -57,9 +57,9 @@ import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-pop
     EditOrganisationPopupComponent,
     FirebaseLoginComponent,
     EditDatasetPopupComponent,
-    EditMetadataPopupComponent,
-    EditUserPopupComponent,
-    CreateUserPopupComponent
+	EditMetadataPopupComponent,
+	EditUserPopupComponent,
+	CreateUserPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +73,14 @@ import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-pop
 
   providers: [
     [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-    [RegionFiltersPipe]
+    [RegionFiltersPipe],
+    /*{
+      provide: 'PapaParseGlobalConfig',
+      useValue: <PapaParseGlobalConfig> {
+        scriptPath: 'src/assets/papaparse.min.js'
+      }
+    }*/
+
   ],
   bootstrap: [AppComponent]
 })

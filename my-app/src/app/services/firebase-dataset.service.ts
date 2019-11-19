@@ -66,7 +66,7 @@ export class FirebaseDatasetService {
 
   getAllDatasets() {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
-    return this.httpClient.get<Dataset[]>(this.DB_DATASETS + '.json').subscribe(
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS+ '.json').subscribe(
       (data: Dataset[]) => {
         if (data != null) {
           data.map((o) => {

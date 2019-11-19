@@ -12,7 +12,8 @@ export class FbSessionService implements OnInit{
   public authenticated: boolean;
 
   constructor(private userService: FbUserService) {
-    this.authenticated, this.isAdmin = false;
+    this.isAdmin = false;
+    this.authenticated = false;
   }
 
   signOn(email: string, password: string) {
@@ -24,9 +25,8 @@ export class FbSessionService implements OnInit{
           this.userService.saveAllUsers();
         });
         this.authenticated = true;
-		this.displayName = firebase.auth().currentUser.email;
-		// if(this.userService.getLoggedInUser() != null)
-        	// this.isAdmin = this.userService.getLoggedInUser().isAdmin;
+        this.displayName = firebase.auth().currentUser.email;
+        // this.isAdmin = this.userService.getLoggedInUser().isAdmin;
         return response;
       }
     )
