@@ -35,6 +35,7 @@ export class FbUserService {
 	// Saves all the changes to the user array users
 	public saveAllUsers() {
 		this.users.forEach(user => {
+			// console.log(user);
 			this.saveOrCreateUser(user);
 		});
 	}
@@ -107,7 +108,7 @@ export class FbUserService {
 				Object.keys(data).forEach(key => {
 					this.users.push(new User(key, data[key].email, data[key].Password, data[key].isAdmin,
 						data[key].firstName, data[key].surName, data[key].organisation));
-				})
+				});
 			}
 		);
 	}
