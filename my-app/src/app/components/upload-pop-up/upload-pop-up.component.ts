@@ -69,7 +69,7 @@ export class UploadPopUpComponent implements OnInit {
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
     this.datasetService.saveAllDatasets();
-    this.router.navigate(['myuploads', uploadingUser.email])
+    this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();
   }
@@ -215,7 +215,7 @@ export class UploadPopUpComponent implements OnInit {
     console.log(chartLabels, chartData);
 
     this.chart = ({
-      type: this.chartType,
+      type: this.chartType == null || undefined ? 'bar' : this.chartType,
       data: chartData,
       label: yAxisLabel
     });
