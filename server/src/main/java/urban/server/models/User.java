@@ -3,7 +3,7 @@ package urban.server.models;
 import java.time.LocalDate;
 
 public class User {
-    private long id;
+    private int id;
     private String email;
     private String firstname;
     private String lastname;
@@ -11,7 +11,11 @@ public class User {
     private boolean isAdmin;
     private Organisation organisation;
 
-    public User(long id, String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
+    protected User() {
+
+    }
+
+    public User(int id, String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
         this.id = id;
         this.email = email;
         this.firstname = firstname;
@@ -34,11 +38,11 @@ public class User {
                 '}';
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -4,15 +4,16 @@ import org.springframework.stereotype.Component;
 import urban.server.models.User;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 @Component
 public class UserRepository implements Repository<User> {
     private static List<User> userList = new ArrayList<>();
 
+    private static int usersCount = 2;
+
     static {
         userList.add(new User(1, "abdul@hva.nl", "Abdul", "Zor", true, null));
-        userList.add(new User(1, "maarten@hva.nl", "Maarten", "Zor", true, null));
+        userList.add(new User(2, "maarten@hva.nl", "Maarten", "Zor", true, null));
     }
 
     @Override
@@ -26,15 +27,17 @@ public class UserRepository implements Repository<User> {
     }
 
     //    @Override
-    public User find(String email) {
+    public User find(int userId) {
         return userList.stream()
-                .filter(user -> user.getEmail().trim().toLowerCase().equals(email.trim().toLowerCase()))
-                .findFirst().get();
+                .filter(user -> user.getId() == userId)
+                .findFirst().orElse(null);
     }
 
     //    @Override
-    public void save(User user) {
+    public User createUser(User user) {
+        user.setId(++usersCount);
         userList.add(user);
+        return user;
     }
 
 
