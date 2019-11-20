@@ -9,6 +9,7 @@ import { User } from "../models/user";
 export class FbUserService {
   private users: User[];
   private listOfAdmins: string[];
+
   private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
   private readonly DB_USERS = this.DB_URL + '/Users';
 
@@ -22,11 +23,9 @@ export class FbUserService {
 
   public getLoggedInUser() {
     let user: User;
-    console.log(this.users);
     for (let i = 0; i < this.users.length; i++) {
       if (this.users[i].email === firebase.auth().currentUser.email) {
         user = this.users[i];
-
         break;
       }
     }
@@ -36,13 +35,14 @@ export class FbUserService {
 	// Saves all the changes to the user array users
 	public saveAllUsers() {
 		this.users.forEach(user => {
-			console.log(user);
+			// console.log(user);
 			this.saveOrCreateUser(user);
 		});
 	}
 
 	public saveLoggedInUser() {
 		let user = firebase.auth().currentUser;
+		console.log(user);
 		let newUser;
 
 		// Loops through users
@@ -59,7 +59,9 @@ export class FbUserService {
 		}
 
 		this.httpClient.put(this.DB_USERS + '/' + user.uid + '.json', newUser).subscribe(
-			{ error: err => { console.log(err) } }
+		  {
+        next: user => {console.log(user)},
+        error: err => { console.log(err) } }
 		);
 	}
 
@@ -94,7 +96,8 @@ export class FbUserService {
 		return this.httpClient.get<User[]>(this.DB_USERS + '.json').subscribe(
 			(data) => {
 				Object.keys(data).forEach(key => {
-					this.users.push(new User(key, data[key].email, data[key].Password, data[key].isAdmin));
+					this.users.push(new User(key, data[key].email, data[key].password, data[key].isAdmin,
+            data[key].firstName, data[key].surName, data[key].organisation));
 					// console.log(this.users)
 				})
 			}

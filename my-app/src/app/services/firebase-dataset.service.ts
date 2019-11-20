@@ -175,7 +175,9 @@ export class FirebaseDatasetService {
 
   public deleteDataset(dataset: Dataset): void {
     let index = this.datasets.indexOf(dataset);
-    this.datasets.splice(index, 1);
+    this.datasets = this.datasets.filter(data => {
+      return data.id != dataset.id
+    });
     this.httpClient.delete<Dataset>(this.DB_DATASETS + '/' + index + '.json').subscribe(
       (data) => {
         console.log('success');

@@ -12,6 +12,66 @@
       <div class="modal-body">
         <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
+
+          <h5 class="border border-success text-center text-white bg-success">Dataset visualization</h5>
+          <div class="form-group col-md-6 mx-3">
+            <label for="uploadModalControlFile1">Choose dataset file</label>
+            <input type="file" class="form-control-file pt-2"
+                   (change)="uploadListener($event.target.files)"
+                   id="uploadModalControlFile1" name="fileInput"
+                   accept=".csv"
+                   #csvReader
+                   ngModel
+                   required
+                   [disabled]=confirmToggle>
+          </div>
+          <div id="chartConfiguration" class="form-row my-4" *ngIf="headers">
+            <div class="card mx-4" id="headerCard">
+              <div class="card-header">Chart configuration</div>
+              <div class="card-body">
+                <div class="form-group collapse show" id="chartOptions">
+                  <label for="xAxisOptions">X axis</label>
+                  <div class="form-group form-row mb-2">
+                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[i]"
+                            *ngFor="let input of xAxisInputs; let i = index"
+                            class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
+                            required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="xOption">{{i}}. {{header}}</option>
+                    </select>
+                    <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
+                            class="btn btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
+                      <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
+                    </button>
+                  </div>
+                  <label for="yAxisOptions">Y axis</label>
+                  <div class="form-group form-row">
+                    <select (change)="onChanges()" [(ngModel)]="yAxisInput" class="form-control my-1 col-9"
+                            name="yAxis" id="yAxisOptions" required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="yOption">{{i}}. {{header}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="chartType">Chart type</label>
+                    <select [(ngModel)]="chartType" id="chartType" name="chartTypeInput"
+                            class="form-control col-md-4 my-1">
+                      <option value="bar">Bar</option>
+                      <option value="line">Line</option>
+                      <option value="pie" [disabled]="xAxisInputs.length == 2">Pie</option>
+                    </select>
+                  </div>
+                </div>
+                <button type="button" class="btn float-right" data-toggle="collapse" data-target="#chartOptions"
+                        aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
+                        [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
+                        [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
+                        [disabled]="!validationToggle"></button>
+              </div>
+            </div>
+          </div>
+          <hr/>
+          <h5 class="border border-success text-center text-white bg-success">Metadata</h5>
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input
@@ -24,8 +84,8 @@
               [(ngModel)]="nameInput"
               #title="ngModel"
               ngModel>
-            <div *ngIf = "title.hasError('minlength') && !title.hasError('required')" class = "alert alert-danger">
-              <p> <span>Title should contain atleast 5 characters</span> </p>
+            <div *ngIf="title.hasError('minlength') && !title.hasError('required')" class="alert alert-danger">
+              <p><span>Title should contain atleast 5 characters</span></p>
             </div>
           </div>
           <div class="form-group">
@@ -40,17 +100,6 @@
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="uploadModalControlFile1">Choose dataset file</label>
-              <input type="file" class="form-control-file pt-2"
-                     (change)="uploadListener($event.target.files)"
-                     id="uploadModalControlFile1" name="fileInput"
-                     accept=".csv"
-                     #csvReader
-                     ngModel
-                     required
-                     [disabled]=confirmToggle>
-            </div>
-            <div class="form-group col-md-6">
               <label for="publicityInput">Publicity</label>
               <select
                 id="publicityInput"
@@ -64,78 +113,41 @@
                 <option>Public</option>
               </select>
             </div>
-          </div>
-
-          <div id="headersRow" class="form-row my-4" *ngIf="headers">
-            <div class="card mx-4" id="headerCard">
-              <div class="card-header">Headers</div>
-              <div class="card-body">
-                <div class="form-group collapse show" id="headerOptions">
-                  <label for="xAxisOptions">X axis</label>
-                  <div class="form-group form-row mb-2">
-                    <select [(ngModel)]="xAxisInputs[i]" *ngFor="let input of xAxisInputs; let i = index"
-                            class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
-                            required>
-                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
-                              name="xOption">{{i}}. {{header}}</option>
-                    </select>
-                    <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
-                            class="btn btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
-                      <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
-                    </button>
-                  </div>
-                  <label for="yAxisOptions">Y axis</label>
-                  <div class="form-group form-row">
-                    <select [(ngModel)]="yAxisInput" class="form-control my-1 col-9" name="yAxis" id="yAxisOptions"
-                            required>
-                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
-                              name="yOption">{{i}}. {{header}}</option>
-                    </select>
-                    <!--                  <button type="button" class="btn btn-primary btn-sm ml-4" id="addYAxes">-->
-                    <!--                    <i class="fa fa-plus"></i>-->
-                    <!--                  </button>-->
-                  </div>
-                </div>
-                <button type="button" class="btn float-right" data-toggle="collapse" data-target="#headerOptions"
-                        aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
-                        [innerHTML]="this.confirmToggle ? 'Change headers' : 'Confirm' "
-                        [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"></button>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-6">
               <label for="yearOptions">Year</label>
               <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
                 <option [ngValue]="year" *ngFor="let year of listOfYears"
                         name="yearOption">{{year}}</option>
               </select>
             </div>
-            <div class="form-group col-md-9" id="regionOptions">
-              <label for="regionOptions">Regional levels *</label>
-              <div class="form-group col-md-12">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
-                         name="regionOptions"
-                         id="urbanLevel">
-                  <label class="form-check-label" for="urbanLevel">Urban</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European"
-                         name="regionOptions"
-                         id="europeanLevel">
-                  <label class="form-check-label" for="europeanLevel">European</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National"
-                         name="regionOptions"
-                         id="nationalLevel">
-                  <label class="form-check-label" for="nationalLevel">National</label>
-                </div>
+          </div>
+
+
+          <div class="form-row">
+            <div class="form-group col-md-12" id="regionOptions">
+              <legend class="col-form-label">Regional level</legend>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
+                       name="regionOptions"
+                       id="urbanLevel">
+                <label class="form-check-label" for="urbanLevel">Urban</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European"
+                       name="regionOptions"
+                       id="europeanLevel">
+                <label class="form-check-label" for="europeanLevel">European</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National"
+                       name="regionOptions"
+                       id="nationalLevel">
+                <label class="form-check-label" for="nationalLevel">National</label>
               </div>
             </div>
+
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid || confirmToggle == false">

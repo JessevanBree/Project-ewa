@@ -31,8 +31,10 @@ export class UploadPopUpComponent implements OnInit {
 
   protected xAxisInputs: number[];
   protected yAxisInput: number;
+  protected chartType: string;
   protected removeXAxesToggle: boolean;
   protected confirmToggle: boolean;
+  protected validationToggle: boolean;
 
   private listOfYears: number[];
   private chart;
@@ -67,14 +69,20 @@ export class UploadPopUpComponent implements OnInit {
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
     this.datasetService.saveAllDatasets();
-    this.router.navigate(['myuploads', uploadingUser.email])
+    this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();
   }
 
+  onChanges(){
+    if(this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined){
+      this.validationToggle = false;
+    } else this.validationToggle = true;
+  }
+
   onConfirm(): void {
-    this.confirmToggle = !this.confirmToggle;
-    if (this.confirmToggle == true) {
+    if (this.validationToggle == true) {
+      this.confirmToggle = !this.confirmToggle;
       this.convertCSVToChartData(this.csvData);
     }
   }
@@ -83,6 +91,7 @@ export class UploadPopUpComponent implements OnInit {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs.push(null);
       this.removeXAxesToggle = true;
+      this.validationToggle = false;
     } else if (this.xAxisInputs.length == 2) {
       this.removeXAxesToggle = false;
       this.xAxisInputs.pop();
@@ -118,7 +127,7 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     if (this.headers[j].includes(";")) {
                       this.headers = this.headers[j].split(";");
-                      console.log(this.headers);
+                      // console.log(this.headers);
                     }
                   }
                   //Split values and create a new object with the attributes as values that have been split
@@ -126,7 +135,7 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     let header = this.headers[j];
                     object[header] = csvObject[j];
-                    console.log(object);
+                    // console.log(object);
                   }
                   arrayOfObjects.push(object);
                 }
@@ -178,7 +187,7 @@ export class UploadPopUpComponent implements OnInit {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
         let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
-        console.log(recordXAxis, recordYAxis);
+        // console.log(recordXAxis, recordYAxis);
 
         if (this.xAxisInputs[1] != null || undefined) {
           let record2 = object[this.headers[this.xAxisInputs[1]]];
@@ -206,7 +215,7 @@ export class UploadPopUpComponent implements OnInit {
     console.log(chartLabels, chartData);
 
     this.chart = ({
-      type: 'bar',
+      type: this.chartType == null || undefined ? 'bar' : this.chartType,
       data: chartData,
       label: yAxisLabel
     });

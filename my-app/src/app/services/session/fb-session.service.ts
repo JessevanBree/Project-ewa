@@ -21,6 +21,7 @@ export class FbSessionService {
       response => {
         firebase.auth().currentUser.getIdToken().then(token => {
           this.token = token;
+          // this.userService.saveLoggedInUser();
           this.userService.saveAllUsers();
         });
         this.authenticated = true;
