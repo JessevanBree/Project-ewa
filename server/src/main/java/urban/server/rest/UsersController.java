@@ -3,7 +3,7 @@ package urban.server.rest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import urban.server.exceptions.UserNotFoundException;
+import urban.server.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.UserRepository;
 
@@ -28,7 +28,7 @@ public class UsersController {
     public User getUser(@RequestParam("userId") int userId){
         User foundUser = repository.find(userId);
         if (foundUser == null)
-            throw new UserNotFoundException("User not found with userId: " + userId);
+            throw new ResourceNotFoundException("User not found with userId: " + userId);
         return foundUser;
     }
 
@@ -37,6 +37,7 @@ public class UsersController {
         User savedUser = repository.createUser(user);
 
         // Return a server response
+        //TODO:: check if response sends you to the right url with ../:userId
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/:userId")
                 .buildAndExpand(savedUser.getId()).toUri();

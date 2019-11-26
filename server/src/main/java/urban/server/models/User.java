@@ -11,6 +11,7 @@ public class User {
     private boolean isAdmin;
     private Organisation organisation;
 
+    // we need to have a default no argument constructor so that we can create user without giving all attributes
     protected User() {
 
     }
