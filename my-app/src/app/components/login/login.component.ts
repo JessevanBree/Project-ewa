@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild("formElement", {static: false}) editForm: NgForm;
 
-  constructor(private aUserService: FbUserService,
+  constructor(private userService: FbUserService,
               private sessionService: SessionService,
               private route: Router,
               private activeRoute: ActivatedRoute) {
@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
   onLogin() {
     if (this.sessionService.signOn(this.email, this.password)){
       this.isValidCredentials = true;
+      this.userService.setLoggedInUser();
+      console.log(this.userService.getLoggedInUser());
       return this.route.navigate([''], {queryParams: {isValidCredentials: this.isValidCredentials}})
     }
     this.isValidCredentials = false;
