@@ -1,4 +1,4 @@
-package urban.server.recource.config;
+package urban.server.resource.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

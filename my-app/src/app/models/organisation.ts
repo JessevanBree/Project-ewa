@@ -1,9 +1,10 @@
 import {User} from './user';
 
 export class Organisation {
+  id: number;
 	name: String;
 	orgAdmin: User;
-	isDeleted: Boolean;
+	isDeleted: boolean;
 	dateCreated: Date;
 	dateEdited?: Date;
 
