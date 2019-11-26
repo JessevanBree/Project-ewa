@@ -1,9 +1,9 @@
-package urban.server.rest;
+package urban.server.recource;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import urban.server.exceptions.ResourceNotFoundException;
+import urban.server.recource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.UserRepository;
 

@@ -1,4 +1,4 @@
-package urban.server.exceptions;
+package urban.server.recource.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
