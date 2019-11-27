@@ -33,6 +33,7 @@ import {ViewDatasetPopupComponent} from './components/view-dataset-popup/view-da
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
 import {CreateUserPopupComponent} from './components/create-user-popup/create-user-popup.component';
 import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-pop
     ViewDatasetPopupComponent,
     EditMetadataPopupComponent,
     EditUserPopupComponent,
-    CreateUserPopupComponent
+    CreateUserPopupComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
