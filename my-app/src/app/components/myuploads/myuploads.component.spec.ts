@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import { MyuploadsComponent } from './myuploads.component';
-import {EditDatasetPopupComponent} from "../edit-dataset-popup/edit-dataset-popup.component";
+import {ViewDatasetPopupComponent} from "../view-dataset-popup/view-dataset-popup.component";
 import {UploadPopUpComponent} from "../upload-pop-up/upload-pop-up.component";
 import {FormsModule} from "@angular/forms";
 
@@ -12,14 +12,14 @@ describe('MyuploadsComponent', () => {
   let uploadPopupcomponent: UploadPopUpComponent;
   let uploadPopupfixture: ComponentFixture<UploadPopUpComponent>;
 
-  let editDatasetcomponent: EditDatasetPopupComponent;
-  let editDatasetfixture: ComponentFixture<EditDatasetPopupComponent>;
+  let editDatasetcomponent: ViewDatasetPopupComponent;
+  let editDatasetfixture: ComponentFixture<ViewDatasetPopupComponent>;
 
   let datasetService: FirebaseDatasetService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyuploadsComponent, UploadPopUpComponent, EditDatasetPopupComponent],
+      declarations: [ MyuploadsComponent, UploadPopUpComponent, ViewDatasetPopupComponent],
       imports: [ FormsModule ]
     })
     .compileComponents(); //Compile the components
@@ -39,7 +39,7 @@ describe('MyuploadsComponent', () => {
     uploadPopupfixture.detectChanges();
 
     //Set up edit dataset popup component
-    editDatasetfixture = TestBed.createComponent(EditDatasetPopupComponent);
+    editDatasetfixture = TestBed.createComponent(ViewDatasetPopupComponent);
     editDatasetcomponent = editDatasetfixture.componentInstance;
     editDatasetfixture.detectChanges();
   });

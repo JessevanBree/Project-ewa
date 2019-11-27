@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-html {
-  max-height: 100vh;
+html, body {
+  height: 100vh;
 }
 
 i.btn {
@@ -26,7 +26,6 @@ body {
   /*Choose Poppins or Candara*/
   font-family: Poppins, sans-serif !important;
   /*padding right because when opening popup there comes unwanted padding*/
-  padding-right: 0 !important;
 }
 
 .btn-primary {

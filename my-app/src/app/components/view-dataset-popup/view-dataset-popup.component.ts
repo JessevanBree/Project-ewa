@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Dataset} from "../../models/dataset";
-import {ChartDataSets, ChartOptions} from "chart.js";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
@@ -9,10 +8,10 @@ import * as Chart from "chart.js";
 
 @Component({
   selector: 'app-edit-dataset-popup',
-  templateUrl: './edit-dataset-popup.component.html',
-  styleUrls: ['./edit-dataset-popup.component.css']
+  templateUrl: './view-dataset-popup.component.html',
+  styleUrls: ['./view-dataset-popup.component.css']
 })
-export class EditDatasetPopupComponent implements OnInit {
+export class ViewDatasetPopupComponent implements OnInit {
 
   @Output() closingToggle;
   private editingDataset: Dataset;

@@ -82,6 +82,7 @@ export class FbUserService {
 				editedUser.password
 			)
 				.then(function (userRecord) {
+				  console.log("UserRecord: " + userRecord);
 					// See the UserRecord reference doc for the contents of userRecord.
 					this.httpClient.put(this.DB_USERS + '/' + userRecord.user.uid + '.json', editedUser).subscribe(
 						{ error: err => { console.log(err) } }

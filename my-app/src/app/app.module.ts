@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
@@ -29,10 +29,11 @@ import {FirebaseLoginComponent} from './components/firebase-login/firebase-login
 import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
 import {PapaParseGlobalConfig, PapaParseModule} from "ngx-papaparse";
-import {EditDatasetPopupComponent} from './components/edit-dataset-popup/edit-dataset-popup.component';
+import {ViewDatasetPopupComponent} from './components/view-dataset-popup/view-dataset-popup.component';
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
 import {CreateUserPopupComponent} from './components/create-user-popup/create-user-popup.component';
 import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -56,10 +57,11 @@ import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-pop
     CreateOrganisationPopupComponent,
     EditOrganisationPopupComponent,
     FirebaseLoginComponent,
-    EditDatasetPopupComponent,
-	EditMetadataPopupComponent,
-	EditUserPopupComponent,
-	CreateUserPopupComponent
+    ViewDatasetPopupComponent,
+    EditMetadataPopupComponent,
+    EditUserPopupComponent,
+    CreateUserPopupComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
