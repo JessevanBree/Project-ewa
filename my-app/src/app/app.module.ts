@@ -13,7 +13,7 @@ import {AdminUsersComponent} from './components/admin/admin-users/admin-users.co
 import {AdminOrganisationsComponent} from './components/admin/admin-organisations/admin-organisations.component';
 import {AdminDatasetsComponent} from './components/admin/admin-datasets/admin-datasets.component';
 import {EditProfileComponent} from './components/profile/edit-profile/edit-profile.component';
-import {searchArrayPipe} from './pipes/search-array.pipe';
+import {SearchArrayNamePipe} from './pipes/search-array.pipe';
 import {DatasetOverviewComponent} from './components/homepage/dataset-overview/dataset-overview.component';
 import {DatasetDetailComponent} from './components/homepage/dataset-detail/dataset-detail.component';
 import {NavbarComponent} from './components/navbar/navbar.component';
@@ -47,7 +47,7 @@ import { FooterComponent } from './components/footer/footer.component';
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-    searchArrayPipe,
+    SearchArrayNamePipe,
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
