@@ -74,8 +74,8 @@ export class UploadPopUpComponent implements OnInit {
     // form.resetForm();
   }
 
-  onChanges(){
-    if(this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined){
+  onChanges() {
+    if (this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined) {
       this.validationToggle = false;
     } else this.validationToggle = true;
   }
@@ -110,16 +110,22 @@ export class UploadPopUpComponent implements OnInit {
           header: true,
           dynamicTyping: true,
           skipEmptyLines: true,
+          //results is an object with the data (chartdata), metadata (headers, delimiter...)
           complete: (results) => {
             console.log(results);
+            // get the data attribute from the results object and store the keys of the first data object
+            // we do not get the metadata because the delimiter can be ';', otherwise the rest of the code will not work
             let csvObjects = results.data;
             this.headers = Object.keys(csvObjects[0]);
             console.log("Headers: ", this.headers);
+            // check if the first element has a ';' in it. If so the headers need to be split according the ';' delimiter
             if (this.headers[0].includes(";")) {
               for (let i = 0; i < csvObjects.length; i++) {
                 let firstHeader = Object.keys(csvObjects[i])[0];
                 let csvObject = csvObjects[i];
                 let object = {};
+
+                console.log("csvObject: " + csvObject[firstHeader]);
 
                 //If one of the headers or values contains ; then split them accordingly and check the other headers
                 if (csvObject[firstHeader].includes(";")) {
@@ -133,6 +139,7 @@ export class UploadPopUpComponent implements OnInit {
                   //Split values and create a new object with the attributes as values that have been split
                   csvObject = csvObject[firstHeader].split(";");
                   for (let j = 0; j < this.headers.length; j++) {
+                    // for each splitted header create an object with the header and value
                     let header = this.headers[j];
                     object[header] = csvObject[j];
                     // console.log(object);
@@ -141,6 +148,7 @@ export class UploadPopUpComponent implements OnInit {
                 }
               }
             } else {
+              // if delimiter is not ';', we get a normal result and store it
               arrayOfObjects = csvObjects
             }
             // arrayOfObjects = csvObjects;
