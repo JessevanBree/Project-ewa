@@ -1,9 +1,19 @@
 package urban.server.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import java.time.LocalDate;
+import java.util.Objects;
 
+@Entity
+@NamedQuery(name="find_all_users", query="select u from User u")
 public class User {
+    @Id
+    @GeneratedValue
     private int id;
+
     private String email;
     private String firstname;
     private String lastname;
@@ -96,5 +106,18 @@ public class User {
 
     public void setOrganisation(Organisation organisation) {
         this.organisation = organisation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

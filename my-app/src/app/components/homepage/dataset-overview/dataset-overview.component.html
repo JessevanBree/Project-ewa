@@ -50,9 +50,12 @@
       </tr>
       </thead>
       <tbody class="table-light" *ngIf="this.datasets$ | async">
-      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
-          (click)="onSelection(index, dataset)">
-        <td>{{dataset.name}}</td>
+<!--      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"-->
+<!--          (click)="onSelection(index, dataset)">-->
+<!--        <td>{{dataset.name}}</td>-->
+<!--      </tr>-->
+      <tr *ngIf="copyDatasets.length == 4">
+        <td><i>There are no datasets available</i></td>
       </tr>
       </tbody>
     </table>

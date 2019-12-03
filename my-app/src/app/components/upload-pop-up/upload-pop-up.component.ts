@@ -125,15 +125,12 @@ export class UploadPopUpComponent implements OnInit {
                 let csvObject = csvObjects[i];
                 let object = {};
 
-                console.log("csvObject: " + csvObject[firstHeader]);
-
                 //If one of the headers or values contains ; then split them accordingly and check the other headers
                 if (csvObject[firstHeader].includes(";")) {
                   //Check if headers contains semicolons and split them accordingly
                   for (let j = 0; j < this.headers.length; j++) {
                     if (this.headers[j].includes(";")) {
                       this.headers = this.headers[j].split(";");
-                      // console.log(this.headers);
                     }
                   }
                   //Split values and create a new object with the attributes as values that have been split
@@ -142,7 +139,6 @@ export class UploadPopUpComponent implements OnInit {
                     // for each splitted header create an object with the header and value
                     let header = this.headers[j];
                     object[header] = csvObject[j];
-                    // console.log(object);
                   }
                   arrayOfObjects.push(object);
                 }
@@ -151,7 +147,6 @@ export class UploadPopUpComponent implements OnInit {
               // if delimiter is not ';', we get a normal result and store it
               arrayOfObjects = csvObjects
             }
-            // arrayOfObjects = csvObjects;
             this.csvData = arrayOfObjects;
             console.log(this.csvData);
             return this.csvData;
