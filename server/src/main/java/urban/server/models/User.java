@@ -1,9 +1,6 @@
 package urban.server.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -19,6 +16,8 @@ public class User {
     private String lastname;
     private LocalDate creationDate;
     private boolean isAdmin;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes

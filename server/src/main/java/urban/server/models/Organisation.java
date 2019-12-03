@@ -1,9 +1,7 @@
 package urban.server.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +9,15 @@ import java.util.Objects;
 public class Organisation {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
+
+    @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
+    private List<User> users;
 
     public Organisation() {
     }
+
+
 
     public long getId() {
         return id;
@@ -29,7 +32,7 @@ public class Organisation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organisation that = (Organisation) o;
-        return id == that.id;
+        return id.equals(that.id);
     }
 
     @Override
