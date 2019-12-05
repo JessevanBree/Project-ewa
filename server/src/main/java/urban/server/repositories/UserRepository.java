@@ -9,7 +9,7 @@ public interface UserRepository {
 
     void delete(User user);
 
-    User findById(int id);
+    User findById(Long id);
 
     List<User> findAll();
 }

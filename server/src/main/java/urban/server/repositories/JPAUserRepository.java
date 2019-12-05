@@ -1,31 +1,29 @@
 package urban.server.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.*;
 
-@Component
+@Repository
+@Transactional
 public class JPAUserRepository implements UserRepository {
-    private static List<User> userList = new ArrayList<>();
-
-    private static int usersCount = 2;
-
-    static {
-        userList.add(new User(1, "abdul@hva.nl", "Abdul", "Zor", true, null));
-        userList.add(new User(2, "maarten@hva.nl", "Maarten", "Zor", true, null));
-    }
-
 
     @Autowired
     private EntityManager em;
 
     @Override
     public User save(User user) {
-        return em.merge(user);
+        if (user.getId() == null) {
+            em.persist(user);
+        } else {
+            em.merge(user);
+        }
+        return user;
     }
 
     @Override
@@ -37,9 +35,9 @@ public class JPAUserRepository implements UserRepository {
     }
 
     @Override
-    public User findById(int id) {
+    public User findById(Long id) {
 
-        return em.find(User.class,id);
+        return em.find(User.class, id);
     }
 
     @Override

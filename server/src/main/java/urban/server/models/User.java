@@ -5,11 +5,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@NamedQuery(name="find_all_users", query="select u from User u")
+@NamedQuery(name = "find_all_users", query = "select u from User u")
 public class User {
     @Id
     @GeneratedValue
-    private int id;
+    private Long id;
 
     private String email;
     private String firstname;
@@ -25,8 +25,7 @@ public class User {
 
     }
 
-    public User(int id, String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
-        this.id = id;
+    public User(String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -48,11 +47,11 @@ public class User {
                 '}';
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -112,11 +111,19 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id;
+        return id.equals(user.id);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public static User generateRandomUser() {
+        return new User("abdul@hva.nl", "Abdul", "Zor", getRandomIsAdmin(), null);
+    }
+
+    private static boolean getRandomIsAdmin() {
+        return Math.random() < 0.5;
     }
 }

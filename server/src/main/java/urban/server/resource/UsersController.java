@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/users")
-@CrossOrigin(origins = "*")
 public class UsersController {
     @Autowired
     private JPAUserRepository userRepo;
@@ -25,7 +24,7 @@ public class UsersController {
 
     @GetMapping("/{id}")
     public User getUserById(
-            @PathVariable int id) {
+            @PathVariable Long id) {
 
         User userById = userRepo.findById(id);
 
@@ -47,7 +46,7 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
 
         User user = getUserById(id);
 
@@ -58,7 +57,7 @@ public class UsersController {
     }
 
     @PutMapping()
-    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
 
 
         User userById = userRepo.findById(user.getId());

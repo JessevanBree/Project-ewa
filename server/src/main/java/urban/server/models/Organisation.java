@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@NamedQuery(name="find_all_organisations", query="select o from Organisation o")
+@NamedQuery(name = "find_all_organisations", query = "select o from Organisation o")
 public class Organisation {
     @Id
     @GeneratedValue
@@ -16,7 +16,6 @@ public class Organisation {
 
     public Organisation() {
     }
-
 
 
     public long getId() {

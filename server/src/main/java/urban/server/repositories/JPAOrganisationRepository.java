@@ -1,16 +1,16 @@
 package urban.server.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.Organisation;
-import urban.server.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Repository
+@Transactional
 public class JPAOrganisationRepository implements OrganisationRepository {
     @Autowired
     private EntityManager em;
@@ -30,8 +30,7 @@ public class JPAOrganisationRepository implements OrganisationRepository {
 
     @Override
     public Organisation findById(int id) {
-
-        return em.find(Organisation.class,id);
+        return em.find(Organisation.class, id);
     }
 
     @Override
