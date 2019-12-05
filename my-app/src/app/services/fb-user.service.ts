@@ -36,7 +36,7 @@ export class FbUserService {
     )
   }
 
-  public getLoggedInUser () {
+  public getLoggedInUser() {
     return this.loggedInUser;
   }
 

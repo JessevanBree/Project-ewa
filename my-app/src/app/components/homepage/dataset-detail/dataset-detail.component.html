@@ -1,9 +1,10 @@
 <div class="ml-1 mt-2" *ngIf="activeIndex != null">
 
-  <div class="col-sm-12 col-md-12 col-lg-7 col-xl-6 float-left">
-    <div class="mb-2 w-100">
+  <div class="col-sm-12 col-md-12 col-lg-9 col-xl-7 float-left" id="visualization">
+    <div class="card mb-2 w-100">
+      <div class="card-header"><h3>Dataset visualization</h3></div>
       <canvas baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]"
-              [labels]="editedDataset.chartLabels" width="400" height="400">
+              [labels]="editedDataset.chartLabels" width="400" height="350">
       </canvas>
     </div>
   </div>
