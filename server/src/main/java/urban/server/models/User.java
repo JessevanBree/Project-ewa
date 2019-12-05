@@ -1,7 +1,7 @@
 package urban.server.models;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -14,24 +14,32 @@ public class User {
     private String email;
     private String firstname;
     private String lastname;
-    private LocalDate creationDate;
+    private LocalDateTime creationDate;
     private boolean isAdmin;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
-    protected User() {
+    public User() {
 
     }
 
-    public User(String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
+    private User(String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.creationDate = LocalDate.now();
+        this.creationDate = LocalDateTime.now();
         this.isAdmin = isAdmin;
         this.organisation = organisation;
+    }
+
+    public User(String email, String firstname, String lastname, boolean isAdmin) {
+        this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.creationDate = LocalDateTime.now();
+        this.isAdmin = isAdmin;
     }
 
     @Override
@@ -79,12 +87,12 @@ public class User {
         this.lastname = lastname;
     }
 
-    public LocalDate getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDate creationDate) throws Exception {
-        if (creationDate.isAfter(LocalDate.now())) {
+    public void setCreationDate(LocalDateTime creationDate) throws Exception {
+        if (creationDate.isAfter(LocalDateTime.now())) {
             throw new Exception("Creation date can not be after the current time");
         }
         this.creationDate = creationDate;
@@ -120,7 +128,7 @@ public class User {
     }
 
     public static User generateRandomUser() {
-        return new User("abdul@hva.nl", "Abdul", "Zor", getRandomIsAdmin(), null);
+        return new User("abdul@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
     }
 
     private static boolean getRandomIsAdmin() {

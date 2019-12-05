@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import urban.server.models.Organisation;
 import urban.server.models.User;
+import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
 import java.util.List;
@@ -18,6 +20,9 @@ public class ServerApplication implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrganisationRepository organisationRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
@@ -36,6 +41,13 @@ public class ServerApplication implements CommandLineRunner {
         for (int i = 0; i < 5; i++) {
             User user = User.generateRandomUser();
             logger.info("{}", user);
+            user = userRepository.save(user);
+
+            Organisation organisation = Organisation.getRandomRegistration();
+            logger.info("{}", organisation);
+            organisation.addUser(user);
+
+            organisation = organisationRepository.save(organisation);
             user = userRepository.save(user);
         }
     }

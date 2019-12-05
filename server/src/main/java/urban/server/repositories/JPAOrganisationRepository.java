@@ -17,7 +17,12 @@ public class JPAOrganisationRepository implements OrganisationRepository {
 
     @Override
     public Organisation save(Organisation organisation) {
-        return em.merge(organisation);
+        if (organisation.getId() == null) {
+            em.persist(organisation);
+        } else {
+            em.merge(organisation);
+        }
+        return organisation;
     }
 
     @Override
@@ -29,7 +34,7 @@ public class JPAOrganisationRepository implements OrganisationRepository {
     }
 
     @Override
-    public Organisation findById(int id) {
+    public Organisation findById(Long id) {
         return em.find(Organisation.class, id);
     }
 

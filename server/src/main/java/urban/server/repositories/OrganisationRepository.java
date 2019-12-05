@@ -9,7 +9,7 @@ public interface OrganisationRepository {
 
     void delete(Organisation user);
 
-    Organisation findById(int id);
+    Organisation findById(Long id);
 
     List<Organisation> findAll();
 }
