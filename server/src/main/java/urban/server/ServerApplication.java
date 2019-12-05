@@ -30,10 +30,10 @@ public class ServerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.createRandomUsers();
+        this.createInitials();
     }
 
-    protected void createRandomUsers() {
+    protected void createInitials() {
         List<User> users = this.userRepository.findAll();
         if (users.size() > 0) return;
         System.out.println("Configuring some initial Users data");

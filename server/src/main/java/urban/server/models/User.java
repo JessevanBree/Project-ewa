@@ -1,8 +1,11 @@
 package urban.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Random;
 
 @Entity
 @NamedQuery(name = "find_all_users", query = "select u from User u")
@@ -17,6 +20,7 @@ public class User {
     private LocalDateTime creationDate;
     private boolean isAdmin;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
@@ -128,10 +132,23 @@ public class User {
     }
 
     public static User generateRandomUser() {
-        return new User("abdul@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
+        return new User(getSaltString()+"@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
     }
 
     private static boolean getRandomIsAdmin() {
         return Math.random() < 0.5;
+    }
+
+    private static String getSaltString() {
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr;
+
     }
 }

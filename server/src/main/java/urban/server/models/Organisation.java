@@ -1,5 +1,7 @@
 package urban.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -71,6 +73,8 @@ public class Organisation {
     public String toString() {
         return "Organisation{" +
                 "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
                 '}';
     }
 
