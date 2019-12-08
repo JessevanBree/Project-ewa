@@ -5,6 +5,9 @@ import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Dataset} from "../../models/dataset";
 import {FbUserService} from "../../services/fb-user.service";
 import {Router} from "@angular/router";
+import {getFileSystem} from "@angular/compiler-cli/src/ngtsc/file_system";
+import {FirebaseFileService} from "../../services/firebase-file.service";
+
 
 
 @Component({
@@ -39,13 +42,14 @@ export class UploadPopUpComponent implements OnInit {
   private listOfYears: number[];
   private chart;
   private chartLabels: string[];
-  // private chartOptions;
-  // private dataset: Dataset;
+
+  private file: File;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
   constructor(private datasetService: FirebaseDatasetService, private papa: Papa,
-              private userService: FbUserService, private router: Router) {
+              private userService: FbUserService, private fileService: FirebaseFileService,
+              private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
       this.listOfYears.push(i);
@@ -65,7 +69,10 @@ export class UploadPopUpComponent implements OnInit {
     console.log(uploadingUser);
 
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
-      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput);
+      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput,
+      null);
+
+    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.name);
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
     this.datasetService.saveAllDatasets();
@@ -74,12 +81,14 @@ export class UploadPopUpComponent implements OnInit {
     // form.resetForm();
   }
 
+  // Registers changes on form
   onChanges(){
     if(this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined){
       this.validationToggle = false;
     } else this.validationToggle = true;
   }
 
+  // Confirmation of csv file that has been uploaded
   onConfirm(): void {
     if (this.validationToggle == true) {
       this.confirmToggle = !this.confirmToggle;
@@ -98,15 +107,13 @@ export class UploadPopUpComponent implements OnInit {
     } else return null;
   }
 
-  //Method to upload
+  //Method that registers what file is uploaded by the user
   uploadListener(files: FileList): void {
-    let arrayOfNumber = [];
-    let arrayOfStrings = [];
     let arrayOfObjects = [];
 
     if (this.isValidCSVFile(files)) {
-      let file = files.item(0);
-      this.papa.parse(file, {
+       this.file = files.item(0);
+      this.papa.parse(this.file, {
           header: true,
           dynamicTyping: true,
           skipEmptyLines: true,
@@ -143,7 +150,6 @@ export class UploadPopUpComponent implements OnInit {
             } else {
               arrayOfObjects = csvObjects
             }
-            // arrayOfObjects = csvObjects;
             this.csvData = arrayOfObjects;
             console.log(this.csvData);
             return this.csvData;
@@ -168,7 +174,7 @@ export class UploadPopUpComponent implements OnInit {
     this.detailForm.controls['fileInput'].reset();
   }
 
-
+  //Core method which converts the csv data to chart data/visualization
   convertCSVToChartData(objectsArray: any[]): void {
     let xAxisLabel: string;
     let yAxisLabel: string;
@@ -187,13 +193,12 @@ export class UploadPopUpComponent implements OnInit {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
         let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
-        // console.log(recordXAxis, recordYAxis);
-
+        //Check if second xAxix input field has been used, if it has the xAxis will be used in the header via concatination.
         if (this.xAxisInputs[1] != null || undefined) {
           let record2 = object[this.headers[this.xAxisInputs[1]]];
           recordXAxis = recordXAxis.concat(" " + record2);
         }
-        //Chart data
+        //Chart data is being established
         chartData.push(recordYAxis);
         chartLabels.push(recordXAxis);
       }
@@ -212,7 +217,7 @@ export class UploadPopUpComponent implements OnInit {
       chartLabels.push(recordXAxis);
     }
 
-    console.log(chartLabels, chartData);
+    // console.log(chartLabels, chartData);
 
     this.chart = ({
       type: this.chartType == null || undefined ? 'bar' : this.chartType,

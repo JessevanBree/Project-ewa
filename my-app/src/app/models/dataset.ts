@@ -26,12 +26,13 @@ export class Dataset {
   user: User;
   chart: ChartDataSets;
   chartLabels: string[];
+
   // chartOptions?: ChartOptions;
 
 
   constructor(id: number, name: string, region: string, publicity: string,
               user: User, year: number, chart: ChartDataSets, chartLabels: string[],
-               description?: string, organisation?: Organisation) {
+              description?: string, organisation?: Organisation) {
     this.id = id;
     this.name = name;
     this.region = region;

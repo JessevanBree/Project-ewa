@@ -6,6 +6,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FbUserService} from "../../services/fb-user.service";
 import {$e} from "codelyzer/angular/styles/chars";
+import {FirebaseFileService} from "../../services/firebase-file.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -23,11 +24,12 @@ export class MyuploadsComponent implements OnInit {
   private activeIndex;
   public userId: string;
   paramSubscription: Subscription;
+  protected url: string;
 
   constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private aUserService: FbUserService, private router: Router) {
+              private aUserService: FbUserService, private router: Router,
+              private fileService: FirebaseFileService) {
     this.datasets = [];
-
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
@@ -41,13 +43,17 @@ export class MyuploadsComponent implements OnInit {
             // for each dataset check if dataset exists and if the email of the dataset uploader
             // is equal to the logged in user mail which gets extracted from the URL parameter
             // if true push the dataset to the datasets array else return an empty array
-            data.map((o) => {
-              o && o.user.email == userEmail ? this.datasets.push(o) : [];
-            })
+            if (data != null) {
+              data.map((o) => {
+                o && o.user.email == userEmail ? this.datasets.push(o) : [];
+              });
+            } else return null;
           }
         );
       }
     );
+
+    this.fileService.getAllFileUrls();
   }
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
@@ -82,7 +88,7 @@ export class MyuploadsComponent implements OnInit {
   }
 
   //Triggers when a dataset has been uploaded to refresh the overview
-  onUploadDataset(){
+  onUploadDataset() {
     this.datasets = this.datasetService.getMyDatasets();
   }
 
@@ -103,6 +109,15 @@ export class MyuploadsComponent implements OnInit {
       this.datasetService.remove(selectedDataset);
       this.datasets = this.datasetService.getMyDatasets();
     }
+  }
+
+  onDownload(index: number) {
+    let dataset = this.datasets[index];
+    this.fileService.getDownloadUrlsList().forEach(
+      downloadUrl => {
+        downloadUrl.includes(dataset.name + "_" + dataset.id) ? this.url = downloadUrl : null;
+      }
+    );
   }
 
   //Testing purposes function, adds a random dataset

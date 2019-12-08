@@ -2,9 +2,10 @@ import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Dataset, Publicity, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
-import {DatasetService} from "../../../services/dataset.service";
 import {ChartDataSets} from "chart.js";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
+import {Papa, PapaParseModule} from "ngx-papaparse";
+import {FirebaseFileService} from "../../../services/firebase-file.service";
 
 @Component({
   selector: 'app-dataset-detail',
@@ -19,14 +20,18 @@ export class DatasetDetailComponent implements OnInit {
 
   private barChartData: ChartDataSets[];
   private barChartLabels: string[];
+  protected url;
 
   queryParamSubscription: Subscription;
   private keys = Object.keys;
   private regionLevel;
   private publicityOptions;
 
-  constructor(private activatedRoute: ActivatedRoute, private datasetService: FirebaseDatasetService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private datasetService: FirebaseDatasetService, private fileService: FirebaseFileService,
+              private papa: Papa) {
     this.listDataset = null;
+    this.editedDataset = null;
     this.regionLevel = RegionLevel;
     this.publicityOptions = Publicity;
     this.listOfYears = [];
@@ -35,22 +40,40 @@ export class DatasetDetailComponent implements OnInit {
     }
   }
 
+  protected onDownload() {
+    console.log("Downloading dataset..");
+    /*this.papa.parse(this.url,  {
+      download: true,
+      complete: function (results){
+        console.log(results);
+      }
+    });*/
+  }
+
   ngOnInit() {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const id = params.id;
         console.log(params);
-        for(let i = 0; i < this.datasetService.getDatasets().length; i++){
-          if (this.datasetService.getDatasets()[i].id == id){
+        for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
+          if (this.datasetService.getDatasets()[i].id == id) {
             this.listDataset = this.datasetService.getDatasets()[i];
             this.editedDataset = Dataset.trueCopy(this.listDataset);
+            this.fileService.getFileUrl(this.editedDataset.name + "_" + this.editedDataset.id + ".csv").then(
+              fileUrl => {
+                this.url = fileUrl;
+                console.log("Download file: " + this.url);
+              }
+            ).catch(error => {
+              console.log(error)
+            });
             console.log("Selected dataset: " + this.editedDataset.id);
           }
         }
       });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.queryParamSubscription.unsubscribe();
   }
 

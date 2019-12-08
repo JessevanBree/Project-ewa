@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as firebase from "firebase";
+import {FirebaseFileService} from "./services/firebase-file.service";
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,11 @@ import * as firebase from "firebase";
 })
 export class AppComponent implements OnInit {
   title = 'Urban Analytics';
+
+
+  constructor(){
+
+  }
 
   ngOnInit() {
    let firebaseConfig = {
@@ -21,6 +27,9 @@ export class AppComponent implements OnInit {
      measurementId: "G-PDGQZH7H4X"
     };
     firebase.initializeApp(firebaseConfig);
+
+
+
   }
 
 

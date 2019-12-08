@@ -28,6 +28,7 @@
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{item.name}}</p>
 					          <span class="btn-group col-lg-4 h-75">
+                      <a  [href]="url" [download]="url" class="btn btn-warning fa fa-download" (click)="onDownload(i)"></a>
                       <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
                               (click)="onViewDatasetClick(i)"></button>
                       <button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
