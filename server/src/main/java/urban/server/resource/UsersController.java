@@ -1,46 +1,73 @@
 package urban.server.resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.resource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
-import urban.server.repositories.UserRepository;
+import urban.server.repositories.JPAUserRepository;
 
 import java.net.URI;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@RequestMapping(path = "/users")
 public class UsersController {
-    private UserRepository repository;
+    @Autowired
+    private JPAUserRepository userRepo;
 
-    public UsersController(UserRepository repository) {
-        this.repository = repository;
+    @GetMapping()
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 
-    @GetMapping(path = "/users")
-    public List<User> getAllUsers(){
-        return repository.findAll();
+    @GetMapping("/{id}")
+    public User getUserById(
+            @PathVariable Long id) {
+
+        User userById = userRepo.findById(id);
+
+        if (userById == null) {
+            throw new ResourceNotFoundException("id = " + id);
+        }
+
+        return userById;
     }
 
-    @GetMapping(path = "/user", params = "userId")
-    public User getUser(@RequestParam("userId") int userId){
-        User foundUser = repository.find(userId);
-        if (foundUser == null)
-            throw new ResourceNotFoundException("User not found with userId: " + userId);
-        return foundUser;
+    @PostMapping()
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+
+        User savedUser = userRepo.save(user);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+
+        return ResponseEntity.created(location).body(savedUser);
     }
 
-    @PostMapping(path = "/users")
-    public ResponseEntity saveUser(@RequestBody User user){
-        User savedUser = repository.createUser(user);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
 
-        // Return a server response
-        //TODO:: check if response sends you to the right url with ../:userId
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/:userId")
-                .buildAndExpand(savedUser.getId()).toUri();
-        return ResponseEntity.created(location).build();
+        User user = getUserById(id);
+
+        userRepo.delete(user);
+
+        return ResponseEntity.ok(user);
+
+    }
+
+    @PutMapping()
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+
+
+        User userById = userRepo.findById(user.getId());
+
+        if (userById == null) {
+            throw new ResourceNotFoundException("id = " + user.getId());
+        }
+
+        userRepo.save(user);
+
+        return ResponseEntity.ok().build();
     }
 }
