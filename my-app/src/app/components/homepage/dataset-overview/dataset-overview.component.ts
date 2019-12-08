@@ -43,8 +43,8 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   onSelection(index: number, dataset: Dataset) {
-    this.activeIndex = index;
-    this.selectedDataset = this.copyDatasets[this.activeIndex];
+    this.activeIndex = dataset.id;
+    this.selectedDataset = this.copyDatasets.find(dataset => dataset.id = this.activeIndex);
     this.router.navigate(['detail'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
