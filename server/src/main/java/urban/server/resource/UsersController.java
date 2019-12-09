@@ -2,11 +2,13 @@ package urban.server.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.resource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.JPAUserRepository;
+import urban.server.views.OrganisationsView;
 
 import java.net.URI;
 import java.util.List;
@@ -18,8 +20,12 @@ public class UsersController {
     private JPAUserRepository userRepo;
 
     @GetMapping()
-    public List<User> getAllUsers() {
-        return userRepo.findAll();
+    public MappingJacksonValue getAllUsers() {
+        List<User> users = userRepo.findAll();
+
+        MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
+        mappingJacksonValue.setSerializationView(OrganisationsView.Full.class);
+        return mappingJacksonValue;
     }
 
     @GetMapping("/{id}")
