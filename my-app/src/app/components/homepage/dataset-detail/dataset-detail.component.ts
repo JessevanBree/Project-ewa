@@ -59,23 +59,14 @@ export class DatasetDetailComponent implements OnInit {
         this.activeIndex = null;
         if (params['id']) {
           console.log(params);
-          this.datasetService.getAllDatasets2().subscribe(
-            () => {
-
-            }, () => {
-
-            },
-            () => {
-              for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-                if (this.datasetService.getDatasets()[i].id == id) {
-                  this.activeIndex = params['id'];
-                  this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
-                  this.editedDataset = Dataset.trueCopy(this.listDataset);
-                  this.url = this.fileService.getDownloadUrl(this.editedDataset.name + "_" + this.editedDataset.id);
-                }
-              }
+          for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
+            if (this.datasetService.getDatasets()[i].id == id) {
+              this.activeIndex = params['id'];
+              this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
+              this.editedDataset = Dataset.trueCopy(this.listDataset);
+              this.url = this.fileService.getDownloadUrl(this.editedDataset.fileName ,this.editedDataset.id);
             }
-          );
+          }
         }
       });
   }

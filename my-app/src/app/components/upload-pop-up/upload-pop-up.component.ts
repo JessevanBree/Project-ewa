@@ -25,18 +25,18 @@ export class UploadPopUpComponent implements OnInit {
   private headers: string[];
   private csvData: object[];
 
-  protected nameInput: string;
-  protected descriptionInput: string;
-  protected publicityInput: string;
-  protected regionInput: string;
-  protected yearInput: number;
+  protected nameInput: string; // Name input of metadata section
+  protected descriptionInput: string; // Description input of metadata section
+  protected publicityInput: string; // Publictity input of metadata section
+  protected regionInput: string; // Region input of metadata section
+  protected yearInput: number; // Year input of metadata section
 
-  protected xAxisInputs: number[];
-  protected yAxisInput: number;
-  protected chartType: string;
-  protected removeXAxesToggle: boolean;
-  protected confirmToggle: boolean;
-  protected validationToggle: boolean;
+  protected xAxisInputs: number[]; // X-axis input of visualization
+  protected yAxisInput: number; // Y-axis input of visualization
+  protected chartType: string; // Chart-type selection
+  protected removeXAxesToggle: boolean; // Adding and removing x axes toggle
+  protected confirmToggle: boolean; // Confirmation toggle for dataset visualization
+  protected validationToggle: boolean; // Validation toggle to submit dataset
 
   private listOfYears: number[];
   private chart;
@@ -66,12 +66,12 @@ export class UploadPopUpComponent implements OnInit {
     console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
-
+    let fileName = this.file.name.split(".");
     let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
-      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, this.descriptionInput,
-      null);
+      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
+      this.descriptionInput);
 
-    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.name);
+    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
     this.datasetService.saveAllDatasets();

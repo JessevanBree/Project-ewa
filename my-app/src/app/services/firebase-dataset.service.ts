@@ -157,7 +157,7 @@ export class FirebaseDatasetService {
       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
     }
     return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName],
-      Publicity[randomPublicity], randomUser, year, chart, chartLabels);
+      Publicity[randomPublicity], randomUser, year, chart, chartLabels, null, null);
   }
 
   ngOnInit() {
