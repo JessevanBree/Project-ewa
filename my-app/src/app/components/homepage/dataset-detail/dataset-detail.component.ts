@@ -39,18 +39,34 @@ export class DatasetDetailComponent implements OnInit {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const id = params.id;
-        console.log(params);
-        for(let i = 0; i < this.datasetService.getDatasets().length; i++){
-          if (this.datasetService.getDatasets()[i].id == id){
-            this.listDataset = this.datasetService.getDatasets()[i];
-            this.editedDataset = Dataset.trueCopy(this.listDataset);
-            console.log("Selected dataset: " + this.editedDataset.id);
-          }
+        this.activeIndex = null;
+        if (params['id']) {
+          console.log(params);
+          this.datasetService.getAllDatasets2().subscribe(
+            () => {
+
+            }, () => {
+
+            },
+            () => {
+              this.activeIndex = params['id'];
+              this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
+              this.editedDataset = Dataset.trueCopy(this.listDataset);
+            }
+          );
+
+          // for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
+          //   if (this.datasetService.getDatasets()[i].id == id) {
+          //     this.listDataset = this.datasetService.getDatasets()[i];
+          //     this.editedDataset = Dataset.trueCopy(this.listDataset);
+          //     console.log("Selected dataset: " + this.editedDataset.id);
+          //   }
+          // }
         }
       });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.queryParamSubscription.unsubscribe();
   }
 
