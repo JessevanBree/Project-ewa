@@ -9,7 +9,6 @@ import {getFileSystem} from "@angular/compiler-cli/src/ngtsc/file_system";
 import {FirebaseFileService} from "../../services/firebase-file.service";
 
 
-
 @Component({
   selector: 'app-upload-pop-up',
   templateUrl: './upload-pop-up.component.html',
@@ -81,9 +80,9 @@ export class UploadPopUpComponent implements OnInit {
     // form.resetForm();
   }
 
-  // Registers changes on form
-  onChanges(){
-    if(this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined){
+
+  onChanges() {
+    if (this.yAxisInput == null || undefined && this.xAxisInputs[0] == null || undefined) {
       this.validationToggle = false;
     } else this.validationToggle = true;
   }
@@ -112,16 +111,20 @@ export class UploadPopUpComponent implements OnInit {
     let arrayOfObjects = [];
 
     if (this.isValidCSVFile(files)) {
-       this.file = files.item(0);
+      this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
           dynamicTyping: true,
           skipEmptyLines: true,
+          //results is an object with the data (chartdata), metadata (headers, delimiter...)
           complete: (results) => {
             console.log(results);
+            // get the data attribute from the results object and store the keys of the first data object
+            // we do not get the metadata because the delimiter can be ';', otherwise the rest of the code will not work
             let csvObjects = results.data;
             this.headers = Object.keys(csvObjects[0]);
             console.log("Headers: ", this.headers);
+            // check if the first element has a ';' in it. If so the headers need to be split according the ';' delimiter
             if (this.headers[0].includes(";")) {
               for (let i = 0; i < csvObjects.length; i++) {
                 let firstHeader = Object.keys(csvObjects[i])[0];
@@ -134,20 +137,20 @@ export class UploadPopUpComponent implements OnInit {
                   for (let j = 0; j < this.headers.length; j++) {
                     if (this.headers[j].includes(";")) {
                       this.headers = this.headers[j].split(";");
-                      // console.log(this.headers);
                     }
                   }
                   //Split values and create a new object with the attributes as values that have been split
                   csvObject = csvObject[firstHeader].split(";");
                   for (let j = 0; j < this.headers.length; j++) {
+                    // for each splitted header create an object with the header and value
                     let header = this.headers[j];
                     object[header] = csvObject[j];
-                    // console.log(object);
                   }
                   arrayOfObjects.push(object);
                 }
               }
             } else {
+              // if delimiter is not ';', we get a normal result and store it
               arrayOfObjects = csvObjects
             }
             this.csvData = arrayOfObjects;

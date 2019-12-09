@@ -6,6 +6,7 @@ import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
+import {setInterval} from "timers";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -43,8 +44,9 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   onSelection(index: number, dataset: Dataset) {
-    this.activeIndex = index;
-    this.selectedDataset = this.copyDatasets[this.activeIndex];
+    this.activeIndex = dataset.id;
+    console.log("OVERVIEW: Dataset ID = " + dataset.id);
+    this.selectedDataset = this.copyDatasets.find(dataset => dataset.id == this.activeIndex);
     this.router.navigate(['detail'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
@@ -104,6 +106,22 @@ export class DatasetOverviewComponent implements OnInit {
         console.log("overview Index: " + this.activeIndex);
       }
     );*/
+    this.activatedRoute.queryParams.subscribe(
+      (params: Params) => {
+        // this.activeIndex = null;
+        if (params['id']) {
+          console.log("ID IN PARAM OVERVIEW: " + params['id']);
+          this.activeIndex = params['id'];
+          this.router.navigate(['detail'], {
+            relativeTo: this.activatedRoute,
+            queryParams: {id: params['id']}
+          });
+
+        } else if (!params['id']) {
+          return;
+        }
+      }
+    );
 
     // subscribing in the view component
     this.datasets$ = this.datasetService.getAllDatasets2();
@@ -111,7 +129,7 @@ export class DatasetOverviewComponent implements OnInit {
     // subscribe to get all the datasets
     this.datasetService.getAllDatasets2().subscribe(
       (data: Dataset[]) => {
-        if(data != null && this.sessionService.displayName != null || undefined){
+        if (data != null && this.sessionService.displayName != null || undefined) {
           let userEmail: String = this.sessionService.displayName;
           data.map((o) => {
             o && o.publicity.includes("Public") || o && o.user.email == userEmail ?
@@ -130,6 +148,7 @@ export class DatasetOverviewComponent implements OnInit {
       // copy of the datasets array with other memory location
       () => {
         this.copyDatasets = Object.assign([], this.datasets);
+
       }
     );
   }
