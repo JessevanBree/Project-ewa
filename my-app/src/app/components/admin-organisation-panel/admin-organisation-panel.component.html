@@ -1,0 +1,49 @@
+<app-add-member-popup *ngIf="addMemberToggle"
+                   (closingToggle)="onCloseReq()"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="card" id="list">
+        <div class="card-header">
+          (Org name)
+        </div>
+        <ul class="dataList list-group list-group-flush">
+<!--          <li class="list-group-item p-1" *ngIf="datasets.length == 0">-->
+<!--            <span class="row mx-1 align-middle">-->
+<!--            You don't have any uploaded datasets-->
+<!--            </span>-->
+<!--          </li>-->
+          <!-- Show a message if the organisation doesn't have any members  -->
+
+          <li class="list-group-item p-1" *ngIf="members.length == 0">
+            <span class="row mx-1 align-middle">
+              This organisation doesn't have any members
+            </span>
+          </li>
+
+          <li class="list-group-item p-1" *ngFor="let item of members; index as i">
+            <span class="row mx-1 align-middle">
+              <!-- show this block if the user does have uploaded datasets -->
+                    <p class="col-lg-8">{{item.name}}</p>
+					          <span class="btn-group col-lg-4 h-75">
+						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
+					          </span>
+				</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 mt-5">
+      <button type="button" id="addMemberButton" class="btn btn-primary float-right" data-toggle="modal"
+              data-target="#uploadModal" (click)="onAddNewMember()">Add member
+      </button>
+    </div>
+
+    <!--    <div class="col-md-3 col-sm-12 mt-5 ">-->
+    <!--      <button type="button" id="addDataset" class="btn btn-primary float-right"-->
+    <!--              (click)="onAdd()">Add dataset-->
+    <!--      </button>-->
+    <!--    </div>-->
+  </div>
+</div>
