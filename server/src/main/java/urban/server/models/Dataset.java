@@ -9,7 +9,6 @@ import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,10 +19,10 @@ import java.util.Objects;
 public class Dataset {
     @Id
     @GeneratedValue
-    @JsonView({DatasetsView.Full.class, DatasetsView.OnlyIdNameUsersOrganisationsSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
     private Long id;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.OnlyIdNameUsersOrganisationsSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
     private String name;
 
     @JsonView({DatasetsView.Full.class})
@@ -40,14 +39,14 @@ public class Dataset {
     @JsonView({DatasetsView.Full.class})
     private int year;
 
-    // data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
+    //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.OnlyIdNameUsersOrganisationsSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     @ManyToOne
     private User user;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.OnlyIdNameUsersOrganisationsSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToOne
     private Organisation datasetOrganisation;

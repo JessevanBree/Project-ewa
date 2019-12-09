@@ -1,11 +1,12 @@
 package urban.server.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
+import urban.server.views.UsersView;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +23,12 @@ public class Organisation {
     private String name;
 
     @JsonView({OrganisationsView.Full.class})
+    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
     private List<User> users = new ArrayList<>();
 
     @JsonView({OrganisationsView.Full.class})
+    @JsonSerialize(using = DatasetsView.IdNameSimpleUsersSerializer.class)
     @OneToMany(mappedBy = "datasetOrganisation")
     private List<Dataset> datasets = new ArrayList<>();
 
