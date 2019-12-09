@@ -55,42 +55,12 @@ export class DatasetDetailComponent implements OnInit {
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const id = params.id;
         console.log(params);
-        this.activeIndex = null;
-        if (params['id']) {
-          console.log(params);
-          this.datasetService.getAllDatasets2().subscribe(
-            () => {
-
-            }, () => {
-
-            },
-            () => {
-              for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-                if (this.datasetService.getDatasets()[i].id == id) {
-                  this.activeIndex = params['id'];
-                  this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
-                  this.editedDataset = Dataset.trueCopy(this.listDataset);
-                  this.fileService.getFileUrl(this.editedDataset.name + "_" + this.editedDataset.id + ".csv").then(
-                    fileUrl => {
-                      this.url = fileUrl;
-                      console.log("Download file: " + this.url);
-                    }
-                  ).catch(error => {
-                    console.log(error)
-                  });
-                  console.log("Selected dataset: " + this.editedDataset.id);
-                }
-              }
-            }
-          );
-
-          // for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-          //   if (this.datasetService.getDatasets()[i].id == id) {
-          //     this.listDataset = this.datasetService.getDatasets()[i];
-          //     this.editedDataset = Dataset.trueCopy(this.listDataset);
-          //     console.log("Selected dataset: " + this.editedDataset.id);
-          //   }
-          // }
+        for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
+          if (this.datasetService.getDatasets()[i].id == id) {
+            this.listDataset = this.datasetService.getDatasets()[i];
+            this.editedDataset = Dataset.trueCopy(this.listDataset);
+            this.url = this.fileService.getDownloadUrl(this.editedDataset.name + "_" + this.editedDataset.id);
+          }
         }
       });
   }

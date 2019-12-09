@@ -92,6 +92,7 @@ export class MyuploadsComponent implements OnInit {
     this.datasets = this.datasetService.getMyDatasets();
   }
 
+  //Button to view the dataset visualization/chart
   onViewDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
     this.editDatasetToggle = true;
@@ -111,13 +112,10 @@ export class MyuploadsComponent implements OnInit {
     }
   }
 
+  //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
     let dataset = this.datasets[index];
-    this.fileService.getDownloadUrlsList().forEach(
-      downloadUrl => {
-        downloadUrl.includes(dataset.name + "_" + dataset.id) ? this.url = downloadUrl : null;
-      }
-    );
+    this.url = this.fileService.getDownloadUrlFromList(dataset);
   }
 
   //Testing purposes function, adds a random dataset

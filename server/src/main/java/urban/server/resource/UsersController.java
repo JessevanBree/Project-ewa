@@ -14,7 +14,6 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = "/users")
 public class UsersController {
     @Autowired
     private JPAUserRepository userRepo;
