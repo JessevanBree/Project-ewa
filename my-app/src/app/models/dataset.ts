@@ -22,6 +22,7 @@ export class Dataset {
   publicity: string;
   organisation?: Organisation;
   description?: string;
+  fileName: string;
   year: number;
   user: User;
   chart: ChartDataSets;
@@ -32,6 +33,7 @@ export class Dataset {
 
   constructor(id: number, name: string, region: string, publicity: string,
               user: User, year: number, chart: ChartDataSets, chartLabels: string[],
+              fileName: string,
               description?: string, organisation?: Organisation) {
     this.id = id;
     this.name = name;
@@ -39,10 +41,12 @@ export class Dataset {
     this.publicity = publicity;
     this.year = year;
     this.user = user;
-    this.description = description == null ? null : description;
-    this.organisation = organisation == null ? null : organisation;
     this.chart = chart;
     this.chartLabels = chartLabels;
+    this.fileName = fileName;
+    this.description = description == null ? null : description;
+    this.organisation = organisation == null ? null : organisation;
+
     // this.chartOptions = chartOptions;
   }
 
@@ -57,7 +61,7 @@ export class Dataset {
 
   static trueCopy(dataset: Dataset): Dataset {
     return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region,
-      dataset.publicity, dataset.user, dataset.year, dataset.chart, dataset.chartLabels), dataset);
+      dataset.publicity, dataset.user, dataset.year, dataset.chart, dataset.chartLabels, dataset.fileName), dataset);
   }
 
   static generateRandomID() {
