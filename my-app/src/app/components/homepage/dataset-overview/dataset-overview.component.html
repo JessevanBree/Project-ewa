@@ -45,7 +45,7 @@
       <thead class="tablehead table-borderless">
       <tr>
         <th class="text-light font-weight-normal">Datasets
-          <span class="custom-badge float-right">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+          <span class="custom-badge float-right" *ngIf="this.datasets$ | async">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
