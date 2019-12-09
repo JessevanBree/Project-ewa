@@ -6,6 +6,7 @@ import {User} from "../../models/user";
 import {FbSessionService} from "../../services/session/fb-session.service";
 import {HttpClient} from "@angular/common/http";
 import * as firebase from "firebase";
+import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('myProfile', {static: false}) myProfile;
 
-  constructor(private userService: FbUserService, private httpClient: HttpClient) {
+  constructor(private userService: FbUserService, private httpClient: HttpClient, private firebaseDatasetService: FirebaseDatasetService) {
     this.updateButtonToggle = true;
   }
 
@@ -37,7 +38,8 @@ export class ProfileComponent implements OnInit {
 
   onUpdateUser() {
     let formControls = this.myProfile.controls;
-    if (formControls.firstname.dirty || formControls.surname.dirty) {
+    if (formControls.firstname.dirty || formControls.surname.dirty || !(this.user.firstName === this.userCopy.firstName) ||
+      !(this.user.surName === this.userCopy.surName)) {
       this.updateButtonToggle = true;
       this.user = this.userCopy;
       this.httpClient.put(this.DB_USERS + "/" + this.userId + ".json", this.user).subscribe(
@@ -46,6 +48,10 @@ export class ProfileComponent implements OnInit {
         },
         error => {
           console.log(error)
+        },
+        () => {
+          this.user = User.trueCopy(this.userCopy);
+          this.updateButtonToggle = true;
         }
       )
     }
