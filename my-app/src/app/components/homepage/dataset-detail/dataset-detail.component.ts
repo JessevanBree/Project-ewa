@@ -56,21 +56,6 @@ export class DatasetDetailComponent implements OnInit {
         const id = params.id;
         console.log(params);
         this.activeIndex = null;
-        for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-          if (this.datasetService.getDatasets()[i].id == id) {
-            this.listDataset = this.datasetService.getDatasets()[i];
-            this.editedDataset = Dataset.trueCopy(this.listDataset);
-            this.fileService.getFileUrl(this.editedDataset.name + "_" + this.editedDataset.id + ".csv").then(
-              fileUrl => {
-                this.url = fileUrl;
-                console.log("Download file: " + this.url);
-              }
-            ).catch(error => {
-              console.log(error)
-            });
-            console.log("Selected dataset: " + this.editedDataset.id);
-          }
-        }
         if (params['id']) {
           console.log(params);
           this.datasetService.getAllDatasets2().subscribe(
@@ -80,9 +65,22 @@ export class DatasetDetailComponent implements OnInit {
 
             },
             () => {
-              this.activeIndex = params['id'];
-              this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
-              this.editedDataset = Dataset.trueCopy(this.listDataset);
+              for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
+                if (this.datasetService.getDatasets()[i].id == id) {
+                  this.activeIndex = params['id'];
+                  this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
+                  this.editedDataset = Dataset.trueCopy(this.listDataset);
+                  this.fileService.getFileUrl(this.editedDataset.name + "_" + this.editedDataset.id + ".csv").then(
+                    fileUrl => {
+                      this.url = fileUrl;
+                      console.log("Download file: " + this.url);
+                    }
+                  ).catch(error => {
+                    console.log(error)
+                  });
+                  console.log("Selected dataset: " + this.editedDataset.id);
+                }
+              }
             }
           );
 
