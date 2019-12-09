@@ -1,6 +1,8 @@
 package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import urban.server.views.OrganisationsView;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,13 +15,19 @@ import java.util.Objects;
 public class Organisation {
     @Id
     @GeneratedValue
+    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
     private Long id;
 
+    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
     private String name;
 
+    @JsonView({OrganisationsView.Full.class})
     @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
     private List<User> users = new ArrayList<>();
 
+    @JsonView({OrganisationsView.Full.class})
+    @OneToMany(mappedBy = "datasetOrganisation")
+    private List<Dataset> datasets = new ArrayList<>();
 
     // helper
     private static int organisationCount = 100;
@@ -54,6 +62,26 @@ public class Organisation {
     public void addUser(User user) {
         user.setOrganisation(this);
         this.users.add(user);
+    }
+
+    public void setUser(User user) {
+        this.users.add(user);
+    }
+
+    public List<Dataset> getDatasets() {
+        return datasets;
+    }
+
+    public void setDatasets(List<Dataset> datasets) {
+        this.datasets = datasets;
+    }
+
+    public static int getOrganisationCount() {
+        return organisationCount;
+    }
+
+    public static void setOrganisationCount(int organisationCount) {
+        Organisation.organisationCount = organisationCount;
     }
 
     @Override

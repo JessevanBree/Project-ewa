@@ -1,9 +1,16 @@
 package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import urban.server.views.DatasetsView;
+import urban.server.views.OrganisationsView;
+import urban.server.views.UsersView;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -12,17 +19,32 @@ import java.util.Random;
 public class User {
     @Id
     @GeneratedValue
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private Long id;
 
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private String email;
+
+    @JsonView({UsersView.Full.class})
     private String firstname;
+
+    @JsonView({UsersView.Full.class})
     private String lastname;
+
+    @JsonView({UsersView.Full.class})
     private LocalDateTime creationDate;
+
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private boolean isAdmin;
 
-    @JsonIgnore
+    @JsonView({UsersView.Full.class})
+    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
+
+//    @JsonSerialize(using = DatasetsView.class)
+    @OneToMany(mappedBy = "user")
+    private List<Dataset> datasets = new ArrayList<>();
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
     public User() {
@@ -118,6 +140,22 @@ public class User {
         this.organisation = organisation;
     }
 
+    public List<Dataset> getDatasets() {
+        return datasets;
+    }
+
+    public void setDatasets(List<Dataset> datasets) {
+        this.datasets = datasets;
+    }
+
+    public void addDataset(Dataset dataset) {
+        if (getOrganisation() != null){
+            dataset.setDatasetOrganisation(getOrganisation());
+        }
+        dataset.setUser(this);
+        this.datasets.add(dataset);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -132,7 +170,7 @@ public class User {
     }
 
     public static User generateRandomUser() {
-        return new User(getSaltString()+"@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
+        return new User(getSaltString() + "@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
     }
 
     private static boolean getRandomIsAdmin() {

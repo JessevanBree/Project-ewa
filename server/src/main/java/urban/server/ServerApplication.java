@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import urban.server.models.Dataset;
 import urban.server.models.Organisation;
 import urban.server.models.User;
+import urban.server.repositories.DatasetRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
@@ -23,6 +25,9 @@ public class ServerApplication implements CommandLineRunner {
 
     @Autowired
     private OrganisationRepository organisationRepository;
+
+    @Autowired
+    private DatasetRepository datasetRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
@@ -47,8 +52,13 @@ public class ServerApplication implements CommandLineRunner {
             logger.info("{}", organisation);
             organisation.addUser(user);
 
+            Dataset dataset = Dataset.generateRandomDataset();
+            logger.info("DATASET: {}", dataset);
+            user.addDataset(dataset);
+
             organisation = organisationRepository.save(organisation);
             user = userRepository.save(user);
+            dataset = datasetRepository.save(dataset);
         }
     }
 }
