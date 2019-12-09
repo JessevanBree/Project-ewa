@@ -42,7 +42,8 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
-//    @JsonSerialize(using = DatasetsView.class)
+    @JsonView(UsersView.Full.class)
+    @JsonSerialize(using = DatasetsView.OnlyIdDataSerializer.class)
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 

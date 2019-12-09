@@ -19,34 +19,39 @@ import java.util.Objects;
 public class Dataset {
     @Id
     @GeneratedValue
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
+            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutUser.class,
+            DatasetsView.FullWithoutOrganisation.class, DatasetsView.OnlyIdDataSerializer.class})
     private Long id;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
+            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutUser.class,
+            DatasetsView.FullWithoutOrganisation.class})
     private String name;
 
-    @JsonView({DatasetsView.Full.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     @Enumerated(value = EnumType.ORDINAL)
     private RegionLevelEnum region;
 
-    @JsonView({DatasetsView.Full.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     @Enumerated(value = EnumType.ORDINAL)
     private PublicityEnum publicity;
 
-    @JsonView({DatasetsView.Full.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     private String description;
 
-    @JsonView({DatasetsView.Full.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     private int year;
 
     //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.IdNameSimpleUsersSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
+            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutOrganisation.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     @ManyToOne
     private User user;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class})
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToOne
     private Organisation datasetOrganisation;

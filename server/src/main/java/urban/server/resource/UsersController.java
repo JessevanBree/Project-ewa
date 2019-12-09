@@ -8,7 +8,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.resource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.JPAUserRepository;
-import urban.server.views.OrganisationsView;
+import urban.server.views.UsersView;
 
 import java.net.URI;
 import java.util.List;
@@ -24,7 +24,7 @@ public class UsersController {
         List<User> users = userRepo.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
-        mappingJacksonValue.setSerializationView(OrganisationsView.Full.class);
+        mappingJacksonValue.setSerializationView(UsersView.Full.class);
         return mappingJacksonValue;
     }
 
