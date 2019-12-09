@@ -20,4 +20,8 @@ h2 {
   color: #97CB3B;
 }
 
+.name-edit-button:hover {
+  color: black;
+}
+
 
