@@ -59,15 +59,7 @@ export class DatasetDetailComponent implements OnInit {
           if (this.datasetService.getDatasets()[i].id == id) {
             this.listDataset = this.datasetService.getDatasets()[i];
             this.editedDataset = Dataset.trueCopy(this.listDataset);
-            this.fileService.getFileUrl(this.editedDataset.name + "_" + this.editedDataset.id + ".csv").then(
-              fileUrl => {
-                this.url = fileUrl;
-                console.log("Download file: " + this.url);
-              }
-            ).catch(error => {
-              console.log(error)
-            });
-            console.log("Selected dataset: " + this.editedDataset.id);
+            this.url = this.fileService.getDownloadUrl(this.editedDataset.name + "_" + this.editedDataset.id);
           }
         }
       });

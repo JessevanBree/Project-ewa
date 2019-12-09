@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Dataset, Publicity, RegionLevel } from "../models/dataset";
 import * as firebase from "firebase";
 import {FbUserService} from "./fb-user.service";
+import {FirebaseFileService} from "./firebase-file.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class FirebaseDatasetService {
   private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com/';
   private readonly DB_DATASETS = this.DB_URL + 'Datasets';
 
-  constructor(private httpClient: HttpClient, private userService: FbUserService) {
+  constructor(private httpClient: HttpClient, private userService: FbUserService,
+              private fileService: FirebaseFileService) {
     this.userService.getAllUsers();
     this.getAllDatasets();
     this.datasets = [];
@@ -47,6 +49,7 @@ export class FirebaseDatasetService {
     this.datasets = this.datasets.filter(dataset =>
       dataset.id != selectedDataset.id
     );
+    this.fileService.deleteFile(selectedDataset);
     this.saveAllDatasets();
     return true;
   }
@@ -59,11 +62,9 @@ export class FirebaseDatasetService {
 
   saveAllDatasets() {
     return this.httpClient.put<Dataset[]>(this.DB_DATASETS + '.json', this.datasets).subscribe(
-      {
-        error: err => {
-          console.log(err)
-        }
-      }
+      () => {},
+      error => console.log(error),
+      () => {console.log("Datasets saved");}
     );
   }
 
@@ -185,6 +186,9 @@ export class FirebaseDatasetService {
       (err) => {
         console.log(err);
       }
-    )
+    );
+
+
   }
+
 }
