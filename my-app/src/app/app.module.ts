@@ -35,7 +35,7 @@ import {CreateUserPopupComponent} from './components/create-user-popup/create-us
 import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
-import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
+import {AddMemberPopupComponent} from "./components/admin-organisation-panel/add-member-popup/add-member-popup.component";
 
 @NgModule({
   declarations: [

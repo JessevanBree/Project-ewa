@@ -22,10 +22,10 @@
             </span>
           </li>
 
-          <li class="list-group-item p-1" *ngFor="let item of members; index as i">
+          <li class="list-group-item p-1" *ngFor="let member of members; index as i">
             <span class="row mx-1 align-middle">
               <!-- show this block if the user does have uploaded datasets -->
-                    <p class="col-lg-8">{{item.name}}</p>
+                    <p class="col-lg-8">{{member.email}}</p>
 					          <span class="btn-group col-lg-4 h-75">
 						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
 					          </span>

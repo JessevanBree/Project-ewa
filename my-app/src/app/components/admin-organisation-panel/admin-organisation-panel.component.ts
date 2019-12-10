@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Organisation} from "../../models/organisation";
 import {Dataset} from "../../models/dataset";
+import {AdminOrganisationService} from "../../services/admin-organisation.service";
+import {Subscription} from "rxjs";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -13,14 +16,15 @@ export class AdminOrganisationPanelComponent implements OnInit {
   adminCurrentOrg: Organisation;
 
   // List of members of the current org
-  members: Organisation[];
+  members: User[];
 
   addMemberToggle: boolean;
 
-  constructor() {
+  constructor(private adminOrganisationService: AdminOrganisationService) {
+
+    // Fill the members array with all the users stored in spring boot backend
     this.members = [];
     this.addMemberToggle = false;
-
   }
 
   // Function to delete a member from the organisation
@@ -47,6 +51,13 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.adminOrganisationService.getAllMembers().subscribe(
+      (data: User[]) => {
+        console.log(data);
+        data.map(o => {
+          o ? this.members.push(o) : []
+        });
+      }
+    );
   }
-
 }
