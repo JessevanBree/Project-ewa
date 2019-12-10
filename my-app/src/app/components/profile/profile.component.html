@@ -30,12 +30,12 @@
                 <input type="text" id="firstName" name="firstname"
                        class="form-control float-left" style="max-width: 100px"
                        [(ngModel)]="userCopy.firstName"
-                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your firstname">
+                       (ngModelChange)="updateButtonToggle = false" placeholder="Firstname">
                 <label for="surName"></label>
                 <input type="text" id="surName" name="surname"
                        class="form-control float-left" style="max-width: 100px"
                        [(ngModel)]="userCopy.surName"
-                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your surname">
+                       (ngModelChange)="updateButtonToggle = false" placeholder="Surname">
                 <button *ngIf="!this.updateButtonToggle" type="button"
                         class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
                         [disabled]="this.updateButtonToggle"
