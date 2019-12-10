@@ -13,7 +13,9 @@ import urban.server.repositories.DatasetRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner {
@@ -69,6 +71,9 @@ public class ServerApplication implements CommandLineRunner {
             }
 
             Dataset dataset = Dataset.generateRandomDataset();
+            Map<String, Object> chartData = new HashMap<>();
+            chartData.put("name", "Zonnepanelen");
+            dataset.setChartData(chartData);
             logger.info("DATASET: {}", dataset);
             user.addDataset(dataset);
 
