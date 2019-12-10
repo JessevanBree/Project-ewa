@@ -67,9 +67,6 @@ public class ServerApplication implements CommandLineRunner {
             organisation = organisationRepository.save(organisation);
             user = userRepository.save(user);
             dataset = datasetRepository.save(dataset);
-
-//            logger.info("Org = " + organisation);
-//            logger.info("Org admin= " + organisation.getOrganisationAdmin());
         }
     }
 }
