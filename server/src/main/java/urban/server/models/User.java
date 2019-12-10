@@ -47,7 +47,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
-    @OneToOne()
+    @OneToOne(mappedBy = "organisationAdmin")
     private Organisation adminOfOrganisation;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
