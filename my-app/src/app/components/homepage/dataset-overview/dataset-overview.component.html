@@ -45,14 +45,16 @@
       <thead class="tablehead table-borderless">
       <tr>
         <th class="text-light font-weight-normal">Datasets
-          <span class="custom-badge float-right" *ngIf="this.datasets$ | async">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+          <span class="custom-badge float-right"
+                *ngIf="this.datasets$ | async">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
       <tbody class="table-light" *ngIf="this.datasets$ | async">
       <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
-          (click)="onSelection(index, dataset)">
-        <td>{{dataset.name}}</td>
+          (click)="onSelection(index, dataset)"
+          class="mt-auto mb-auto">
+        <td>{{dataset.name}} <i class="fa fa-arrow-right float-right mt-1"></i></td>
       </tr>
       <tr *ngIf="copyDatasets.length == 0">
         <td><i>There are no datasets available</i></td>
@@ -65,7 +67,6 @@
     <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
-
 
 
 <!--<div class="row">-->
