@@ -43,6 +43,9 @@ public class ServerApplication implements CommandLineRunner {
         if (users.size() > 0) return;
         System.out.println("Configuring some initial Users data");
 
+        User orgUser = User.generateRandomUser();
+        orgUser = userRepository.save(orgUser);
+
         for (int i = 0; i < 5; i++) {
             User user = User.generateRandomUser();
             logger.info("{}", user);
@@ -51,6 +54,11 @@ public class ServerApplication implements CommandLineRunner {
             Organisation organisation = Organisation.getRandomRegistration();
             logger.info("{}", organisation);
             organisation.addUser(user);
+
+            if (i == 4){
+                organisation.setOrganisationAdmin(orgUser);
+                logger.info("Org admin: {}", organisation.getOrganisationAdmin());
+            }
 
             Dataset dataset = Dataset.generateRandomDataset();
             logger.info("DATASET: {}", dataset);

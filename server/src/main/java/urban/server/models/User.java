@@ -47,6 +47,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
+    @OneToOne(mappedBy = "organisationAdmin")
+    private Organisation adminOfOrganisation;
+
     // we need to have a default no argument constructor so that we can create user without giving all attributes
     public User() {
 
@@ -155,6 +158,14 @@ public class User {
         }
         dataset.setUser(this);
         this.datasets.add(dataset);
+    }
+
+    public Organisation getAdminOfOrganisation() {
+        return adminOfOrganisation;
+    }
+
+    public void setAdminOfOrganisation(Organisation adminOfOrganisation) {
+        this.adminOfOrganisation = adminOfOrganisation;
     }
 
     @Override
