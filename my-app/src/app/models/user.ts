@@ -3,8 +3,8 @@ import { observable } from 'rxjs';
 
 export class User {
 	public userId: string;
-	public firstName?: string;
-	public surName?: string;
+	public firstName?: string = undefined;
+	public surName?: string = undefined;
 	public password: string;
 	public email: string;
 	public isAdmin: boolean;

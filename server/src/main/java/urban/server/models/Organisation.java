@@ -32,6 +32,11 @@ public class Organisation {
     @OneToMany(mappedBy = "datasetOrganisation")
     private List<Dataset> datasets = new ArrayList<>();
 
+    @OneToOne(mappedBy = "adminOfOrganisation")
+    @JsonView({OrganisationsView.Full.class})
+    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    private User organisationAdmin;
+
     // helper
     private static int organisationCount = 100;
 
@@ -85,6 +90,18 @@ public class Organisation {
 
     public static void setOrganisationCount(int organisationCount) {
         Organisation.organisationCount = organisationCount;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public User getOrganisationAdmin() {
+        return organisationAdmin;
+    }
+
+    public void setOrganisationAdmin(User organisationAdmin) {
+        this.organisationAdmin = organisationAdmin;
     }
 
     @Override
