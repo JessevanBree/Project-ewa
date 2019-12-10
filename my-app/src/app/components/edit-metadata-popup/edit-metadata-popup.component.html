@@ -40,6 +40,13 @@
             </select>
           </div>
           <div class="form-group">
+            <label for="yearInput">Year</label>
+            <select class="form-control" id="yearInput" name="yearInput">
+                <option *ngFor="let year of listOfYears" [selected]="true ? year == editingDataset.year : 1980">
+                  {{year}}</option>
+              </select>
+          </div>
+          <div class="form-group">
             <label for="regionInput">Region</label>
             <select [(ngModel)]="editingDataset.region" class="form-control" name="regionInput" id="regionInput" required>
               <option>European</option>

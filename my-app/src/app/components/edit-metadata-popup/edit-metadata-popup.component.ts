@@ -16,6 +16,7 @@ export class EditMetadataPopupComponent implements OnInit {
   private Publicity = Publicity;
   private queryParamSubscription: Subscription;
   private datasets: Dataset[];
+  private listOfYears: number[];
 
   private editingDataset: Dataset;
   @Output() savedDataset: EventEmitter<Dataset>;
@@ -25,10 +26,14 @@ export class EditMetadataPopupComponent implements OnInit {
               private router: Router,
               private sessionService: FbSessionService,
               private activatedRoute: ActivatedRoute) {
+
     this.datasets = this.datasetService.getMyDatasets();
     this.savedDataset = new EventEmitter<Dataset>();
     this.closingToggle = new EventEmitter<boolean>();
-
+    this.listOfYears = [];
+    for (let i = 1980; i < 2019; i++) {
+      this.listOfYears.push(i);
+    }
   }
 
   //This method saves the edited changes of a dataset
