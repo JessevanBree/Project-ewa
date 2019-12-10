@@ -49,8 +49,9 @@
               <div *ngIf="updateButtonToggle" id="full-name" class="">
                 <i class="fa fa-user-circle"></i> {{user.firstName + " " + user.surName}}
                 <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
-                <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8">
-                  <i class="fa fa-edit" style="font-size: 18px" (click)="this.updateButtonToggle = false">Edit</i>
+                <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
+                        (click)="this.updateButtonToggle = false">
+                  <i class="fa fa-edit" style="font-size: 18px">Edit</i>
                 </button>
               </div>
             </div>
