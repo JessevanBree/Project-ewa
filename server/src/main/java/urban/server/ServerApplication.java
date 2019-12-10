@@ -55,9 +55,17 @@ public class ServerApplication implements CommandLineRunner {
             logger.info("{}", organisation);
             organisation.addUser(user);
 
-            if (i == 4){
+            if (i == 4) {
+//                User secondUser = User.generateRandomUser();
+//                secondUser = userRepository.save(secondUser);
+
+//                organisation.addUser(secondUser);
+
                 organisation.setOrganisationAdmin(orgUser);
                 logger.info("Org admin: {}", organisation.getOrganisationAdmin());
+
+                organisation = organisationRepository.save(organisation);
+//                secondUser = userRepository.save(secondUser);
             }
 
             Dataset dataset = Dataset.generateRandomDataset();
