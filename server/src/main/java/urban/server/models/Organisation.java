@@ -24,7 +24,7 @@ public class Organisation {
 
     @JsonView({OrganisationsView.Full.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
-    @OneToMany(mappedBy = "organisation", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
 
     @JsonView({OrganisationsView.Full.class})
@@ -68,7 +68,7 @@ public class Organisation {
     }
 
     public void addUser(User user) {
-        user.setOrganisation(this);
+        user.addOrganisation(this);
         this.users.add(user);
     }
 

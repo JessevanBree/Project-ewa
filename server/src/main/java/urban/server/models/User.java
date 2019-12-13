@@ -42,6 +42,11 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     private Organisation organisation;
 
+    @JsonView({UsersView.Full.class})
+    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
+    @ManyToMany()
+    private List<Organisation> organisations = new ArrayList<>();
+
     @JsonView(UsersView.Full.class)
     @JsonSerialize(using = DatasetsView.OnlyIdDataSerializer.class)
     @OneToMany(mappedBy = "user")
@@ -153,7 +158,7 @@ public class User {
     }
 
     public void addDataset(Dataset dataset) {
-        if (getOrganisation() != null){
+        if (getOrganisation() != null) {
             dataset.setDatasetOrganisation(getOrganisation());
         }
         dataset.setUser(this);
@@ -166,6 +171,14 @@ public class User {
 
     public void setAdminOfOrganisation(Organisation adminOfOrganisation) {
         this.adminOfOrganisation = adminOfOrganisation;
+    }
+
+    public List<Organisation> getOrganisations() {
+        return organisations;
+    }
+
+    public void addOrganisation(Organisation organisation) {
+        this.organisations.add(organisation);
     }
 
     @Override

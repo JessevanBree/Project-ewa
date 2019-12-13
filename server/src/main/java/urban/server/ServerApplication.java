@@ -13,7 +13,9 @@ import urban.server.repositories.DatasetRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner {
@@ -55,12 +57,23 @@ public class ServerApplication implements CommandLineRunner {
             logger.info("{}", organisation);
             organisation.addUser(user);
 
-            if (i == 4){
+            if (i == 4) {
+//                User secondUser = User.generateRandomUser();
+//                secondUser = userRepository.save(secondUser);
+
+//                organisation.addUser(secondUser);
+
                 organisation.setOrganisationAdmin(orgUser);
                 logger.info("Org admin: {}", organisation.getOrganisationAdmin());
+
+                organisation = organisationRepository.save(organisation);
+//                secondUser = userRepository.save(secondUser);
             }
 
             Dataset dataset = Dataset.generateRandomDataset();
+            Map<String, Object> chartData = new HashMap<>();
+            chartData.put("name", "Zonnepanelen");
+            dataset.setChartData(chartData);
             logger.info("DATASET: {}", dataset);
             user.addDataset(dataset);
 

@@ -1,7 +1,10 @@
 package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.node.POJONode;
+import urban.server.models.converters.HashMapConverter;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
 import urban.server.views.DatasetsView;
@@ -10,6 +13,7 @@ import urban.server.views.UsersView;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Entity
@@ -45,6 +49,7 @@ public class Dataset {
 
     //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
 
+
     @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
             DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutOrganisation.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
@@ -57,6 +62,11 @@ public class Dataset {
     private Organisation datasetOrganisation;
 
     private String chart; // TODO:: Set the right dataset for this -> update constructor
+
+    @Lob
+    @Convert(converter = HashMapConverter.class)
+    // Hibernate takes care of serializing to String and deserializing to Map
+    private Map<String, Object> chartData;
 
     @JsonView({DatasetsView.Full.class})
     @Lob
@@ -89,6 +99,11 @@ public class Dataset {
         this.publicity = publicity;
         this.user = user;
         this.year = year;
+    }
+
+    public Dataset(String name, Map<String, Object> chartData) {
+        this.name = name;
+        this.chartData = chartData;
     }
 
     public Long getId() {
@@ -169,6 +184,14 @@ public class Dataset {
 
     public void setChartLabels(List<String> chartLabels) {
         this.chartLabels = chartLabels;
+    }
+
+    public Map<String, Object> getChartData() {
+        return chartData;
+    }
+
+    public void setChartData(Map<String, Object> chartData) {
+        this.chartData = chartData;
     }
 
     @Override
