@@ -15,7 +15,11 @@ import java.util.Objects;
 import java.util.Random;
 
 @Entity
-@NamedQuery(name = "find_all_users", query = "select u from User u")
+@NamedQueries({
+        @NamedQuery(name = "find_all_users", query = "select u from User u"),
+        @NamedQuery(name = "find_user_by_email", query = "select u from User u" +
+                " where u.email = ?1")
+})
 public class User {
     @Id
     @GeneratedValue
@@ -24,6 +28,8 @@ public class User {
 
     @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private String email;
+
+    private String password;
 
     @JsonView({UsersView.Full.class})
     private String firstname;
@@ -55,6 +61,7 @@ public class User {
     @OneToOne(mappedBy = "organisationAdmin")
     private Organisation adminOfOrganisation;
 
+
     // we need to have a default no argument constructor so that we can create user without giving all attributes
     public User() {
 
@@ -69,8 +76,9 @@ public class User {
         this.organisation = organisation;
     }
 
-    public User(String email, String firstname, String lastname, boolean isAdmin) {
+    public User(String email, String password, String firstname, String lastname, boolean isAdmin) {
         this.email = email;
+        this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.creationDate = LocalDateTime.now();
@@ -157,6 +165,14 @@ public class User {
         this.datasets = datasets;
     }
 
+    public String getPassWord() {
+        return this.password;
+    }
+
+    public void setPassWord(String password) {
+        this.password = password;
+    }
+
     public void addDataset(Dataset dataset) {
         if (getOrganisation() != null) {
             dataset.setDatasetOrganisation(getOrganisation());
@@ -195,7 +211,7 @@ public class User {
     }
 
     public static User generateRandomUser() {
-        return new User(getSaltString() + "@hva.nl", "Abdul", "Zor", getRandomIsAdmin());
+        return new User(getSaltString() + "@hva.nl", "testing", null, null, getRandomIsAdmin());
     }
 
     private static boolean getRandomIsAdmin() {

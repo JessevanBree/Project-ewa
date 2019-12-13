@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NamedQuery;
 import javax.persistence.TypedQuery;
 import java.util.*;
 
@@ -36,8 +37,15 @@ public class JPAUserRepository implements UserRepository {
 
     @Override
     public User findById(Long id) {
-
         return em.find(User.class, id);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        TypedQuery<User> query = em.createNamedQuery("find_user_by_email", User.class);
+        query.setParameter(1, email);
+
+        return query.getSingleResult();
     }
 
     @Override
