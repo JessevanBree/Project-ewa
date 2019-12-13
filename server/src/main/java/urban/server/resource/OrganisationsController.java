@@ -19,11 +19,16 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/organisations")
 public class OrganisationsController {
+
     @Autowired
     private JPAOrganisationRepository organisationRepo;
 
+    @Autowired
+    private JPAUserRepository userRepository;
+
+    // Get mapping to get all the organisations
     @GetMapping()
-    public MappingJacksonValue getAllUsers() {
+    public MappingJacksonValue getAllOrganisations() {
         List<Organisation> organisations = organisationRepo.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(organisations);
@@ -31,8 +36,9 @@ public class OrganisationsController {
         return mappingJacksonValue;
     }
 
+    // Get mapping to get an organisation by the id
     @GetMapping("/{id}")
-    public Organisation getUserById(
+    public Organisation getOrganisationById(
             @PathVariable Long id) {
 
         Organisation organisationById = organisationRepo.findById(id);
@@ -44,30 +50,74 @@ public class OrganisationsController {
         return organisationById;
     }
 
-    @PostMapping()
-    public ResponseEntity<Organisation> createUser(@RequestBody Organisation organisation) {
+    // Mapping to get the organisation admin
+    //TODO This mapping does not work yet, 405 method not allowed
+    @GetMapping("/getAdmin/{id}")
+    public ResponseEntity<User> getAdminFromOrganisation(@PathVariable Long id){
+        Organisation organisation = organisationRepo.findById(id);
 
-        Organisation savedUser = organisationRepo.save(organisation);
+        User organisationAdmin = organisation.getOrganisationAdmin();
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/getAdmin/{id}").buildAndExpand(organisationAdmin.getId()).toUri();
 
-        return ResponseEntity.created(location).body(savedUser);
+        return ResponseEntity.created(location).body(organisationAdmin);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Organisation> deleteUser(@PathVariable Long id) {
+    // Post mapping to add a user to an organisation
+    @PostMapping("/{id}")
+    public ResponseEntity<User> addUser(@RequestBody User user, @PathVariable Long id) {
 
-        Organisation organisation = getUserById(id);
+        Organisation organisation = organisationRepo.findById(id);
+        User userToBeAdded = userRepository.findById(user.getId());
+
+        organisation.addUser(userToBeAdded);
+        userToBeAdded.addOrganisation(organisation);
+
+        organisationRepo.save(organisation);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+
+        return ResponseEntity.created(location).body(user);
+    }
+
+    // Post mapping to create an organisation
+    @PostMapping()
+    public ResponseEntity<Organisation> createOrganisation(@RequestBody Organisation organisation) {
+
+        Organisation savedOrganisation = organisationRepo.save(organisation);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedOrganisation.getId()).toUri();
+
+        return ResponseEntity.created(location).body(savedOrganisation);
+    }
+
+    // Delete mapping to delete an organisation
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
+
+        Organisation organisation = getOrganisationById(id);
 
         organisationRepo.delete(organisation);
 
         return ResponseEntity.ok(organisation);
+    }
 
+    // Delete mapping to delete a user from an organisation
+    @DeleteMapping("/{organisationId}/{userId}")
+    public ResponseEntity<Organisation> deleteUser(@PathVariable Long organisationId, @PathVariable Long userId) {
+
+        Organisation organisation = getOrganisationById(organisationId);
+        User user = userRepository.findById(userId);
+
+        organisation.deleteUser(user);
+
+        organisationRepo.save(organisation);
+
+        return ResponseEntity.ok(organisation);
     }
 
     @PutMapping()
-    public ResponseEntity<Organisation> updateUser(@RequestBody Organisation organisation) {
-
+    public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
 
         Organisation organisationById = organisationRepo.findById(organisation.getId());
 

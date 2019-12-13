@@ -72,6 +72,10 @@ public class Organisation {
         this.users.add(user);
     }
 
+    public void deleteUser(User user){
+        users.remove(user);
+    }
+
     public void setUser(User user) {
         this.users.add(user);
     }

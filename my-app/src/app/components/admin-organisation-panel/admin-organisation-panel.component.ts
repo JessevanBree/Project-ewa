@@ -28,13 +28,11 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Function to delete a member from the organisation
-  onDelete(datasetIndex: number) {
+  onDelete(member: User) {
     if (confirm("Are you sure to delete this member with the following email (Member email)?")) {
-      console.log("Member is succesfully deleted");
-      // let selectedDataset: Dataset;
-      // selectedDataset = this.datasets[datasetIndex];
-      // this.datasetService.remove(selectedDataset);
-      // this.datasets = this.datasetService.getMyDatasets();
+
+      this.adminOrganisationService.deleteUserFromOrganisation(member);
+      console.log("Member has succesfully been removed from the organisation");
     }
   }
 
