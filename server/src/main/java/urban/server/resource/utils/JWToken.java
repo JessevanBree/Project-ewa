@@ -1,4 +1,4 @@
-package urban.server.models.utils;
+package urban.server.resource.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -16,15 +16,6 @@ public class JWToken {
     private static final String JWT_USERNAME_CLAIM = "username";
     private static final String JWT_ADMIN_CLAIM = "admin";
 
-    @Value("${jwt.issuer}")
-    private String issuer;
-
-    @Value("${jwt.pass-phrase}")
-    private String passPhrase;
-
-    @Value("${jwt.expiration-seconds}")
-    private int expiration;
-
     private String userName = null;
     private Long userId = null;
     private boolean admin = false;
@@ -39,8 +30,8 @@ public class JWToken {
         this.admin = admin;
     }
 
-    public String encode(String issuer, boolean isAdmin) {
-
+    public String encode(String passPhrase, String issuer, int expiration) {
+        System.out.println(passPhrase + " " + issuer + " " + expiration);
         Key key = getKey(passPhrase);
 
         String token = Jwts.builder()
@@ -56,7 +47,7 @@ public class JWToken {
         return token;
     }
 
-    public JWToken decode(String encodedToken, String passPhrase) {
+    public static JWToken decode(String encodedToken, String passPhrase) {
         try {
             Key key = getKey(passPhrase);
             Jws<Claims> jws = Jwts.parser().setSigningKey(key).parseClaimsJws(encodedToken);
