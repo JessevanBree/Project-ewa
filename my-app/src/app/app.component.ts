@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as firebase from "firebase";
 import {FirebaseFileService} from "./services/firebase-file.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Urban Analytics';
 
 
-  constructor(){
+  constructor(private router: Router){
 
   }
 

@@ -10,9 +10,10 @@
 <!--  </form>-->
 <!--</nav>-->
 
-<nav class="navbar navbar-light navbar-expand-lg sticky-top pb-0 pt-0">
-  <a class="navbar-brand" routerLink="/homepage">
-    <img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg" alt="Urban Analytics"
+<nav [ngClass]="router.url != '/' ? ['navbar', 'navbar-light'] : ['bg-transparent']" class="navbar-expand-lg sticky-top pb-0 pt-0">
+  <a *ngIf="router.url != '/'" class="navbar-brand" routerLink="/homepage">
+    <img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg"
+         alt="Urban Analytics"
          style="opacity: .9;">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -30,7 +31,8 @@
              [routerLink]="['/myuploads', this.sessionService.displayName]">My Uploads</a>
         </li>
         <li class="nav-item" *ngIf="this.sessionService.displayName">
-          <a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
+          <a class="nav-link" id="UserEmail" routerLinkActive="active"
+             [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
         </li>
       </ul>
       <ul class="nav justify-content-end w-100">
