@@ -87,6 +87,7 @@ export class MyuploadsComponent implements OnInit {
     this.activeIndex = datasetIndex;
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
+    console.log(this.selectedDataset);
     this.router.navigate(['editMetaData'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}

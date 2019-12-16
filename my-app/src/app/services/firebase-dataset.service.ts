@@ -95,7 +95,7 @@ export class FirebaseDatasetService {
   getMyDatasets() {
     let user = this.userService.getLoggedInUser();
     return this.getDatasets().filter(dataset =>
-      dataset.user.userId == user.userId
+      dataset.user.id == user.id
     );
   }
 

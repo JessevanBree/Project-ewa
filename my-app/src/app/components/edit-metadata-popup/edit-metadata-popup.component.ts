@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Dataset, Publicity} from "../../models/dataset";
-import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
+import {Dataset, Publicity, RegionLevel} from "../../models/dataset";
 import {Subscription} from "rxjs";
-import {FbSessionService} from "../../services/session/fb-session.service";
 import {ActivatedRoute, Params, Router} from "@angular/router";
+import {DatasetService} from "../../services/dataset.service";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-edit-metadata-popup',
@@ -14,6 +14,7 @@ export class EditMetadataPopupComponent implements OnInit {
 
   keys = Object.keys;
   private Publicity = Publicity;
+  private RegionLevel = RegionLevel;
   private queryParamSubscription: Subscription;
   private datasets: Dataset[];
   private listOfYears: number[];
@@ -22,9 +23,9 @@ export class EditMetadataPopupComponent implements OnInit {
   @Output() savedDataset: EventEmitter<Dataset>;
   @Output() closingToggle: EventEmitter<boolean>;
 
-  constructor(private datasetService: FirebaseDatasetService,
+  constructor(private datasetService: DatasetService,
               private router: Router,
-              private sessionService: FbSessionService,
+              private sessionService: SessionService,
               private activatedRoute: ActivatedRoute) {
 
     this.datasets = this.datasetService.getMyDatasets();
@@ -45,7 +46,7 @@ export class EditMetadataPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.displayName]);
+    this.router.navigate(['myuploads/', this.sessionService.userMail]);
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Organisation } from './organisation';
 
 export class User {
-	public userId: string;
+	public id: string;
 	public firstName?: string = undefined;
 	public surName?: string = undefined;
 	public password: string;
@@ -11,9 +11,8 @@ export class User {
 	public dateCreated: Date;
 	public dateEdited?: Date;
 
-	constructor(userId: string, email: string, password: string, isAdmin: boolean, firstName?: string,
+	constructor(email: string, password: string, isAdmin: boolean, firstName?: string,
               surName?: string, organisation?: Organisation) {
-		this.userId = userId;
 		this.email = email;
 		this.password = password;
 		this.isAdmin = isAdmin;
@@ -24,7 +23,7 @@ export class User {
 	}
 
 	equals(user: User): Boolean {
-		return this.userId === user.userId &&
+		return this.id === user.id &&
 			this.email === user.email &&
 			this.isAdmin === user.isAdmin &&
 			this.dateCreated === user.dateCreated;
@@ -37,7 +36,7 @@ export class User {
 	// }
 
 	tostring(): string {
-		let tostring = "User email: " + this.email + ", User ID: " + this.userId + ", Created at: "
+		let tostring = "User email: " + this.email + ", User ID: " + this.id + ", Created at: "
 			+ this.dateCreated;
 		return tostring;
 	}

@@ -28,7 +28,7 @@ public class DatasetsController {
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(datasets);
         mappingJacksonValue.setSerializationView(DatasetsView.Full.class);
-        System.out.println(datasets);
+
         return mappingJacksonValue;
     }
 
@@ -47,7 +47,6 @@ public class DatasetsController {
 
     @PostMapping("/upload")
     public ResponseEntity<Dataset> createDataset(@RequestBody Dataset dataset) {
-        System.out.println(dataset);
         Dataset savedDataset = datasetRepository.save(dataset);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedDataset.getId()).toUri();

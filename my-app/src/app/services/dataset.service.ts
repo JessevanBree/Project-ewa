@@ -15,8 +15,17 @@ export class DatasetService {
 
   constructor(private httpClient: HttpClient, private userService: UserService) {
     this.datasets = [];
-
-
+    this.getAllDatasets().subscribe(
+      data => {
+        this.datasets = data;
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        console.log("Dataset service has retrieved all datasets");
+      }
+    )
   }
 
   add(dataset: Dataset): void {
@@ -46,9 +55,8 @@ export class DatasetService {
   }
 
   getMyDatasets() {
-    return this.datasets.filter(dataset => {
-      dataset.user.email = this.userService.getLoggedInUser().email
-    })
+     return this.datasets.filter(dataset => dataset.user.id == this.userService.getLoggedInUser().id
+    );
   }
 
   getPublicDatasets() {
