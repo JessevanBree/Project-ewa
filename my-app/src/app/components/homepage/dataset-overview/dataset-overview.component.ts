@@ -7,6 +7,7 @@ import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {setInterval} from "timers";
+import {DatasetService} from "../../../services/dataset.service";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -31,7 +32,7 @@ export class DatasetOverviewComponent implements OnInit {
   private activeIndex: number;
   private searchQuery: any;
 
-  constructor(private datasetService: FirebaseDatasetService, private router: Router,
+  constructor(private datasetService: DatasetService, private router: Router,
               private activatedRoute: ActivatedRoute, private aUserService: FbUserService,
               private sessionService: FbSessionService) {
     this.datasets = [];
@@ -124,10 +125,12 @@ export class DatasetOverviewComponent implements OnInit {
     );
 
     // subscribing in the view component
-    this.datasets$ = this.datasetService.getAllDatasets2();
+    /*this.datasets$ = */
+    this.copyDatasets = this.datasetService.getDatasets();
+    console.log(this.datasetService.getDatasets());
 
     // subscribe to get all the datasets
-    this.datasetService.getAllDatasets2().subscribe(
+    /*this.datasetService.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         if (data != null && this.sessionService.displayName != null || undefined) {
           let userEmail: String = this.sessionService.displayName;
@@ -150,6 +153,6 @@ export class DatasetOverviewComponent implements OnInit {
         this.copyDatasets = Object.assign([], this.datasets);
 
       }
-    );
+    );*/
   }
 }

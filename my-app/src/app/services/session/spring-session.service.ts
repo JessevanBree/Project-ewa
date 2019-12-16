@@ -1,34 +1,86 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
+import {User} from "../../models/user";
+import {constants} from "http2";
+import {Router} from "@angular/router";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpringSessionService {
 
-  private readonly REST_AUTHENTICATION_URL: string = "http://localhost:8080/authenticate/login";
+  private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login"
 
-  constructor(private httpClient: HttpClient) {
+  private token: string;
+  private authenticated: boolean;
+  private user: User;
+  public displayName: string;
+  public errorMessage: string;
+
+  constructor(private httpClient: HttpClient, private route: Router) {
+    this.token = null;
+    this.displayName = null;
+    this.errorMessage = null;
+    this.authenticated = false;
   }
 
   signIn(email: String, password: String) {
-
-    this.httpClient.post(this.REST_AUTHENTICATION_URL, {
-      email: email,
-      passWord: password
-    }).subscribe(
-      (data) => {
-        console.log(data);
+    return this.httpClient.post<HttpResponse<User>>(this.REST_AUTHENTICATION_URL,
+      {email: email, passWord: password}, {observe: "response"}).subscribe(
+      (response) => {;
+        this.authenticated = true;
+        this.user = response.body as unknown as User;
+        console.log(this.user);
+        this.displayName = ((response.body as unknown) as User).email;
+        this.setToken(response.headers.get("Authorization"),
+          ((response.body as unknown) as User).email);
       },
-      error => {
-        console.log(error);
+      (error: HttpErrorResponse) => {
+        this.authenticated = false;
+        switch(error.status) {
+          case 403: {
+            this.errorMessage = "Invalid credentials";
+            console.log("Invalid credentials");
+            break;
+          }
+          case 500: {
+            this.errorMessage = "User not found";
+            console.log("User not found");
+            break;
+          }
+        }
       },
       () => {
-        console.log("Login complete");
+        console.log(this.token);
+        console.log("Login successful");
+        return this.route.navigateByUrl("/");
       }
-    )
+    );
+  }
 
+  signOut() {
+    this.token = null;
+    this.authenticated = false;
+    this.displayName = null;
+  }
 
+  public isAuthenticated(): boolean {
+    return this.authenticated;
+  }
+
+  public getErrorMessage(): string {
+    return this.errorMessage;
+  }
+
+  private setToken(token: string, nameOfUser: string): void {
+    this.token = token;
+    this.displayName = nameOfUser;
+  }
+
+  public getToken(): string {
+    console.log(this.token);
+    return this.token;
   }
 
 

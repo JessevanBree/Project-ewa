@@ -1,5 +1,4 @@
 import { Organisation } from './organisation';
-import { observable } from 'rxjs';
 
 export class User {
 	public userId: string;

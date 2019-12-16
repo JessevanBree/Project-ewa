@@ -46,11 +46,11 @@
       <tr>
         <th class="text-light font-weight-normal">Datasets
           <span class="custom-badge float-right"
-                *ngIf="this.datasets$ | async">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+                *ngIf="this.copyDatasets">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
-      <tbody class="table-light" *ngIf="this.datasets$ | async">
+      <tbody class="table-light" *ngIf="this.copyDatasets">
       <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
           (click)="onSelection(index, dataset)"
           class="mt-auto mb-auto">
