@@ -1,25 +1,8 @@
-td {
-  border: 1px solid;
-  cursor: pointer;
-  /*border-bottom: 1px solid;*/
-}
-
-tr {
-  border: 1px solid;
-}
-
-tbody tr th {
-  border: 1px solid;
-}
-
-th {
-  font-size: 19px;
-}
-
 td:hover {
   transition: .35s ease-in-out;
   background: lightgray;
   box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.6) !important;
+  cursor: pointer;
 }
 
 @media (max-width: 991.98px) {
@@ -80,4 +63,28 @@ td:hover {
     margin-top: 20px !important;
     width: 50% !important;
   }
+}
+
+
+/* Table */
+
+.table-fixed tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+  float: left;
+  position: relative;
 }
