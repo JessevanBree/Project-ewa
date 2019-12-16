@@ -10,14 +10,15 @@
 <!--  </form>-->
 <!--</nav>-->
 
-<nav [ngClass]="router.url != '/' ? ['navbar', 'navbar-light'] : ['bg-transparent']" class="navbar-expand-lg sticky-top pb-0 pt-0">
-  <a *ngIf="router.url != '/'" class="navbar-brand" routerLink="/homepage">
+<nav class="navbar navbar-light sticky-top navbar-expand-lg pb-0 pt-0">
+  <a *ngIf="router.url != '/'" class="navbar-brand" routerLink="/">
     <img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg"
          alt="Urban Analytics"
          style="opacity: .9;">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="w-100">
