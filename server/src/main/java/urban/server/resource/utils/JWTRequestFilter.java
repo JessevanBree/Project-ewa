@@ -20,8 +20,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
     static {
         SECURED_PATHS = new HashSet<>();
-        SECURED_PATHS.add("/myuploads");
-        SECURED_PATHS.add("/profile");
+        SECURED_PATHS.add("/datasets");
     }
 
     @Value("${jwt.pass-phrase}")

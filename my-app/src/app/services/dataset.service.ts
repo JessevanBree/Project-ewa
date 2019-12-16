@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Dataset} from "../models/dataset";
+import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import {error} from "util";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +13,42 @@ export class DatasetService {
   private readonly REST_DATASETS_URL = "http://localhost:8080/datasets";
   datasets: Dataset[];
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private userService: UserService) {
     this.datasets = [];
-    this.getAllDatasets();
+
 
   }
 
+  add(dataset: Dataset): void {
+    this.datasets.push(dataset);
+  }
+
   getAllDatasets() {
-    this.httpClient.get<Dataset[]>(this.REST_DATASETS_URL).subscribe(
+    return this.httpClient.get<Dataset[]>(this.REST_DATASETS_URL);
+  }
+
+  saveDataset(dataset: Dataset){
+    return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
-        this.datasets = data;
         console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log("Retrieved all datasets");
+        console.log("Finished posting dataset");
       }
-    )
-
+    );
   }
 
   getDatasets() {
     return this.datasets;
+  }
+
+  getMyDatasets() {
+    return this.datasets.filter(dataset => {
+      dataset.user.email = this.userService.getLoggedInUser().email
+    })
   }
 
   getPublicDatasets() {
@@ -86,5 +99,35 @@ export class DatasetService {
     }
   }
 
+  generateRandomDataset() {
+    let randomID = Dataset.generateRandomID(); //Generates a random dataset id
+    //Generate random year
+    let year: number = Math.floor(Math.random() * (2019 - 1980)) + 1980;
+
+    //Generates a random chart
+    let chart = Dataset.generateChartDataset();
+    console.log(chart);
+    let chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+
+    //Randomly selects one of the three region levels
+    let regionLevels = Object.keys(RegionLevel);
+    let randomPropertyName = regionLevels[Math.floor(Math.random() * 3)];
+    //Randomly selects one of the three publicity options
+    let publicityOptions = Object.keys(Publicity);
+    let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
+    //Randomly generates a user
+    let randomNumber = Math.floor(this.userService.getUsers().length * Math.random());
+    let randomUser = this.userService.getUsers()[randomNumber];
+
+    //Randomly generates a dataset name
+    let datasetName = "";
+    let listOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for (let i = 0; i < 7; i++) {
+      datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
+    }
+    return new Dataset(datasetName, RegionLevel[randomPropertyName],
+      Publicity[randomPublicity], randomUser, year, chart, chartLabels,
+      null, null, null, randomID);
+  }
 
 }

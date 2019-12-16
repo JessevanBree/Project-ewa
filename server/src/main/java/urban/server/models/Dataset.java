@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.node.POJONode;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import urban.server.models.converters.HashMapConverter;
+import urban.server.models.helpers.CustomJson;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
 import urban.server.views.DatasetsView;
@@ -12,9 +14,7 @@ import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @NamedQueries({
@@ -34,11 +34,11 @@ public class Dataset {
     private String name;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private RegionLevelEnum region;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
-    @Enumerated(value = EnumType.ORDINAL)
+    @Enumerated(value = EnumType.STRING)
     private PublicityEnum publicity;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
@@ -47,8 +47,12 @@ public class Dataset {
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     private int year;
 
-    //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
+//    @Convert(converter = HashMapConverter.class)
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @OneToOne(cascade = CascadeType.ALL)
+    private ChartDataSets chart;// TODO:: Set the right dataset for this -> update constructor
 
+    //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
 
     @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
             DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutOrganisation.class})
@@ -56,23 +60,15 @@ public class Dataset {
     @ManyToOne
     private User user;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
+    /*@JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToOne
-    private Organisation datasetOrganisation;
-
-    private String chart; // TODO:: Set the right dataset for this -> update constructor
-
-    @Lob
-    @Convert(converter = HashMapConverter.class)
-    // Hibernate takes care of serializing to String and deserializing to Map
-    private Map<String, Object> chartData;
+    private Organisation datasetOrganisation;*/
 
     @JsonView({DatasetsView.Full.class})
-    @Lob
-    // Specifies that a persistent property or field should be persisted as a large object to a database-supported large object type
+    @ElementCollection(targetClass = String.class)
     private List<String> chartLabels;
-
+    // Specifies that a persistent property or field should be persisted as a large object to a database-supported large object type
 
     // helper
     private static Long datasetCount = 50000L;
@@ -81,8 +77,8 @@ public class Dataset {
     }
 
     public Dataset(String name, RegionLevelEnum region, PublicityEnum publicity,
-                   User user, int year, List<String> chartLabels, String chart,
-                   String description, Organisation organisation) {
+                   User user, int year, List<String> chartLabels, ChartDataSets chart,
+                   String description) {
         this.name = name;
         this.region = region;
         this.publicity = publicity;
@@ -90,6 +86,7 @@ public class Dataset {
         this.year = year;
         this.chartLabels = chartLabels;
         this.chart = chart;
+        this.description = description;
     }
 
     public Dataset(String name, RegionLevelEnum region, PublicityEnum publicity,
@@ -103,7 +100,7 @@ public class Dataset {
 
     public Dataset(String name, Map<String, Object> chartData) {
         this.name = name;
-        this.chartData = chartData;
+
     }
 
     public Long getId() {
@@ -162,19 +159,11 @@ public class Dataset {
         this.user = user;
     }
 
-    public Organisation getDatasetOrganisation() {
-        return datasetOrganisation;
-    }
-
-    public void setDatasetOrganisation(Organisation datasetOrganisation) {
-        this.datasetOrganisation = datasetOrganisation;
-    }
-
-    public String getChart() {
+    public ChartDataSets getChart() {
         return chart;
     }
 
-    public void setChart(String chart) {
+    public void setChart(ChartDataSets chart) {
         this.chart = chart;
     }
 
@@ -184,14 +173,6 @@ public class Dataset {
 
     public void setChartLabels(List<String> chartLabels) {
         this.chartLabels = chartLabels;
-    }
-
-    public Map<String, Object> getChartData() {
-        return chartData;
-    }
-
-    public void setChartData(Map<String, Object> chartData) {
-        this.chartData = chartData;
     }
 
     @Override
@@ -217,7 +198,6 @@ public class Dataset {
                 ", description='" + description + '\'' +
                 ", year=" + year +
                 ", user=" + user +
-                ", datasetOrganisation=" + datasetOrganisation +
                 ", chart='" + chart + '\'' +
                 ", chartLabels=" + chartLabels +
                 '}';
@@ -235,7 +215,7 @@ public class Dataset {
         } else if (statusCode <= 0.6 && statusCode >= 0.2) {
             return RegionLevelEnum.NAT_LEVEL;
         }
-        return RegionLevelEnum.URBAN_LEBEL;
+        return RegionLevelEnum.URBAN_LEVEL;
     }
 
     public static PublicityEnum generateRandomPublicity() {

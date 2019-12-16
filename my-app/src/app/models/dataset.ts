@@ -31,11 +31,10 @@ export class Dataset {
   // chartOptions?: ChartOptions;
 
 
-  constructor(id: number, name: string, region: string, publicity: string,
+  constructor(name: string, region: string, publicity: string,
               user: User, year: number, chart: ChartDataSets, chartLabels: string[],
               fileName: string,
-              description?: string, organisation?: Organisation) {
-    this.id = id;
+              description?: string, organisation?: Organisation, id?: number) {
     this.name = name;
     this.region = region;
     this.publicity = publicity;
@@ -60,7 +59,7 @@ export class Dataset {
   }
 
   static trueCopy(dataset: Dataset): Dataset {
-    return Object.assign(new Dataset(dataset.id, dataset.name, dataset.region,
+    return Object.assign(new Dataset(dataset.name, dataset.region,
       dataset.publicity, dataset.user, dataset.year, dataset.chart, dataset.chartLabels, dataset.fileName), dataset);
   }
 
@@ -69,31 +68,19 @@ export class Dataset {
     return randomId;
   }
 
-  /* static generateRandomDataset() {
-     let randomID = this.generateRandomID(); //Generates a random dataset id
-
-     //Generates a random chart
-     let chartData: ChartDataSets = Dataset.generateChartDataset();
-     let chartLabels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
-
-     //Randomly selects one of the three region levels
-     let regionLevels = Object.keys(RegionLevel);
-     let randomPropertyName = regionLevels[Math.floor(Math.random() * 3)];
-     //Randomly selects one of the three publicity options
-     let publicityOptions = Object.keys(Publicity);
-     let randomPublicity = publicityOptions[Math.floor(Math.random() * 3)];
-     //Randomly generates a user
-     let randomUser = this.userService.getUsers()
-
-     //Randomly generates a dataset name
-     let datasetName = "";
-     let listOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-     for (let i = 0; i < 7; i++) {
-       datasetName += listOfCharacters.charAt(Math.floor(listOfCharacters.length * Math.random()));
-     }
-     return new Dataset(randomID, datasetName, RegionLevel[randomPropertyName], Publicity[randomPublicity],chartData, chartLabels, randomUser);
-   }*/
-
+  static getEnumFromValue(value: string): string{
+    switch(value){
+      case RegionLevel.EU_LEVEL: {
+        return "EU_LEVEL"
+      }
+      case RegionLevel.URBAN_LEVEL: {
+        return "URBAN_LEVEL";
+      }
+      case RegionLevel.NAT_LEVEL: {
+        return "NAT_LEVEL"
+      }
+    }
+  }
 
   static generateChartDataset(): ChartDataSets {
     let arrayNumbers: number[] = [];

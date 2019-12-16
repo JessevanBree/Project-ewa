@@ -7,6 +7,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FbUserService} from "../../services/fb-user.service";
 import {$e} from "codelyzer/angular/styles/chars";
 import {FirebaseFileService} from "../../services/firebase-file.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -26,8 +27,8 @@ export class MyuploadsComponent implements OnInit {
   paramSubscription: Subscription;
   protected url: string;
 
-  constructor(private datasetService: FirebaseDatasetService, private activatedRoute: ActivatedRoute,
-              private aUserService: FbUserService, private router: Router,
+  constructor(private datasetService: DatasetService, private activatedRoute: ActivatedRoute,
+              private userService: UserService, private router: Router,
               private fileService: FirebaseFileService) {
     this.datasets = [];
     this.editDatasetToggle = false;
@@ -37,24 +38,39 @@ export class MyuploadsComponent implements OnInit {
 
   ngOnInit() {
     this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
-        const userEmail = params.email;
-        this.datasetService.getAllDatasets2().subscribe(
-          (data: Dataset[]) => {
-            // for each dataset check if dataset exists and if the email of the dataset uploader
-            // is equal to the logged in user mail which gets extracted from the URL parameter
-            // if true push the dataset to the datasets array else return an empty array
-            if (data != null) {
-              data.map((o) => {
-                o && o.user.email == userEmail ? this.datasets.push(o) : [];
-              });
-            } else return null;
-          }
-        );
-      }
-    );
+      const userEmail = params.email;
+      this.datasetService.getAllDatasets().subscribe(
+        (data: Dataset[]) => {
+          // for each dataset check if dataset exists and if the email of the dataset uploader
+          // is equal to the logged in user mail which gets extracted from the URL parameter
+          // if true push the dataset to the datasets array else return an empty array
+          if (data != null) {
+            data.map((o) => {
+              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+            });
+          } else return null;
+        }
+      );
+      /*this.datasetService.getAllDatasets2().subscribe(
+        (data: Dataset[]) => {
+          // for each dataset check if dataset exists and if the email of the dataset uploader
+          // is equal to the logged in user mail which gets extracted from the URL parameter
+          // if true push the dataset to the datasets array else return an empty array
+          if (data != null) {
+            data.map((o) => {
+              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+            });
+          } else return null;
+        }
+      );
+    }
+  );*/
 
-    this.fileService.getAllFileUrls();
+      this.fileService.getAllFileUrls();
+    });
+
   }
+
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
   saveRequest($event) {
@@ -89,7 +105,7 @@ export class MyuploadsComponent implements OnInit {
 
   //Triggers when a dataset has been uploaded to refresh the overview
   onUploadDataset() {
-    this.datasets = this.datasetService.getMyDatasets();
+    this.datasets = this.datasetService.getMyDatasets()
   }
 
   //Button to view the dataset visualization/chart
@@ -107,7 +123,7 @@ export class MyuploadsComponent implements OnInit {
     if (confirm("Are you sure to delete this dataset?")) {
       let selectedDataset: Dataset;
       selectedDataset = this.datasets[datasetIndex];
-      this.datasetService.remove(selectedDataset);
+      this.datasetService.deleteDataset(selectedDataset);
       this.datasets = this.datasetService.getMyDatasets();
     }
   }

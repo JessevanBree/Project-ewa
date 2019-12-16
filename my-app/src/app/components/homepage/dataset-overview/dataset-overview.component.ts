@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Dataset} from "../../../models/dataset";
+import {Dataset, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
@@ -48,6 +48,7 @@ export class DatasetOverviewComponent implements OnInit {
     this.activeIndex = dataset.id;
     console.log("OVERVIEW: Dataset ID = " + dataset.id);
     this.selectedDataset = this.copyDatasets.find(dataset => dataset.id == this.activeIndex);
+    console.log(this.selectedDataset);
     this.router.navigate(['detail'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
@@ -107,6 +108,7 @@ export class DatasetOverviewComponent implements OnInit {
         console.log("overview Index: " + this.activeIndex);
       }
     );*/
+
     this.activatedRoute.queryParams.subscribe(
       (params: Params) => {
         // this.activeIndex = null;
@@ -125,9 +127,21 @@ export class DatasetOverviewComponent implements OnInit {
     );
 
     // subscribing in the view component
-    /*this.datasets$ = */
-    this.copyDatasets = this.datasetService.getDatasets();
-    console.log(this.datasetService.getDatasets());
+
+    this.datasetService.getAllDatasets().subscribe(
+      (data:Dataset[]) => {
+        this.copyDatasets = data;
+        this.datasetService.datasets = data;
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log(this.copyDatasets);
+        console.log("Retrieved all datasets");
+      }
+    );
 
     // subscribe to get all the datasets
     /*this.datasetService.getAllDatasets().subscribe(

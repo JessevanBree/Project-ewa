@@ -75,9 +75,6 @@ public class ServerApplication implements CommandLineRunner {
             }
 
             Dataset dataset = Dataset.generateRandomDataset();
-            Map<String, Object> chartData = new HashMap<>();
-            chartData.put("name", "Zonnepanelen");
-            dataset.setChartData(chartData);
             logger.info("DATASET: {}", dataset);
             users.get(i).addDataset(dataset);
 

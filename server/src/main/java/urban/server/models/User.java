@@ -174,9 +174,6 @@ public class User {
     }
 
     public void addDataset(Dataset dataset) {
-        if (getOrganisation() != null) {
-            dataset.setDatasetOrganisation(getOrganisation());
-        }
         dataset.setUser(this);
         this.datasets.add(dataset);
     }

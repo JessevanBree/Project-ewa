@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular
 import {User} from "../../models/user";
 import {constants} from "http2";
 import {Router} from "@angular/router";
+import {UserService} from "../user.service";
 
 
 @Injectable({
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class SpringSessionService {
 
-  private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login"
+  private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login";
 
   private token: string;
   private authenticated: boolean;
@@ -18,7 +19,9 @@ export class SpringSessionService {
   public displayName: string;
   public errorMessage: string;
 
-  constructor(private httpClient: HttpClient, private route: Router) {
+  constructor(private httpClient: HttpClient,
+              private route: Router,
+              private userService: UserService) {
     this.token = null;
     this.displayName = null;
     this.errorMessage = null;
@@ -28,10 +31,9 @@ export class SpringSessionService {
   signIn(email: String, password: String) {
     return this.httpClient.post<HttpResponse<User>>(this.REST_AUTHENTICATION_URL,
       {email: email, passWord: password}, {observe: "response"}).subscribe(
-      (response) => {;
+      (response) => {
         this.authenticated = true;
         this.user = response.body as unknown as User;
-        console.log(this.user);
         this.displayName = ((response.body as unknown) as User).email;
         this.setToken(response.headers.get("Authorization"),
           ((response.body as unknown) as User).email);
@@ -54,6 +56,7 @@ export class SpringSessionService {
       () => {
         console.log(this.token);
         console.log("Login successful");
+        this.userService.setLoggedInUser(this.user);
         return this.route.navigateByUrl("/");
       }
     );
