@@ -1,12 +1,12 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {Papa} from "ngx-papaparse";
-import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
-import {Dataset} from "../../models/dataset";
-import {FbUserService} from "../../services/fb-user.service";
+import {Dataset, Publicity, RegionLevel} from "../../models/dataset";
 import {Router} from "@angular/router";
-import {getFileSystem} from "@angular/compiler-cli/src/ngtsc/file_system";
 import {FirebaseFileService} from "../../services/firebase-file.service";
+import {DatasetService} from "../../services/dataset.service";
+import {UserService} from "../../services/user.service";
+import {ChartDataSets} from "chart.js";
 
 
 @Component({
@@ -46,8 +46,8 @@ export class UploadPopUpComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
 
-  constructor(private datasetService: FirebaseDatasetService, private papa: Papa,
-              private userService: FbUserService, private fileService: FirebaseFileService,
+  constructor(private datasetService: DatasetService, private papa: Papa,
+              private userService: UserService, private fileService: FirebaseFileService,
               private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
@@ -66,15 +66,17 @@ export class UploadPopUpComponent implements OnInit {
     console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
+    this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     let fileName = this.file.name.split(".");
-    let createdDataset: Dataset = new Dataset(Dataset.generateRandomID(), this.nameInput, this.regionInput,
-      this.publicityInput, uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
+    let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
+          this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
+    console.log(createdDataset);
 
-    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
+    // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.datasetService.getDatasets().push(createdDataset);
     this.closingToggle.emit(true);
-    this.datasetService.saveAllDatasets();
+    this.datasetService.saveDataset(createdDataset);
     this.router.navigate(['myuploads', uploadingUser.email]);
 
     // form.resetForm();

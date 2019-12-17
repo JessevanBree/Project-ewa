@@ -62,10 +62,6 @@ public class ServerApplication implements CommandLineRunner {
             organisation.addUser(users.get(i));
 
             if (i == 4) {
-//                User secondUser = User.generateRandomUser();
-//                secondUser = userRepository.save(secondUser);
-
-//                organisation.addUser(secondUser);
 
                 organisation.setOrganisationAdmin(orgUser);
                 logger.info("Org admin: {}", organisation.getOrganisationAdmin());
@@ -74,16 +70,8 @@ public class ServerApplication implements CommandLineRunner {
 //                secondUser = userRepository.save(secondUser);
             }
 
-            Dataset dataset = Dataset.generateRandomDataset();
-            Map<String, Object> chartData = new HashMap<>();
-            chartData.put("name", "Zonnepanelen");
-            dataset.setChartData(chartData);
-            logger.info("DATASET: {}", dataset);
-            users.get(i).addDataset(dataset);
-
             organisationRepository.save(organisation);
             userRepository.save(users.get(i));
-            datasetRepository.save(dataset);
         }
     }
 }

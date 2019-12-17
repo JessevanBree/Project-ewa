@@ -74,8 +74,8 @@ export class FbUserService {
 	}
 
 	public saveOrCreateUser(editedUser: User) {
-		let userId = editedUser.userId;
-		delete editedUser.userId;
+		let userId = editedUser.id;
+		delete editedUser.id;
 
 		if (userId == null) {
 			firebase.auth().createUserWithEmailAndPassword(
@@ -121,7 +121,7 @@ export class FbUserService {
 
 	public deleteUser(user: User): void {
 		this.users.splice(this.users.indexOf(user), 1);
-		this.httpClient.delete<User>(this.DB_USERS + '/' + user.userId + '.json').subscribe(
+		this.httpClient.delete<User>(this.DB_USERS + '/' + user.id + '.json').subscribe(
 			(data) => {
 				console.log('success');
 			},

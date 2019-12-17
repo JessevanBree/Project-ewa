@@ -38,7 +38,7 @@
                   {{regionLevel[region]}}
                 </option>
               </select>-->
-              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.region"
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="regionLevel[editedDataset.region]"
                      name="region" id="datasetRegion" readonly>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
                   {{publicityOptions[publicity]}}
                 </option>
               </select>-->
-              <input type="text" class="form-control bg-white border-success" [(ngModel)]="editedDataset.publicity"
+              <input type="text" class="form-control bg-white border-success" [(ngModel)]="publicityOptions[editedDataset.publicity]"
                      name="publicity" id="publicityOption" readonly>
             </div>
             <div class="form-group">

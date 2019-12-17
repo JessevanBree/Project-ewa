@@ -2,9 +2,9 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
-import {FbSessionService} from "../../services/session/fb-session.service";
 import * as Chart from "chart.js";
+import {DatasetService} from "../../services/dataset.service";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-edit-dataset-popup',
@@ -20,8 +20,8 @@ export class ViewDatasetPopupComponent implements OnInit {
   private queryParamSubscription: Subscription;
 
 
-  constructor(private activatedRoute: ActivatedRoute, private datasetService: FirebaseDatasetService,
-              private router: Router, private sessionService: FbSessionService) {
+  constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService,
+              private router: Router, private sessionService: SessionService) {
     this.datasets = datasetService.getMyDatasets();
     this.closingToggle = new EventEmitter<boolean>();
     // this.chartData = [this.selectedDataset.chartData];
@@ -48,7 +48,7 @@ export class ViewDatasetPopupComponent implements OnInit {
   onClose(){
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.displayName]);
+    this.router.navigate(['myuploads/', this.sessionService.userMail]);
   }
 
   ngOnDestroy() {
