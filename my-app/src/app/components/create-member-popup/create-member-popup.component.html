@@ -1,0 +1,35 @@
+<!-- Modal -->
+<div class="modal fade" #createMemberModal id="createMemberModal" tabindex="-1" role="dialog" aria-labelledby="createMemberModalLabel"
+     data-backdrop="false" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createMemberModalLabel">Add new member to (Org name)</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+              novalidate>
+          <label for="searchInput">Search registered user by email</label><br>
+          <input type="text"
+                 required minlength="1"
+                 class="form-control"
+                 name="searchInput"
+                 id="searchInput"
+                 #search="ngModel"
+                 ngModel>
+          <div *ngIf="!search.valid && search.touched" class="alert alert-danger">
+            <p><span>Please select a valid user email</span></p>
+          </div>
+          <br>
+
+          <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

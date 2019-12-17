@@ -68,6 +68,7 @@ export class SpringSessionService {
 
   signOut() {
     this.token = null;
+    this.user = null;
     this.authenticated = false;
     this.displayName = null;
   }

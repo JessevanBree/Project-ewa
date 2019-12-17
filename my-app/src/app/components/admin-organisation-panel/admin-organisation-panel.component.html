@@ -1,5 +1,7 @@
 <app-add-member-popup *ngIf="addMemberToggle"
                    (closingToggle)="onCloseReq()"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+<app-create-member-popup *ngIf="createMemberToggle"
+                      (closingToggle)="onCloseReq()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 
 <div class="container">
   <div class="row">
@@ -14,7 +16,7 @@
           </select>
           <br>
           <br>
-          <p> Selected organisation: {{this.currentSelectedOrg.name}} </p>
+          <p *ngIf="this.organisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
         </div>
         <ul class="dataList list-group list-group-flush">
           <!-- Show a message if the organisation doesn't have any members -->
@@ -36,18 +38,14 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-3 col-sm-12 mt-5">
-      <button type="button" id="addMemberButton" class="btn btn-primary float-right" data-toggle="modal"
-              data-target="#uploadModal" (click)="onAddNewMember()">Add member
+    <div class="col-md-6 col-sm-12 mt-5">
+      <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
+              data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
+      </button>
+      <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
+              data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
       </button>
     </div>
 
-
-
-    <!--    <div class="col-md-3 col-sm-12 mt-5 ">-->
-    <!--      <button type="button" id="addDataset" class="btn btn-primary float-right"-->
-    <!--              (click)="onAdd()">Add dataset-->
-    <!--      </button>-->
-    <!--    </div>-->
   </div>
 </div>

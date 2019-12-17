@@ -18,8 +18,6 @@ import java.util.Random;
 @NamedQueries({
         @NamedQuery(name = "find_all_users", query = "select u from User u"),
         @NamedQuery(name = "find_user_by_email", query = "select u from User u" +
-                " where u.email = ?1"),
-        @NamedQuery(name = "find_organisations_of_admins", query = "select u from User u" +
                 " where u.email = ?1")
 })
 public class User {

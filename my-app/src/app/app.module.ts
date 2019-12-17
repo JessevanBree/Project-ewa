@@ -37,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/admin-organisation-panel/add-member-popup/add-member-popup.component";
 import { HomeComponent } from './components/home/home.component';
+import { CreateMemberPopupComponent } from './components/create-member-popup/create-member-popup.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { HomeComponent } from './components/home/home.component';
     FooterComponent,
     AddMemberPopupComponent,
     AdminOrganisationPanelComponent,
-    HomeComponent
+    HomeComponent,
+    CreateMemberPopupComponent
   ],
   imports: [
     BrowserModule,

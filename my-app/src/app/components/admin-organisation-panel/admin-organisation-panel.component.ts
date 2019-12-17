@@ -4,6 +4,7 @@ import {Dataset} from "../../models/dataset";
 import {AdminOrganisationService} from "../../services/admin-organisation.service";
 import {Subscription} from "rxjs";
 import {User} from "../../models/user";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -22,18 +23,16 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private members: User[];
 
   private addMemberToggle: boolean;
+  private createMemberToggle: boolean;
 
-  constructor(private adminOrganisationService: AdminOrganisationService) {
+  constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
+              private route: ActivatedRoute,) {
+
     // Fill the members array with all the users stored in spring boot backend
     this.members = [];
     this.organisations = [];
 
     this.addMemberToggle = false;
-  }
-
-  // Temp function
-  selectOption(org: Organisation){
-
   }
 
   // Function to delete a member from the organisation
@@ -52,22 +51,31 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = false;
   }
 
-  // This function is called when the user clicks on the "add member" button to open the modal
+  // This function is called when the user clicks on the "Create new member" button to open the modal
+  onCreateNewMember(){
+
+  }
+
+  // This function is called when the user clicks on the "Add existing member" button to open the modal
   onAddNewMember(){
     console.log("Add new member button is clicked");
     this.addMemberToggle = true;
   }
 
   ngOnInit() {
-    // Fill the organisations array for the selectbox
-    this.adminOrganisationService.getAllOrganisations().subscribe(
-        (data: Organisation[]) => {
-          data.map(o => {
-            o ? this.organisations.push(o) : [];
-            console.log(o);
-          });
-        }
-      );
+    this.route.params.subscribe(
+      params => {
+        console.log("Test.... THIS GETS EXECUTED!");
+        // Fill the organisations array for the selectbox
+        this.adminOrganisationService.getAllOrganisations().subscribe(
+          (data: Organisation[]) => {
+            data.map(o => {
+              o ? this.organisations.push(o) : [];
+              console.log(o);
+            });
+          }
+        );
+      });
 
     this.currentSelectedOrg = this.organisations[0];
 

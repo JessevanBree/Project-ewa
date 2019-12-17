@@ -28,21 +28,18 @@ export class AdminOrganisationService {
 
     this.loggedInUser = sessionService.getUser();
 
-    console.log(" LOGGED IN USER ID: " + sessionService.getUser().id); // Getting id works
-
-    this.getAllOrganisations();
-
-    // Temporary get all members
-    this.getAllMembers();
-  }
-
-  getOrganisations() {
-    return this.organisations;
+    // console.log(" LOGGED IN USER ID: " + sessionService.getUser().id); // Getting id works
+    //
+    // this.getAllOrganisations();
+    //
+    // this.getAllMembers();
   }
 
   // Function to get all organisations that the logged in user is administrator of
   getAllOrganisations(){
     let loggedInUserId = this.loggedInUser.id;
+
+    console.log("Logged in user ID: " + loggedInUserId);
 
     const url = `${this.REST_ADMIN_ORGS}/${loggedInUserId}`;
 
@@ -50,7 +47,10 @@ export class AdminOrganisationService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     };
 
-    return this.httpClient.get<Organisation[]>(url, httpOptions);
+    return this.httpClient.get<Organisation[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Function to delete a user from the organisation
