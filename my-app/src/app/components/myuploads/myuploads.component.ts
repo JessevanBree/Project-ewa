@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {DatasetService} from "../../services/dataset.service";
-import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FbUserService} from "../../services/fb-user.service";
-import {$e} from "codelyzer/angular/styles/chars";
+
 import {FirebaseFileService} from "../../services/firebase-file.service";
 import {UserService} from "../../services/user.service";
 

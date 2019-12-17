@@ -28,9 +28,6 @@ export class AppComponent implements OnInit {
      measurementId: "G-PDGQZH7H4X"
     };
     firebase.initializeApp(firebaseConfig);
-
-
-
   }
 
 
