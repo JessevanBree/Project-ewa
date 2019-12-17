@@ -80,14 +80,8 @@ import { HomeComponent } from './components/home/home.component';
   ],
 
   providers: [
-    [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-    [RegionFiltersPipe],
-    /*{
-      provide: 'PapaParseGlobalConfig',
-      useValue: <PapaParseGlobalConfig> {
-        scriptPath: 'src/assets/papaparse.min.js'
-      }
-    }*/
+    /*[FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],*/
+    [RegionFiltersPipe]
 
   ],
   bootstrap: [AppComponent]
