@@ -10,6 +10,7 @@ import urban.server.models.Dataset;
 import urban.server.models.Organisation;
 import urban.server.models.User;
 import urban.server.repositories.DatasetRepository;
+import urban.server.repositories.JPAUserRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
@@ -24,7 +25,7 @@ public class ServerApplication implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private JPAUserRepository userRepository;
 
     @Autowired
     private OrganisationRepository organisationRepository;
@@ -61,6 +62,10 @@ public class ServerApplication implements CommandLineRunner {
             logger.info("{}", organisation);
             organisation.addUser(users.get(i));
 
+            if (i == 3) {
+                User ferranUser = userRepository.findById((long) 9);
+                organisation.setOrganisationAdmin(ferranUser);
+            }
             if (i == 4) {
 
                 organisation.setOrganisationAdmin(orgUser);

@@ -32,7 +32,7 @@ public class Organisation {
     @OneToMany(mappedBy = "datasetOrganisation")
     private List<Dataset> datasets = new ArrayList<>();*/
 
-    @OneToOne()
+    @ManyToOne()
     @JsonView({OrganisationsView.Full.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     private User organisationAdmin;

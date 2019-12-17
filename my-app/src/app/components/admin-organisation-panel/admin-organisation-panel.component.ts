@@ -12,23 +12,33 @@ import {User} from "../../models/user";
 })
 export class AdminOrganisationPanelComponent implements OnInit {
 
-  // Organisation of the current logged in org admin
-  adminCurrentOrg: Organisation;
+  // Organisation of the current selected organisation by the admin
+  private currentSelectedOrg: Organisation;
+
+  // All the orgs managed by the logged in org admin
+  private organisations: Organisation[];
 
   // List of members of the current org
-  members: User[];
+  private members: User[];
 
-  addMemberToggle: boolean;
+  private addMemberToggle: boolean;
 
   constructor(private adminOrganisationService: AdminOrganisationService) {
-
     // Fill the members array with all the users stored in spring boot backend
     this.members = [];
+    this.organisations = [];
+
     this.addMemberToggle = false;
+  }
+
+  // Temp function
+  selectOption(org: Organisation){
+
   }
 
   // Function to delete a member from the organisation
   onDelete(member: User) {
+    console.log("Current selected org: " + this.currentSelectedOrg.name);
     if (confirm("Are you sure to delete this member with the following email (Member email)?")) {
 
       this.adminOrganisationService.deleteUserFromOrganisation(member);
@@ -49,6 +59,19 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Fill the organisations array for the selectbox
+    this.adminOrganisationService.getAllOrganisations().subscribe(
+        (data: Organisation[]) => {
+          data.map(o => {
+            o ? this.organisations.push(o) : [];
+            console.log(o);
+          });
+        }
+      );
+
+    this.currentSelectedOrg = this.organisations[0];
+
+    // Fill the members array
     this.adminOrganisationService.getAllMembers().subscribe(
       (data: User[]) => {
         console.log(data);

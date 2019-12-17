@@ -18,6 +18,8 @@ import java.util.Random;
 @NamedQueries({
         @NamedQuery(name = "find_all_users", query = "select u from User u"),
         @NamedQuery(name = "find_user_by_email", query = "select u from User u" +
+                " where u.email = ?1"),
+        @NamedQuery(name = "find_organisations_of_admins", query = "select u from User u" +
                 " where u.email = ?1")
 })
 public class User {
@@ -58,9 +60,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
-    @OneToOne(mappedBy = "organisationAdmin")
-    private Organisation adminOfOrganisation;
-
+    @OneToMany(mappedBy = "organisationAdmin")
+    private List<Organisation> adminOfOrganisations;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
     public User() {
@@ -178,12 +179,12 @@ public class User {
         this.datasets.add(dataset);
     }
 
-    public Organisation getAdminOfOrganisation() {
-        return adminOfOrganisation;
+    public List<Organisation> getAdminOfOrganisations() {
+        return adminOfOrganisations;
     }
 
-    public void setAdminOfOrganisation(Organisation adminOfOrganisation) {
-        this.adminOfOrganisation = adminOfOrganisation;
+    public void addAdminOfOrganisation(Organisation organisation) {
+        adminOfOrganisations.add(organisation);
     }
 
     public List<Organisation> getOrganisations() {

@@ -6,16 +6,18 @@
     <div class="col-md-6 col-sm-12">
       <div class="card" id="list">
         <div class="card-header">
-          (Org name)
+          <p> Select an organisation to manage </p>
+
+          <!-- Select box for the admin to select an organisation -->
+          <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer" [(ngModel)]="this.currentSelectedOrg">
+            <option *ngFor="let organisation of this.organisations" [ngValue]="organisation" selected>{{organisation.name}}</option>
+          </select>
+          <br>
+          <br>
+          <p> Selected organisation: {{this.currentSelectedOrg.name}} </p>
         </div>
         <ul class="dataList list-group list-group-flush">
-<!--          <li class="list-group-item p-1" *ngIf="datasets.length == 0">-->
-<!--            <span class="row mx-1 align-middle">-->
-<!--            You don't have any uploaded datasets-->
-<!--            </span>-->
-<!--          </li>-->
-          <!-- Show a message if the organisation doesn't have any members  -->
-
+          <!-- Show a message if the organisation doesn't have any members -->
           <li class="list-group-item p-1" *ngIf="members.length == 0">
             <span class="row mx-1 align-middle">
               This organisation doesn't have any members
@@ -39,6 +41,8 @@
               data-target="#uploadModal" (click)="onAddNewMember()">Add member
       </button>
     </div>
+
+
 
     <!--    <div class="col-md-3 col-sm-12 mt-5 ">-->
     <!--      <button type="button" id="addDataset" class="btn btn-primary float-right"-->

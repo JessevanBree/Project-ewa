@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../models/user";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
+import {SpringSessionService} from "./session/spring-session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,56 @@ export class AdminOrganisationService {
 
   private readonly REST_URL = "http://localhost:8080/organisations";
 
-  // URL to temporary get all the users
-  private readonly TEMP_USER_URL = "http://localhost:8080/users";
+  private readonly REST_USER_URL = "http://localhost:8080/users";
 
+  private readonly REST_ADMIN_ORGS = "http://localhost:8080/users/adminOrgs";
+
+  private loggedInUser: User;
+
+  private organisations: Organisation[];
   orgMembers: User[];
 
-  organisationOfAdmin: Organisation;
-
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, sessionService: SpringSessionService) {
     this.orgMembers = [];
+    this.organisations = [];
+
+    this.loggedInUser = sessionService.getUser();
+
+    console.log(" LOGGED IN USER ID: " + sessionService.getUser().id); // Getting id works
+
+    this.getAllOrganisations();
+
+    // Temporary get all members
     this.getAllMembers();
+  }
+
+  getOrganisations() {
+    return this.organisations;
+  }
+
+  // Function to get all organisations that the logged in user is administrator of
+  getAllOrganisations(){
+    let loggedInUserId = this.loggedInUser.id;
+
+    const url = `${this.REST_ADMIN_ORGS}/${loggedInUserId}`;
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.httpClient.get<Organisation[]>(url, httpOptions);
   }
 
   // Function to delete a user from the organisation
   deleteUserFromOrganisation(member: User): Observable<{}> {
-    let userId = member.userId;
+    let userId = member.id;
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     };
 
     const url = `${this.REST_URL}/${userId}`;
-    return this.httpClient.delete(url + httpOptions)
+    return this.httpClient.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -41,7 +70,7 @@ export class AdminOrganisationService {
 
   // Temporary gets all the members from spring boot backend
   getAllMembers() {
-    return this.httpClient.get<User[]>(this.TEMP_USER_URL);
+    return this.httpClient.get<User[]>(this.REST_USER_URL);
   }
 
   // Method to handle the HTTP errors
