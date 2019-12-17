@@ -1,4 +1,4 @@
-<app-create-user-popup (savedUser)="saveRequest($event)"></app-create-user-popup>
+<app-create-user-popup (savedUser)="createRequest($event)"></app-create-user-popup>
 <app-edit-user-popup *ngIf="editIsClicked" (savedUser)="saveRequest($event)"
 	[editingUser]="selectedUser"></app-edit-user-popup>
 
@@ -37,7 +37,7 @@
 				</span>
 			</li>
 
-			<li class="admin-user-item list-group-item p-2 pl-3" *ngFor="let user of this.users; index as index">
+			<li class="admin-user-item list-group-item p-2 pl-3" *ngFor="let user of this.aUserService.getUsers(); index as index">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">{{user.email}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">

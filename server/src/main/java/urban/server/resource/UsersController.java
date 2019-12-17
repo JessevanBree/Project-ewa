@@ -65,7 +65,6 @@ public class UsersController {
     @PutMapping()
     public ResponseEntity<User> updateUser(@RequestBody User user) {
 
-
         User userById = userRepo.findById(user.getId());
 
         if (userById == null) {

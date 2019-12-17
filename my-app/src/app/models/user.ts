@@ -1,15 +1,14 @@
 import { Organisation } from './organisation';
 
 export class User {
-	public id: string;
-	public firstName?: string = undefined;
-	public surName?: string = undefined;
-	public password: string;
+	public id: number;
 	public email: string;
+	public password: string;
+	public firstName?: string;
+	public surName?: string;
+	public dateCreated: Date;
 	public isAdmin: boolean;
 	public organisation?: Organisation;
-	public dateCreated: Date;
-	public dateEdited?: Date;
 
 	constructor(email: string, password: string, isAdmin: boolean, firstName?: string,
               surName?: string, organisation?: Organisation) {
@@ -41,7 +40,9 @@ export class User {
 		return tostring;
 	}
 
-	static trueCopy(user: User): User {
+	static trueCopy(user: Object): User {
 		return Object.assign(new User(null, null, null, null, null), user)
 	}
+
+
 }
