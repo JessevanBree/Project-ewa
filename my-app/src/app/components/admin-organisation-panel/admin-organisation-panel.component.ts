@@ -35,6 +35,20 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = false;
   }
 
+  // This method is called when another organisation has been selected in the selectbox
+  organisationChanged(){
+    console.log("Organisation has been changed");
+    // Fill the members array
+    this.adminOrganisationService.getOrgMembers().subscribe(
+      (data: User[]) => {
+        console.log(data);
+        data.map(o => {
+          o ? this.members.push(o) : []
+        });
+      }
+    );
+  }
+
   // Function to delete a member from the organisation
   onDelete(member: User) {
     console.log("Current selected org: " + this.currentSelectedOrg.name);
@@ -79,14 +93,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
     this.currentSelectedOrg = this.organisations[0];
 
-    // Fill the members array
-    this.adminOrganisationService.getAllMembers().subscribe(
-      (data: User[]) => {
-        console.log(data);
-        data.map(o => {
-          o ? this.members.push(o) : []
-        });
-      }
-    );
+    // this.organisationChanged();
+
   }
 }

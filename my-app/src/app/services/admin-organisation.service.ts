@@ -22,11 +22,9 @@ export class AdminOrganisationService {
   private organisations: Organisation[];
   orgMembers: User[];
 
-  constructor(private httpClient: HttpClient, sessionService: SpringSessionService) {
+  constructor(private httpClient: HttpClient, private sessionService: SpringSessionService) {
     this.orgMembers = [];
     this.organisations = [];
-
-    this.loggedInUser = sessionService.getUser();
 
     // console.log(" LOGGED IN USER ID: " + sessionService.getUser().id); // Getting id works
     //
@@ -37,7 +35,7 @@ export class AdminOrganisationService {
 
   // Function to get all organisations that the logged in user is administrator of
   getAllOrganisations(){
-    let loggedInUserId = this.loggedInUser.id;
+    let loggedInUserId = this.sessionService.getUser().id;
 
     console.log("Logged in user ID: " + loggedInUserId);
 
@@ -69,7 +67,7 @@ export class AdminOrganisationService {
   }
 
   // Temporary gets all the members from spring boot backend
-  getAllMembers() {
+  getOrgMembers() {
     return this.httpClient.get<User[]>(this.REST_USER_URL);
   }
 

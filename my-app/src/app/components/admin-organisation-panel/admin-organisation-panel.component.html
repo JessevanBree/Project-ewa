@@ -11,7 +11,7 @@
           <p> Select an organisation to manage </p>
 
           <!-- Select box for the admin to select an organisation -->
-          <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer" [(ngModel)]="this.currentSelectedOrg">
+          <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer" (change)="organisationChanged()" [(ngModel)]="this.currentSelectedOrg">
             <option *ngFor="let organisation of this.organisations" [ngValue]="organisation" selected>{{organisation.name}}</option>
           </select>
           <br>
