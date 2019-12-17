@@ -78,14 +78,8 @@ import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-
   ],
 
   providers: [
-    [FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-    [RegionFiltersPipe],
-    /*{
-      provide: 'PapaParseGlobalConfig',
-      useValue: <PapaParseGlobalConfig> {
-        scriptPath: 'src/assets/papaparse.min.js'
-      }
-    }*/
+    /*[FbSessionService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],*/
+    [RegionFiltersPipe]
 
   ],
   bootstrap: [AppComponent]
