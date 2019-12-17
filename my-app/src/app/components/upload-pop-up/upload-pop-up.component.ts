@@ -56,6 +56,9 @@ export class UploadPopUpComponent implements OnInit {
     this.closingToggle = new EventEmitter<boolean>();
     this.confirmToggle = false;
     this.xAxisInputs = [null];
+
+    this.publicityInput = 'Private';
+    this.yearInput = new Date().getFullYear();
   }
 
   ngOnInit() {
@@ -69,7 +72,7 @@ export class UploadPopUpComponent implements OnInit {
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     let fileName = this.file.name.split(".");
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-          this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
+      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
     console.log(createdDataset);
 
