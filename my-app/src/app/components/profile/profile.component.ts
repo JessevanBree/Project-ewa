@@ -26,7 +26,9 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('myProfile', {static: false}) myProfile;
 
-  constructor(private userService: FbUserService, private httpClient: HttpClient, private firebaseDatasetService: FirebaseDatasetService) {
+  constructor(private userService: FbUserService,
+              private httpClient: HttpClient,
+              private firebaseDatasetService: FirebaseDatasetService) {
     this.updateButtonToggle = true;
   }
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SessionService} from "../../services/session/session.service";
 import {FbSessionService} from "../../services/session/fb-session.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private sessionService: FbSessionService) {
+              private sessionService: SpringSessionService) {
   }
 
   ngOnInit() {

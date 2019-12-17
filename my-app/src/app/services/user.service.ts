@@ -1,63 +1,54 @@
 import { Injectable } from '@angular/core';
-
-//Models
-// import { User } from 'src/app/models/OLD_user';
-import { FIRST_NAMES, SUR_NAMES } from 'src/app/models/testData';
+import {User} from "../models/user";
+import {HttpClient} from "@angular/common/http";
+import * as firebase from "firebase";
 
 @Injectable({
-	providedIn: 'root'
+  providedIn: 'root'
 })
-export class OldFbUserService {
-	// private users: User[];
+export class UserService {
 
-	// constructor() {
-	// 	this.users = [];
+  private users: User[];
+  private listOfAdmins: string[];
+  private loggedInUser: User;
 
-	// 	for (let i = 0; i < 100; i++) {
-	// 		this.users.push(this.genRandomUser());
-	// 	}
-	// 	this.users.push(
-	// 		new User("Abdul", "Zor", "abdul@test.nl", "test", true),
-	// 		new User("Jesse", "Van Bree", "jesse@test.nl", "test", true),
-	// 		new User("Ferran", "Tombal", "ferran@test.nl", "test", false),
-	// 		new User("Mohamed", "Ben Ali", "mohamed@test.nl", "test", false),
-	// 		new User("Aris", "Rosbach", "aris@test.nl", "test", false),
-	// 	)
-	// }
+  private readonly REST_USERS_URL = 'http://localhost:8080/users';
 
-	// public getUser(index: number): User {
-	// 	return this.users[index];
-	// }
+  constructor(private httpClient: HttpClient) {
+    this.users = [];
+    this.getAllUsers().subscribe(
+      (users) => {
+        this.users = users;
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        console.log("Finished retrieving users");
+      }
+    )
 
-	// public deleteUser(user: User): Boolean {
-	// 	let userIndex: number = this.users.indexOf(user);
-	// 	if (userIndex != -1) {
-	// 		this.users.splice(userIndex, 1)
-	// 		return this.users[userIndex].equals(user);
-	// 	} else {
-	// 		return;
-	// 	}
-	// }
+  }
 
-	// public addUser(user: User): Boolean {
-	// 	this.users.push(user);
-	// 	return this.users[this.users.length - 1].equals(user);
-	// }
+  public setLoggedInUser(user: User): void {
+    this.loggedInUser = user;
+  }
 
-	// public updateUser(index: number, user: User): Boolean {
-	// 	if (!this.users[index] || !user) return false;
+  public getLoggedInUser(): User {
+    return this.loggedInUser
+  }
 
-	// 	this.users[index] = user;
-	// 	return this.users[index].equals(user);
-	// }
+  public getAllUsers() {
+    return this.httpClient.get<User[]>(this.REST_USERS_URL);
+  }
 
-	// getUsers(): User[] {
-	// 	return this.users;
-	// }
+  getUsers() {
+    return this.users;
+  }
 
-	// genRandomUser(): User {
-	// 	let firstName: String = FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)];
-	// 	let surName: String = SUR_NAMES[Math.floor(Math.random() * SUR_NAMES.length)].toLowerCase();
-	// 	return new User(firstName, surName, surName + "." + firstName + "@test.edu", "test123", false);
-	// }
+  public deleteUser(user: User): void {
+
+  }
+
+
 }

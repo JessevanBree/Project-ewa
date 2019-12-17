@@ -27,32 +27,31 @@
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/homepage">Home</a>
         </li>
-        <li class="nav-item" *ngIf="this.sessionService.displayName">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <a class="nav-link" routerLinkActive="active"
              [routerLink]="['/myuploads', this.sessionService.displayName]">My Uploads</a>
         </li>
-        <li class="nav-item" *ngIf="this.sessionService.displayName">
-          <a class="nav-link" id="UserEmail" routerLinkActive="active"
-             [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+          <a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
         </li>
       </ul>
       <ul class="nav justify-content-end w-100">
-        <li class="nav-item" *ngIf="this.sessionService.displayName">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <a class="nav-link" routerLinkActive="active" routerLink="/admin-organisation-panel">Organisation panel</a>
         </li>
-        <li class="nav-item" *ngIf="this.sessionService.displayName">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
         </li>
-        <li class="nav-item" *ngIf="!this.sessionService.displayName">
-          <a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/firebase-login">
+        <li class="nav-item" *ngIf="!this.sessionService.isAuthenticated()">
+          <a class="right-nav-button text-dark sign-in nav-link" routerLinkActive="active" routerLink="/login">
             Log In</a>
         </li>
-        <li class="nav-item" *ngIf="this.sessionService.displayName">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
             routerLink="/login">Log
             Out</a>-->
-          <a (click)="sessionService.signOff()" class="nav-link sign-out border-1" routerLinkActive="active"
-             routerLink="/firebase-login">Log Out</a>
+          <a (click)="sessionService.signOut()" class="nav-link sign-out border-1" routerLinkActive="active"
+             routerLink="/login">Log Out</a>
         </li>
         <li class="nav-item" *ngIf="this.sessionService.displayName">
           <span class="navbar-text">(User: {{ this.sessionService.displayName }})</span>

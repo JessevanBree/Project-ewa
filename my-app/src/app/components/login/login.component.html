@@ -16,7 +16,7 @@
                   name="UserName"
                   class="form-control sty1"
                   placeholder="Email"
-                  [(ngModel)]="email"
+                  [(ngModel)]="emailInput"
                   required>
               </div>
               <div class="input-group mb-4">
@@ -25,15 +25,15 @@
                 </div>
                 <input
                   type="password"
-                  name="Passward"
+                  name="Password"
                   class="form-control"
                   placeholder="Password"
-                  [(ngModel)]="password"
+                  [(ngModel)]="passwordInput"
                   required>
               </div>
               <div>
-                <p *ngIf="!isValidCredentials" style="color:#E92626;font-size:20px;font-weight:normal" class="success">
-                  Fill correct credentials
+                <p *ngIf="this.sessionService.errorMessage" style="color:#E92626;font-size:20px;font-weight:normal" class="success">
+                  {{this.sessionService.errorMessage}}
                 </p>
               </div>
               <div class="row">
@@ -41,10 +41,10 @@
                   <button class="btn btn-primary px-4">Login</button>
                 </div>
                 <div class="col-6 text-right">
-                  <button type="button" routerLink="/forgot-password" class="btn btn-link px-0">Forgot password?
-                  </button>
+                  <button type="button" routerLink="/forgot-password" class="btn btn-link px-0">Forgot password?</button>
                 </div>
               </div>
+
             </form>
           </div>
         </div>

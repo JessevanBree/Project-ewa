@@ -3,9 +3,9 @@ import {Dataset, Publicity, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Subscription} from "rxjs";
 import {ChartDataSets} from "chart.js";
-import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {Papa, PapaParseModule} from "ngx-papaparse";
 import {FirebaseFileService} from "../../../services/firebase-file.service";
+import {DatasetService} from "../../../services/dataset.service";
 
 @Component({
   selector: 'app-dataset-detail',
@@ -28,7 +28,7 @@ export class DatasetDetailComponent implements OnInit {
   private publicityOptions;
 
   constructor(private activatedRoute: ActivatedRoute,
-              private datasetService: FirebaseDatasetService, private fileService: FirebaseFileService,
+              private datasetService: DatasetService, private fileService: FirebaseFileService,
               private papa: Papa) {
     this.listDataset = null;
     this.editedDataset = null;
@@ -59,14 +59,11 @@ export class DatasetDetailComponent implements OnInit {
         this.activeIndex = null;
         if (params['id']) {
           console.log(params);
-          for (let i = 0; i < this.datasetService.getDatasets().length; i++) {
-            if (this.datasetService.getDatasets()[i].id == id) {
-              this.activeIndex = params['id'];
-              this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
-              this.editedDataset = Dataset.trueCopy(this.listDataset);
-              this.url = this.fileService.getDownloadUrl(this.editedDataset.fileName ,this.editedDataset.id);
-            }
-          }
+          this.activeIndex = params['id'];
+          this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
+          this.editedDataset = Dataset.trueCopy(this.listDataset);
+          console.log(this.editedDataset);
+          this.url = this.fileService.getDownloadUrl(this.editedDataset.fileName, this.editedDataset.id);
         }
       });
   }
