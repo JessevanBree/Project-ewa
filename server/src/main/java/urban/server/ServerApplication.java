@@ -13,6 +13,7 @@ import urban.server.repositories.DatasetRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,17 +46,20 @@ public class ServerApplication implements CommandLineRunner {
         if (users.size() > 0) return;
         System.out.println("Configuring some initial Users data");
 
+        users.add(new User("mohamed@hva.nl", "mohamed", null, null, true));
+        users.add(new User("jesse@hva.nl", "jesse", null, null, true));
+        users.add(new User("abdul@hva.nl", "abdul", null, null, true));
+        users.add(new User("ferran@hva.nl", "ferran", null, null, true));
+        users.add(new User("maarten@hva.nl", "maarten", null, null, false));
+
+
         User orgUser = User.generateRandomUser();
         orgUser = userRepository.save(orgUser);
 
         for (int i = 0; i < 5; i++) {
-            User user = User.generateRandomUser();
-            logger.info("{}", user);
-            user = userRepository.save(user);
-
             Organisation organisation = Organisation.getRandomRegistration();
             logger.info("{}", organisation);
-            organisation.addUser(user);
+            organisation.addUser(users.get(i));
 
             if (i == 4) {
 //                User secondUser = User.generateRandomUser();
@@ -75,11 +79,11 @@ public class ServerApplication implements CommandLineRunner {
             chartData.put("name", "Zonnepanelen");
             dataset.setChartData(chartData);
             logger.info("DATASET: {}", dataset);
-            user.addDataset(dataset);
+            users.get(i).addDataset(dataset);
 
-            organisation = organisationRepository.save(organisation);
-            user = userRepository.save(user);
-            dataset = datasetRepository.save(dataset);
+            organisationRepository.save(organisation);
+            userRepository.save(users.get(i));
+            datasetRepository.save(dataset);
         }
     }
 }

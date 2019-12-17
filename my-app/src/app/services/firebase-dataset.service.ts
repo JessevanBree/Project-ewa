@@ -1,6 +1,6 @@
-import { Injectable, ViewChild } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Dataset, Publicity, RegionLevel } from "../models/dataset";
+import {Injectable, ViewChild} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import * as firebase from "firebase";
 import {FbUserService} from "./fb-user.service";
 import {FirebaseFileService} from "./firebase-file.service";
@@ -61,16 +61,21 @@ export class FirebaseDatasetService {
   }
 
   saveAllDatasets() {
+    console.log(this.datasets);
     return this.httpClient.put<Dataset[]>(this.DB_DATASETS + '.json', this.datasets).subscribe(
-      () => {},
+      () => {
+        console.log(this.datasets);
+      },
       error => console.log(error),
-      () => {console.log("Datasets saved");}
+      () => {
+        console.log("Datasets saved");
+      }
     );
   }
 
   getAllDatasets() {
     // return this.httpClient.get<Dataset[]>(this.DB_DATASETS);
-    return this.httpClient.get<Dataset[]>(this.DB_DATASETS+ '.json').subscribe(
+    return this.httpClient.get<Dataset[]>(this.DB_DATASETS + '.json').subscribe(
       (data: Dataset[]) => {
         if (data != null) {
           data.map((o) => {

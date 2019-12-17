@@ -28,6 +28,9 @@ body.bg {
   /*background-position: center; !* Center the image *!*/
   /*background-repeat: no-repeat; !* Do not repeat the image *!*/
   /*background-size: cover; !* Resize the background image to cover the entire container *!*/
+  min-height: 100%;
+  background-image: url("/assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");
+  background-position: center; /* Center the image */
 }
 
 body {
@@ -43,16 +46,37 @@ body {
 }
 
 .page-container {
-	min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
 }
 
-.crud-btn-group{
-	width: 35%;
+.crud-btn-group {
+  width: 35%;
 }
 
 @media only screen and (max-width: 768px) {
-	/* For mobile phones: */
-	.crud-btn-group{
-		width: 50%;
-	}
+  /* For mobile phones: */
+  .crud-btn-group {
+    width: 50%;
+  }
+}
+
+/* SCROLLBAR STYLE */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
