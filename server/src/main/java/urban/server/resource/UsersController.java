@@ -41,6 +41,19 @@ public class UsersController {
         return userById;
     }
 
+    @GetMapping("/{email}")
+    public User getUserByEmail(
+            @PathVariable String email) {
+
+        User byEmail = userRepo.findByEmail(email);
+
+        if (byEmail == null) {
+            throw new ResourceNotFoundException("id = " + email);
+        }
+
+        return byEmail;
+    }
+
     @PostMapping()
     public ResponseEntity<User> createUser(@RequestBody User user) {
 

@@ -9,7 +9,7 @@ export class User {
   public dateCreated: Date;
   public isAdmin: boolean;
   public organisation?: Organisation;
-  public organisationsList?: Organisation[] = [];
+  public organisationsList?: Organisation[] = [null];
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
               surName?: string, password?: string, organisation?: Organisation, organisationsList?: Organisation[]) {

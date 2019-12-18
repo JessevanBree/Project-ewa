@@ -1,7 +1,4 @@
 import {Injectable} from '@angular/core';
-
-import {FbUserService} from 'src/app/services/fb-user.service';
-
 //Models
 import {User} from 'src/app/models/user';
 import {Organisation} from 'src/app/models/organisation';
@@ -16,10 +13,12 @@ import {HttpClient} from "@angular/common/http";
 export class OrganisationService {
   private readonly REST_ORGANISATIONS_URL = "http://localhost:8080/organisations";
   private organisations: Organisation[];
+  private _myOrganisations: Organisation[];
 
   constructor(private userService: UserService,
               private http: HttpClient) {
     this.organisations = [];
+    this._myOrganisations = [];
 
     this.getAllOrganisations().subscribe(
       (organisations: Organisation[]) => {
@@ -28,6 +27,8 @@ export class OrganisationService {
       (error) => console.log("Error when retrieving Organisations: " + error),
       () => {
         console.log("All Organisations are retrieved correctly!");
+
+        this.userService.getLoggedInUser().organisationsList = [this.organisations[0], this.organisations[1]];
       }
     )
     ;
@@ -37,7 +38,7 @@ export class OrganisationService {
     return this.http.get<Organisation[]>(this.REST_ORGANISATIONS_URL);
   }
 
-  public getOrganisation(index: number): Organisation {
+  getOrganisation(index: number): Organisation {
     return this.organisations[index];
   }
 
@@ -67,16 +68,20 @@ export class OrganisationService {
     return this.organisations;
   }
 
-  public getMyOrganisations(): Organisation[] {
-    let myOrgs = [];
-    if (this.userService.getLoggedInUser().organisation) {
-      for (let i = 0; i < this.organisations.length; i++) {
-        if (this.organisations[i].id === this.userService.getLoggedInUser().organisation.id) {
-          myOrgs.push(this.organisations[i]);
-        }
-      }
-    }
-    return myOrgs;
+  get myOrganisations(): Organisation[] {
+    // let myOrgs = [];
+    // if (this.userService.getLoggedInUser().organisation) {
+    //   for (let i = 0; i < this.organisations.length; i++) {
+    //     for (let j = 0; j < this.userService.getLoggedInUser().organisationsList.length; j++) {
+    //       if (this.organisations[i].id === this.userService.getLoggedInUser().organisationsList[j].id) {
+    //         myOrgs.push(this.organisations[i]);
+    //       }
+    //     }
+    //   }
+    // }
+    // return myOrgs;
+
+    return this._myOrganisations;
   }
 
   genRandomOrganisation(): Organisation {

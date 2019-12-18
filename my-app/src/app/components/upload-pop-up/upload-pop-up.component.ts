@@ -9,6 +9,7 @@ import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
 import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
+import {IDropdownSettings} from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -27,6 +28,9 @@ export class UploadPopUpComponent implements OnInit {
   private headers: string[];
   private csvData: object[];
   private organisationsOfUser: Organisation[];
+
+  private selected: Organisation[] = [];
+  private dropdownSettings: IDropdownSettings = {};
 
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
@@ -65,15 +69,33 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationsOfUser = organisationService.getMyOrganisations();
+    this.organisationsOfUser = this.userService.getLoggedInUser().organisationsList;
     this.organisationsOfUser.forEach(
       (organisation: Organisation) => {
         console.log("Org = " + organisation.name);
       });
+
   }
 
   ngOnInit() {
     console.log(this.publicityInput);
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+  }
+
+  onItemSelect(item: any) {
+    console.log(item);
+  }
+
+  onSelectAll(items: any) {
+    console.log(items);
   }
 
   //Retreive form data and upload new dataset
@@ -245,6 +267,5 @@ export class UploadPopUpComponent implements OnInit {
     });
     this.chartLabels = chartLabels;
   }
-
 
 }
