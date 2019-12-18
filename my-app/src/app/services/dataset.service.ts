@@ -5,6 +5,7 @@ import {HttpClient} from "@angular/common/http";
 import {error} from "util";
 import {UserService} from "./user.service";
 import {SpringSessionService} from "./session/spring-session.service";
+import {FirebaseFileService} from "./firebase-file.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class DatasetService {
   private datasets: Dataset[];
 
   constructor(private httpClient: HttpClient,
-              private userService: UserService) {
+              private userService: UserService,
+              private fileService: FirebaseFileService) {
     this.datasets = [];
 
     this.getAllDatasets().subscribe(
@@ -38,13 +40,15 @@ export class DatasetService {
 
   //POST request to database and adds the response(dataset) to the list inside the service
   //Closingtoggle optional parameter is used to let the myuploads page know that the dataset has succesfully been saved
-  // so it can close the modal
-  saveDataset(dataset: Dataset, closingToggle?: EventEmitter<boolean>){
+  // so it can close the modal. The file parameter is used to store the given file in firebase storage
+  // using firebase-file service.
+  saveDataset(dataset: Dataset, file: File, closingToggle?: EventEmitter<boolean>){
     if(dataset == null || undefined) return;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
         console.log(data);
         this.datasets.push(data);
+        this.fileService.saveFile(file, data.id, data.name);
       },
       error => {
         console.log(error);

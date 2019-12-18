@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
               private activeRoute: ActivatedRoute) {
     this.emailInput = null;
     this.passwordInput = null;
-
   }
 
 
@@ -43,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sessionService.errorMessage = null;
   }
 
 

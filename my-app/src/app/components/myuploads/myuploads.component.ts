@@ -128,6 +128,7 @@ export class MyuploadsComponent implements OnInit {
     console.log(selectedDataset);
     if (confirm("Are you sure to delete this dataset?")) {
       this.datasetService.deleteDataset(selectedDataset);
+      this.fileService.deleteFile(selectedDataset);
       this.userDatasets = this.datasetService.getMyDatasets();
     }
   }
@@ -135,7 +136,7 @@ export class MyuploadsComponent implements OnInit {
   //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
     let dataset = this.userDatasets[index];
-    this.url = this.fileService.getDownloadUrlFromList(dataset);
+    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id);
   }
 
   //Testing purposes function, adds a random dataset

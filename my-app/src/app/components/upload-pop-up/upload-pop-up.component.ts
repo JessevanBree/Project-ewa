@@ -72,7 +72,7 @@ export class UploadPopUpComponent implements OnInit {
           this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
 
-    this.datasetService.saveDataset(createdDataset, this.closingToggle);
+    this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
   }
