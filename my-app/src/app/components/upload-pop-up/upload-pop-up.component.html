@@ -111,7 +111,8 @@
                 ngModel
                 required>
                 <option>Private</option>
-                <option>Group</option>
+<!--                <option *ngIf="this.userService.getLoggedInUser().organisation">Group</option>   TODO:: IMPLMENT THIS OVER LINE BELOW-->
+                <option *ngIf="this.userService.getLoggedInUser().organisation">Group</option>
                 <option>Public</option>
               </select>
             </div>

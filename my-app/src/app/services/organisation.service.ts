@@ -26,7 +26,9 @@ export class OrganisationService {
         this.organisations = organisations;
       },
       (error) => console.log("Error when retrieving Organisations: " + error),
-      () => console.log("All Organisations are retrieved correctly!")
+      () => {
+        console.log("All Organisations are retrieved correctly!");
+      }
     )
     ;
   }
@@ -63,6 +65,18 @@ export class OrganisationService {
 
   getOrganisations(): Organisation[] {
     return this.organisations;
+  }
+
+  public getMyOrganisations(): Organisation[] {
+    let myOrgs = [];
+    if (this.userService.getLoggedInUser().organisation) {
+      for (let i = 0; i < this.organisations.length; i++) {
+        if (this.organisations[i].id === this.userService.getLoggedInUser().organisation.id) {
+          myOrgs.push(this.organisations[i]);
+        }
+      }
+    }
+    return myOrgs;
   }
 
   genRandomOrganisation(): Organisation {
