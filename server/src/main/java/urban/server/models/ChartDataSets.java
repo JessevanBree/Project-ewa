@@ -23,7 +23,7 @@ public class ChartDataSets {
     private String label;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
-    @ElementCollection(targetClass = Integer.class)
+    @ElementCollection(targetClass = Number.class)
     private List<Object> data;
 
     @JsonIgnore

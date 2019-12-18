@@ -39,7 +39,7 @@ export class UploadPopUpComponent implements OnInit {
   protected validationToggle: boolean; // Validation toggle to submit dataset
 
   private listOfYears: number[];
-  private chart;
+  private chart: ChartDataSets;
   private chartLabels: string[];
 
   private file: File;
