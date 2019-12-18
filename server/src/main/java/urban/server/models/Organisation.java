@@ -27,6 +27,9 @@ public class Organisation {
     @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "organisations")
+    private List<Dataset> datasets = new ArrayList<>();
+
    /* @JsonView({OrganisationsView.Full.class})
     @JsonSerialize(using = DatasetsView.IdNameSimpleUsersSerializer.class)
     @OneToMany(mappedBy = "datasetOrganisation")
@@ -76,10 +79,10 @@ public class Organisation {
         this.users.add(user);
     }
 
-   /* public List<Dataset> getDatasets() {
-        return datasets;
-    }
-*/
+    /* public List<Dataset> getDatasets() {
+         return datasets;
+     }
+ */
   /*  public void setDatasets(List<Dataset> datasets) {
         this.datasets = datasets;
     }
@@ -102,6 +105,15 @@ public class Organisation {
 
     public void setOrganisationAdmin(User organisationAdmin) {
         this.organisationAdmin = organisationAdmin;
+    }
+
+    public List<Dataset> getDatasets() {
+        return datasets;
+    }
+
+    public void addDataset(Dataset dataset) {
+        dataset.addOrganisation(this);
+        this.datasets.add(dataset);
     }
 
     @Override

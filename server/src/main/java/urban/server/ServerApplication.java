@@ -13,31 +13,32 @@ import urban.server.repositories.DatasetRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class);
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private OrganisationRepository organisationRepository;
+    private DatasetRepository datasetRepository;
 
     @Autowired
-    private DatasetRepository datasetRepository;
+    public ServerApplication(UserRepository userRepository,
+                             OrganisationRepository organisationRepository,
+                             DatasetRepository datasetRepository) {
+        this.userRepository = userRepository;
+        this.organisationRepository = organisationRepository;
+        this.datasetRepository = datasetRepository;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         this.createInitials();
     }
 
@@ -56,6 +57,9 @@ public class ServerApplication implements CommandLineRunner {
         User orgUser = User.generateRandomUser();
         orgUser = userRepository.save(orgUser);
 
+        Dataset dataset = new Dataset();
+        dataset = datasetRepository.save(dataset);
+
         for (int i = 0; i < 5; i++) {
             Organisation organisation = Organisation.getRandomRegistration();
             logger.info("{}", organisation);
@@ -68,6 +72,11 @@ public class ServerApplication implements CommandLineRunner {
 
                 organisation = organisationRepository.save(organisation);
 //                secondUser = userRepository.save(secondUser);
+
+                organisation.addDataset(dataset);
+
+                organisation = organisationRepository.save(organisation);
+                dataset = datasetRepository.save(dataset);
             }
 
             organisationRepository.save(organisation);

@@ -58,6 +58,9 @@ public class Dataset {
     @ManyToOne
     private User user;
 
+    @ManyToMany
+    private List<Organisation> organisations = new ArrayList<>();
+
     /*@JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToOne
@@ -175,6 +178,14 @@ public class Dataset {
 
     public void setChartLabels(List<String> chartLabels) {
         this.chartLabels = chartLabels;
+    }
+
+    public List<Organisation> getOrganisations() {
+        return organisations;
+    }
+
+    public void addOrganisation(Organisation organisation) {
+        this.organisations.add(organisation);
     }
 
     @Override
