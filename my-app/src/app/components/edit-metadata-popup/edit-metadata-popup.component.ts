@@ -4,6 +4,8 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DatasetService} from "../../services/dataset.service";
 import {SessionService} from "../../services/session/session.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-edit-metadata-popup',
@@ -25,9 +27,10 @@ export class EditMetadataPopupComponent implements OnInit {
 
   constructor(private datasetService: DatasetService,
               private router: Router,
-              private sessionService: SessionService,
+              private sessionService: SpringSessionService,
+              private userService: UserService,
               private activatedRoute: ActivatedRoute) {
-
+    let userId: number = userService.getLoggedInUser().id;
     this.datasets = this.datasetService.getMyDatasets();
     this.savedDataset = new EventEmitter<Dataset>();
     this.closingToggle = new EventEmitter<boolean>();
@@ -46,8 +49,8 @@ export class EditMetadataPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.userMail]);
-  }
+    this.router.navigate(['myuploads/', this.sessionService.displayName]);
+}
 
   ngOnInit() {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe((param: Params) => {

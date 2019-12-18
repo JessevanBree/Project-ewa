@@ -1,6 +1,5 @@
 package urban.server.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import urban.server.views.DatasetsView;
@@ -32,10 +31,10 @@ public class User {
     private String password;
 
     @JsonView({UsersView.Full.class})
-    private String firstname;
+    private String firstName;
 
     @JsonView({UsersView.Full.class})
-    private String lastname;
+    private String lastName;
 
     @JsonView({UsersView.Full.class})
     private LocalDateTime creationDate;
@@ -67,20 +66,20 @@ public class User {
 
     }
 
-    private User(String email, String firstname, String lastname, boolean isAdmin, Organisation organisation) {
+    private User(String email, String firstName, String lastName, boolean isAdmin, Organisation organisation) {
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.creationDate = LocalDateTime.now();
         this.isAdmin = isAdmin;
         this.organisation = organisation;
     }
 
-    public User(String email, String password, String firstname, String lastname, boolean isAdmin) {
+    public User(String email, String password, String firstName, String lastName, boolean isAdmin) {
         this.email = email;
         this.password = password;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.creationDate = LocalDateTime.now();
         this.isAdmin = isAdmin;
     }
@@ -90,8 +89,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstName + '\'' +
+                ", lastname='" + lastName + '\'' +
                 ", creationDate=" + creationDate +
                 ", isAdmin=" + isAdmin +
                 ", organisation=" + organisation +
@@ -114,20 +113,20 @@ public class User {
         this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public LocalDateTime getCreationDate() {

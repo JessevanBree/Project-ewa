@@ -74,15 +74,10 @@ export class UploadPopUpComponent implements OnInit {
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
       this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
-    console.log(createdDataset);
 
+    this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
-    this.datasetService.getDatasets().push(createdDataset);
-    this.closingToggle.emit(true);
-    this.datasetService.saveDataset(createdDataset);
     this.router.navigate(['myuploads', uploadingUser.email]);
-
-    // form.resetForm();
   }
 
 

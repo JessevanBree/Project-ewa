@@ -53,13 +53,9 @@ export class DatasetDetailComponent implements OnInit {
   ngOnInit() {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
-        const id = params.id;
-        console.log(params);
-
-        this.activeIndex = null;
-        if (params['id']) {
-          console.log(params);
-          this.activeIndex = params['id'];
+        const id = params['id'];
+        console.log(this.datasetService.getDatasets());
+        if(params['id']) {
           this.listDataset = this.datasetService.getDatasets().find(dataset => dataset.id == params['id']);
           this.editedDataset = Dataset.trueCopy(this.listDataset);
           console.log(this.editedDataset);
