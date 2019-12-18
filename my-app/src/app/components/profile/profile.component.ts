@@ -17,46 +17,48 @@ import {UserService} from "../../services/user.service";
 })
 export class ProfileComponent implements OnInit {
 
+  private readonly REST_USERS_URL = 'http://localhost:8080/users';
+  /*private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
+  private readonly DB_USERS = this.DB_URL + '/Users';*/
+
   private userId: string;
   protected user: User;
   protected userCopy: User;
 
   protected updateButtonToggle: boolean;
 
-  private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
-  private readonly DB_USERS = this.DB_URL + '/Users';
-
   @ViewChild('myProfile', {static: false}) myProfile;
 
   constructor(private userService: UserService,
               private httpClient: HttpClient,
-              private firebaseDatasetService: DatasetService) {
+              private datasetService: DatasetService) {
     this.updateButtonToggle = true;
   }
 
   ngOnInit() {
-    this.userId = firebase.auth().currentUser.uid;
     this.user = this.userService.getLoggedInUser();
     this.userCopy = User.trueCopy(this.user);
 
-    if (!this.user.firstName || !this.user.surName){
+    if (!this.user.firstName && !this.user.lastName){
       this.updateButtonToggle = false;
     }
 
     console.log("User firstname = " + this.user.firstName);
-    console.log("User surname = " + this.user.surName);
+    console.log("User surname = " + this.user.lastName);
 
     console.log("UserCopy firstname = " + this.userCopy.firstName);
     console.log(this.userCopy.firstName);
-    console.log("UserCopy surname = " + this.userCopy.surName);
+    console.log("UserCopy surname = " + this.userCopy.lastName);
   }
 
   onUpdateUser() {
-    let formControls = this.myProfile.controls;
+
+    //this.httpClient.put.
+   let formControls = this.myProfile.controls;
     if (formControls.firstname.dirty || formControls.surname.dirty || !(this.user.firstName === this.userCopy.firstName) ||
-      !(this.user.surName === this.userCopy.surName)) {
+      !(this.user.lastName === this.userCopy.lastName)) {
       this.user = this.userCopy;
-      this.httpClient.put(this.DB_USERS + "/" + this.userId + ".json", this.user).subscribe(
+      this.httpClient.put(this.REST_USERS_URL,  this.user).subscribe(
         (user) => {
           console.log("User being sent")
         },
@@ -65,6 +67,7 @@ export class ProfileComponent implements OnInit {
         },
         () => {
           this.user = User.trueCopy(this.userCopy);
+          this.userService.setLoggedInUser(this.user);
           this.updateButtonToggle = true;
         }
       )
