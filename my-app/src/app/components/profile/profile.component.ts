@@ -39,16 +39,16 @@ export class ProfileComponent implements OnInit {
     this.user = this.userService.getLoggedInUser();
     this.userCopy = User.trueCopy(this.user);
 
-    if (!this.user.firstName && !this.user.lastName){
+    if (!this.user.firstName && !this.user.surName){
       this.updateButtonToggle = false;
     }
 
     console.log("User firstname = " + this.user.firstName);
-    console.log("User surname = " + this.user.lastName);
+    console.log("User surname = " + this.user.surName);
 
     console.log("UserCopy firstname = " + this.userCopy.firstName);
     console.log(this.userCopy.firstName);
-    console.log("UserCopy surname = " + this.userCopy.lastName);
+    console.log("UserCopy surname = " + this.userCopy.surName);
   }
 
   onUpdateUser() {
@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
     //this.httpClient.put.
    let formControls = this.myProfile.controls;
     if (formControls.firstname.dirty || formControls.surname.dirty || !(this.user.firstName === this.userCopy.firstName) ||
-      !(this.user.lastName === this.userCopy.lastName)) {
+      !(this.user.surName === this.userCopy.surName)) {
       this.user = this.userCopy;
       this.httpClient.put(this.REST_USERS_URL,  this.user).subscribe(
         (user) => {

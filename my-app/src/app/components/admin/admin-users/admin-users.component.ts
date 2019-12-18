@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 //Models
 import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 //Services
-import {FbUserService} from 'src/app/services/fb-user.service';
+// import {FbUserService} from 'src/app/services/fb-user.service';
 
 @Component({
 	selector: 'app-admin-users',
@@ -13,7 +14,6 @@ import {FbUserService} from 'src/app/services/fb-user.service';
 	styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: User[];
 	editIsClicked: boolean;
 	createIsClicked: boolean;
 	activeIndex: number;
@@ -21,38 +21,50 @@ export class AdminUsersComponent implements OnInit {
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aUserService: FbUserService) {
-		this.activeIndex ;
-    this.selectedUser = null;
+	constructor(private aUserService: UserService) {
+		this.activeIndex;
+		this.selectedUser = null;
 		this.editIsClicked;
-    this.createIsClicked = false;
+		this.createIsClicked = false;
 		this.searchFilter = "";
 	}
 
 	ngOnInit() {
-		this.users = this.aUserService.getUsers();
-		console.log(this.users);
-		this.emptyList = this.users.length == 0;
+		this.emptyList = this.aUserService.getUsers().length == 0;
 	}
 
 	onEditClick(originalUserIndex: number): void {
 		this.editIsClicked = true;
-		let copyUser = this.aUserService.getUsers()[originalUserIndex];
+		let userToEdit = this.aUserService.getUsers()[originalUserIndex];
 		this.activeIndex = originalUserIndex;
-		this.selectedUser = copyUser;
+		this.selectedUser = userToEdit;
 	}
 
 	onCreateButtonClick() {
 		this.createIsClicked = true;
 	}
 
-	saveRequest($event): void {
-		console.log($event);
+	createRequest($event): void {
 		this.editIsClicked = false;
-		this.users[this.activeIndex] = $event;
-		console.log($event, this.activeIndex);
+		this.aUserService.createUser($event).subscribe(
+			(user) => {
+				let u = User.trueCopy(user);
+				this.aUserService.getUsers().push(u);
+			},
+			(err) => console.log(err));
+	}
 
-		this.aUserService.saveAllUsers();
+	saveRequest($event): void {
+		this.editIsClicked = false;
+		console.log(
+			$event
+		)
+		this.aUserService.saveUser($event).subscribe(
+			() => {
+				let u = User.trueCopy($event);
+				this.aUserService.getUsers()[this.activeIndex] = u;
+			},
+			(err) => console.log(err));
 	}
 
 	onDeleteClick(user: User){
@@ -62,7 +74,7 @@ export class AdminUsersComponent implements OnInit {
 	}
 
 	checkIfListEmpty(): void {
-		if(this.users.length == 0) this.emptyList = true;
+		if(this.aUserService.getUsers().length == 0) this.emptyList = true;
 		setTimeout(() => {
 			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
 		}, 5)

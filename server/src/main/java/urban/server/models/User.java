@@ -1,5 +1,6 @@
 package urban.server.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import urban.server.views.DatasetsView;
@@ -28,16 +29,17 @@ public class User {
     @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private String email;
 
+    @JsonProperty("password")
     private String password;
 
     @JsonView({UsersView.Full.class})
     private String firstName;
 
     @JsonView({UsersView.Full.class})
-    private String lastName;
+    private String surName;
 
     @JsonView({UsersView.Full.class})
-    private LocalDateTime creationDate;
+    private LocalDateTime dateCreated;
 
     @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private boolean isAdmin;
@@ -66,21 +68,21 @@ public class User {
 
     }
 
-    private User(String email, String firstName, String lastName, boolean isAdmin, Organisation organisation) {
+    private User(String email, String firstName, String surName, boolean isAdmin, Organisation organisation) {
         this.email = email;
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.creationDate = LocalDateTime.now();
+        this.surName = surName;
+        this.dateCreated = LocalDateTime.now();
         this.isAdmin = isAdmin;
         this.organisation = organisation;
     }
 
-    public User(String email, String password, String firstName, String lastName, boolean isAdmin) {
+    public User(String email, String password, String firstName, String surName, boolean isAdmin) {
         this.email = email;
         this.password = password;
         this.firstName = firstName;
-        this.lastName = lastName;
-        this.creationDate = LocalDateTime.now();
+        this.surName = surName;
+        this.dateCreated = LocalDateTime.now();
         this.isAdmin = isAdmin;
     }
 
@@ -90,8 +92,8 @@ public class User {
                 "id=" + id +
                 ", email='" + email + '\'' +
                 ", firstname='" + firstName + '\'' +
-                ", lastname='" + lastName + '\'' +
-                ", creationDate=" + creationDate +
+                ", lastname='" + surName + '\'' +
+                ", creationDate=" + dateCreated +
                 ", isAdmin=" + isAdmin +
                 ", organisation=" + organisation +
                 '}';
@@ -121,23 +123,23 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getSurName() {
+        return surName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setSurName(String surName) {
+        this.surName = surName;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) throws Exception {
-        if (creationDate.isAfter(LocalDateTime.now())) {
+    public void setDateCreated(LocalDateTime dateCreated) throws Exception {
+        if (dateCreated.isAfter(LocalDateTime.now())) {
             throw new Exception("Creation date can not be after the current time");
         }
-        this.creationDate = creationDate;
+        this.dateCreated = dateCreated;
     }
 
     public boolean isAdmin() {

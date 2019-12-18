@@ -27,8 +27,8 @@ export class FbUserService {
       (data: User[]) => {
         Object.keys(data).forEach(key => {
           if(data[key].email == firebase.auth().currentUser.email){
-            this.loggedInUser = new User(data[key].email, data[key].password, data[key].isAdmin,
-              data[key].firstName, data[key].surName );
+            this.loggedInUser = new User(data[key].email, data[key].isAdmin,
+              data[key].firstName, data[key].surName, data[key].password );
           }
         });
         console.log(this.loggedInUser);
@@ -58,11 +58,11 @@ export class FbUserService {
 
 			if (user.email == this.listOfAdmins[i]) {
 				// If user is an admin
-				newUser = new User(user.uid, user.email, null, null);
+				newUser = new User(user.email, true, null);
 				break;
 			} else {
 				// If user is not an admin
-				newUser = new User(user.uid, user.email, null, null);
+				newUser = new User(user.email, false, null);
 			}
 		}
 

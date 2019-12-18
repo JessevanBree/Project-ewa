@@ -2,22 +2,21 @@ import { Organisation } from './organisation';
 
 export class User {
 	public id: number;
-	public firstName?: string = undefined;
-	public lastName?: string = undefined;
-	public password: string;
 	public email: string;
+	public password: string;
+	public firstName?: string;
+	public surName?: string;
+	public dateCreated: Date;
 	public isAdmin: boolean;
 	public organisation?: Organisation;
-	public dateCreated: Date;
-	public dateEdited?: Date;
 
-	constructor(email: string, password: string, isAdmin: boolean, firstName?: string,
-              surName?: string, organisation?: Organisation) {
+	constructor(email: string, isAdmin: boolean, firstName?: string,
+              surName?: string, password?: string, organisation?: Organisation) {
 		this.email = email;
 		this.password = password;
 		this.isAdmin = isAdmin;
 		this.firstName = firstName;
-		this.lastName = surName;
+		this.surName = surName;
 		this.organisation = organisation;
 		this.dateCreated = new Date(Date.now());
 	}
@@ -29,19 +28,15 @@ export class User {
 			this.dateCreated === user.dateCreated;
 	}
 
-	// addDataset(dataset: Dataset) {
-	// 	if (dataset != null) {
-	// 		this.uploadedDatasets.push(dataset);
-	// 	}
-	// }
-
 	tostring(): string {
 		let tostring = "User email: " + this.email + ", User ID: " + this.id + ", Created at: "
 			+ this.dateCreated;
 		return tostring;
 	}
 
-	static trueCopy(user: User): User {
-		return Object.assign(new User(null, null, null, null, null), user)
+	static trueCopy(user: Object): User {
+		return Object.assign(new User(null, null, null, null, null, null), user)
 	}
+
+
 }
