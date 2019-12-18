@@ -4,7 +4,7 @@
       <div class="card text-black bg-white border-0" style="border-radius: 15px">
         <div class="card-header text-center bg-dark text-white-50">
           <div><h3 class="font-weight-bold font-italic">
-            <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.lastName || "")}}</h3></div>
+            <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}</h3></div>
         </div>
         <div class="card-body" style="font-size: 24px">
           <!--          <h5 class="card-title">{{this.user.email}}</h5>-->
@@ -34,7 +34,7 @@
                 <label for="surName"></label>
                 <input type="text" id="surName" name="surname"
                        class="form-control float-left" style="max-width: 100px"
-                       [(ngModel)]="userCopy.lastName"
+                       [(ngModel)]="userCopy.surName"
                        (ngModelChange)="updateButtonToggle = false" placeholder="Surname">
                 <button *ngIf="!this.updateButtonToggle" type="button"
                         class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
@@ -47,7 +47,7 @@
                 </button>
               </div>
               <div *ngIf="updateButtonToggle" id="full-name" class="">
-                <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.lastName || "")}}
+                <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}
                 <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
                 <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
                         (click)="this.updateButtonToggle = false">
