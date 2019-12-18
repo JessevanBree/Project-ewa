@@ -36,6 +36,14 @@ public class OrganisationsController {
         return mappingJacksonValue;
     }
 
+    //TODO: Error, 405 request method not supported (method not allowed)
+    @GetMapping("/orgMembers/{id}")
+    public List<User> getOrganisationMembers(@PathVariable Long id){
+        Organisation org = organisationRepo.findById(id);
+
+        return org.getUsers();
+    }
+
     // Get mapping to get an organisation by the id
     @GetMapping("/{id}")
     public Organisation getOrganisationById(
@@ -63,6 +71,42 @@ public class OrganisationsController {
         return ResponseEntity.created(location).body(organisationAdmin);
     }
 
+    // Post mapping to create an organisation
+    @PostMapping()
+    public ResponseEntity<Organisation> createOrganisation(@RequestBody Organisation organisation) {
+
+        Organisation savedOrganisation = organisationRepo.save(organisation);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedOrganisation.getId()).toUri();
+
+        return ResponseEntity.created(location).body(savedOrganisation);
+    }
+
+    @PutMapping()
+    public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
+
+        Organisation organisationById = organisationRepo.findById(organisation.getId());
+
+        if (organisationById == null) {
+            throw new ResourceNotFoundException("id = " + organisation.getId());
+        }
+
+        organisationRepo.save(organisation);
+
+        return ResponseEntity.ok().build();
+    }
+
+    // Delete mapping to delete an organisation
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
+
+        Organisation organisation = getOrganisationById(id);
+
+        organisationRepo.delete(organisation);
+
+        return ResponseEntity.ok(organisation);
+    }
+
     // Post mapping to add a user to an organisation
     @PostMapping("/{id}")
     public ResponseEntity<User> addUser(@RequestBody User user, @PathVariable Long id) {
@@ -80,28 +124,6 @@ public class OrganisationsController {
         return ResponseEntity.created(location).body(user);
     }
 
-    // Post mapping to create an organisation
-    @PostMapping()
-    public ResponseEntity<Organisation> createOrganisation(@RequestBody Organisation organisation) {
-
-        Organisation savedOrganisation = organisationRepo.save(organisation);
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedOrganisation.getId()).toUri();
-
-        return ResponseEntity.created(location).body(savedOrganisation);
-    }
-
-    // Delete mapping to delete an organisation
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
-
-        Organisation organisation = getOrganisationById(id);
-
-        organisationRepo.delete(organisation);
-
-        return ResponseEntity.ok(organisation);
-    }
-
     // Delete mapping to delete a user from an organisation
     @DeleteMapping("/{organisationId}/{userId}")
     public ResponseEntity<Organisation> deleteUser(@PathVariable Long organisationId, @PathVariable Long userId) {
@@ -116,17 +138,4 @@ public class OrganisationsController {
         return ResponseEntity.ok(organisation);
     }
 
-    @PutMapping()
-    public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
-
-        Organisation organisationById = organisationRepo.findById(organisation.getId());
-
-        if (organisationById == null) {
-            throw new ResourceNotFoundException("id = " + organisation.getId());
-        }
-
-        organisationRepo.save(organisation);
-
-        return ResponseEntity.ok().build();
-    }
 }

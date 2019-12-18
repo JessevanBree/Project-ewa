@@ -39,11 +39,11 @@ export class AdminOrganisationPanelComponent implements OnInit {
   organisationChanged(){
     console.log("Organisation has been changed");
     // Fill the members array
-    this.adminOrganisationService.getOrgMembers().subscribe(
+    this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
       (data: User[]) => {
         console.log(data);
         data.map(o => {
-          o ? this.members.push(o) : []
+          o ? this.members.push(o) : [];
         });
       }
     );

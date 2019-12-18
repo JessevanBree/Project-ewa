@@ -15,6 +15,8 @@ export class AdminOrganisationService {
 
   private readonly REST_USER_URL = "http://localhost:8080/users";
 
+  private readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
+
   private readonly REST_ADMIN_ORGS = "http://localhost:8080/users/adminOrgs";
 
   private loggedInUser: User;
@@ -26,11 +28,6 @@ export class AdminOrganisationService {
     this.orgMembers = [];
     this.organisations = [];
 
-    // console.log(" LOGGED IN USER ID: " + sessionService.getUser().id); // Getting id works
-    //
-    // this.getAllOrganisations();
-    //
-    // this.getAllMembers();
   }
 
   // Function to get all organisations that the logged in user is administrator of
@@ -67,8 +64,21 @@ export class AdminOrganisationService {
   }
 
   // Temporary gets all the members from spring boot backend
-  getOrgMembers() {
-    return this.httpClient.get<User[]>(this.REST_USER_URL);
+  getOrgMembers(org: Organisation) {
+    let orgId = org.id;
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    const url = `${this.REST_ORG_USERS_URL}/${orgId}`;
+
+    return this.httpClient.get<User[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+
+    // return this.httpClient.get<User[]>(this.REST_USER_URL);
   }
 
   // Method to handle the HTTP errors
