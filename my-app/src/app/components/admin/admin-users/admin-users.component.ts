@@ -56,7 +56,9 @@ export class AdminUsersComponent implements OnInit {
 
 	saveRequest($event): void {
 		this.editIsClicked = false;
-
+		console.log(
+			$event
+		)
 		this.aUserService.saveUser($event).subscribe(
 			() => {
 				let u = User.trueCopy($event);

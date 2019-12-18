@@ -37,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
 import { HomeComponent } from './components/home/home.component';
+import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { HomeComponent } from './components/home/home.component';
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-    SearchArrayNamePipe,
+	SearchArrayNamePipe,
+	SearchUserArrayPipe,
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,

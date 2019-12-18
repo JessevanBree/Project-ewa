@@ -70,9 +70,9 @@ public class UsersController {
         if (userById == null) {
             throw new ResourceNotFoundException("id = " + user.getId());
         }
-
+        user.setPassWord(userById.getPassWord());
         userRepo.save(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(user);
     }
 }

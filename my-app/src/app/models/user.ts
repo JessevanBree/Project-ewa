@@ -10,8 +10,8 @@ export class User {
 	public isAdmin: boolean;
 	public organisation?: Organisation;
 
-	constructor(email: string, password: string, isAdmin: boolean, firstName?: string,
-              surName?: string, organisation?: Organisation) {
+	constructor(email: string, isAdmin: boolean, firstName?: string,
+              surName?: string, password?: string, organisation?: Organisation) {
 		this.email = email;
 		this.password = password;
 		this.isAdmin = isAdmin;
@@ -28,12 +28,6 @@ export class User {
 			this.dateCreated === user.dateCreated;
 	}
 
-	// addDataset(dataset: Dataset) {
-	// 	if (dataset != null) {
-	// 		this.uploadedDatasets.push(dataset);
-	// 	}
-	// }
-
 	tostring(): string {
 		let tostring = "User email: " + this.email + ", User ID: " + this.id + ", Created at: "
 			+ this.dateCreated;
@@ -41,7 +35,7 @@ export class User {
 	}
 
 	static trueCopy(user: Object): User {
-		return Object.assign(new User(null, null, null, null, null), user)
+		return Object.assign(new User(null, null, null, null, null, null), user)
 	}
 
 
