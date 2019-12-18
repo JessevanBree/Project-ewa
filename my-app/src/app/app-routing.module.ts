@@ -60,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: 'admin-organisation-panel',
-    component: AdminOrganisationPanelComponent
+    component: AdminOrganisationPanelComponent, canActivate: [AuthGuardService]
   },
   {
     path: 'forgot-password',

@@ -45,6 +45,7 @@ export class Dataset {
     this.fileName = fileName;
     this.description = description == null ? null : description;
     this.organisation = organisation == null ? null : organisation;
+    this.id = id;
 
     // this.chartOptions = chartOptions;
   }

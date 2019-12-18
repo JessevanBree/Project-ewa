@@ -1,16 +1,11 @@
 package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.node.POJONode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import urban.server.models.converters.HashMapConverter;
-import urban.server.models.helpers.CustomJson;
+import com.sun.istack.Nullable;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
 import urban.server.views.DatasetsView;
-import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
 
 import javax.persistence.*;
@@ -42,12 +37,14 @@ public class Dataset {
     private PublicityEnum publicity;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @Nullable
     private String description;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     private int year;
 
-//    @Convert(converter = HashMapConverter.class)
+    private String fileName;
+
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     @OneToOne(cascade = CascadeType.ALL)
     private ChartDataSets chart;// TODO:: Set the right dataset for this -> update constructor
@@ -77,13 +74,14 @@ public class Dataset {
     }
 
     public Dataset(String name, RegionLevelEnum region, PublicityEnum publicity,
-                   User user, int year, List<String> chartLabels, ChartDataSets chart,
+                   User user, int year, String fileName, List<String> chartLabels, ChartDataSets chart,
                    String description) {
         this.name = name;
         this.region = region;
         this.publicity = publicity;
         this.user = user;
         this.year = year;
+        this.fileName = fileName;
         this.chartLabels = chartLabels;
         this.chart = chart;
         this.description = description;
@@ -96,11 +94,6 @@ public class Dataset {
         this.publicity = publicity;
         this.user = user;
         this.year = year;
-    }
-
-    public Dataset(String name, Map<String, Object> chartData) {
-        this.name = name;
-
     }
 
     public Long getId() {
@@ -149,6 +142,14 @@ public class Dataset {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public User getUser() {

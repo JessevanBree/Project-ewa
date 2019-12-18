@@ -7,6 +7,8 @@ import {FbSessionService} from "../../services/session/fb-session.service";
 import {HttpClient} from "@angular/common/http";
 import * as firebase from "firebase";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
+import {DatasetService} from "../../services/dataset.service";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-profile',
@@ -26,9 +28,9 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('myProfile', {static: false}) myProfile;
 
-  constructor(private userService: FbUserService,
+  constructor(private userService: UserService,
               private httpClient: HttpClient,
-              private firebaseDatasetService: FirebaseDatasetService) {
+              private firebaseDatasetService: DatasetService) {
     this.updateButtonToggle = true;
   }
 

@@ -5,6 +5,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import * as Chart from "chart.js";
 import {DatasetService} from "../../services/dataset.service";
 import {SessionService} from "../../services/session/session.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
 
 @Component({
   selector: 'app-edit-dataset-popup',
@@ -21,7 +22,7 @@ export class ViewDatasetPopupComponent implements OnInit {
 
 
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService,
-              private router: Router, private sessionService: SessionService) {
+              private router: Router, private sessionService: SpringSessionService) {
     this.datasets = datasetService.getMyDatasets();
     this.closingToggle = new EventEmitter<boolean>();
     // this.chartData = [this.selectedDataset.chartData];
@@ -48,7 +49,7 @@ export class ViewDatasetPopupComponent implements OnInit {
   onClose(){
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.userMail]);
+    this.router.navigate(['myuploads/', this.sessionService.displayName]);
   }
 
   ngOnDestroy() {

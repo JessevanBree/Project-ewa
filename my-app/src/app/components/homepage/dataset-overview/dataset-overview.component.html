@@ -46,17 +46,17 @@
       <tr>
         <th class="text-light font-weight-normal">Datasets
           <span class="custom-badge float-right"
-                *ngIf="this.copyDatasets">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+                *ngIf="this.datasets">{{(this.datasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
-      <tbody class="table-light" *ngIf="this.copyDatasets">
-      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
+      <tbody class="table-light" *ngIf="this.datasets.length > 0">
+      <tr *ngFor="let dataset of datasets | searchArrayName: [searchQuery, 'value']; let index = index;"
           (click)="onSelection(index, dataset)"
           class="mt-auto mb-auto">
         <td>{{dataset.name}} <i class="fa fa-arrow-right float-right mt-1"></i></td>
       </tr>
-      <tr *ngIf="copyDatasets.length == 0">
+      <tr *ngIf="datasets.length == 0">
         <td><i>There are no datasets available</i></td>
       </tr>
       </tbody>
