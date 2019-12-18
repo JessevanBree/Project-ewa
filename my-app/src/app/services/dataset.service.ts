@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
@@ -37,18 +37,22 @@ export class DatasetService {
   }
 
   //POST request to database and adds the response(dataset) to the list inside the service
-  saveDataset(dataset: Dataset){
+  //Closingtoggle optional parameter is used to let the myuploads page know that the dataset has succesfully been saved
+  // so it can close the modal
+  saveDataset(dataset: Dataset, closingToggle?: EventEmitter<boolean>){
     if(dataset == null || undefined) return;
-
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
         console.log(data);
-        this.datasets.push(dataset);
+        this.datasets.push(data);
       },
       error => {
         console.log(error);
       },
       () => {
+        if(closingToggle) {
+          closingToggle.emit(true); // Used to notify view to close modal used for uploading dataset
+        }
         console.log("Finished posting dataset");
       }
     );
@@ -85,8 +89,6 @@ export class DatasetService {
     );
     return this.datasets.includes(dataset);
   }
-
-
 
   public getDatasets() {
     return this.datasets;
