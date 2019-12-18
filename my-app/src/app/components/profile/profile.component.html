@@ -4,7 +4,7 @@
       <div class="card text-black bg-white border-0" style="border-radius: 15px">
         <div class="card-header text-center bg-dark text-white-50">
           <div><h3 class="font-weight-bold font-italic">
-            <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}</h3></div>
+            <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.lastName || "")}}</h3></div>
         </div>
         <div class="card-body" style="font-size: 24px">
           <!--          <h5 class="card-title">{{this.user.email}}</h5>-->
@@ -28,13 +28,13 @@
                 <label for="firstName"></label>
                 <i class="fa fa-user-circle float-left mt-1 mr-1"></i>
                 <input type="text" id="firstName" name="firstname"
-                       class="form-control float-left" style="max-width: 100px"
+                       class="form-control float-left " style="max-width: 100px"
                        [(ngModel)]="userCopy.firstName"
                        (ngModelChange)="updateButtonToggle = false" placeholder="Firstname">
                 <label for="surName"></label>
                 <input type="text" id="surName" name="surname"
                        class="form-control float-left" style="max-width: 100px"
-                       [(ngModel)]="userCopy.surName"
+                       [(ngModel)]="userCopy.lastName"
                        (ngModelChange)="updateButtonToggle = false" placeholder="Surname">
                 <button *ngIf="!this.updateButtonToggle" type="button"
                         class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
@@ -47,7 +47,7 @@
                 </button>
               </div>
               <div *ngIf="updateButtonToggle" id="full-name" class="">
-                <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}
+                <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.lastName || "")}}
                 <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
                 <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
                         (click)="this.updateButtonToggle = false">
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group">
               <div id="uploads" class="">
-                Uploads: {{firebaseDatasetService.getMyDatasets().length}}</div>
+                Uploads: {{datasetService.getMyDatasets().length}}</div>
             </div>
 
           </form>

@@ -3,7 +3,7 @@ import { Organisation } from './organisation';
 export class User {
 	public id: number;
 	public firstName?: string = undefined;
-	public surName?: string = undefined;
+	public lastName?: string = undefined;
 	public password: string;
 	public email: string;
 	public isAdmin: boolean;
@@ -17,7 +17,7 @@ export class User {
 		this.password = password;
 		this.isAdmin = isAdmin;
 		this.firstName = firstName;
-		this.surName = surName;
+		this.lastName = surName;
 		this.organisation = organisation;
 		this.dateCreated = new Date(Date.now());
 	}
