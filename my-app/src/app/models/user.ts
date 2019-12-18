@@ -1,7 +1,7 @@
 import { Organisation } from './organisation';
 
 export class User {
-	public id: string;
+	public id: number;
 	public firstName?: string = undefined;
 	public surName?: string = undefined;
 	public password: string;

@@ -34,25 +34,31 @@
           </div>
           <div class="form-group">
             <label for="publicityInput">Publicity</label>
-            <select [(ngModel)]="Publicity[editingDataset.publicity]" class="form-control" name="publicityInput"
+            <select [(ngModel)]="editingDataset.publicity" class="form-control" name="publicityInput"
                     id="publicityInput" required>
-              <option class="form-control" *ngFor="let publicity of keys(Publicity)">
-                {{Publicity[publicity]}}</option>
+              <!--<option class="form-control" *ngFor="let publicity of keys(Publicity)" >
+                {{Publicity[publicity]}}</option>-->
+              <option value="PUBLIC">Public</option>
+              <option value="PRIVATE">Private</option>
+              <option value="GROUP">Group</option>
             </select>
           </div>
           <div class="form-group">
             <label for="yearInput">Year</label>
-            <select class="form-control" id="yearInput" name="yearInput">
+            <select [(ngModel)]="editingDataset.year" class="form-control" id="yearInput" name="yearInput">
               <option *ngFor="let year of listOfYears" [selected]="true ? year == editingDataset.year : 2000">
                 {{year}}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="regionInput">Region</label>
-            <select  class="form-control" name="regionInput"
+            <select [(ngModel)]="editingDataset.region" class="form-control" name="regionInput"
                     id="regionInput" required>
-              <option class="form-control" *ngFor="let region of keys(RegionLevel)">
-                {{RegionLevel[region]}}</option>
+              <!--<option class="form-control" *ngFor="let region of keys(RegionLevel)">
+                {{RegionLevel[region]}}</option>-->
+              <option value="NAT_LEVEL">National</option>
+              <option value="URBAN_LEVEL">Urban</option>
+              <option value="EU_LEVEL">European</option>
             </select>
           </div>
           <div class="modal-footer">
