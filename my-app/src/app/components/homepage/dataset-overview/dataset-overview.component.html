@@ -1,3 +1,4 @@
+<!--Search and filter bar start-->
 <div class="row">
   <div class="col-sm-12 col-md-8 col-lg-5 form-group">
     <div class="col-sm-12 col-lg-10 form-row has-search float-left m-0 rounded-circle">
@@ -38,7 +39,9 @@
     </div>
   </div>
 </div>
+<!--Search and filter bar end-->
 
+<!--Dataset overview list start-->
 <div class="row mt-1 mx-0">
   <div class="col-sm-8 col-md-8 col-lg-4 mx-2" style="max-height: 400px;">
     <table class="table table-bordered m-0 text-center">
@@ -46,7 +49,7 @@
       <tr>
         <th class="text-light font-weight-normal">Datasets
           <span class="custom-badge float-right"
-                *ngIf="this.datasets">{{(this.datasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+                *ngIf="this.datasets && this.searchQuery != ''">{{(this.datasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
@@ -82,8 +85,10 @@
     <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
+<!--Dataset overview list end-->
 
 
+<!--OLD DATASET OVERVIEW LIST-->
 <!--<div class="row">-->
 <!--  <div class="col-sm-11 form-group mx-auto">-->
 <!--    <div class="col-sm-12 col-md-5 form-row has-search float-left mx-auto mt-4 rounded-circle">-->
