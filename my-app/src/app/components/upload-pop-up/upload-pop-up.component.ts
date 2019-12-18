@@ -39,7 +39,7 @@ export class UploadPopUpComponent implements OnInit {
   protected validationToggle: boolean; // Validation toggle to submit dataset
 
   private listOfYears: number[];
-  private chart;
+  private chart: ChartDataSets;
   private chartLabels: string[];
 
   private file: File;
@@ -56,6 +56,9 @@ export class UploadPopUpComponent implements OnInit {
     this.closingToggle = new EventEmitter<boolean>();
     this.confirmToggle = false;
     this.xAxisInputs = [null];
+
+    this.publicityInput = 'Private';
+    this.yearInput = new Date().getFullYear();
   }
 
   ngOnInit() {
@@ -69,17 +72,12 @@ export class UploadPopUpComponent implements OnInit {
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     let fileName = this.file.name.split(".");
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-          this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
+      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
-    console.log(createdDataset);
 
+    this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
-    this.datasetService.getDatasets().push(createdDataset);
-    this.closingToggle.emit(true);
-    this.datasetService.saveDataset(createdDataset);
     this.router.navigate(['myuploads', uploadingUser.email]);
-
-    // form.resetForm();
   }
 
 
@@ -193,8 +191,9 @@ export class UploadPopUpComponent implements OnInit {
     console.log(xAxisLabel, yAxisLabel);
 
     //Retrieves the records from the csv file in order to visualize the charts
-    if (objectsArray.length > 150) {
-      for (let i = 0; i < 100; i++) {
+    //Displays a max total of atleast
+    if (objectsArray.length > 200) {
+      for (let i = 0; i < 150; i++) {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
         let recordXAxis = object[this.headers[this.xAxisInputs[0]]];

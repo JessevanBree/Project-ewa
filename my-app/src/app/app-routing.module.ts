@@ -18,12 +18,15 @@ import {EditMetadataPopupComponent} from "./components/edit-metadata-popup/edit-
 import {ViewDatasetPopupComponent} from "./components/view-dataset-popup/view-dataset-popup.component";
 import {UploadPopUpComponent} from "./components/upload-pop-up/upload-pop-up.component";
 import {AdminOrganisationPanelComponent} from "./components/admin-organisation-panel/admin-organisation-panel.component";
-import {HomeComponent} from "./components/home/home.component";
+import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 
 const routes: Routes = [
 
   {
-    path: '', component: HomeComponent
+    path: '', redirectTo: 'landing-page', pathMatch: 'full'
+  },
+  {
+    path: 'landing-page', component: LandingPageComponent
   },
   {
     path: 'homepage', component: DatasetOverviewComponent,
@@ -60,7 +63,7 @@ const routes: Routes = [
   },
   {
     path: 'admin-organisation-panel',
-    component: AdminOrganisationPanelComponent
+    component: AdminOrganisationPanelComponent, canActivate: [AuthGuardService]
   },
   {
     path: 'forgot-password',

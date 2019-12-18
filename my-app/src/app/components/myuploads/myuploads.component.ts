@@ -14,24 +14,24 @@ import {UserService} from "../../services/user.service";
 })
 export class MyuploadsComponent implements OnInit {
 
-  // datasets: object;
-  datasets: Dataset[];
-  uploadDatasetToggle: boolean;
-  editMetaDataToggle: boolean;
-  editDatasetToggle: boolean;
-  selectedDataset: Dataset;
+  private userDatasets: Dataset[];
+  private uploadDatasetToggle: boolean;
+  private editMetaDataToggle: boolean;
+  private editDatasetToggle: boolean;
+  private selectedDataset: Dataset;
   private activeIndex;
-  public userId: string;
-  paramSubscription: Subscription;
+  public userId: number;
+  private paramSubscription: Subscription;
   protected url: string;
 
   constructor(private datasetService: DatasetService, private activatedRoute: ActivatedRoute,
               private userService: UserService, private router: Router,
               private fileService: FirebaseFileService) {
-    this.datasets = [];
+    this.userDatasets = [];
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
+    this.userId = userService.getLoggedInUser().id;
   }
 
   ngOnInit() {
@@ -44,9 +44,15 @@ export class MyuploadsComponent implements OnInit {
           // if true push the dataset to the datasets array else return an empty array
           if (data != null) {
             data.map((o) => {
-              o && o.user.email == userEmail ? this.datasets.push(o) : [];
+              o && o.user.email == userEmail ? this.userDatasets.push(o) : [];
             });
           } else return null;
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          console.log("Finished retrieving user's datasets");
         }
       );
       /*this.datasetService.getAllDatasets2().subscribe(
@@ -69,28 +75,26 @@ export class MyuploadsComponent implements OnInit {
 
   }
 
-
-  //This method gets the event from child component (edit-pop-up) to save the edited dataset
+  //This method gets the dataset from child component (edit-metadata-popup) to save the given edited dataset
   saveRequest($event) {
     this.editMetaDataToggle = false;
     console.log($event);
     console.log(this.activeIndex);
     //Update (save) the dataset in both arrays
-    this.datasets[this.activeIndex] = $event;
-    this.datasetService.updateDataset(this.activeIndex, this.datasets[this.activeIndex]);
+    this.userDatasets[this.activeIndex] = $event;
+    this.datasetService.updateDataset(this.userDatasets[this.activeIndex]);
   }
 
   //Check if edit button is clicked to open pop-up
   onEditMetaDataClick(datasetIndex: number) {
     this.activeIndex = datasetIndex;
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
-    this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
+    this.selectedDataset = Dataset.trueCopy(this.userDatasets[this.activeIndex]);
     console.log(this.selectedDataset);
     this.router.navigate(['editMetaData'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
-    }).then(r => console.log(r));
-
+    });
     this.editMetaDataToggle = true;
   }
 
@@ -104,12 +108,12 @@ export class MyuploadsComponent implements OnInit {
 
   //Triggers when a dataset has been uploaded to refresh the overview
   onUploadDataset() {
-    this.datasets = this.datasetService.getMyDatasets()
+    this.userDatasets = this.datasetService.getMyDatasets();
   }
 
   //Button to view the dataset visualization/chart
   onViewDatasetClick(datasetIndex: number) {
-    this.selectedDataset = Dataset.trueCopy(this.datasets[datasetIndex]);
+    this.selectedDataset = Dataset.trueCopy(this.userDatasets[datasetIndex]);
     this.editDatasetToggle = true;
     this.router.navigate(['viewDataset'], {
       relativeTo: this.activatedRoute,
@@ -119,34 +123,42 @@ export class MyuploadsComponent implements OnInit {
 
   //Function to delete a dataset
   onDelete(datasetIndex: number) {
+    let selectedDataset: Dataset;
+    selectedDataset = this.userDatasets[datasetIndex];
+    console.log(selectedDataset);
     if (confirm("Are you sure to delete this dataset?")) {
-      let selectedDataset: Dataset;
-      selectedDataset = this.datasets[datasetIndex];
       this.datasetService.deleteDataset(selectedDataset);
-      this.datasets = this.datasetService.getMyDatasets();
+      this.fileService.deleteFile(selectedDataset);
+      this.userDatasets = this.datasetService.getMyDatasets();
     }
   }
 
   //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
-    let dataset = this.datasets[index];
-    this.url = this.fileService.getDownloadUrlFromList(dataset);
+    let dataset = this.userDatasets[index];
+    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id);
   }
 
   //Testing purposes function, adds a random dataset
   onAdd() {
-    this.datasetService.add(this.datasetService.generateRandomDataset());
-    this.datasets = this.datasetService.getMyDatasets();
+    this.datasetService.addDataset(this.datasetService.generateRandomDataset());
+    this.userDatasets = this.datasetService.getMyDatasets();
     console.log("Adding random dataset..");
   }
 
 
   onCloseReq() {
     console.log("Closing modal..");
-    this.datasets = this.datasetService.getMyDatasets();
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
+    this.userDatasets = this.datasetService.getMyDatasets();
+    console.log(this.userDatasets);
+    /*this.datasetService.getAllDatasets().subscribe(
+      (data: Dataset[]) => {
+        data.map( o => o.user.id == this.userId ? this.userDatasets.push(o) : null);
+      }
+    );*/
   }
 
 }

@@ -1,6 +1,5 @@
 package urban.server.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import urban.server.views.DatasetsView;

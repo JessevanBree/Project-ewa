@@ -1,8 +1,10 @@
 package urban.server.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.models.Dataset;
@@ -55,20 +57,17 @@ public class DatasetsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Dataset> deleteDataset(@PathVariable Long id) {
-
+    public ResponseEntity deleteDataset(@PathVariable Long id) {
         Dataset dataset = getDatasetById(id);
 
         datasetRepository.delete(dataset);
 
-        return ResponseEntity.ok(dataset);
-
+        //Returns no content because the dataset has been deleted
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping()
     public ResponseEntity<Dataset> updateDataset(@RequestBody Dataset dataset) {
-
-
         Dataset datasetById = datasetRepository.findById(dataset.getId());
 
         if (datasetById == null) {
@@ -77,6 +76,6 @@ public class DatasetsController {
 
         datasetRepository.save(dataset);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(dataset);
     }
 }

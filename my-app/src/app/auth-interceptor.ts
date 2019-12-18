@@ -13,8 +13,8 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     let url = this.route.snapshot['_routerState'].url;
-    return next.handle(req);
-    /*if (url.includes("/homepage")) {
+    // return next.handle(req);
+    if (url.includes("/homepage")) {
       return next.handle(req);
     } else if (this.sessionService.getToken() == null || undefined) {
       const token = this.sessionService.getToken();
@@ -23,6 +23,6 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(cloned);
       } else return next.handle(req);
 
-    }*/
+    }
   }
 }

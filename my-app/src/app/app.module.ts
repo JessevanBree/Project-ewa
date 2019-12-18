@@ -36,8 +36,8 @@ import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-pop
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
-import { HomeComponent } from './components/home/home.component';
 import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
+import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 
 @NgModule({
   declarations: [
@@ -69,7 +69,7 @@ import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
     FooterComponent,
     AddMemberPopupComponent,
     AdminOrganisationPanelComponent,
-    HomeComponent
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ export class SpringSessionService {
     this.authenticated = false;
   }
 
-  signIn(email: String, password: String) {
+  signIn(email: String, password: String, errorMessage?: string) {
     return this.httpClient.post<HttpResponse<User>>(this.REST_AUTHENTICATION_URL,
       {email: email, passWord: password}, {observe: "response"}).subscribe(
       (response) => {
