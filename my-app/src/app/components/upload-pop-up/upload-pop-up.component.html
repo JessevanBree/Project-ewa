@@ -123,7 +123,9 @@
                 name="groupInput"
                 ngModel
                 required>
-                <option *ngFor="let organisation of userService.getLoggedInUser()">Private</option>
+                <option
+                  *ngFor="let organisation of userService.getLoggedInUser().organisationsList; let index = index">
+                  {{organisation.name}} name {{index}}</option>
                 <!-- TODO:: make use of organisations lenght of logged in user -->
               </select>
             </div>

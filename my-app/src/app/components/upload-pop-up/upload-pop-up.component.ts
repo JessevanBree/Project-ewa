@@ -28,6 +28,7 @@ export class UploadPopUpComponent implements OnInit {
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
   protected publicityInput: string; // Publictity input of metadata section
+  protected publicityGroupInput: string; // Group publictity input of metadata section
   protected regionInput: string; // Region input of metadata section
   protected yearInput: number; // Year input of metadata section
 
@@ -58,10 +59,12 @@ export class UploadPopUpComponent implements OnInit {
     this.xAxisInputs = [null];
 
     this.publicityInput = 'Private';
+    this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
   }
 
   ngOnInit() {
+    console.log(this.publicityInput);
   }
 
   //Retreive form data and upload new dataset
@@ -74,6 +77,10 @@ export class UploadPopUpComponent implements OnInit {
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
       this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
+    if (this.publicityGroupInput == "Group") {
+
+      createdDataset.organisations.push()
+    }
 
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);

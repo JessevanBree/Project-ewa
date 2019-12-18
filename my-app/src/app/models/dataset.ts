@@ -21,6 +21,7 @@ export class Dataset {
   region: string;
   publicity: string;
   organisation?: Organisation;
+  organisations?: Organisation[] = [];
   description?: string;
   fileName: string;
   year: number;

@@ -6,6 +6,7 @@ import com.sun.istack.Nullable;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
 import urban.server.views.DatasetsView;
+import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
 
 import javax.persistence.*;
@@ -59,6 +60,8 @@ public class Dataset {
     private User user;
 
     @ManyToMany
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
+    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     private List<Organisation> organisations = new ArrayList<>();
 
     /*@JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
