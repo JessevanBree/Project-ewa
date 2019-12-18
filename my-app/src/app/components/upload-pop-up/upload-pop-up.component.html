@@ -14,8 +14,10 @@
               novalidate>
 
           <h5 class="border border-success text-center text-white bg-success">Dataset visualization</h5>
-          <div class="form-group col-md-6 mx-3">
-            <label for="uploadModalControlFile1">Choose dataset file</label>
+          <div class="form-group col-md-12 mx-3">
+            <label for="uploadModalControlFile1">Choose dataset file <span
+              class="font-italic small">(Accepted format: <abbr
+              title="comma separated values">.csv</abbr>)</span></label>
             <input type="file" class="form-control-file pt-2"
                    (change)="uploadListener($event.target.files)"
                    id="uploadModalControlFile1" name="fileInput"
@@ -113,7 +115,19 @@
                 <option>Public</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div *ngIf="publicityInput == 'Group'" class="form-group col-md-6">
+              <label for="groupInput">Publicity</label>
+              <select
+                id="groupInput"
+                class="form-control"
+                name="groupInput"
+                ngModel
+                required>
+                <option *ngFor="let organisation of userService.getLoggedInUser()">Private</option>
+                <!-- TODO:: make use of organisations lenght of logged in user -->
+              </select>
+            </div>
+            <div class="form-group col-md-12">
               <label for="yearOptions">Year</label>
               <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
                 <option [ngValue]="year" *ngFor="let year of listOfYears"
@@ -125,7 +139,7 @@
 
           <div class="form-row">
             <div class="form-group col-md-12" id="regionOptions">
-              <legend class="col-form-label">Regional level</legend>
+              <label class="col-form-label">Regional level</label>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
                        name="regionOptions"
