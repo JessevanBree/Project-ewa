@@ -7,6 +7,8 @@ import {FirebaseFileService} from "../../services/firebase-file.service";
 import {DatasetService} from "../../services/dataset.service";
 import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
+import {OrganisationService} from "../../services/organisation.service";
+import {Organisation} from "../../models/organisation";
 
 
 @Component({
@@ -24,6 +26,7 @@ export class UploadPopUpComponent implements OnInit {
   private csvReader: NgForm;
   private headers: string[];
   private csvData: object[];
+  private organisationsOfUser: Organisation[];
 
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
@@ -47,8 +50,8 @@ export class UploadPopUpComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
 
-  constructor(private datasetService: DatasetService, private papa: Papa,
-              private userService: UserService, private fileService: FirebaseFileService,
+  constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
+              private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
               private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
@@ -61,6 +64,12 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityInput = 'Private';
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
+
+    this.organisationsOfUser = organisationService.getOrganisations();
+    this.organisationsOfUser.forEach(
+      (organisation: Organisation) => {
+        console.log("Org = " + organisation.name);
+      });
   }
 
   ngOnInit() {
@@ -78,7 +87,6 @@ export class UploadPopUpComponent implements OnInit {
       this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
       this.descriptionInput);
     if (this.publicityGroupInput == "Group") {
-
       createdDataset.organisations.push()
     }
 

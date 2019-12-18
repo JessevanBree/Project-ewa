@@ -124,8 +124,8 @@
                 ngModel
                 required>
                 <option
-                  *ngFor="let organisation of userService.getLoggedInUser().organisationsList; let index = index">
-                  {{organisation.name}} name {{index}}</option>
+                  *ngFor="let organisation of organisationsOfUser; let index = index">
+                  {{organisation.name}}</option>
                 <!-- TODO:: make use of organisations lenght of logged in user -->
               </select>
             </div>

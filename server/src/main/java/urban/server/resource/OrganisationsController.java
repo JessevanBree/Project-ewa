@@ -6,11 +6,8 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.models.Organisation;
-import urban.server.models.User;
 import urban.server.repositories.JPAOrganisationRepository;
-import urban.server.repositories.JPAUserRepository;
 import urban.server.resource.exceptions.ResourceNotFoundException;
-import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 
 import java.net.URI;
@@ -23,7 +20,7 @@ public class OrganisationsController {
     private JPAOrganisationRepository organisationRepo;
 
     @GetMapping()
-    public MappingJacksonValue getAllUsers() {
+    public MappingJacksonValue getAllOrganisations() {
         List<Organisation> organisations = organisationRepo.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(organisations);
@@ -32,7 +29,7 @@ public class OrganisationsController {
     }
 
     @GetMapping("/{id}")
-    public Organisation getUserById(
+    public Organisation getOrganisationById(
             @PathVariable Long id) {
 
         Organisation organisationById = organisationRepo.findById(id);
@@ -45,7 +42,7 @@ public class OrganisationsController {
     }
 
     @PostMapping()
-    public ResponseEntity<Organisation> createUser(@RequestBody Organisation organisation) {
+    public ResponseEntity<Organisation> createOrganisation(@RequestBody Organisation organisation) {
 
         Organisation savedUser = organisationRepo.save(organisation);
 
@@ -55,9 +52,9 @@ public class OrganisationsController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Organisation> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
 
-        Organisation organisation = getUserById(id);
+        Organisation organisation = getOrganisationById(id);
 
         organisationRepo.delete(organisation);
 
@@ -66,7 +63,7 @@ public class OrganisationsController {
     }
 
     @PutMapping()
-    public ResponseEntity<Organisation> updateUser(@RequestBody Organisation organisation) {
+    public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
 
 
         Organisation organisationById = organisationRepo.findById(organisation.getId());

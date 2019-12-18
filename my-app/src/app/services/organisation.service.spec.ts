@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AOrganisationService } from './a-organisation.service';
+import { OrganisationService } from './organisation.service';
 
 describe('OrganisationService', () => {
 	beforeEach(() => TestBed.configureTestingModule({}));
 
 	it('should be created', () => {
-		const service: AOrganisationService = TestBed.get(AOrganisationService);
+		const service: OrganisationService = TestBed.get(OrganisationService);
 		expect(service).toBeTruthy();
 	});
 });
