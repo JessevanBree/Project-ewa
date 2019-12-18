@@ -12,4 +12,6 @@ public interface OrganisationRepository {
     Organisation findById(Long id);
 
     List<Organisation> findAll();
+
+    Organisation findByName(String name);
 }

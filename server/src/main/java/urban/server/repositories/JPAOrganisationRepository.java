@@ -45,5 +45,10 @@ public class JPAOrganisationRepository implements OrganisationRepository {
         return namedQuery.getResultList();
     }
 
+    @Override
+    public Organisation findByName(String name) {
+        TypedQuery<Organisation> namedQuery = em.createNamedQuery("find_organisation_by_name", Organisation.class);
 
+        return namedQuery.getSingleResult();
+    }
 }
