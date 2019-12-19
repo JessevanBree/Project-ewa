@@ -69,7 +69,12 @@ export class AdminUsersComponent implements OnInit {
 
 	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.email)){
-			this.aUserService.deleteUser(user);
+			this.aUserService.deleteUser(user).subscribe(() => 
+				(result) => {
+					console.log(result)
+				},
+				(err) => console.log(err)
+			);
 		}
 	}
 

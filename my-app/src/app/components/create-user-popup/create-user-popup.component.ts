@@ -30,6 +30,7 @@ export class CreateUserPopupComponent implements OnInit {
 			form.value.surNameInput,
 			form.value.passwordInput
 		))
+		form.reset();
 		// this.aUserService.saveOrCreateUser(new User(null, form.value.emailInput, form.value.passwordInput, form.value.isAdmin, 
 		// 	form.value.firstName, form.value.surName, this.aOrganisationService.getOrganisationById(parseInt(form.value.orgInput))));
 	}
