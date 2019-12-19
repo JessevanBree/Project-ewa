@@ -6,6 +6,7 @@ import {User} from "../../models/user";
 import {OrganisationService} from "../../services/organisation.service";
 import {FbUserService} from "../../services/fb-user.service";
 import {NgForm} from "@angular/forms";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-create-organisation-popup',
@@ -22,7 +23,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
   @Input() organisation: Organisation;
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
-  constructor(private aOrganisationService: OrganisationService, private aUserService: FbUserService) {
+  constructor(private aOrganisationService: OrganisationService, private aUserService: UserService) {
     this.users = aUserService.getUsers();
   }
 
@@ -36,7 +37,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
       return user.email === form.value.adminInput;
     });
 
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,user));
+    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, user));
   }
 
   private setClickedToFalse() {
