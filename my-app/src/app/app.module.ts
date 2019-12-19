@@ -37,7 +37,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/admin-organisation-panel/add-member-popup/add-member-popup.component";
 import { HomeComponent } from './components/home/home.component';
-import { CreateMemberPopupComponent } from './components/create-member-popup/create-member-popup.component';
+import { CreateMemberPopupComponent } from './components/admin-organisation-panel/create-member-popup/create-member-popup.component';
+import {AdminOrganisationService} from "./services/admin-organisation.service";
+import {SpringSessionService} from "./services/session/spring-session.service";
 
 @NgModule({
   declarations: [

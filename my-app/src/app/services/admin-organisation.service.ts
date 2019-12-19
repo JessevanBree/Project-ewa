@@ -15,6 +15,8 @@ export class AdminOrganisationService {
   private readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
   private readonly REST_ADMIN_ORGS = "http://localhost:8080/users/adminOrgs";
 
+  public userIsAdminOfOrgs: boolean;
+
   private organisations: Organisation[];
   orgMembers: User[];
 
@@ -22,7 +24,25 @@ export class AdminOrganisationService {
     this.orgMembers = [];
     this.organisations = [];
 
+    // temp set this to true
+    this.userIsAdminOfOrgs = true;
+
+    // this.isAdminOfOrgs();
   }
+
+  // This method checks if the logged in user is an admin of any organisation
+  // isAdminOfOrgs(){
+  //   if (this.sessionService.isAuthenticated()) {
+  //     this.getAllOrganisations().subscribe(
+  //       (data: Organisation[]) => {
+  //         data.map(o => {
+  //           this.userIsAdminOfOrgs = true;
+  //           console.log(o);
+  //         });
+  //       }
+  //     );
+  //   }
+  // }
 
   // Function to get all organisations that the logged in user is administrator of
   getAllOrganisations(){
@@ -42,7 +62,7 @@ export class AdminOrganisationService {
       );
   }
 
-  // Temporary gets all the members from spring boot backend
+  // Gets all members from an organisation
   getOrgMembers(org: Organisation) {
     let orgId = org.id;
 
@@ -53,6 +73,25 @@ export class AdminOrganisationService {
     const url = `${this.REST_ORG_USERS_URL}/${orgId}`;
 
     return this.httpClient.get<User[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // Function to add a user to an organisation
+  addUserToOrganisation(user: User, organisation: Organisation): Observable<User>{
+    let orgId = organisation.id;
+    let userId = user.id;
+
+    const url = `${this.REST_URL}/${orgId}/${userId}`;
+
+    console.log("IS THIS THE CORRECT URL?: " + url );
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    return this.httpClient.post<User>(url, null, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
@@ -70,7 +109,7 @@ export class AdminOrganisationService {
       );
   }
 
-  // Method to handle the HTTP errors
+  // Function to handle the HTTP errors
   handleError(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

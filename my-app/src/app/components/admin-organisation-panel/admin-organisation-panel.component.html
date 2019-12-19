@@ -1,7 +1,23 @@
 <app-add-member-popup *ngIf="addMemberToggle"
-                   (closingToggle)="onCloseReq()"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                   (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-create-member-popup *ngIf="createMemberToggle"
                       (closingToggle)="onCloseReq()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+
+<div *ngIf="!userIsAdminOfOrgs; else isAdminOfOrg">
+  <div class="container bg-light shadow" style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;">
+    <div class="pt-3 pb-3 my-auto mx-auto text-center">
+      <h3 class="">
+      You are not an administrator of any organisation
+      </h3>
+      <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
+              routerLink="/homepage"
+      >Back to homepage
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #isAdminOfOrg>
 
 <div class="container">
   <div class="row">
@@ -49,3 +65,5 @@
 
   </div>
 </div>
+
+</ng-template>

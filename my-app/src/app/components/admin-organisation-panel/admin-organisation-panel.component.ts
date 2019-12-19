@@ -13,7 +13,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class AdminOrganisationPanelComponent implements OnInit {
 
-  // Organisation of the current selected organisation by the admin
   private currentSelectedOrg: Organisation;
 
   // All the orgs managed by the logged in org admin
@@ -22,22 +21,24 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // List of members of the current org
   private members: User[];
 
+  private userIsAdminOfOrgs: boolean;
+
   private addMemberToggle: boolean;
   private createMemberToggle: boolean;
 
   constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
               private route: ActivatedRoute,) {
 
-    // Fill the members array with all the users stored in spring boot backend
     this.members = [];
     this.organisations = [];
+    this.userIsAdminOfOrgs = false;
 
     this.addMemberToggle = false;
+    this.createMemberToggle = false;
   }
 
   // This method is called when another organisation has been selected in the selectbox
   organisationChanged(){
-    console.log("Organisation has been changed");
     // Empty and fill the new members array
     this.members = [];
     this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
@@ -59,18 +60,18 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // This method is called when the modal is being closed
+  // Called when modals are being close
   onCloseReq() {
     console.log("Closing modal..");
     this.addMemberToggle = false;
   }
 
-  // This function is called when the user clicks on the "Create new member" button to open the modal
+  // Called when onclick button
   onCreateNewMember(){
-
+    this.createMemberToggle = true;
   }
 
-  // This function is called when the user clicks on the "Add existing member" button to open the modal
+  // Called when onclick button
   onAddNewMember(){
     console.log("Add new member button is clicked");
     this.addMemberToggle = true;
@@ -85,6 +86,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
             data.map(o => {
               o ? this.organisations.push(o) : [];
               this.currentSelectedOrg = this.organisations[0];
+              this.userIsAdminOfOrgs = true;
               console.log(o);
             });
             this.organisationChanged();

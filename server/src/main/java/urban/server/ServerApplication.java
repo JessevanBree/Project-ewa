@@ -53,7 +53,8 @@ public class ServerApplication implements CommandLineRunner {
         users.add(new User("ferran@hva.nl", "ferran", null, null, true));
         users.add(new User("maarten@hva.nl", "maarten", null, null, false));
 
-
+        User ferran2 = new User("ferran2@hva.nl", "ferran", null, null, true);
+        userRepository.save(ferran2);
         User orgUser = User.generateRandomUser();
         orgUser = userRepository.save(orgUser);
 
@@ -63,8 +64,10 @@ public class ServerApplication implements CommandLineRunner {
             organisation.addUser(users.get(i));
 
             if (i == 4 || i == 3 || i == 2) {
+                organisation.addUser(ferran2);
                 organisation.addUser(orgUser);
                 organisation.setOrganisationAdmin(orgUser);
+                organisation.setOrganisationAdmin(ferran2);
                 logger.info("Org admin: {}", organisation.getOrganisationAdmin());
 
                 organisation = organisationRepository.save(organisation);

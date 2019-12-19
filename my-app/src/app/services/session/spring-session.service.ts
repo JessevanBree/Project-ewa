@@ -4,7 +4,7 @@ import {User} from "../../models/user";
 import {constants} from "http2";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
-
+import {AdminOrganisationService} from "../admin-organisation.service";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,7 @@ export class SpringSessionService {
         console.log(this.token);
         console.log("Login successful");
         this.userService.setLoggedInUser(this.user);
+        // this.adminOrganisationService.isAdminOfOrgs();
         return this.route.navigateByUrl("/");
       }
     );

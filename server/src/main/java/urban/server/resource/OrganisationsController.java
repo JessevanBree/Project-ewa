@@ -36,7 +36,6 @@ public class OrganisationsController {
         return mappingJacksonValue;
     }
 
-    //TODO: Error, 405 request method not supported (method not allowed)
     @GetMapping("/orgMembers/{id}")
     public List<User> getOrganisationMembers(@PathVariable Long id){
         Organisation org = organisationRepo.findById(id);
@@ -107,21 +106,23 @@ public class OrganisationsController {
         return ResponseEntity.ok(organisation);
     }
 
-    // Post mapping to add a user to an organisation
-    @PostMapping("/{id}")
-    public ResponseEntity<User> addUser(@RequestBody User user, @PathVariable Long id) {
+    // Add user to org
+    @PostMapping("/{organisationId}/{userId}")
+    public ResponseEntity<User> addExistingUser(@PathVariable Long organisationId, @PathVariable Long userId) {
 
-        Organisation organisation = organisationRepo.findById(id);
-        User userToBeAdded = userRepository.findById(user.getId());
+        // TODO: check if the user already exists in the organisation, if so don't add the user again
+
+        Organisation organisation = organisationRepo.findById(organisationId);
+        User userToBeAdded = userRepository.findById(userId);
 
         organisation.addUser(userToBeAdded);
-        userToBeAdded.addOrganisation(organisation);
+//        userToBeAdded.addOrganisation(organisation);
 
         organisationRepo.save(organisation);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{userId}").buildAndExpand(userToBeAdded.getId()).toUri();
 
-        return ResponseEntity.created(location).body(user);
+        return ResponseEntity.created(location).body(userToBeAdded);
     }
 
     // Delete mapping to delete a user from an organisation
