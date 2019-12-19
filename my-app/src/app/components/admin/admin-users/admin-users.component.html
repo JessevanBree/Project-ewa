@@ -1,5 +1,5 @@
 <app-create-user-popup (savedUser)="createRequest($event)"></app-create-user-popup>
-<app-edit-user-popup *ngIf="editIsClicked" (savedUser)="saveRequest($event)"
+<app-edit-user-popup *ngIf="editIsClicked" (savedUser)="saveRequest($event)" (closed)="popUpIsClosed($event)"
 	[editingUser]="selectedUser"></app-edit-user-popup>
 
 <div class="row">
