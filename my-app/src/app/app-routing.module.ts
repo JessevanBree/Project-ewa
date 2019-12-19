@@ -19,6 +19,10 @@ import {ViewDatasetPopupComponent} from "./components/view-dataset-popup/view-da
 import {UploadPopUpComponent} from "./components/upload-pop-up/upload-pop-up.component";
 import {AdminOrganisationPanelComponent} from "./components/admin-organisation-panel/admin-organisation-panel.component";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {CreateUserPopupComponent} from "./components/create-user-popup/create-user-popup.component";
+import {EditUserPopupComponent} from "./components/edit-user-popup/edit-user-popup.component";
+import {CreateOrganisationPopupComponent} from "./components/create-organisation-popup/create-organisation-popup.component";
+import {EditOrganisationPopupComponent} from "./components/edit-organisation-popup/edit-organisation-popup.component";
 
 const routes: Routes = [
 
@@ -36,7 +40,29 @@ const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'homepage'},
   {
     path: 'admin',
-    component: AdminPanelComponent, canActivate: [AuthGuardAdminService]
+    component: AdminPanelComponent, canActivate: [AuthGuardAdminService],
+    children: [
+      {
+        path: 'createUser',
+        component: CreateUserPopupComponent
+      },
+      {
+        path: 'editUser',
+        component: EditUserPopupComponent
+      },
+      {
+        path: 'createOrganisation',
+        component: CreateOrganisationPopupComponent
+      },
+      {
+        path: 'editOrganisation',
+        component: EditOrganisationPopupComponent
+      },
+      {
+        path: 'editDataset',
+        component: EditMetadataPopupComponent
+      },
+    ]
   },
   {
     path: 'myuploads/:email', component: MyuploadsComponent, canActivate: [AuthGuardService],

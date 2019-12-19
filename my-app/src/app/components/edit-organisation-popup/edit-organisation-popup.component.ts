@@ -12,6 +12,7 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   @Input() editingOrganisation: Organisation;
   @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
+  @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private aOrganisationService: OrganisationService) {
   }
@@ -21,5 +22,9 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   onSaveChanges() {
     this.savedOrganisation.emit(this.editingOrganisation);
+  }
+
+  onClose() {
+    this.closed.emit(true);
   }
 }
