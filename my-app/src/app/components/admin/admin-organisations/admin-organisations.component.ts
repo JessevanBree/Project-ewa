@@ -47,6 +47,9 @@ export class AdminOrganisationsComponent implements OnInit {
 
   onCreateButtonClick() {
     this.createIsClicked = true;
+    this.router.navigate(['createOrganisation'], {
+      relativeTo: this.activatedRoute
+    });
   }
 
   saveRequest($event): void {

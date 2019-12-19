@@ -60,7 +60,12 @@ export class AdminUsersComponent implements OnInit {
         let u = User.trueCopy(user);
         this.aUserService.getUsers().push(u);
       },
-      (err) => console.log(err));
+      (err) => console.log(err),
+      () => {
+        this.router.navigate(['/admin'], {
+          relativeTo: this.activatedRoute
+        });
+      });
   }
 
   saveRequest($event): void {
@@ -73,7 +78,12 @@ export class AdminUsersComponent implements OnInit {
         let u = User.trueCopy($event);
         this.aUserService.getUsers()[this.activeIndex] = u;
       },
-      (err) => console.log(err));
+      (err) => console.log(err),
+      () => {
+        this.router.navigate(['/admin'], {
+          relativeTo: this.activatedRoute
+        });
+      });
   }
 
   onDeleteClick(user: User) {
