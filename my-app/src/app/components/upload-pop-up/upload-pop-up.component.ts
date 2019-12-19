@@ -7,6 +7,9 @@ import {FirebaseFileService} from "../../services/firebase-file.service";
 import {DatasetService} from "../../services/dataset.service";
 import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
+import {OrganisationService} from "../../services/organisation.service";
+import {Organisation} from "../../models/organisation";
+import {IDropdownSettings} from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -24,6 +27,9 @@ export class UploadPopUpComponent implements OnInit {
   private csvReader: NgForm;
   private headers: string[];
   private csvData: object[];
+  private organisationsOfUser: Organisation[];
+
+  private selected: Organisation[] = [];
 
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
@@ -44,11 +50,12 @@ export class UploadPopUpComponent implements OnInit {
   private chartLabels: string[];
 
   private file: File;
+  private fileTypeUploaded: string;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
-  constructor(private datasetService: DatasetService, private papa: Papa,
-              private userService: UserService, private fileService: FirebaseFileService,
+  constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
+              private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
               private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
@@ -61,10 +68,22 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityInput = 'Private';
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
+
+    this.organisationsOfUser = this.userService.getLoggedInUser().organisationsList;
   }
 
   ngOnInit() {
     console.log(this.publicityInput);
+  }
+
+  onClearAll() {
+    this.selected = [];
+    console.log("Selected organisations after CLEAR: " + this.selected);
+  }
+
+  onSelectAll() {
+    this.selected = this.organisationsOfUser;
+    console.log("Selected organisations after ALL: " + this.selected);
   }
 
   //Retreive form data and upload new dataset
@@ -73,17 +92,25 @@ export class UploadPopUpComponent implements OnInit {
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
-    let fileName = this.file.name.split(".");
-    let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
-      this.descriptionInput);
-    if (this.publicityGroupInput == "Group") {
+    // let fileName = this.file.name.split(".");
 
-      createdDataset.organisations.push()
+    console.log("input is " + this.publicityInput);
+    console.log("input is " + this.publicityGroupInput);
+
+    let createdDataset: Dataset;
+
+    if (this.publicityInput == "Group") {
+      createdDataset= new Dataset(this.nameInput, this.regionInput,
+        this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
+        this.descriptionInput, this.selected);
+    } else {
+      this.selected = [];
+      createdDataset = new Dataset(this.nameInput, this.regionInput,
+        this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
+        this.descriptionInput);
     }
-
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
-    // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
+    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
   }
 
@@ -117,7 +144,16 @@ export class UploadPopUpComponent implements OnInit {
   uploadListener(files: FileList): void {
     let arrayOfObjects = [];
 
+    if (this.isValidPDFFile(files)) {
+      this.file = files.item(0);
+      this.fileTypeUploaded = "pdf";
+      this.validationToggle = true;
+      this.confirmToggle = true;
+      return;
+    }
+
     if (this.isValidCSVFile(files)) {
+      this.fileTypeUploaded = "csv";
       this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
@@ -161,7 +197,7 @@ export class UploadPopUpComponent implements OnInit {
               arrayOfObjects = csvObjects
             }
             this.csvData = arrayOfObjects;
-            console.log(this.csvData);
+            // console.log(this.csvData);
             return this.csvData;
           }
         }
@@ -173,8 +209,12 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(files: FileList) {
+  isValidCSVFile(files: FileList): boolean {
     return files.item(0).name.endsWith(".csv");
+  }
+
+  isValidPDFFile(files: FileList) {
+    return files.item(0).type.endsWith("pdf");
   }
 
 
@@ -182,6 +222,11 @@ export class UploadPopUpComponent implements OnInit {
   fileReset() {
     // this.csvReader.form.reset();
     this.detailForm.controls['fileInput'].reset();
+  }
+
+  onChangeOrganisationSelect() {
+    console.log(this.organisationsOfUser);
+    console.log(this.selected);
   }
 
   //Core method which converts the csv data to chart data/visualization
@@ -237,6 +282,5 @@ export class UploadPopUpComponent implements OnInit {
     });
     this.chartLabels = chartLabels;
   }
-
 
 }

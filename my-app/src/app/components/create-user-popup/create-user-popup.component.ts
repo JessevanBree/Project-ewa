@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { User } from "../../models/user";
-import { AOrganisationService } from "../../services/a-organisation.service";
+import { OrganisationService } from "../../services/organisation.service";
 import { NgForm } from "@angular/forms";
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,9 +24,9 @@ export class CreateUserPopupComponent implements OnInit {
 	//This method saves the edited changes of a dataset
 	onSubmit(form: NgForm) {
 		this.savedUser.emit(new User(
-			form.value.emailInput, 
-			form.value.adminInput, 
-			form.value.firstNameInput, 
+			form.value.emailInput,
+			form.value.adminInput,
+			form.value.firstNameInput,
 			form.value.surNameInput,
 			form.value.passwordInput
 		))

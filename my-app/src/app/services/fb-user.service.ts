@@ -80,7 +80,7 @@ export class FbUserService {
 		if (userId == null) {
 			firebase.auth().createUserWithEmailAndPassword(
 				editedUser.email,
-				editedUser.password
+				editedUser.passWord
 			)
 				.then(function (userRecord) {
 				  console.log("UserRecord: " + userRecord);

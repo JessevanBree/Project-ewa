@@ -35,7 +35,7 @@ export class EditMetadataPopupComponent implements OnInit {
     this.savedDataset = new EventEmitter<Dataset>();
     this.closingToggle = new EventEmitter<boolean>();
     this.listOfYears = [];
-    for (let i = 1980; i < 2019; i++) {
+    for (let i = 1980; i < 2020; i++) {
       this.listOfYears.push(i);
     }
   }

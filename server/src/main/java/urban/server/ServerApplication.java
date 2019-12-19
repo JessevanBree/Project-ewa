@@ -57,8 +57,6 @@ public class ServerApplication implements CommandLineRunner {
         User orgUser = User.generateRandomUser();
         orgUser = userRepository.save(orgUser);
 
-        Dataset dataset = new Dataset();
-        dataset = datasetRepository.save(dataset);
 
         for (int i = 0; i < 5; i++) {
             Organisation organisation = Organisation.getRandomRegistration();
@@ -73,10 +71,10 @@ public class ServerApplication implements CommandLineRunner {
                 organisation = organisationRepository.save(organisation);
 //                secondUser = userRepository.save(secondUser);
 
-                organisation.addDataset(dataset);
+//
 
                 organisation = organisationRepository.save(organisation);
-                dataset = datasetRepository.save(dataset);
+
             }
 
             organisationRepository.save(organisation);

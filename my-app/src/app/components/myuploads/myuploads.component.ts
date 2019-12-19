@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 
 import {FirebaseFileService} from "../../services/firebase-file.service";
 import {UserService} from "../../services/user.service";
+import {OrganisationService} from "../../services/organisation.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -24,7 +25,8 @@ export class MyuploadsComponent implements OnInit {
   private paramSubscription: Subscription;
   protected url: string;
 
-  constructor(private datasetService: DatasetService, private activatedRoute: ActivatedRoute,
+  constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
+              private activatedRoute: ActivatedRoute,
               private userService: UserService, private router: Router,
               private fileService: FirebaseFileService) {
     this.userDatasets = [];
@@ -136,7 +138,7 @@ export class MyuploadsComponent implements OnInit {
   //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
     let dataset = this.userDatasets[index];
-    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id);
+    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id, dataset.fileType);
   }
 
   //Testing purposes function, adds a random dataset

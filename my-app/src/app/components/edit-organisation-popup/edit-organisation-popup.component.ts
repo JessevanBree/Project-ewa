@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {Organisation} from "../../models/organisation";
-import {AOrganisationService} from "../../services/a-organisation.service";
+import {OrganisationService} from "../../services/organisation.service";
 
 @Component({
   selector: 'app-edit-organisation-popup',
@@ -13,7 +13,7 @@ export class EditOrganisationPopupComponent implements OnInit {
   @Input() editingOrganisation: Organisation;
   @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
 
-  constructor(private aOrganisationService: AOrganisationService) {
+  constructor(private aOrganisationService: OrganisationService) {
   }
 
   ngOnInit(): void {

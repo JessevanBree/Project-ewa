@@ -2,9 +2,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import {AppComponent} from './app.component';
 import {UploadPopUpComponent} from './components/upload-pop-up/upload-pop-up.component';
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
@@ -38,6 +40,7 @@ import { AdminOrganisationPanelComponent } from './components/admin-organisation
 import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
 import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -78,7 +81,10 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
     ChartsModule,
     HttpClientModule,
     FontAwesomeModule,
-    PapaParseModule
+    PapaParseModule,
+    PdfViewerModule,
+    NgSelectModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
 
   providers: [
