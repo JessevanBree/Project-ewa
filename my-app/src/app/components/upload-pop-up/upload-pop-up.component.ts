@@ -43,6 +43,7 @@ export class UploadPopUpComponent implements OnInit {
   private chartLabels: string[];
 
   private file: File;
+  private fileTypeUploaded: string;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
@@ -69,8 +70,9 @@ export class UploadPopUpComponent implements OnInit {
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     let fileName = this.file.name.split(".");
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-          this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
-      this.descriptionInput);
+          this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels,
+      this.file.name, this.descriptionInput);
+    console.log(createdDataset);
 
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
@@ -107,7 +109,16 @@ export class UploadPopUpComponent implements OnInit {
   uploadListener(files: FileList): void {
     let arrayOfObjects = [];
 
+    if(this.isValidPDFFile(files)){
+      this.file = files.item(0);
+      this.fileTypeUploaded = "pdf";
+      this.validationToggle = true;
+      this.confirmToggle = true;
+      return;
+    }
+
     if (this.isValidCSVFile(files)) {
+      this.fileTypeUploaded = "csv";
       this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
@@ -151,7 +162,7 @@ export class UploadPopUpComponent implements OnInit {
               arrayOfObjects = csvObjects
             }
             this.csvData = arrayOfObjects;
-            console.log(this.csvData);
+            // console.log(this.csvData);
             return this.csvData;
           }
         }
@@ -163,8 +174,12 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(files: FileList) {
+  isValidCSVFile(files: FileList):boolean {
     return files.item(0).name.endsWith(".csv");
+  }
+
+  isValidPDFFile(files: FileList) {
+    return files.item(0).type.endsWith("pdf");
   }
 
 

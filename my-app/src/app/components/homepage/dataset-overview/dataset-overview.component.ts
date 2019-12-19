@@ -124,7 +124,6 @@ export class DatasetOverviewComponent implements OnInit {
       (data: Dataset[]) => {
         if (data && this.sessionService.isAuthenticated()) {
           let userEmail: string = this.sessionService.displayName;
-          console.log(userEmail);
           data.map((o) => {
             o && o.publicity.includes("PUBLIC")  || o.user.email == userEmail ?
               this.datasets.push(o) : [];
@@ -134,13 +133,13 @@ export class DatasetOverviewComponent implements OnInit {
             o && o.publicity.includes("PUBLIC")  ? this.datasets.push(o) : []
           })
         }
-        console.log(data);
+        // console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log(this.datasets);
+        // console.log(this.datasets);
         console.log("Retrieved all datasets");
       }
     );

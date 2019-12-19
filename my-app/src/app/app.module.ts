@@ -37,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
     ChartsModule,
     HttpClientModule,
     FontAwesomeModule,
-    PapaParseModule
+    PapaParseModule,
+    PdfViewerModule
   ],
 
   providers: [

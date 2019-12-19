@@ -7,9 +7,13 @@
           <a [href]="url" [download]="url" title="Download file in csv format" class="btn btn-primary float-right"
           (click)="onDownload()">Download <i class="fa fa-download"></i></a>
       </div>
-      <canvas baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]"
-              [labels]="editedDataset.chartLabels" width="400" height="350">
-      </canvas>
+      <canvas *ngIf="editedDataset.fileType == 'csv'"
+              baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]"
+              [labels]="editedDataset.chartLabels" width="400" height="350"></canvas>
+
+      <pdf-viewer *ngIf="editedDataset.fileType == 'pdf'"
+                  [src]="url" style="display:block"
+                  [render-text]="true" [original-size]="true" [autoresize]="false" ></pdf-viewer>
     </div>
   </div>
 

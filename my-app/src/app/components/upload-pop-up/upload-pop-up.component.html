@@ -10,24 +10,26 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+        <form (ngSubmit)="onSubmit (formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
 
           <h5 class="border border-success text-center text-white bg-success">Dataset visualization</h5>
-          <div class="form-group col-md-6 mx-3">
-            <label for="uploadModalControlFile1">Choose dataset file</label>
+          <div class="form-group col-md-12 mx-3">
+            <label for="uploadModalControlFile1">Choose CSV file</label>
             <input type="file" class="form-control-file pt-2"
                    (change)="uploadListener($event.target.files)"
                    id="uploadModalControlFile1" name="fileInput"
-                   accept=".csv"
+                   accept=".csv, .pdf"
                    #csvReader
                    ngModel
                    required
                    [disabled]=confirmToggle>
+
           </div>
-          <div id="chartConfiguration" class="form-row my-4" *ngIf="headers">
+
+          <div id="chartConfiguration" class="form-row my-4" *ngIf="fileTypeUploaded == 'csv'">
             <div class="card mx-4" id="headerCard">
-              <div class="card-header">Chart configuration</div>
+              <div class="card-header"><h5>Chart configuration</h5></div>
               <div class="card-body">
                 <div class="form-group collapse show" id="chartOptions">
                   <label for="xAxisOptions">X axis</label>

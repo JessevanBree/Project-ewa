@@ -24,7 +24,7 @@
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{item.name}}</p>
 					          <span class="btn-group col-lg-4 h-75">
-                      <a [href]="url" [download]="url" class="btn btn-warning fa fa-download"
+                      <a [href]="url" [download]="url" target="_blank" class="btn btn-warning fa fa-download"
                          title="Download dataset file" (click)="onDownload(i)"></a>
                       <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
                               title="View dataset visualization" (click)="onViewDatasetClick(i)"></button>
