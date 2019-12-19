@@ -77,9 +77,7 @@ export class AdminUsersComponent implements OnInit {
       },
       (err) => console.log(err),
       () => {
-        this.router.navigate(['admin'], {
-          relativeTo: this.activatedRoute
-        });
+        this.router.navigate(['admin']);
       });
   }
 
