@@ -72,13 +72,11 @@ export class AdminOrganisationsComponent implements OnInit {
     }, 5)
   }
 
-  createPopUpIsClosed($event) {
-    console.log("Hallo");
+  createPopUpIsClosed() {
     this.router.navigate(['admin']);
   }
 
-  editPopUpIsClosed($event) {
-    console.log("Hallo");
+  editPopUpIsClosed() {
     this.router.navigate(['admin']);
   }
 }

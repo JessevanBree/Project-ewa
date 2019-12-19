@@ -1,8 +1,8 @@
 <app-create-organisation-popup (savedOrganisation)="saveRequest($event)"
-                               (closed)="createPopUpIsClosed($event)"></app-create-organisation-popup>
+                               (closed)="createPopUpIsClosed()"></app-create-organisation-popup>
 <app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
                              [editingOrganisation]="selectedOrganisation"
-                             (closed)="editPopUpIsClosed($event)"></app-edit-organisation-popup>
+                             (closed)="editPopUpIsClosed()"></app-edit-organisation-popup>
 
 <div class="row">
   <div class="card w-100 mb-3">
