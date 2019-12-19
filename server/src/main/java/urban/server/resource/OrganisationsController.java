@@ -132,6 +132,7 @@ public class OrganisationsController {
         User user = userRepository.findById(userId);
 
         organisation.deleteUser(user);
+        user.deleteOrganisation(organisation);
 
         organisationRepo.save(organisation);
 

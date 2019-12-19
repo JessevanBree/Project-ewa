@@ -12,14 +12,8 @@ import {SpringSessionService} from "./session/spring-session.service";
 export class AdminOrganisationService {
 
   private readonly REST_URL = "http://localhost:8080/organisations";
-
-  private readonly REST_USER_URL = "http://localhost:8080/users";
-
   private readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
-
   private readonly REST_ADMIN_ORGS = "http://localhost:8080/users/adminOrgs";
-
-  private loggedInUser: User;
 
   private organisations: Organisation[];
   orgMembers: User[];
@@ -48,21 +42,6 @@ export class AdminOrganisationService {
       );
   }
 
-  // Function to delete a user from the organisation
-  deleteUserFromOrganisation(member: User): Observable<{}> {
-    let userId = member.id;
-
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    };
-
-    const url = `${this.REST_URL}/${userId}`;
-    return this.httpClient.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
-
   // Temporary gets all the members from spring boot backend
   getOrgMembers(org: Organisation) {
     let orgId = org.id;
@@ -77,8 +56,18 @@ export class AdminOrganisationService {
       .pipe(
         catchError(this.handleError)
       );
+  }
 
-    // return this.httpClient.get<User[]>(this.REST_USER_URL);
+  // Function to delete a user from the organisation
+  deleteUserFromOrganisation(org: Organisation, member: User) {
+    let userId = member.id;
+    let orgId = org.id;
+
+    const url = `${this.REST_URL}/${orgId}/${userId}`;
+    return this.httpClient.delete(url)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Method to handle the HTTP errors

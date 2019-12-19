@@ -72,6 +72,13 @@ public class Organisation {
         this.users.add(user);
     }
 
+    @PreRemove
+    private void removeUsersFromOrganisation() {
+        for (User u : users) {
+            u.getOrganisations().remove(this);
+        }
+    }
+
     public void deleteUser(User user){
         users.remove(user);
     }

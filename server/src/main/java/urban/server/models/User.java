@@ -185,6 +185,10 @@ public class User {
         adminOfOrganisations.add(organisation);
     }
 
+    public void deleteOrganisation(Organisation organisation){
+        organisations.remove(organisation);
+    }
+
     public List<Organisation> getOrganisations() {
         return organisations;
     }

@@ -62,12 +62,8 @@ public class ServerApplication implements CommandLineRunner {
             logger.info("{}", organisation);
             organisation.addUser(users.get(i));
 
-            if (i == 3) {
-                User ferranUser = userRepository.findById((long) 9);
-                organisation.setOrganisationAdmin(ferranUser);
-            }
-            if (i == 4) {
-
+            if (i == 4 || i == 3 || i == 2) {
+                organisation.addUser(orgUser);
                 organisation.setOrganisationAdmin(orgUser);
                 logger.info("Org admin: {}", organisation.getOrganisationAdmin());
 

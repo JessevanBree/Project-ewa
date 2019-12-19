@@ -38,7 +38,8 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // This method is called when another organisation has been selected in the selectbox
   organisationChanged(){
     console.log("Organisation has been changed");
-    // Fill the members array
+    // Empty and fill the new members array
+    this.members = [];
     this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
       (data: User[]) => {
         console.log(data);
@@ -52,9 +53,8 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // Function to delete a member from the organisation
   onDelete(member: User) {
     console.log("Current selected org: " + this.currentSelectedOrg.name);
-    if (confirm("Are you sure to delete this member with the following email (Member email)?")) {
-
-      this.adminOrganisationService.deleteUserFromOrganisation(member);
+    if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
+      this.adminOrganisationService.deleteUserFromOrganisation(this.currentSelectedOrg, member);
       console.log("Member has succesfully been removed from the organisation");
     }
   }
@@ -79,21 +79,19 @@ export class AdminOrganisationPanelComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(
       params => {
-        console.log("Test.... THIS GETS EXECUTED!");
         // Fill the organisations array for the selectbox
         this.adminOrganisationService.getAllOrganisations().subscribe(
           (data: Organisation[]) => {
             data.map(o => {
               o ? this.organisations.push(o) : [];
+              this.currentSelectedOrg = this.organisations[0];
               console.log(o);
             });
+            this.organisationChanged();
           }
         );
       });
 
-    this.currentSelectedOrg = this.organisations[0];
-
     // this.organisationChanged();
-
   }
 }
