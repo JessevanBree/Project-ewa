@@ -56,6 +56,7 @@ export class AdminOrganisationsComponent implements OnInit {
     this.editIsClicked = false;
     this.organisations[this.activeIndex] = $event;
     this.aOrganisationService.updateOrganisation(this.activeIndex, this.organisations[this.activeIndex]);
+    this.router.navigate(['admin']);
   }
 
   onDeleteClick(org: Organisation) {
@@ -69,5 +70,15 @@ export class AdminOrganisationsComponent implements OnInit {
     setTimeout(() => {
       this.emptyList = document.getElementsByClassName("admin-organisation-item").length == 0;
     }, 5)
+  }
+
+  createPopUpIsClosed($event) {
+    console.log("Hallo");
+    this.router.navigate(['admin']);
+  }
+
+  editPopUpIsClosed($event) {
+    console.log("Hallo");
+    this.router.navigate(['admin']);
   }
 }

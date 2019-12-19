@@ -62,7 +62,7 @@ export class AdminUsersComponent implements OnInit {
       },
       (err) => console.log(err),
       () => {
-        this.router.navigate(['/admin'], {
+        this.router.navigate(['admin'], {
           relativeTo: this.activatedRoute
         });
       });
@@ -70,9 +70,6 @@ export class AdminUsersComponent implements OnInit {
 
   saveRequest($event): void {
     this.editIsClicked = false;
-    console.log(
-      $event
-    )
     this.aUserService.saveUser($event).subscribe(
       () => {
         let u = User.trueCopy($event);
@@ -80,7 +77,7 @@ export class AdminUsersComponent implements OnInit {
       },
       (err) => console.log(err),
       () => {
-        this.router.navigate(['/admin'], {
+        this.router.navigate(['admin'], {
           relativeTo: this.activatedRoute
         });
       });
@@ -101,13 +98,13 @@ export class AdminUsersComponent implements OnInit {
 
   createPopUpIsClosed($event: boolean) {
     if ($event == true) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['admin']);
     }
   }
 
   editPopUpIsClosed($event: boolean) {
     if ($event == true) {
-      this.router.navigate(['/admin']);
+      this.router.navigate(['admin']);
     }
   }
 }

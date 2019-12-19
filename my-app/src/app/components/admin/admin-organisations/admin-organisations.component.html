@@ -1,48 +1,52 @@
-<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"></app-create-organisation-popup>
+<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"
+                               (closed)="createPopUpIsClosed($event)"></app-create-organisation-popup>
 <app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
-	[editingOrganisation]="selectedOrganisation"></app-edit-organisation-popup>
+                             [editingOrganisation]="selectedOrganisation"
+                             (closed)="editPopUpIsClosed($event)"></app-edit-organisation-popup>
 
 <div class="row">
-	<div class="card w-100 mb-3">
-		<div class="card-header">
-			<div class="row" style="height:38px">
-				<p class="pl-3 card-title my-auto">
-					Organisation filter
-				</p>
-			</div>
-		</div>
-		<div class="card-body">
-			<label for="searchFilter">Search</label>
-			<input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
-		</div>
-	</div>
-	<div class="card w-100">
-		<div class="card-header">
-			<div class="row">
-				<p class="pl-3 card-title my-auto">
-					Organisations
-				</p>
-				<span class="ml-auto mr-3 btn-group">
+  <div class="card w-100 mb-3">
+    <div class="card-header">
+      <div class="row" style="height:38px">
+        <p class="pl-3 card-title my-auto">
+          Organisation filter
+        </p>
+      </div>
+    </div>
+    <div class="card-body">
+      <label for="searchFilter">Search</label>
+      <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+             (ngModelChange)="checkIfListEmpty()">
+    </div>
+  </div>
+  <div class="card w-100">
+    <div class="card-header">
+      <div class="row">
+        <p class="pl-3 card-title my-auto">
+          Organisations
+        </p>
+        <span class="ml-auto mr-3 btn-group">
 					<button class="btn btn-primary" id="createOrganizationButton" data-target="#createOrganizationModal"
-						(click)="onCreateButtonClick()" data-toggle="modal">
+                  (click)="onCreateButtonClick()" data-toggle="modal">
 						<i class="fa fa-plus fa-lg"></i>
 					</button>
 				</span>
-			</div>
-		</div>
-		<ul class="orgList list-group list-group-flush">
-			<li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+      </div>
+    </div>
+    <ul class="orgList list-group list-group-flush">
+      <li class="list-group-item p-2 pl-3" *ngIf="emptyList">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">No organisations available</p>
 				</span>
-			</li>
+      </li>
 
-			<li class="admin-organisation-item list-group-item p-2 pl-3" *ngFor="let item of organisations | searchArrayName: [searchFilter, 'name']; index as index">
+      <li class="admin-organisation-item list-group-item p-2 pl-3"
+          *ngFor="let item of organisations | searchArrayName: [searchFilter, 'name']; index as index">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">{{item.name}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">
 						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal"
-							data-target="#editModal">
+                    data-target="#editModal">
 							<i class="fa fa-edit fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" (click)="onDeleteClick(item)">
@@ -50,7 +54,7 @@
 						</button>
 					</span>
 				</span>
-			</li>
-		</ul>
-	</div>
+      </li>
+    </ul>
+  </div>
 </div>

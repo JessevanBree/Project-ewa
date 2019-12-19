@@ -14,7 +14,7 @@ import {NgForm} from "@angular/forms";
 })
 export class CreateOrganisationPopupComponent implements OnInit {
 
-  isClicked: boolean = false;
+  @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   users: User[];
@@ -27,7 +27,6 @@ export class CreateOrganisationPopupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isClicked = true;   // if modal is instantiated, isClicked is set to true
   }
 
   //This method saves the edited changes of a dataset
@@ -37,10 +36,11 @@ export class CreateOrganisationPopupComponent implements OnInit {
     });
 
     this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,user));
+    this.savedOrganisation.emit(this.organisation);
   }
 
-  private setClickedToFalse() {
-    this.isClicked = false;
+  onClose() {
+    this.closed.emit(true);
   }
 
 }
