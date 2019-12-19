@@ -136,7 +136,7 @@ export class MyuploadsComponent implements OnInit {
   //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
     let dataset = this.userDatasets[index];
-    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id);
+    this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id, dataset.fileType);
   }
 
   //Testing purposes function, adds a random dataset

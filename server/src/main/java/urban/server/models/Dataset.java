@@ -48,6 +48,9 @@ public class Dataset {
     private String fileName;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    private String fileType;
+
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     @OneToOne(cascade = CascadeType.ALL)
     private ChartDataSets chart;// TODO:: Set the right dataset for this -> update constructor
 

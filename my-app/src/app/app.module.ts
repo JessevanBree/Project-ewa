@@ -38,6 +38,7 @@ import { AdminOrganisationPanelComponent } from './components/admin-organisation
 import {AddMemberPopupComponent} from "./components/add-member-popup/add-member-popup.component";
 import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
     ChartsModule,
     HttpClientModule,
     FontAwesomeModule,
-    PapaParseModule
+    PapaParseModule,
+    PdfViewerModule
   ],
 
   providers: [

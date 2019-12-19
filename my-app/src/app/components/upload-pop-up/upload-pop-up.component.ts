@@ -44,6 +44,7 @@ export class UploadPopUpComponent implements OnInit {
   private chartLabels: string[];
 
   private file: File;
+  private fileTypeUploaded: string;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
@@ -82,6 +83,7 @@ export class UploadPopUpComponent implements OnInit {
       createdDataset.organisations.push()
     }
 
+
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
@@ -117,7 +119,16 @@ export class UploadPopUpComponent implements OnInit {
   uploadListener(files: FileList): void {
     let arrayOfObjects = [];
 
+    if (this.isValidPDFFile(files)) {
+      this.file = files.item(0);
+      this.fileTypeUploaded = "pdf";
+      this.validationToggle = true;
+      this.confirmToggle = true;
+      return;
+    }
+
     if (this.isValidCSVFile(files)) {
+      this.fileTypeUploaded = "csv";
       this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
@@ -161,7 +172,7 @@ export class UploadPopUpComponent implements OnInit {
               arrayOfObjects = csvObjects
             }
             this.csvData = arrayOfObjects;
-            console.log(this.csvData);
+            // console.log(this.csvData);
             return this.csvData;
           }
         }
@@ -173,8 +184,12 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(files: FileList) {
+  isValidCSVFile(files: FileList): boolean {
     return files.item(0).name.endsWith(".csv");
+  }
+
+  isValidPDFFile(files: FileList) {
+    return files.item(0).type.endsWith("pdf");
   }
 
 

@@ -24,6 +24,7 @@ export class Dataset {
   organisations?: Organisation[] = [];
   description?: string;
   fileName: string;
+  fileType: string;
   year: number;
   user: User;
   chart: ChartDataSets;
@@ -43,7 +44,8 @@ export class Dataset {
     this.user = user;
     this.chart = chart;
     this.chartLabels = chartLabels;
-    this.fileName = fileName;
+    this.fileName = fileName.split(".")[0];
+    this.fileType = fileName.split(".")[1];
     this.description = description == null ? null : description;
     this.organisation = organisation == null ? null : organisation;
     this.id = id;

@@ -36,11 +36,20 @@ export class FirebaseFileService {
   }
 
   //Retrieves given url from firebase storage for downloading purposes
-  public getDownloadUrl(fileName: string, datasetId: number) {
+  public getDownloadUrl(fileName: string, datasetId: number, fileType: string) {
     // return this.storage.ref().child(fileName).getDownloadURL();
     // return this.httpClient.get(this.STORAGE_URL + fileName + ".csv?alt=media");
-    return this.STORAGE_URL + fileName + "_" + datasetId + ".csv?alt=media";
+    return this.STORAGE_URL + fileName + "_" + datasetId + "." + fileType + "?alt=media";
   }
+
+  public getPDFUrl(fileName: string, datasetId: number) {
+    /*this.httpClient.get(this.STORAGE_URL + fileName + "_" + datasetId + ".pdf").subscribe(
+      (response) => console.log(response)
+    );*/
+    return this.STORAGE_URL + fileName + "_" + datasetId + ".pdf?alt=media";
+  }
+
+
 
   //Retrieves all file urls from firebase storage and stores them in a list
   public getAllFileUrls() {
@@ -87,7 +96,7 @@ export class FirebaseFileService {
 
   //Deletes files from firebase storage
   public deleteFile(dataset: Dataset) {
-    this.httpClient.delete(this.STORAGE_URL + dataset.fileName + "_" + dataset.id + this.CSV_FILE_TYPE)
+    this.httpClient.delete(this.STORAGE_URL + dataset.fileName + "_" + dataset.id + "." + dataset.fileType)
       .subscribe(
       () => {
       },
