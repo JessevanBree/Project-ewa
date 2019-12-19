@@ -4,7 +4,7 @@
     <div class="card mb-2 w-100">
       <div class="card-header">
         <h3 class="d-inline">Dataset visualization</h3>
-          <a [href]="url" [download]="url" title="Download file in csv format" class="btn btn-primary float-right"
+          <a [href]="url" [download]="url" target="_blank" title="Download file in csv format" class="btn btn-primary float-right"
           (click)="onDownload()">Download <i class="fa fa-download"></i></a>
       </div>
       <canvas *ngIf="editedDataset.fileType == 'csv'"

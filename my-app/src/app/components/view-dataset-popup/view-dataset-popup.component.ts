@@ -4,10 +4,8 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import * as Chart from "chart.js";
 import {DatasetService} from "../../services/dataset.service";
-import {SessionService} from "../../services/session/session.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
 import {FirebaseFileService} from "../../services/firebase-file.service";
-import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-edit-dataset-popup',
