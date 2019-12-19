@@ -20,7 +20,6 @@ export class Dataset {
   name: string;
   region: string;
   publicity: string;
-  organisation?: Organisation;
   organisations?: Organisation[] = [];
   description?: string;
   fileName: string;
@@ -35,7 +34,7 @@ export class Dataset {
   constructor(name: string, region: string, publicity: string,
               user: User, year: number, chart: ChartDataSets, chartLabels: string[],
               fileName: string,
-              description?: string, organisation?: Organisation, id?: number) {
+              description?: string, organisations?: Organisation[], id?: number) {
     this.name = name;
     this.region = region;
     this.publicity = publicity;
@@ -45,7 +44,7 @@ export class Dataset {
     this.chartLabels = chartLabels;
     this.fileName = fileName;
     this.description = description == null ? null : description;
-    this.organisation = organisation == null ? null : organisation;
+    this.organisations = organisations == [] ? [] : organisations;
     this.id = id;
 
     // this.chartOptions = chartOptions;
@@ -70,8 +69,8 @@ export class Dataset {
     return randomId;
   }
 
-  static getEnumFromValue(value: string): string{
-    switch(value){
+  static getEnumFromValue(value: string): string {
+    switch (value) {
       case RegionLevel.EU_LEVEL: {
         return "EU_LEVEL"
       }
