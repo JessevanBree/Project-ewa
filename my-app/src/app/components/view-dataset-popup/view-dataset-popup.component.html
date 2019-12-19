@@ -15,7 +15,7 @@
                 width="400" height="500"></canvas>
           <pdf-viewer *ngIf="editingDataset.fileType == 'pdf'"
                       [src]="pdfSource" style="display:block"
-          [render-text]="true" [original-size]="false" [autoresize]="true" ></pdf-viewer>
+          [render-text]="true" [original-size]="false" [autoresize]="true"></pdf-viewer>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>

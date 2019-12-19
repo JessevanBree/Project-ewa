@@ -44,10 +44,8 @@ public class User {
     @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private boolean isAdmin;
 
-    @JsonView({UsersView.Full.class})
-    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Organisation organisation;
+    @OneToOne(mappedBy = "organisationAdmin")
+    private Organisation adminOfOrganisation;
 
     @JsonView({UsersView.Full.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
@@ -59,8 +57,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
-    @OneToOne(mappedBy = "organisationAdmin")
-    private Organisation adminOfOrganisation;
 
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
@@ -74,7 +70,6 @@ public class User {
         this.surName = surName;
         this.dateCreated = LocalDateTime.now();
         this.isAdmin = isAdmin;
-        this.organisation = organisation;
     }
 
     public User(String email, String password, String firstName, String surName, boolean isAdmin) {
@@ -95,7 +90,7 @@ public class User {
                 ", lastname='" + surName + '\'' +
                 ", creationDate=" + dateCreated +
                 ", isAdmin=" + isAdmin +
-                ", organisation=" + organisation +
+                ", organisation=" +
                 '}';
     }
 
@@ -148,14 +143,6 @@ public class User {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
-    }
-
-    public Organisation getOrganisation() {
-        return organisation;
-    }
-
-    public void setOrganisation(Organisation organisation) {
-        this.organisation = organisation;
     }
 
     public List<Dataset> getDatasets() {

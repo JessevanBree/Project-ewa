@@ -125,11 +125,13 @@ export class DatasetOverviewComponent implements OnInit {
         if (data && this.sessionService.isAuthenticated()) {
           let userEmail: string = this.sessionService.displayName;
           data.map((o) => {
+            console.log(o);
             o && o.publicity.includes("PUBLIC")  || o.user.email == userEmail ?
               this.datasets.push(o) : [];
           });
         } else if (data) {
           data.map((o) => {
+            console.log(o);
             o && o.publicity.includes("PUBLIC")  ? this.datasets.push(o) : []
           })
         }

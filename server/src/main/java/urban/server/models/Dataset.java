@@ -84,7 +84,7 @@ public class Dataset {
     }
 
     public Dataset(String name, RegionLevelEnum region, PublicityEnum publicity,
-                   User user, int year, String fileName, List<String> chartLabels, ChartDataSets chart,
+                   User user, int year, String fileName, String fileType, List<String> chartLabels, ChartDataSets chart,
                    String description) {
         this.name = name;
         this.region = region;
@@ -160,6 +160,14 @@ public class Dataset {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public User getUser() {

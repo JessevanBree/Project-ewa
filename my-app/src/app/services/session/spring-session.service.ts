@@ -54,8 +54,8 @@ export class SpringSessionService {
         }
       },
       () => {
-        console.log(this.token);
-        console.log("Login successful");
+        // console.log(this.token);
+        console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
         return this.route.navigateByUrl("/");
       }

@@ -74,15 +74,14 @@ export class UploadPopUpComponent implements OnInit {
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
-    let fileName = this.file.name.split(".");
+    // let fileName = this.file.name.split(".");
     let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, fileName[0],
+      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
       this.descriptionInput);
     if (this.publicityGroupInput == "Group") {
 
       createdDataset.organisations.push()
     }
-
 
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);

@@ -3,22 +3,20 @@ import {Organisation} from './organisation';
 export class User {
   public id: number;
   public email: string;
-  public password: string;
+  public passWord: string;
   public firstName?: string;
   public surName?: string;
   public dateCreated: Date;
   public isAdmin: boolean;
-  public organisation?: Organisation;
   public organisationsList?: Organisation[] = [];
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
-              surName?: string, password?: string, organisation?: Organisation, organisationsList?: Organisation[]) {
+              surName?: string, password?: string, organisationsList?: Organisation[]) {
     this.email = email;
-    this.password = password;
+    this.passWord = password;
     this.isAdmin = isAdmin;
     this.firstName = firstName;
     this.surName = surName;
-    this.organisation = organisation;
     this.dateCreated = new Date(Date.now());
     this.organisationsList = organisationsList;
   }
