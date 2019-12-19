@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import {ActivatedRoute, Router} from "@angular/router";
 
 //Services
 // import {FbUserService} from 'src/app/services/fb-user.service';
@@ -21,7 +22,9 @@ export class AdminUsersComponent implements OnInit {
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aUserService: UserService) {
+	constructor(private aUserService: UserService,
+              private router: Router,
+              private route: ActivatedRoute) {
 		this.activeIndex;
 		this.selectedUser = null;
 		this.editIsClicked;
@@ -42,6 +45,7 @@ export class AdminUsersComponent implements OnInit {
 
 	onCreateButtonClick() {
 		this.createIsClicked = true;
+
 	}
 
 	createRequest($event): void {

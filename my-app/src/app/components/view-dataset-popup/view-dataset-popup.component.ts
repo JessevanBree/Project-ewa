@@ -8,7 +8,7 @@ import {SpringSessionService} from "../../services/session/spring-session.servic
 import {FirebaseFileService} from "../../services/firebase-file.service";
 
 @Component({
-  selector: 'app-edit-dataset-popup',
+  selector: 'app-view-dataset-popup',
   templateUrl: './view-dataset-popup.component.html',
   styleUrls: ['./view-dataset-popup.component.css']
 })

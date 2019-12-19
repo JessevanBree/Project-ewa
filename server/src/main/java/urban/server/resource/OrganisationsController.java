@@ -58,7 +58,7 @@ public class OrganisationsController {
 
         organisationRepo.delete(organisation);
 
-        return ResponseEntity.ok(organisation);
+        return ResponseEntity.noContent().build();
 
     }
 
@@ -74,6 +74,6 @@ public class OrganisationsController {
 
         organisationRepo.save(organisation);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(organisation);
     }
 }

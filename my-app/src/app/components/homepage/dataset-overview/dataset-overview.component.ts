@@ -6,7 +6,6 @@ import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
-import {setInterval} from "timers";
 import {DatasetService} from "../../../services/dataset.service";
 import {SpringSessionService} from "../../../services/session/spring-session.service";
 import {UserService} from "../../../services/user.service";

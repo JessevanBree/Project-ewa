@@ -93,7 +93,7 @@ export class MyuploadsComponent implements OnInit {
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.userDatasets[this.activeIndex]);
     console.log(this.selectedDataset);
-    this.router.navigate(['editMetaData'], {
+    this.router.navigate(['edit-dataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
     });
@@ -103,7 +103,7 @@ export class MyuploadsComponent implements OnInit {
   //Check if upload button is clicked to open upload pop-up
   onUploadButtonClick() {
     this.uploadDatasetToggle = true;
-    this.router.navigate(['uploadDataset'], {
+    this.router.navigate(['upload-dataset'], {
       relativeTo: this.activatedRoute
     })
   }
@@ -117,7 +117,7 @@ export class MyuploadsComponent implements OnInit {
   onViewDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this.userDatasets[datasetIndex]);
     this.editDatasetToggle = true;
-    this.router.navigate(['viewDataset'], {
+    this.router.navigate(['view-dataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
     })
