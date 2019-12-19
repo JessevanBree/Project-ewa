@@ -6,7 +6,7 @@ import {UsersEnum} from 'src/app/models/enums/admin-sort-enums'
 
 //Services
 import { FirebaseDatasetService } from 'src/app/services/firebase-dataset.service';
-import { AngularWaitBarrier } from 'blocking-proxy/built/lib/angular_wait_barrier';
+import {DatasetService} from "../../../services/dataset.service";
 
 @Component({
 	selector: 'app-admin-datasets',
@@ -22,11 +22,11 @@ export class AdminDatasetsComponent implements OnInit {
 	emptyList: boolean;
 	private activeIndex;
 
-	constructor(private datasetService: FirebaseDatasetService) {
+	constructor(private datasetService: DatasetService) {
 		this.uploadIsClicked, this.editIsClicked = false;
 		this.searchFilter = "";
 	}
-	
+
 	ngOnInit() {
 		this.datasets = [] = this.datasetService.getDatasets();
 		this.emptyList = this.datasets.length == 0;
@@ -50,11 +50,11 @@ export class AdminDatasetsComponent implements OnInit {
 
 		this.editIsClicked = true;
 	}
-	
+
 	onDeleteClick(dataset: Dataset){
 		if(confirm("Delete dataset: "+ dataset.name)){
 			this.datasetService.deleteDataset(dataset);
-		} 
+		}
 	}
 
 	checkIfListEmpty(): void {

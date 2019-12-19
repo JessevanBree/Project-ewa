@@ -52,9 +52,20 @@ export class OrganisationService {
     }
   }
 
-  public addOrganisation(org: Organisation): Boolean {
-    this.organisations.push(org);
-    return this.organisations[this.organisations.length - 1].equals(org);
+  public addOrganisation(org: Organisation) {
+    /*this.organisations.push(org);
+    return this.organisations[this.organisations.length - 1].equals(org);*/
+    this.http.post(this.REST_ORGANISATIONS_URL, org).subscribe(
+      (data:Organisation) => {
+        console.log(data);
+        this.organisations.push(data);
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished posting organisation");
+      }
+    );
+    console.log(this.organisations);
   }
 
   public updateOrganisation(index: number, org: Organisation): Boolean {

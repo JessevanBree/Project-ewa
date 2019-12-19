@@ -18,7 +18,7 @@ export class Organisation {
 
 	equals(org: Organisation): Boolean {
 		return this.name === org.name &&
-		this.orgAdmin.equals(org.orgAdmin) &&
+		this.orgAdmin === this.orgAdmin &&
 		this.isDeleted === org.isDeleted &&
 		this.dateCreated === org.dateCreated;
 	}
