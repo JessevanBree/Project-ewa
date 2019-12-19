@@ -40,7 +40,7 @@ export class AdminUsersComponent implements OnInit {
     let userToEdit = this.aUserService.getUsers()[originalUserIndex];
     this.activeIndex = originalUserIndex;
     this.selectedUser = userToEdit;
-    this.router.navigate(['editOrganisation'], {
+    this.router.navigate(['editUser'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedUser.id}
     });
@@ -48,6 +48,9 @@ export class AdminUsersComponent implements OnInit {
 
   onCreateButtonClick() {
     this.createIsClicked = true;
+    this.router.navigate(['createUser'], {
+      relativeTo: this.activatedRoute
+    });
   }
 
   createRequest($event): void {
@@ -86,7 +89,13 @@ export class AdminUsersComponent implements OnInit {
     }, 5)
   }
 
-  popUpIsClosed($event: boolean) {
+  createPopUpIsClosed($event: boolean) {
+    if ($event == true) {
+      this.router.navigate(['/admin']);
+    }
+  }
+
+  editPopUpIsClosed($event: boolean) {
     if ($event == true) {
       this.router.navigate(['/admin']);
     }

@@ -36,13 +36,13 @@ export class AdminOrganisationsComponent implements OnInit {
 
   onEditClick(originalOrganisationIndex: number): void {
     this.editIsClicked = true;
+    let copyOrganisation = Organisation.trueCopy(this.aOrganisationService.getOrganisation(originalOrganisationIndex));
+    this.activeIndex = originalOrganisationIndex;
+    this.selectedOrganisation = copyOrganisation;
     this.router.navigate(['editOrganisation'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedOrganisation.id}
     });
-    let copyOrganisation = Organisation.trueCopy(this.aOrganisationService.getOrganisation(originalOrganisationIndex));
-    this.activeIndex = originalOrganisationIndex;
-    this.selectedOrganisation = copyOrganisation;
   }
 
   onCreateButtonClick() {
