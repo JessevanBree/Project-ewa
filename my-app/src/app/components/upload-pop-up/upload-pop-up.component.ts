@@ -30,7 +30,6 @@ export class UploadPopUpComponent implements OnInit {
   private organisationsOfUser: Organisation[];
 
   private selected: Organisation[] = [];
-  private dropdownSettings: IDropdownSettings = {};
 
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
@@ -80,15 +79,6 @@ export class UploadPopUpComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.publicityInput);
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 2,
-      allowSearchFilter: true,
-    };
   }
 
   onClearAll() {
