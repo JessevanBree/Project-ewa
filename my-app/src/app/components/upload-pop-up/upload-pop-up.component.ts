@@ -7,6 +7,9 @@ import {FirebaseFileService} from "../../services/firebase-file.service";
 import {DatasetService} from "../../services/dataset.service";
 import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
+import {OrganisationService} from "../../services/organisation.service";
+import {Organisation} from "../../models/organisation";
+import {IDropdownSettings} from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -24,6 +27,10 @@ export class UploadPopUpComponent implements OnInit {
   private csvReader: NgForm;
   private headers: string[];
   private csvData: object[];
+  private organisationsOfUser: Organisation[];
+
+  private selected: Organisation[] = [];
+  private dropdownSettings: IDropdownSettings = {};
 
   protected nameInput: string; // Name input of metadata section
   protected descriptionInput: string; // Description input of metadata section
@@ -48,8 +55,8 @@ export class UploadPopUpComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
 
-  constructor(private datasetService: DatasetService, private papa: Papa,
-              private userService: UserService, private fileService: FirebaseFileService,
+  constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
+              private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
               private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i < 2020; i++) {
@@ -62,10 +69,36 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityInput = 'Private';
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
+
+    this.organisationsOfUser = this.userService.getLoggedInUser().organisationsList;
+    this.organisationsOfUser.forEach(
+      (organisation: Organisation) => {
+        console.log("Org = " + organisation.name);
+      });
+
   }
 
   ngOnInit() {
     console.log(this.publicityInput);
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 2,
+      allowSearchFilter: true,
+    };
+  }
+
+  onClearAll() {
+    this.selected = [];
+    console.log("Selected organisations after CLEAR: " + this.selected);
+  }
+
+  onSelectAll() {
+    this.selected = this.organisationsOfUser;
+    console.log("Selected organisations after ALL: " + this.selected);
   }
 
   //Retreive form data and upload new dataset
@@ -75,16 +108,24 @@ export class UploadPopUpComponent implements OnInit {
     console.log(uploadingUser);
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     // let fileName = this.file.name.split(".");
-    let createdDataset: Dataset = new Dataset(this.nameInput, this.regionInput,
-      this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
-      this.descriptionInput);
-    if (this.publicityGroupInput == "Group") {
 
-      createdDataset.organisations.push()
+    console.log("input is " + this.publicityInput);
+    console.log("input is " + this.publicityGroupInput);
+
+    let createdDataset: Dataset;
+
+    if (this.publicityInput == "Group") {
+      createdDataset= new Dataset(this.nameInput, this.regionInput,
+        this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
+        this.descriptionInput, this.selected);
+    } else {
+      this.selected = [];
+      createdDataset = new Dataset(this.nameInput, this.regionInput,
+        this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
+        this.descriptionInput);
     }
-
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
-    // this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
+    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
   }
 
@@ -198,6 +239,11 @@ export class UploadPopUpComponent implements OnInit {
     this.detailForm.controls['fileInput'].reset();
   }
 
+  onChangeOrganisationSelect() {
+    console.log(this.organisationsOfUser);
+    console.log(this.selected);
+  }
+
   //Core method which converts the csv data to chart data/visualization
   convertCSVToChartData(objectsArray: any[]): void {
     let xAxisLabel: string;
@@ -251,6 +297,5 @@ export class UploadPopUpComponent implements OnInit {
     });
     this.chartLabels = chartLabels;
   }
-
 
 }

@@ -113,24 +113,86 @@
                 ngModel
                 required>
                 <option>Private</option>
-                <option>Group</option>
+                <!--                <option *ngIf="this.userService.getLoggedInUser().organisationsList">Group</option>   TODO:: IMPLMENT THIS OVER LINE BELOW-->
+                <option *ngIf="this.userService.getLoggedInUser().organisationsList">Group</option>
                 <option>Public</option>
               </select>
             </div>
-            <div *ngIf="publicityInput == 'Group'" class="form-group col-md-6">
-              <label for="groupInput">Publicity</label>
-              <select
-                id="groupInput"
-                class="form-control"
-                name="groupInput"
-                ngModel
-                required>
-                <option
-                  *ngFor="let organisation of userService.getLoggedInUser().organisationsList; let index = index">
-                  {{organisation.name}} name {{index}}</option>
-                <!-- TODO:: make use of organisations lenght of logged in user -->
-              </select>
+            <!--            <div *ngIf="publicityInput == 'Group'" class="form-group col-md-6">-->
+            <!--              <label for="groupInput">Publicity</label>-->
+            <!--              <select-->
+            <!--                id="groupInput"-->
+            <!--                class="form-control"-->
+            <!--                name="groupInput"-->
+            <!--                ngModel-->
+            <!--                required>-->
+            <!--                <option-->
+            <!--                  *ngFor="let organisation of organisationsOfUser; let index = index">-->
+            <!--                  {{organisation.name}}</option>-->
+            <!--                &lt;!&ndash; TODO:: make use of organisations lenght of logged in user &ndash;&gt;-->
+            <!--              </select>-->
+            <!--            </div>-->
+
+            <!--            <div class="form-group col-md-6" *ngIf="publicityInput == 'Group'">-->
+            <!--              <label>Organisation</label>-->
+            <!--              <ng-multiselect-dropdown-->
+            <!--                [placeholder]="'Select organisations'"-->
+            <!--                [data]="organisationsOfUser"-->
+            <!--                [(ngModel)]="selected"-->
+            <!--                [settings]="dropdownSettings"-->
+            <!--                (onSelect)="onItemSelect($event)"-->
+            <!--                (onSelectAll)="onSelectAll($event)"-->
+            <!--                name="organisationSelect"-->
+            <!--              >-->
+            <!--              </ng-multiselect-dropdown>-->
+            <!--            </div>-->
+
+            <div class="form-group col-md-6" *ngIf="publicityInput == 'Group'">
+              <label>Groups</label>
+              <ng-select [items]="organisationsOfUser"
+                         required
+                         #selectBox="ngModel"
+                         bindLabel="name"
+                         placeholder="Select organisation(s)"
+                         appendTo="body"
+                         name="organisationsSelect"
+                         [multiple]="true"
+                         [closeOnSelect]="false"
+                         [(ngModel)]="selected"
+                         (change)="onChangeOrganisationSelect()">
+                <ng-template ng-header-tmp>
+
+                  <div>
+                    <button class="btn btn-link"
+                            (click)="onSelectAll()">Select All
+                    </button>
+                    <button class="btn btn-link"
+                            (click)="onClearAll()">Clear All
+                    </button>
+                  </div>
+
+                </ng-template>
+              </ng-select>
+              <div *ngIf="selectBox.touched && selectBox.hasError('required')" class="alert alert-danger">
+                <p>You must select one or more groups</p>
+              </div>
             </div>
+
+            <!--            <div class="dropdown show">-->
+            <!--              <a class="btn btn-secondary dropdown-toggle" role="button" id="dropdownOrgs"-->
+            <!--                 data-toggle="dropdown">-->
+            <!--                Select Organisations-->
+            <!--              </a>-->
+
+            <!--              <div class="dropdown-menu" aria-labelledby="dropdownOrgs">-->
+            <!--                <a class="dropdown-item"-->
+            <!--                   *ngFor="let organisation of organisationsOfUser; let index = index">-->
+            <!--                  <label class="checkbox"><input type="checkbox">{{organisation.name}}</label>-->
+            <!--                </a>-->
+            <!--              </div>-->
+            <!--            </div>-->
+
+
             <div class="form-group col-md-12">
               <label for="yearOptions">Year</label>
               <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
@@ -143,7 +205,7 @@
 
           <div class="form-row">
             <div class="form-group col-md-12" id="regionOptions">
-              <label class="col-form-label">Regional level</label>
+              <label class="col-form-label">Regional level </label>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
                        name="regionOptions"

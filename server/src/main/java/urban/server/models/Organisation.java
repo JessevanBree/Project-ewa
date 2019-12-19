@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@NamedQuery(name = "find_all_organisations", query = "select o from Organisation o")
+@NamedQueries({
+        @NamedQuery(name = "find_all_organisations", query = "select o from Organisation o"),
+        @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1")
+})
 public class Organisation {
     @Id
     @GeneratedValue

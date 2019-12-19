@@ -5,7 +5,7 @@ import { Organisation } from '../../../models/organisation';
 import { User } from 'src/app/models/user';
 
 //Services
-import { AOrganisationService } from '../../../services/a-organisation.service';
+import { OrganisationService } from '../../../services/organisation.service';
 
 @Component({
 	selector: 'app-admin-organisations',
@@ -21,7 +21,7 @@ export class AdminOrganisationsComponent implements OnInit {
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aOrganisationService: AOrganisationService) {
+	constructor(private aOrganisationService: OrganisationService) {
 		this.activeIndex, this.selectedOrganisation = null;
 		this.editIsClicked, this.createIsClicked = false;
 		this.searchFilter = "";
@@ -38,11 +38,11 @@ export class AdminOrganisationsComponent implements OnInit {
 		this.activeIndex = originalOrganisationIndex;
 		this.selectedOrganisation = copyOrganisation;
 	}
-	
+
 	onCreateButtonClick() {
 		this.createIsClicked = true;
 	}
-	
+
 	saveRequest($event): void {
 		this.editIsClicked = false;
 		this.organisations[this.activeIndex] = $event;
@@ -52,7 +52,7 @@ export class AdminOrganisationsComponent implements OnInit {
 	onDeleteClick(org: Organisation){
 		if(confirm("Delete organisation: "+ org.name)){
 			this.aOrganisationService.deleteOrganisation(org);
-		} 
+		}
 	}
 
 	checkIfListEmpty(): void {
