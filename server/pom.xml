@@ -54,11 +54,11 @@
 
 
         <!--H2 temp database-->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.h2database</groupId>-->
+<!--            <artifactId>h2</artifactId>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
         <!--end H2 temp database-->
 
 
@@ -95,6 +95,7 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>-->
         <!--MYSQL DB CONNECTOR END-->
+
 
     </dependencies>
 
