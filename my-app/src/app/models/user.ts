@@ -4,11 +4,12 @@ export class User {
   public id: number;
   public email: string;
   public passWord: string;
+  public isAdmin: boolean;
+  public dateCreated: Date;
+  public organisations?: Organisation[] = [];
+  public adminOfOrganisation;
   public firstName?: string;
   public surName?: string;
-  public dateCreated: Date;
-  public isAdmin: boolean;
-  public organisations?: Organisation[] = [];
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
               surName?: string, password?: string, organisation?: Organisation) {
