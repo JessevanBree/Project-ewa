@@ -47,12 +47,12 @@ export class SpringSessionService {
         switch (error.status) {
           case 403: {
             this.errorMessage = "Invalid credentials";
-            console.log("Invalid credentials");
+            // console.log("Invalid credentials");
             break;
           }
           case 500: {
             this.errorMessage = "User not found";
-            console.log("User not found");
+            // console.log("User not found");
             break;
           }
         }
@@ -69,6 +69,7 @@ export class SpringSessionService {
 
   signOut() {
     this._token = null;
+    this.displayName = null;
     this.user = null;
     this.authenticated = false;
     // this.setToken(null, null);

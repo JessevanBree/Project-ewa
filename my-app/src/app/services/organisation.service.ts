@@ -14,12 +14,12 @@ import {SpringSessionService} from "./session/spring-session.service";
 export class OrganisationService {
   private readonly REST_ORGANISATIONS_URL = "http://localhost:8080/organisations";
   private organisations: Organisation[];
-  private _myOrganisations: Organisation[];
+  private myOrganisations: Organisation[];
 
   constructor(private userService: UserService,
               private http: HttpClient, private sessionService: SpringSessionService) {
     this.organisations = [];
-    this._myOrganisations = [];
+    this.myOrganisations = [];
 
     this.getAllOrganisations().subscribe(
       (organisations: Organisation[]) => {
@@ -129,20 +129,13 @@ export class OrganisationService {
     return this.organisations;
   }
 
-  get myOrganisations(): Organisation[] {
-    // let myOrgs = [];
-    // if (this.userService.getLoggedInUser().organisation) {
-    //   for (let i = 0; i < this.organisations.length; i++) {
-    //     for (let j = 0; j < this.userService.getLoggedInUser().organisationsList.length; j++) {
-    //       if (this.organisations[i].id === this.userService.getLoggedInUser().organisationsList[j].id) {
-    //         myOrgs.push(this.organisations[i]);
-    //       }
-    //     }
-    //   }
-    // }
-    // return myOrgs;
-
-    return this._myOrganisations;
+  public getMyOrganisations(): Organisation[] {
+    this.myOrganisations = this.organisations.filter( org => {
+      if(org.users.find(user  => user.id == this.userService.getLoggedInUser().id) ||
+      org.organisationAdmin.id == this.userService.getLoggedInUser().id) return org;
+      }
+    );
+    return this.myOrganisations;
   }
 
   genRandomOrganisation(): Organisation {

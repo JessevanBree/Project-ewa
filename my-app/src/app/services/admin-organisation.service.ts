@@ -45,7 +45,7 @@ export class AdminOrganisationService {
   // }
 
   // Function to get all organisations that the logged in user is administrator of
-  getAllOrganisations(){
+  getMyOrganisations(){
     let loggedInUserId = this.sessionService.getUser().id;
 
     console.log("Logged in user ID: " + loggedInUserId);

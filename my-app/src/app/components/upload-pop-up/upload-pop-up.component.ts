@@ -69,7 +69,10 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationsOfUser = this.userService.getLoggedInUser().organisations;
+    this.organisationsOfUser = this.organisationService.getMyOrganisations();
+    /*this.userService.getLoggedInUser().organisations.forEach(org => this.organisationsOfUser.push(org));*/
+    // this.userService.getLoggedInUser().adminOfOrganisations.forEach(org => this.organisationsOfUser.push(org));
+    console.log(this.organisationsOfUser);
   }
 
   ngOnInit() {
@@ -109,6 +112,7 @@ export class UploadPopUpComponent implements OnInit {
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
         this.descriptionInput);
     }
+    console.log(createdDataset);
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);

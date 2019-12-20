@@ -26,7 +26,6 @@ export class Organisation {
 
 	public addUser(user: User): boolean{
 	  user.organisations.push(this);
-	  console.log(user);
 	  this.users.push(user);
 	  return this.users.includes(user)
 	}

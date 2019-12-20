@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Organisation} from "../../models/organisation";
 import {Dataset} from "../../models/dataset";
 import {AdminOrganisationService} from "../../services/admin-organisation.service";
 import {Subscription} from "rxjs";
 import {User} from "../../models/user";
 import {ActivatedRoute, Router} from "@angular/router";
+import {OrganisationService} from "../../services/organisation.service";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -29,8 +30,10 @@ export class AdminOrganisationPanelComponent implements OnInit {
   searchFilter: String;
   private emptyList: boolean;
 
-  constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
-              private route: ActivatedRoute,) {
+  constructor(private adminOrganisationService: AdminOrganisationService,
+              private organisationService: OrganisationService,
+              private router: Router,
+              private route: ActivatedRoute) {
 
     this.members = [];
     this.organisations = [];
@@ -41,19 +44,20 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Is called when an organisation has been added from the modal (to refresh the members list)
-  onAddedRequest(event){
+  onAddedRequest(event) {
 
     setTimeout(() => {
-       this.organisationChanged();
+      this.organisationChanged();
     }, 100);
 
-      console.log(event);
+    console.log(event);
   }
 
   // This function is called when another organisation has been selected in the selectbox
-  organisationChanged(){
+  organisationChanged() {
     // Empty and fill the new members array
-    this.members = [];
+    console.log(this.currentSelectedOrg);
+
     this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
       (data: User[]) => {
         console.log(data);
@@ -86,7 +90,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Called when the create modal has been closed
-  onCloseReqCreate(){
+  onCloseReqCreate() {
     console.log("Closing modal..");
     setTimeout(() => {
       this.organisationChanged();
@@ -94,18 +98,18 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.createMemberToggle = false;
   }
 
-  onCreateNewMember(){
+  onCreateNewMember() {
     console.log("Opening modal..");
     this.createMemberToggle = true;
   }
 
-  onAddNewMember(){
+  onAddNewMember() {
     console.log("Opening modal..");
     this.addMemberToggle = true;
   }
 
   checkIfListEmpty(): void {
-    if(this.members.length == 0) this.emptyList = true;
+    if (this.members.length == 0) this.emptyList = true;
     setTimeout(() => {
       this.emptyList = document.getElementsByClassName("list-group-item p-1").length == 0;
     }, 5)
@@ -115,17 +119,27 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.route.params.subscribe(
       params => {
         // Fill the organisations array for the selectbox
-        this.adminOrganisationService.getAllOrganisations().subscribe(
+        this.adminOrganisationService.getMyOrganisations().subscribe(
           (data: Organisation[]) => {
             data.map(o => {
               o ? this.organisations.push(o) : [];
+              console.log(this.organisations);
               this.currentSelectedOrg = this.organisations[0];
-              this.userIsAdminOfOrgs = true;
+              this.members = this.currentSelectedOrg.users;
               console.log(o);
             });
             this.organisationChanged();
           }
         );
       });
+        /*this.organisationService.getMyOrganisations().map(
+          o => this.organisations.push(o)
+        );
+        this.currentSelectedOrg = this.organisations[0];
+        this.members = this.currentSelectedOrg.users;
+      });
+
+    console.log(this.organisations);*/
+
   }
 }

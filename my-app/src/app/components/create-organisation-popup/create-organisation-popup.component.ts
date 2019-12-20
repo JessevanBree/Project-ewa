@@ -17,7 +17,6 @@ export class CreateOrganisationPopupComponent implements OnInit {
 
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-
   users: User[];
 
   @Input() organisation: Organisation;

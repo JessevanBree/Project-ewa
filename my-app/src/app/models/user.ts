@@ -9,6 +9,8 @@ export class User {
   public dateCreated: Date;
   public isAdmin: boolean;
   public organisations?: Organisation[] = [];
+  public adminOfOrganisations: Organisation[];
+
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
               surName?: string, password?: string, organisation?: Organisation) {
