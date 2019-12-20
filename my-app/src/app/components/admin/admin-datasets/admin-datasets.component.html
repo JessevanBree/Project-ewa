@@ -12,7 +12,8 @@
 		</div>
 		<div class="card-body">
 			<label for="searchFilter">Search</label>
-			<input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
+			<input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+             (ngModelChange)="checkIfListEmpty()">
 		</div>
 	</div>
 	<div class="card w-100">
@@ -24,7 +25,7 @@
 			</div>
 		</div>
 		<ul class="dataList list-group list-group-flush">
-			<li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+			<li class="list-group-item p-2 pl-3" *ngIf="this.datasets.length == 0">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">No datasets available</p>
 				</span>

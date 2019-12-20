@@ -29,11 +29,20 @@ export class AdminOrganisationsComponent implements OnInit {
     this.activeIndex, this.selectedOrganisation = null;
     this.editIsClicked, this.createIsClicked = false;
     this.searchFilter = "";
+    this.organisations = [];
   }
 
   ngOnInit(): void {
-    this.organisations = [] = this.aOrganisationService.getOrganisations();
-
+    // this.organisations = this.aOrganisationService.getOrganisations();
+    this.aOrganisationService.getAllOrganisations().subscribe(
+      (data: Organisation[]) => {
+        this.organisations = data;
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished retrieving organisations for admin page");
+      }
+    );
   }
 
   onEditClick(originalOrganisationIndex: number): void {

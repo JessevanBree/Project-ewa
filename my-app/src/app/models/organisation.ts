@@ -4,6 +4,7 @@ export class Organisation {
   id: number;
 	name: String;
 	organisationAdmin: User;
+	users: User[];
 	isDeleted: boolean;
 	dateCreated: Date;
 	dateEdited?: Date;
@@ -22,6 +23,16 @@ export class Organisation {
 		this.isDeleted === org.isDeleted &&
 		this.dateCreated === org.dateCreated;
 	}
+
+	public addUser(user: User): boolean{
+	  this.users.push(user);
+	  return this.users.includes(user)
+	}
+
+  public removeUser(user: User): boolean{
+	  this.users = this.users.filter(u => u.id != user.id);
+	  return !this.users.includes(user);
+  }
 
   static trueCopy(originalOrganisation: Organisation):Organisation{
     return Object.assign(new Organisation(null, null), originalOrganisation)

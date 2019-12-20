@@ -25,11 +25,20 @@ export class AdminDatasetsComponent implements OnInit {
 	constructor(private datasetService: DatasetService) {
 		this.uploadIsClicked, this.editIsClicked = false;
 		this.searchFilter = "";
+		this.datasets = [];
 	}
 
 	ngOnInit() {
-		this.datasets = [] = this.datasetService.getDatasets();
 		this.emptyList = this.datasets.length == 0;
+		this.datasetService.getAllDatasets().subscribe(
+      (data: Dataset[]) => {
+        this.datasets = data;
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished retrieving datasets for admin");
+      }
+    );
 	}
 
 	//This method gets the event from child component (edit-pop-up) to save the edited dataset
