@@ -85,7 +85,9 @@ export class AdminUsersComponent implements OnInit {
 		if(confirm("Delete user: "+ user.email)){
 			this.aUserService.deleteUser(user).subscribe(() =>
 				(result) => {
-					console.log(result)
+					// this.zone.run(() => {
+						console.log(result)
+					// })
 				},
 				(err) => console.log(err)
 			);

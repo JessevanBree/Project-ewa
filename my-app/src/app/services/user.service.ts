@@ -43,6 +43,7 @@ export class UserService {
   }
 
   public deleteUser(user: User) {
+	this.users.splice(this.users.indexOf(user),1)
     return this.httpClient.delete(this.REST_USERS_URL + "/" + user.id);
   }
 

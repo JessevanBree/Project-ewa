@@ -19,7 +19,7 @@ export class SpringSessionService {
   public errorMessage: string;
 
   private readonly BS_TOKEN_NAME = "tokenName";
-  private readonly BS_USER_NAME = "userName";
+  private readonly BS_USER_EMAIL = "userMail";
 
   constructor(private httpClient: HttpClient,
               private route: Router,
@@ -28,6 +28,8 @@ export class SpringSessionService {
     this.displayName = null;
     this.errorMessage = null;
     this.authenticated = false;
+
+    this.getUser();
   }
 
   signIn(email: String, password: String, errorMessage?: string) {
@@ -65,19 +67,16 @@ export class SpringSessionService {
     );
   }
 
-  public getUser(){
-    return this.user;
-  }
-
   signOut() {
     this._token = null;
     this.user = null;
     this.authenticated = false;
-    this.setToken(null, null);
+    // this.setToken(null, null);
   }
 
   public isAuthenticated(): boolean {
-    return sessionStorage.getItem("tokenName") != null;
+    // return sessionStorage.getItem("tokenName") != null;
+    return this.authenticated != false;
   }
 
   public getErrorMessage(): string {
@@ -85,34 +84,37 @@ export class SpringSessionService {
   }
 
   private setToken(token: string, nameOfUser: string): void {
-    this._token = token;
+
     this.displayName = nameOfUser;
-    if (token == null && nameOfUser == null) {
-      sessionStorage.clear();
-      return;
-    }
-    sessionStorage.setItem(this.BS_TOKEN_NAME, token);
-    sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
+    this.authenticated = true;
+    // if (token == null && nameOfUser == null) {
+    //   sessionStorage.clear();
+    //   return;
+    // }
+    // sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    // sessionStorage.setItem(this.BS_USER_EMAIL, nameOfUser);
   }
 
   public getToken(): string {
-    let token = sessionStorage.getItem(this.BS_TOKEN_NAME);
-    if (token == null) {
-      token = localStorage.getItem(this.BS_TOKEN_NAME);
-      sessionStorage.setItem(this.BS_TOKEN_NAME, token);
-    }
-    return token;
+    // let token = sessionStorage.getItem(this.BS_TOKEN_NAME);
+    // if (token == null) {
+    //   token = localStorage.getItem(this.BS_TOKEN_NAME);
+    //   sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    // }
+    // return token;
+
+    return this._token;
   }
 
-  getNameOfUser() {
-    let nameOfUser = sessionStorage.getItem(this.BS_USER_NAME);
-    if (nameOfUser == null) {
-      nameOfUser = localStorage.getItem(this.BS_USER_NAME);
-      sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
-    }
-    return nameOfUser;
+  public getUser() {
+    // if (!this.user) {
+    //   console.log("User " + this.user);
+    //   this.user = this.userService.getUserByEmail(this.BS_USER_EMAIL);
+    //   this.userService.setLoggedInUser(this.user);
+    //   console.log("User " + this.user);
+    // }
+    return this.user;
   }
-
 
   get token(): string {
     return this._token;

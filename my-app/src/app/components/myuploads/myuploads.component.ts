@@ -7,6 +7,8 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseFileService} from "../../services/firebase-file.service";
 import {UserService} from "../../services/user.service";
 import {OrganisationService} from "../../services/organisation.service";
+import {SessionService} from "../../services/session/session.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
 
 @Component({
   selector: 'app-myuploads',
@@ -28,15 +30,16 @@ export class MyuploadsComponent implements OnInit {
   constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
               private activatedRoute: ActivatedRoute,
               private userService: UserService, private router: Router,
-              private fileService: FirebaseFileService) {
+              private fileService: FirebaseFileService, private sessionService: SpringSessionService) {
     this.userDatasets = [];
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
-    this.userId = userService.getLoggedInUser().id;
   }
 
   ngOnInit() {
+    console.log(this.sessionService.getUser());
+    this.userId = this.sessionService.getUser().id;
     this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       const userEmail = params.email;
       this.datasetService.getAllDatasets().subscribe(

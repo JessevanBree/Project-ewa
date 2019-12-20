@@ -79,10 +79,18 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
+  // Called when the add existing modal has been closed
   onCloseReq() {
     console.log("Closing modal..");
-    this.organisationChanged();
     this.addMemberToggle = false;
+  }
+
+  // Called when the create modal has been closed
+  onCloseReqCreate(){
+    console.log("Closing modal..");
+    setTimeout(() => {
+      this.organisationChanged();
+    }, 100);
     this.createMemberToggle = false;
   }
 

@@ -6,6 +6,7 @@ import {SUR_NAMES} from 'src/app/models/testData';
 import {UserService} from "./user.service";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {SpringSessionService} from "./session/spring-session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class OrganisationService {
   private _myOrganisations: Organisation[];
 
   constructor(private userService: UserService,
-              private http: HttpClient) {
+              private http: HttpClient, private sessionService: SpringSessionService) {
     this.organisations = [];
     this._myOrganisations = [];
 
@@ -28,7 +29,9 @@ export class OrganisationService {
       () => {
         console.log("All Organisations are retrieved correctly!");
 
-        this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];
+
+        this.sessionService.getUser().organisations = [this.organisations[0], this.organisations[1]];
+
       }
     );
   }
