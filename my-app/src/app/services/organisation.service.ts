@@ -40,6 +40,9 @@ export class OrganisationService {
   getOrganisation(index: number): Organisation {
     return this.organisations[index];
   }
+
+
+
   public addOrganisation(org: Organisation) {
     /*this.organisations.push(org);
     return this.organisations[this.organisations.length - 1].equals(org);*/

@@ -12,17 +12,20 @@ export class SpringSessionService {
 
   private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login";
 
-  private token: string;
+  private _token: string;
   private authenticated: boolean;
   private user: User;
-  public displayName: string;
+  private _displayName: string;
   public errorMessage: string;
+
+  private readonly BS_TOKEN_NAME = "tokenName";
+  private readonly BS_USER_NAME = "userName";
 
   constructor(private httpClient: HttpClient,
               private route: Router,
               private userService: UserService) {
-    this.token = null;
-    this.displayName = null;
+    this._token = null;
+    this._displayName = null;
     this.errorMessage = null;
     this.authenticated = false;
   }
@@ -33,13 +36,13 @@ export class SpringSessionService {
       (response) => {
         this.authenticated = true;
         this.user = response.body as unknown as User;
-        this.displayName = ((response.body as unknown) as User).email;
+        this._displayName = ((response.body as unknown) as User).email;
         this.setToken(response.headers.get("Authorization"),
           ((response.body as unknown) as User).email);
       },
       (error: HttpErrorResponse) => {
         this.authenticated = false;
-        switch(error.status) {
+        switch (error.status) {
           case 403: {
             this.errorMessage = "Invalid credentials";
             console.log("Invalid credentials");
@@ -67,14 +70,14 @@ export class SpringSessionService {
   }
 
   signOut() {
-    this.token = null;
+    this._token = null;
     this.user = null;
     this.authenticated = false;
-    this.displayName = null;
+    this.setToken(null, null);
   }
 
   public isAuthenticated(): boolean {
-    return this.authenticated;
+    return sessionStorage.getItem("tokenName") != null;
   }
 
   public getErrorMessage(): string {
@@ -82,14 +85,40 @@ export class SpringSessionService {
   }
 
   private setToken(token: string, nameOfUser: string): void {
-    this.token = token;
-    this.displayName = nameOfUser;
+    this._token = token;
+    this._displayName = nameOfUser;
+    if (token == null && nameOfUser == null) {
+      sessionStorage.clear();
+      return;
+    }
+    sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
   }
 
   public getToken(): string {
-    console.log(this.token);
-    return this.token;
+    let token = sessionStorage.getItem(this.BS_TOKEN_NAME);
+    if (token == null) {
+      token = localStorage.getItem(this.BS_TOKEN_NAME);
+      sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    }
+    return token;
+  }
+
+  getNameOfUser() {
+    let nameOfUser = sessionStorage.getItem(this.BS_USER_NAME);
+    if (nameOfUser == null) {
+      nameOfUser = localStorage.getItem(this.BS_USER_NAME);
+      sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
+    }
+    return nameOfUser;
   }
 
 
+  get token(): string {
+    return this._token;
+  }
+
+  get displayName(): string {
+    return this._displayName;
+  }
 }
