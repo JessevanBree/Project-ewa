@@ -34,6 +34,17 @@ export class AddMemberPopupComponent implements OnInit {
 
   // Called when the org admin clicks on a user to add the user to the org
   userSelected(user: User){
+
+    // Check if user already exists in the organisation
+    // TODO: does not work yet for some reason
+    this.adminOrganisationService.getOrgMembers(this.receivedSelectedOrg);
+    for (let i = 0; i < this.adminOrganisationService.orgMembers.length ; i++) {
+      if (this.adminOrganisationService.orgMembers[i].email == user.email){
+        alert("Error, selected user " + user.email + " is already in the organisation");
+        throw new Error();
+      }
+    }
+
     if (confirm("Are you sure to add the following user: " + user.email)) {
       this.userAdded.emit(user);
       this.adminOrganisationService.addUserToOrganisation(user, this.receivedSelectedOrg).subscribe(

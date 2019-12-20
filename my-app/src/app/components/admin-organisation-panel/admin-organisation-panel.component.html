@@ -1,7 +1,7 @@
 <app-add-member-popup *ngIf="addMemberToggle"
                    (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg" (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
-                      (closingToggle)="onCloseReq()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                      (closingToggle)="onCloseReqCreate()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 
 <div *ngIf="!userIsAdminOfOrgs; else isAdminOfOrg">
   <div class="container bg-light shadow" style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;">
@@ -33,6 +33,7 @@
           <br>
           <br>
           <p *ngIf="this.organisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
+          <p> Amount of members: {{ members.length }}</p>
 
             <label for="searchFilter">Search user by email</label>
             <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
