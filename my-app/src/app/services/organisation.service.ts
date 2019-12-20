@@ -91,6 +91,19 @@ export class OrganisationService {
     )
   }
 
+  public addMemberToOrg(orgId: number, userId: number){
+    this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId +  "/" + userId, null).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished adding user to organisation");
+      }
+    );
+
+  }
+
   getOrganisations(): Organisation[] {
     return this.organisations;
   }

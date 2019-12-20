@@ -1,49 +1,79 @@
 <app-add-member-popup *ngIf="addMemberToggle"
-                   (closingToggle)="onCloseReq()"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                   (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg" (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+<app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
+                      (closingToggle)="onCloseReq()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+
+<div *ngIf="!userIsAdminOfOrgs; else isAdminOfOrg">
+  <div class="container bg-light shadow" style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;">
+    <div class="pt-3 pb-3 my-auto mx-auto text-center">
+      <h3 class="">
+      You are not an administrator of any organisation
+      </h3>
+      <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
+              routerLink="/homepage"
+      >Back to homepage
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #isAdminOfOrg>
 
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-sm-12">
       <div class="card" id="list">
         <div class="card-header">
-          (Org name)
-        </div>
-        <ul class="dataList list-group list-group-flush">
-<!--          <li class="list-group-item p-1" *ngIf="datasets.length == 0">-->
-<!--            <span class="row mx-1 align-middle">-->
-<!--            You don't have any uploaded datasets-->
-<!--            </span>-->
-<!--          </li>-->
-          <!-- Show a message if the organisation doesn't have any members  -->
+          <p> Select an organisation to manage </p>
 
+          <!-- Select box for the admin to select an organisation -->
+          <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer" (change)="organisationChanged()" [(ngModel)]="this.currentSelectedOrg">
+            <option *ngFor="let organisation of this.organisations" [ngValue]="organisation" selected>{{organisation.name}}</option>
+          </select>
+          <br>
+          <br>
+          <p *ngIf="this.organisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
+
+            <label for="searchFilter">Search user by email</label>
+            <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
+
+        </div>
+
+        <ul class="userList list-group list-group-flush">
+          <li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+				<span class="row mx-1 align-middle">
+					<p class="my-auto">No users found</p>
+				</span>
+          </li>
+          <!-- Show a message if the organisation doesn't have any members -->
           <li class="list-group-item p-1" *ngIf="members.length == 0">
             <span class="row mx-1 align-middle">
               This organisation doesn't have any members
             </span>
           </li>
 
-          <li class="list-group-item p-1" *ngFor="let item of members; index as i">
+          <li class="list-group-item p-1" *ngFor="let member of members | userFilter:searchFilter">
             <span class="row mx-1 align-middle">
               <!-- show this block if the user does have uploaded datasets -->
-                    <p class="col-lg-8">{{item.name}}</p>
+                    <p class="col-lg-8">{{member.email}}</p>
 					          <span class="btn-group col-lg-4 h-75">
-						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(i)"></button>
+						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true" (click)="onDelete(member)"></button>
 					          </span>
 				</span>
           </li>
         </ul>
       </div>
     </div>
-    <div class="col-md-3 col-sm-12 mt-5">
-      <button type="button" id="addMemberButton" class="btn btn-primary float-right" data-toggle="modal"
-              data-target="#uploadModal" (click)="onAddNewMember()">Add member
+    <div class="col-md-6 col-sm-12 mt-5">
+      <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
+              data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
+      </button>
+      <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
+              data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
       </button>
     </div>
 
-    <!--    <div class="col-md-3 col-sm-12 mt-5 ">-->
-    <!--      <button type="button" id="addDataset" class="btn btn-primary float-right"-->
-    <!--              (click)="onAdd()">Add dataset-->
-    <!--      </button>-->
-    <!--    </div>-->
   </div>
 </div>
+
+</ng-template>

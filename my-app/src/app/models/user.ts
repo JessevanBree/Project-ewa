@@ -11,14 +11,14 @@ export class User {
   public organisations?: Organisation[] = [];
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
-              surName?: string, password?: string, organisationsList?: Organisation[]) {
+              surName?: string, password?: string, organisation?: Organisation) {
     this.email = email;
     this.passWord = password;
     this.isAdmin = isAdmin;
     this.firstName = firstName;
     this.surName = surName;
     this.dateCreated = new Date(Date.now());
-    this.organisations = organisationsList;
+    this.organisations.push(organisation);
   }
 
   equals(user: User): Boolean {

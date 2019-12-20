@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Organisation} from "../../models/organisation";
 import {Dataset} from "../../models/dataset";
+import {AdminOrganisationService} from "../../services/admin-organisation.service";
+import {Subscription} from "rxjs";
+import {User} from "../../models/user";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -9,44 +13,111 @@ import {Dataset} from "../../models/dataset";
 })
 export class AdminOrganisationPanelComponent implements OnInit {
 
-  // Organisation of the current logged in org admin
-  adminCurrentOrg: Organisation;
+  private currentSelectedOrg: Organisation;
+
+  // All the orgs managed by the logged in org admin
+  private organisations: Organisation[];
 
   // List of members of the current org
-  members: Organisation[];
+  private members: User[];
 
-  addMemberToggle: boolean;
+  private userIsAdminOfOrgs: boolean;
 
-  constructor() {
+  private addMemberToggle: boolean;
+  private createMemberToggle: boolean;
+
+  searchFilter: String;
+  private emptyList: boolean;
+
+  constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
+              private route: ActivatedRoute,) {
+
     this.members = [];
-    this.addMemberToggle = false;
+    this.organisations = [];
+    this.userIsAdminOfOrgs = false;
 
+    this.addMemberToggle = false;
+    this.createMemberToggle = false;
+  }
+
+  // Is called when an organisation has been added from the modal (to refresh the members list)
+  onAddedRequest(event){
+
+    setTimeout(() => {
+       this.organisationChanged();
+    }, 100);
+
+      console.log(event);
+  }
+
+  // This function is called when another organisation has been selected in the selectbox
+  organisationChanged(){
+    // Empty and fill the new members array
+    this.members = [];
+    this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
+      (data: User[]) => {
+        console.log(data);
+        data.map(o => {
+          o ? this.members.push(o) : [];
+        });
+      }
+    );
   }
 
   // Function to delete a member from the organisation
-  onDelete(datasetIndex: number) {
-    if (confirm("Are you sure to delete this member with the following email (Member email)?")) {
-      console.log("Member is succesfully deleted");
-      // let selectedDataset: Dataset;
-      // selectedDataset = this.datasets[datasetIndex];
-      // this.datasetService.remove(selectedDataset);
-      // this.datasets = this.datasetService.getMyDatasets();
+  onDelete(member: User) {
+    console.log("Current selected org: " + this.currentSelectedOrg.name);
+    if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
+      this.adminOrganisationService.deleteUserFromOrganisation(this.currentSelectedOrg, member).subscribe(
+        (user: User) => {
+          this.organisationChanged();
+          console.log(user);
+        },
+        (error: any) => console.log(error)
+      );
+      console.log("Member has successfully been removed from the organisation");
     }
   }
 
-  // This method is called when the modal is being closed
   onCloseReq() {
     console.log("Closing modal..");
+    this.organisationChanged();
     this.addMemberToggle = false;
+    this.createMemberToggle = false;
   }
 
-  // This function is called when the user clicks on the "add member" button to open the modal
+  onCreateNewMember(){
+    console.log("Opening modal..");
+    this.createMemberToggle = true;
+  }
+
   onAddNewMember(){
-    console.log("Add new member button is clicked");
+    console.log("Opening modal..");
     this.addMemberToggle = true;
   }
 
-  ngOnInit() {
+  checkIfListEmpty(): void {
+    if(this.members.length == 0) this.emptyList = true;
+    setTimeout(() => {
+      this.emptyList = document.getElementsByClassName("list-group-item p-1").length == 0;
+    }, 5)
   }
 
+  ngOnInit() {
+    this.route.params.subscribe(
+      params => {
+        // Fill the organisations array for the selectbox
+        this.adminOrganisationService.getAllOrganisations().subscribe(
+          (data: Organisation[]) => {
+            data.map(o => {
+              o ? this.organisations.push(o) : [];
+              this.currentSelectedOrg = this.organisations[0];
+              this.userIsAdminOfOrgs = true;
+              console.log(o);
+            });
+            this.organisationChanged();
+          }
+        );
+      });
+  }
 }

@@ -3,7 +3,9 @@ package urban.server.repositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import urban.server.models.Organisation;
 import urban.server.models.User;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
@@ -54,6 +56,5 @@ public class JPAUserRepository implements UserRepository {
 
         return namedQuery.getResultList();
     }
-
 
 }

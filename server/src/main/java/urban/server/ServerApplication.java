@@ -57,5 +57,6 @@ public class ServerApplication implements CommandLineRunner {
         for (int i = 0; i < 5; i++) {
             userRepository.save(users.get(i));
         }
+
     }
 }

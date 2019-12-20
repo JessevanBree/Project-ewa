@@ -15,7 +15,7 @@ import {User} from "../../models/user";
 export class EditOrganisationPopupComponent implements OnInit {
 
   // @Input() editingOrganisation: Organisation;
- /* @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();*/
+  @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
 
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
   private queryParamSubscription: Subscription;
@@ -34,32 +34,35 @@ export class EditOrganisationPopupComponent implements OnInit {
     this.queryParamSubscription =
       this.route.queryParams.subscribe((params) => {
           const id = params['id'];
+          console.log(id);
           this.selectedOrg = this.organisationService.getOrganisations().find(org => org.id == id);
           this.editingOrg = Organisation.trueCopy(this.selectedOrg);
           this.editingOrgAdminEmail = this.editingOrg.organisationAdmin.email;
-          console.log(this.editingOrg);
         }
       );
   }
 
+  ngOnDestroy() {
+    this.queryParamSubscription.unsubscribe();
+  }
+
   onSaveChanges() {
     // this.savedOrganisation.emit(this.editingOrg);
+    this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
+    this.savedOrganisation.emit(this.editingOrg);
   }
 
   onClose() {
-    this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
     this.closed.emit(true);
     // this.savedOrganisation.emit(this.editingOrg);
   }
 
-  addMember(email: string){
+  addMember(email: string) {
     let user: User = this.userService.getUserByEmail(email);
-    if(user == null || undefined || email == null || undefined
-    || this.editingOrg.users.includes(user)) return;
-    let indexOfOrg = this.organisationService.getOrganisations().findIndex(org => org.id === this.editingOrg.id)
+    if (user == null || undefined || email == null || undefined
+      || this.editingOrg.users.includes(user) || this.editingOrg.organisationAdmin.id === user.id) return;
     this.editingOrg.addUser(user);
-    console.log(this.editingOrg, indexOfOrg, this.organisationService.getOrganisations());
-    this.organisationService.updateOrganisation(indexOfOrg, this.editingOrg);
+    this.organisationService.addMemberToOrg(this.editingOrg.id, user.id);
     this.memberToAdd = null;
   }
 }

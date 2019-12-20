@@ -6,9 +6,15 @@
 #addMemberButton {
   /*margin-top: 50px;*/
   margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 40px;
   /*float: right;*/
   /*background-color: #28a745;*/
   /*border: none;*/
+}
+
+#createMemberButton {
+  margin-bottom: 10px;
 }
 
 span.row.mx-1.align-middle {

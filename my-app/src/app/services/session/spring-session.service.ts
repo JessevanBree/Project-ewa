@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
-
+import {AdminOrganisationService} from "../admin-organisation.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +12,19 @@ export class SpringSessionService {
 
   private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login";
 
-  private token: string;
+  private _token: string;
   private authenticated: boolean;
   private user: User;
   public displayName: string;
   public errorMessage: string;
 
+  private readonly BS_TOKEN_NAME = "tokenName";
+  private readonly BS_USER_NAME = "userName";
+
   constructor(private httpClient: HttpClient,
               private route: Router,
               private userService: UserService) {
-    this.token = null;
+    this._token = null;
     this.displayName = null;
     this.errorMessage = null;
     this.authenticated = false;
@@ -39,7 +42,7 @@ export class SpringSessionService {
       },
       (error: HttpErrorResponse) => {
         this.authenticated = false;
-        switch(error.status) {
+        switch (error.status) {
           case 403: {
             this.errorMessage = "Invalid credentials";
             console.log("Invalid credentials");
@@ -56,19 +59,25 @@ export class SpringSessionService {
         // console.log(this.token);
         console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
+        // this.adminOrganisationService.isAdminOfOrgs();
         return this.route.navigateByUrl("/");
       }
     );
   }
 
+  public getUser(){
+    return this.user;
+  }
+
   signOut() {
-    this.token = null;
+    this._token = null;
+    this.user = null;
     this.authenticated = false;
-    this.displayName = null;
+    this.setToken(null, null);
   }
 
   public isAuthenticated(): boolean {
-    return this.authenticated;
+    return sessionStorage.getItem("tokenName") != null;
   }
 
   public getErrorMessage(): string {
@@ -76,14 +85,40 @@ export class SpringSessionService {
   }
 
   private setToken(token: string, nameOfUser: string): void {
-    this.token = token;
+    this._token = token;
     this.displayName = nameOfUser;
+    if (token == null && nameOfUser == null) {
+      sessionStorage.clear();
+      return;
+    }
+    sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
   }
 
   public getToken(): string {
-    console.log(this.token);
-    return this.token;
+    let token = sessionStorage.getItem(this.BS_TOKEN_NAME);
+    if (token == null) {
+      token = localStorage.getItem(this.BS_TOKEN_NAME);
+      sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    }
+    return token;
+  }
+
+  getNameOfUser() {
+    let nameOfUser = sessionStorage.getItem(this.BS_USER_NAME);
+    if (nameOfUser == null) {
+      nameOfUser = localStorage.getItem(this.BS_USER_NAME);
+      sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
+    }
+    return nameOfUser;
   }
 
 
+  get token(): string {
+    return this._token;
+  }
+
+  public getDisplayName(){
+    return this.displayName;
+  }
 }

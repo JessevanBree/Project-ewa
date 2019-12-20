@@ -53,11 +53,10 @@ export class AdminUsersComponent implements OnInit {
     });
   }
 
-
   createRequest($event): void {
     this.editIsClicked = false;
     this.aUserService.createUser($event).subscribe(
-      (user) => {
+      (user:User) => {
         let u = User.trueCopy(user);
         this.aUserService.getUsers().push(u);
       },
