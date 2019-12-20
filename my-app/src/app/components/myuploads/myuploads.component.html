@@ -2,7 +2,7 @@
                          (savedDataset)="saveRequest($event)"></app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
 <app-upload-pop-up *ngIf="uploadDatasetToggle"
                    (closingToggle)="onCloseReq()"></app-upload-pop-up> <!-- Open the upload pop-up when the upload button is clicked -->
-<app-edit-dataset-popup *ngIf="editDatasetToggle" (closingToggle)="onCloseReq()"></app-edit-dataset-popup>
+<app-view-dataset-popup *ngIf="editDatasetToggle" (closingToggle)="onCloseReq()"></app-view-dataset-popup>
 
 <div class="container">
   <div class="row">
@@ -14,17 +14,17 @@
         <ul class="dataList list-group list-group-flush">
           <!-- Check if the logged in user has any uploaded datasets, if not show a message -->
           <!-- show this block if the user doesn't have any uploaded datasets -->
-          <li class="list-group-item p-1" *ngIf="datasets.length == 0">
+          <li class="list-group-item p-1" *ngIf="userDatasets.length == 0">
             <span class="row mx-1 align-middle">
             You don't have any uploaded datasets
             </span>
           </li>
-          <li class="list-group-item p-1" *ngFor="let item of datasets; index as i">
+          <li class="list-group-item p-1" *ngFor="let item of userDatasets; index as i">
             <span class="row mx-1 align-middle">
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{item.name}}</p>
 					          <span class="btn-group col-lg-4 h-75">
-                      <a [href]="url" [download]="url" class="btn btn-warning fa fa-download"
+                      <a [href]="url" [download]="url" target="_blank" class="btn btn-warning fa fa-download"
                          title="Download dataset file" (click)="onDownload(i)"></a>
                       <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#editDatasetModal"
                               title="View dataset visualization" (click)="onViewDatasetClick(i)"></button>

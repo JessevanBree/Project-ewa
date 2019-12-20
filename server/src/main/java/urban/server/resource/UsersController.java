@@ -43,6 +43,19 @@ public class UsersController {
         return userById;
     }
 
+    @GetMapping("/{email}")
+    public User getUserByEmail(
+            @PathVariable String email) {
+
+        User byEmail = userRepo.findByEmail(email);
+
+        if (byEmail == null) {
+            throw new ResourceNotFoundException("id = " + email);
+        }
+
+        return byEmail;
+    }
+
     @PostMapping()
     public ResponseEntity<User> createUser(@RequestBody User user) {
 
@@ -54,13 +67,13 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
 
         User user = getUserById(id);
 
         userRepo.delete(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.noContent().build();
 
     }
 
@@ -72,10 +85,10 @@ public class UsersController {
         if (userById == null) {
             throw new ResourceNotFoundException("id = " + user.getId());
         }
-
+        user.setPassWord(userById.getPassWord());
         userRepo.save(user);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(user);
     }
 
     // This mapping gets all the organisations a user is admin of

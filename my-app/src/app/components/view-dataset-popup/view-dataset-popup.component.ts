@@ -4,10 +4,11 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import * as Chart from "chart.js";
 import {DatasetService} from "../../services/dataset.service";
-import {SessionService} from "../../services/session/session.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
+import {FirebaseFileService} from "../../services/firebase-file.service";
 
 @Component({
-  selector: 'app-edit-dataset-popup',
+  selector: 'app-view-dataset-popup',
   templateUrl: './view-dataset-popup.component.html',
   styleUrls: ['./view-dataset-popup.component.css']
 })
@@ -18,37 +19,37 @@ export class ViewDatasetPopupComponent implements OnInit {
   private chartOfDataset: Chart;
   private datasets: Dataset[];
   private queryParamSubscription: Subscription;
+  private pdfSource: string;
 
 
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService,
-              private router: Router, private sessionService: SessionService) {
+              private router: Router, private sessionService: SpringSessionService,
+              private fileService: FirebaseFileService) {
     this.datasets = datasetService.getMyDatasets();
     this.closingToggle = new EventEmitter<boolean>();
+    this.pdfSource = null;
     // this.chartData = [this.selectedDataset.chartData];
-
   }
 
   ngOnInit() {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
-        const id = params.id;
-        console.log(id);
-          for (let i = 0; i < this.datasets.length; i++) {
-            if(this.datasets[i].id == id){
-              this.editingDataset = Dataset.trueCopy(this.datasets[i]);
-              console.log(this.editingDataset.chart);
-              break;
-            }
+          const id = params.id;
+          console.log(id);
+          this.editingDataset = this.datasets.find(dataset => dataset.id == id);
+          if(this.editingDataset.fileType == "pdf"){
+            this.pdfSource = this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id);
+            console.log(this.pdfSource);
           }
 
         }
       )
   }
 
-  onClose(){
+  onClose() {
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.userMail]);
+    this.router.navigate(['myuploads/', this.sessionService.displayName]);
   }
 
   ngOnDestroy() {

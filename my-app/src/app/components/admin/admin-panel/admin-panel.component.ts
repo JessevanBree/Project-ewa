@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AOrganisationService } from "src/app/services/a-organisation.service";
+import { OrganisationService } from "src/app/services/organisation.service";
 import { SessionService } from 'src/app/services/session/session.service';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 	styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-	constructor(private aOrganisationService: AOrganisationService, private sessionService: SessionService, private router: Router) {
+	constructor(private aOrganisationService: OrganisationService, private sessionService: SessionService, private router: Router) {
 
 	}
 

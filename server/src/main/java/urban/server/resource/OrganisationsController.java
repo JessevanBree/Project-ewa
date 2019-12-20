@@ -10,7 +10,6 @@ import urban.server.models.User;
 import urban.server.repositories.JPAOrganisationRepository;
 import urban.server.repositories.JPAUserRepository;
 import urban.server.resource.exceptions.ResourceNotFoundException;
-import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 
 import java.net.URI;
@@ -57,18 +56,6 @@ public class OrganisationsController {
         return organisationById;
     }
 
-    // Mapping to get the organisation admin
-    //TODO This mapping does not work yet, 405 method not allowed
-    @GetMapping("/getAdmin/{id}")
-    public ResponseEntity<User> getAdminFromOrganisation(@PathVariable Long id){
-        Organisation organisation = organisationRepo.findById(id);
-
-        User organisationAdmin = organisation.getOrganisationAdmin();
-
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/getAdmin/{id}").buildAndExpand(organisationAdmin.getId()).toUri();
-
-        return ResponseEntity.created(location).body(organisationAdmin);
-    }
 
     // Post mapping to create an organisation
     @PostMapping()
@@ -81,6 +68,17 @@ public class OrganisationsController {
         return ResponseEntity.created(location).body(savedOrganisation);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
+
+        Organisation organisation = getOrganisationById(id);
+
+        organisationRepo.delete(organisation);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
     @PutMapping()
     public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
 
@@ -92,19 +90,9 @@ public class OrganisationsController {
 
         organisationRepo.save(organisation);
 
-        return ResponseEntity.ok().build();
-    }
-
-    // Delete mapping to delete an organisation
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
-
-        Organisation organisation = getOrganisationById(id);
-
-        organisationRepo.delete(organisation);
-
         return ResponseEntity.ok(organisation);
     }
+
 
     // Add user to org
     @PostMapping("/{organisationId}/{userId}")

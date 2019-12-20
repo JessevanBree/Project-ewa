@@ -1,3 +1,4 @@
+<!--Search and filter bar start-->
 <div class="row">
   <div class="col-sm-12 col-md-8 col-lg-5 form-group">
     <div class="col-sm-12 col-lg-10 form-row has-search float-left m-0 rounded-circle">
@@ -38,7 +39,9 @@
     </div>
   </div>
 </div>
+<!--Search and filter bar end-->
 
+<!--Dataset overview list start-->
 <div class="row mt-1 mx-0">
   <div class="col-sm-8 col-md-8 col-lg-4 mx-2" style="max-height: 400px;">
     <table class="table table-bordered m-0 text-center">
@@ -46,17 +49,17 @@
       <tr>
         <th class="text-light font-weight-normal">Datasets
           <span class="custom-badge float-right"
-                *ngIf="this.copyDatasets">{{(this.copyDatasets| searchArrayName: [searchQuery, 'value']).length}}</span>
+                *ngIf="this.datasets && this.searchQuery != ''">{{(this.datasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
-      <tbody class="table-light" *ngIf="this.copyDatasets">
-      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
+      <tbody class="table-light" *ngIf="this.datasets.length > 0">
+      <tr *ngFor="let dataset of datasets | searchArrayName: [searchQuery, 'value']; let index = index;"
           (click)="onSelection(index, dataset)"
           class="mt-auto mb-auto">
         <td>{{dataset.name}} <i class="fa fa-arrow-right float-right mt-1"></i></td>
       </tr>
-      <tr *ngIf="copyDatasets.length == 0">
+      <tr *ngIf="datasets.length == 0">
         <td><i>There are no datasets available</i></td>
       </tr>
       </tbody>
@@ -82,8 +85,10 @@
     <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
   </div>
 </div>
+<!--Dataset overview list end-->
 
 
+<!--OLD DATASET OVERVIEW LIST-->
 <!--<div class="row">-->
 <!--  <div class="col-sm-11 form-group mx-auto">-->
 <!--    <div class="col-sm-12 col-md-5 form-row has-search float-left mx-auto mt-4 rounded-circle">-->

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import * as firebase from "firebase";
@@ -42,13 +42,24 @@ export class UserService {
     return this.httpClient.get<User[]>(this.REST_USERS_URL);
   }
 
+  public deleteUser(user: User) {
+    return this.httpClient.delete(this.REST_USERS_URL + "/" + user.id);
+  }
+
+  public saveUser(user: User) {
+    return this.httpClient.put(this.REST_USERS_URL, user);
+  }
+
+  public createUser(user: User) {
+    return this.httpClient.post(this.REST_USERS_URL, user);
+  }
+
+  public getUserByEmail() {
+
+  }
+
   getUsers() {
     return this.users;
   }
-
-  public deleteUser(user: User): void {
-
-  }
-
 
 }

@@ -3,9 +3,10 @@ import {Dataset, Publicity} from "../../models/dataset";
 import {ADatasetService} from "../../services/a-dataset.service";
 import {Organisation} from "../../models/organisation";
 import {User} from "../../models/user";
-import {AOrganisationService} from "../../services/a-organisation.service";
+import {OrganisationService} from "../../services/organisation.service";
 import {FbUserService} from "../../services/fb-user.service";
 import {NgForm} from "@angular/forms";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-create-organisation-popup',
@@ -14,7 +15,7 @@ import {NgForm} from "@angular/forms";
 })
 export class CreateOrganisationPopupComponent implements OnInit {
 
-  isClicked: boolean = false;
+  @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
   users: User[];
@@ -22,12 +23,11 @@ export class CreateOrganisationPopupComponent implements OnInit {
   @Input() organisation: Organisation;
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
-  constructor(private aOrganisationService: AOrganisationService, private aUserService: FbUserService) {
+  constructor(private aOrganisationService: OrganisationService, private aUserService: UserService) {
     this.users = aUserService.getUsers();
   }
 
   ngOnInit() {
-    this.isClicked = true;   // if modal is instantiated, isClicked is set to true
   }
 
   //This method saves the edited changes of a dataset
@@ -36,11 +36,12 @@ export class CreateOrganisationPopupComponent implements OnInit {
       return user.email === form.value.adminInput;
     });
 
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput,user));
+    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, user));
+    this.savedOrganisation.emit(this.organisation);
   }
 
-  private setClickedToFalse() {
-    this.isClicked = false;
+  onClose() {
+    this.closed.emit(true);
   }
 
 }

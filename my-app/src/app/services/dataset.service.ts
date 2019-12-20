@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Dataset, Publicity, RegionLevel} from "../models/dataset";
 import {User} from "../models/user";
 import {HttpClient} from "@angular/common/http";
 import {error} from "util";
 import {UserService} from "./user.service";
+import {SpringSessionService} from "./session/spring-session.service";
+import {FirebaseFileService} from "./firebase-file.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +13,15 @@ import {UserService} from "./user.service";
 export class DatasetService {
 
   private readonly REST_DATASETS_URL = "http://localhost:8080/datasets";
-  datasets: Dataset[];
+  private datasets: Dataset[];
 
-  constructor(private httpClient: HttpClient, private userService: UserService) {
+  constructor(private httpClient: HttpClient,
+              private userService: UserService,
+              private fileService: FirebaseFileService) {
     this.datasets = [];
+
     this.getAllDatasets().subscribe(
-      data => {
+      (data: Dataset[]) => {
         this.datasets = data;
       },
       (error) => {
@@ -25,41 +30,79 @@ export class DatasetService {
       () => {
         console.log("Dataset service has retrieved all datasets");
       }
-    )
-  }
+    );
 
-  add(dataset: Dataset): void {
-    this.datasets.push(dataset);
   }
 
   getAllDatasets() {
     return this.httpClient.get<Dataset[]>(this.REST_DATASETS_URL);
   }
 
-  saveDataset(dataset: Dataset){
+  //POST request to database and adds the response(dataset) to the list inside the service
+  //Closingtoggle optional parameter is used to let the myuploads page know that the dataset has succesfully been saved
+  // so it can close the modal. The file parameter is used to store the given file in firebase storage
+  // using firebase-file service.
+  saveDataset(dataset: Dataset, file: File, closingToggle?: EventEmitter<boolean>){
+    if(dataset == null || undefined) return;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
+        console.log(data);
+        this.datasets.push(data);
+        this.fileService.saveFile(file, data.id, data.name);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        if(closingToggle) {
+          closingToggle.emit(true); // Used to notify view to close modal used for uploading dataset
+        }
+        console.log("Finished posting dataset");
+      }
+    );
+  }
+
+  public updateDataset(dataset: Dataset): boolean {
+    if (!dataset) return false;
+    let index: number = this.datasets.findIndex(d => d.id == dataset.id);
+    console.log(index);
+    this.httpClient.put(this.REST_DATASETS_URL, dataset).subscribe(
+      (responseDataset: Dataset) => {
+        this.datasets[index] = responseDataset;
+        console.log(this.datasets[index]);
+      }, error => { console.log(error); },
+      () => {
+        console.log("Finished updating dataset");
+      }
+    );
+  }
+
+  // Deletes the dataset
+  public deleteDataset(dataset: Dataset): boolean {
+    this.datasets = this.datasets.filter(d =>  d.id != dataset.id);
+    this.httpClient.delete(this.REST_DATASETS_URL + "/" + dataset.id).subscribe(
+      (data: Dataset[]) => {
         console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log("Finished posting dataset");
+        console.log("Finished deleting dataset: ", dataset);
       }
     );
+    return this.datasets.includes(dataset);
   }
 
-  getDatasets() {
+  public getDatasets() {
     return this.datasets;
   }
 
-  getMyDatasets() {
-     return this.datasets.filter(dataset => dataset.user.id == this.userService.getLoggedInUser().id
-    );
+  public getMyDatasets(){
+    return this.datasets.filter(dataset => dataset.user.id == this.userService.getLoggedInUser().id);
   }
 
-  getPublicDatasets() {
+  public getPublicDatasets() {
     return this.datasets.filter(dataset =>
       dataset.publicity.includes("Public")
     );
@@ -73,38 +116,20 @@ export class DatasetService {
 
   getNATDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-      dataset.region == "National level"
+      dataset.region == "NAT_LEVEL"
     );
   }
 
   getURBDatasets() {
     return this.getPublicDatasets().filter(dataset =>
-      dataset.region == "Urban level"
+      dataset.region == "URB_LEVEL"
     );
   }
 
-  public updateDataset(index: number, dataset: Dataset): Boolean {
-    if (!this.datasets[index] || !dataset) return false;
-
-    this.datasets[index] = dataset;
-    return this.datasets[index].equals(dataset);
-    return null;
-  }
-
+  //Adds dataset to list of datasets inside service manually, only use for developing purposes
   public addDataset(dataset: Dataset): Boolean {
     this.datasets.push(dataset);
     return this.datasets[this.datasets.length - 1].equals(dataset);
-    return null;
-  }
-
-  public deleteDataset(dataset: Dataset): Boolean {
-    let datasetIndex: number = this.datasets.indexOf(dataset);
-    if (datasetIndex != -1) {
-      this.datasets.splice(datasetIndex, 1)
-      return this.datasets[datasetIndex].equals(dataset);
-    } else {
-      return;
-    }
   }
 
   generateRandomDataset() {

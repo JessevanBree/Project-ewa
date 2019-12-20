@@ -10,24 +10,28 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+        <form (ngSubmit)="onSubmit (formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
 
           <h5 class="border border-success text-center text-white bg-success">Dataset visualization</h5>
-          <div class="form-group col-md-6 mx-3">
-            <label for="uploadModalControlFile1">Choose dataset file</label>
+          <div class="form-group col-md-12 mx-3">
+            <label for="uploadModalControlFile1">Choose dataset file <span
+              class="font-italic small">(Accepted format: <abbr
+              title="comma separated values">.csv</abbr>)</span></label>
             <input type="file" class="form-control-file pt-2"
                    (change)="uploadListener($event.target.files)"
                    id="uploadModalControlFile1" name="fileInput"
-                   accept=".csv"
+                   accept=".csv, .pdf"
                    #csvReader
                    ngModel
                    required
                    [disabled]=confirmToggle>
+
           </div>
-          <div id="chartConfiguration" class="form-row my-4" *ngIf="headers">
+
+          <div id="chartConfiguration" class="form-row my-4" *ngIf="fileTypeUploaded == 'csv'">
             <div class="card mx-4" id="headerCard">
-              <div class="card-header">Chart configuration</div>
+              <div class="card-header"><h5>Chart configuration</h5></div>
               <div class="card-body">
                 <div class="form-group collapse show" id="chartOptions">
                   <label for="xAxisOptions">X axis</label>
@@ -109,11 +113,41 @@
                 ngModel
                 required>
                 <option>Private</option>
-                <option>Group</option>
+                <option *ngIf="this.userService.getLoggedInUser().organisationsList">Group</option>
                 <option>Public</option>
               </select>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-6" *ngIf="publicityInput == 'Group'">
+              <label>Groups</label>
+              <ng-select [items]="organisationsOfUser"
+                         required
+                         #selectBox="ngModel"
+                         bindLabel="name"
+                         placeholder="Select organisation(s)"
+                         appendTo="body"
+                         name="organisationsSelect"
+                         [multiple]="true"
+                         [closeOnSelect]="false"
+                         [(ngModel)]="selected"
+                         (change)="onChangeOrganisationSelect()">
+                <ng-template ng-header-tmp>
+
+                  <div>
+                    <button class="btn btn-link"
+                            (click)="onSelectAll()">Select All
+                    </button>
+                    <button class="btn btn-link"
+                            (click)="onClearAll()">Clear All
+                    </button>
+                  </div>
+
+                </ng-template>
+              </ng-select>
+              <div *ngIf="selectBox.touched && selectBox.hasError('required')" class="alert alert-danger">
+                <p>You must select one or more groups</p>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
               <label for="yearOptions">Year</label>
               <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
                 <option [ngValue]="year" *ngFor="let year of listOfYears"
@@ -125,7 +159,7 @@
 
           <div class="form-row">
             <div class="form-group col-md-12" id="regionOptions">
-              <legend class="col-form-label">Regional level</legend>
+              <label class="col-form-label">Regional level </label>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
                        name="regionOptions"

@@ -1,4 +1,4 @@
-<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)"></app-edit-metadata-popup>
+<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)" (closingToggle)="editPopUpIsClosed()"></app-edit-metadata-popup>
 <!-- Open the Edit pop-up when an edit button is clicked -->
 
 <div class="row">

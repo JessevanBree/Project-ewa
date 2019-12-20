@@ -3,14 +3,14 @@ import {User} from './user';
 export class Organisation {
   id: number;
 	name: String;
-	orgAdmin: User;
+	organisationAdmin: User;
 	isDeleted: boolean;
 	dateCreated: Date;
 	dateEdited?: Date;
 
 	constructor(name:String, orgAdmin: User) {
 		this.name = name;
-		this.orgAdmin = orgAdmin;
+		this.organisationAdmin = orgAdmin;
 		this.isDeleted = false;
 		this.dateCreated = new Date(Date.now());
 		this.dateEdited = new Date(Date.now());
@@ -18,7 +18,7 @@ export class Organisation {
 
 	equals(org: Organisation): Boolean {
 		return this.name === org.name &&
-		this.orgAdmin.equals(org.orgAdmin) &&
+		this.organisationAdmin === this.organisationAdmin &&
 		this.isDeleted === org.isDeleted &&
 		this.dateCreated === org.dateCreated;
 	}

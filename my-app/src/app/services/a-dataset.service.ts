@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Dataset, Publicity} from '../models/dataset';
 import {FbUserService} from './fb-user.service';
-import { AOrganisationService } from './a-organisation.service';
+import { OrganisationService } from './organisation.service';
 import { User } from '../models/user';
 import { SUR_NAMES } from '../models/testData';
 import { Organisation } from '../models/organisation';
@@ -13,7 +13,7 @@ import { LoremIpsum } from 'lorem-ipsum';
 export class ADatasetService {
 	private datasets: Dataset[];
 
-	constructor(private aUserService: FbUserService, private aOrganisationService: AOrganisationService) {
+	constructor(private aUserService: FbUserService, private aOrganisationService: OrganisationService) {
 		this.datasets = [];
 
 		for (let i = 0; i < 10; i++) {

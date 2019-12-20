@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular/common/http";
 import {User} from "../../models/user";
-import {constants} from "http2";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {AdminOrganisationService} from "../admin-organisation.service";
@@ -28,7 +27,7 @@ export class SpringSessionService {
     this.authenticated = false;
   }
 
-  signIn(email: String, password: String) {
+  signIn(email: String, password: String, errorMessage?: string) {
     return this.httpClient.post<HttpResponse<User>>(this.REST_AUTHENTICATION_URL,
       {email: email, passWord: password}, {observe: "response"}).subscribe(
       (response) => {
@@ -54,8 +53,8 @@ export class SpringSessionService {
         }
       },
       () => {
-        console.log(this.token);
-        console.log("Login successful");
+        // console.log(this.token);
+        console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
         // this.adminOrganisationService.isAdminOfOrgs();
         return this.route.navigateByUrl("/");

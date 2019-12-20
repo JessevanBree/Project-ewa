@@ -14,10 +14,7 @@ import urban.server.repositories.JPAUserRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 public class ServerApplication implements CommandLineRunner {
@@ -25,20 +22,25 @@ public class ServerApplication implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class);
 
     @Autowired
-    private JPAUserRepository userRepository;
-
-    @Autowired
+    private UserRepository userRepository;
     private OrganisationRepository organisationRepository;
+    private DatasetRepository datasetRepository;
 
     @Autowired
-    private DatasetRepository datasetRepository;
+    public ServerApplication(UserRepository userRepository,
+                             OrganisationRepository organisationRepository,
+                             DatasetRepository datasetRepository) {
+        this.userRepository = userRepository;
+        this.organisationRepository = organisationRepository;
+        this.datasetRepository = datasetRepository;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         this.createInitials();
     }
 
@@ -75,7 +77,10 @@ public class ServerApplication implements CommandLineRunner {
             }
 
             organisationRepository.save(organisation);
-            userRepository.save(users.get(i));
+
+            for (int j = 0; j < 5; j++) {
+                userRepository.save(users.get(j));
+            }
         }
     }
 }

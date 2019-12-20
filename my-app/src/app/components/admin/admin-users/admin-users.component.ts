@@ -1,69 +1,113 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+
 //Models
-import { Organisation } from '../../../models/organisation';
-import { User } from 'src/app/models/user';
+import {Organisation} from '../../../models/organisation';
+import {User} from 'src/app/models/user';
+import {UserService} from 'src/app/services/user.service';
+import {ActivatedRoute, Router} from "@angular/router";
 
 //Services
-import {FbUserService} from 'src/app/services/fb-user.service';
+// import {FbUserService} from 'src/app/services/fb-user.service';
 
 @Component({
-	selector: 'app-admin-users',
-	templateUrl: './admin-users.component.html',
-	styleUrls: ['./admin-users.component.css']
+  selector: 'app-admin-users',
+  templateUrl: './admin-users.component.html',
+  styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-	users: User[];
-	editIsClicked: boolean;
-	createIsClicked: boolean;
-	activeIndex: number;
-	selectedUser: User;
-	searchFilter: String;
-	emptyList: boolean;
+  editIsClicked: boolean;
+  createIsClicked: boolean;
+  activeIndex: number;
+  selectedUser: User;
+  searchFilter: String;
+  emptyList: boolean;
 
-	constructor(private aUserService: FbUserService) {
-		this.activeIndex ;
+  constructor(private aUserService: UserService,
+              private router: Router, private activatedRoute: ActivatedRoute) {
+    this.activeIndex;
     this.selectedUser = null;
-		this.editIsClicked;
+    this.editIsClicked;
     this.createIsClicked = false;
-		this.searchFilter = "";
-	}
+    this.searchFilter = "";
+  }
 
-	ngOnInit() {
-		this.users = this.aUserService.getUsers();
-		console.log(this.users);
-		this.emptyList = this.users.length == 0;
-	}
+  ngOnInit() {
+    this.emptyList = this.aUserService.getUsers().length == 0;
+  }
 
-	onEditClick(originalUserIndex: number): void {
-		this.editIsClicked = true;
-		let copyUser = this.aUserService.getUsers()[originalUserIndex];
-		this.activeIndex = originalUserIndex;
-		this.selectedUser = copyUser;
-	}
+  onEditClick(originalUserIndex: number): void {
+    this.editIsClicked = true;
+    let userToEdit = this.aUserService.getUsers()[originalUserIndex];
+    this.activeIndex = originalUserIndex;
+    this.selectedUser = userToEdit;
+    this.router.navigate(['editUser'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: this.selectedUser.id}
+    });
+  }
 
-	onCreateButtonClick() {
-		this.createIsClicked = true;
-	}
+  onCreateButtonClick() {
+    this.createIsClicked = true;
+    this.router.navigate(['createUser'], {
+      relativeTo: this.activatedRoute
+    });
+  }
 
-	saveRequest($event): void {
-		console.log($event);
-		this.editIsClicked = false;
-		this.users[this.activeIndex] = $event;
-		console.log($event, this.activeIndex);
+  createRequest($event): void {
+    this.editIsClicked = false;
+    this.aUserService.createUser($event).subscribe(
+      (user:User) => {
+        let u = User.trueCopy(user);
+        this.aUserService.getUsers().push(u);
+      },
+      (err) => console.log(err),
+      () => {
+        this.router.navigate(['admin'], {
+          relativeTo: this.activatedRoute
+        });
+      });
+  }
 
-		this.aUserService.saveAllUsers();
-	}
+  saveRequest($event): void {
+    this.editIsClicked = false;
+    this.aUserService.saveUser($event).subscribe(
+      () => {
+        let u = User.trueCopy($event);
+        this.aUserService.getUsers()[this.activeIndex] = u;
+      },
+      (err) => console.log(err),
+      () => {
+        this.router.navigate(['admin']);
+      });
+  }
 
 	onDeleteClick(user: User){
 		if(confirm("Delete user: "+ user.email)){
-			this.aUserService.deleteUser(user);
+			this.aUserService.deleteUser(user).subscribe(() =>
+				(result) => {
+					console.log(result)
+				},
+				(err) => console.log(err)
+			);
 		}
 	}
 
-	checkIfListEmpty(): void {
-		if(this.users.length == 0) this.emptyList = true;
-		setTimeout(() => {
-			this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
-		}, 5)
-	}
+  checkIfListEmpty(): void {
+    if (this.aUserService.getUsers().length == 0) this.emptyList = true;
+    setTimeout(() => {
+      this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+    }, 5)
+  }
+
+  createPopUpIsClosed($event: boolean) {
+    if ($event == true) {
+      this.router.navigate(['admin']);
+    }
+  }
+
+  editPopUpIsClosed($event: boolean) {
+    if ($event == true) {
+      this.router.navigate(['admin']);
+    }
+  }
 }

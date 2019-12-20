@@ -28,7 +28,7 @@
                 <label for="firstName"></label>
                 <i class="fa fa-user-circle float-left mt-1 mr-1"></i>
                 <input type="text" id="firstName" name="firstname"
-                       class="form-control float-left" style="max-width: 100px"
+                       class="form-control float-left " style="max-width: 100px"
                        [(ngModel)]="userCopy.firstName"
                        (ngModelChange)="updateButtonToggle = false" placeholder="Firstname">
                 <label for="surName"></label>
@@ -65,7 +65,7 @@
             </div>
             <div class="form-group">
               <div id="uploads" class="">
-                Uploads: {{firebaseDatasetService.getMyDatasets().length}}</div>
+                Uploads: {{datasetService.getMyDatasets().length}}</div>
             </div>
 
           </form>

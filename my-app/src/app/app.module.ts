@@ -2,9 +2,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {ChartsModule} from 'ng2-charts';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 import {AppComponent} from './app.component';
 import {UploadPopUpComponent} from './components/upload-pop-up/upload-pop-up.component';
 import {AdminPanelComponent} from './components/admin/admin-panel/admin-panel.component';
@@ -41,6 +43,10 @@ import { CreateMemberPopupComponent } from './components/admin-organisation-pane
 import {AdminOrganisationService} from "./services/admin-organisation.service";
 import {SpringSessionService} from "./services/session/spring-session.service";
 import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-filter-pipe";
+import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
+import {LandingPageComponent} from "./components/landing-page/landing-page.component";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+
 
 @NgModule({
   declarations: [
@@ -54,7 +60,8 @@ import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-f
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-    SearchArrayNamePipe,
+	SearchArrayNamePipe,
+	SearchUserArrayPipe,
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
@@ -71,9 +78,9 @@ import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-f
     FooterComponent,
     AddMemberPopupComponent,
     AdminOrganisationPanelComponent,
-    HomeComponent,
     UserFilterPipe,
-    CreateMemberPopupComponent
+    CreateMemberPopupComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +89,10 @@ import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-f
     ChartsModule,
     HttpClientModule,
     FontAwesomeModule,
-    PapaParseModule
+    PapaParseModule,
+    PdfViewerModule,
+    NgSelectModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
 
   providers: [

@@ -13,7 +13,7 @@ export class SessionService {
 	signOn(eMail: string, passWord: string) {
 		for (let i = 0; i < this.aUserService.getUsers().length; i++) {
 			let user = this.aUserService.getLoggedInUser();
-			if (eMail == user.email && passWord == user.password) {
+			if (eMail == user.email && passWord == user.passWord) {
 				this.userMail = eMail;
 				return this.isValid = true;
 			}

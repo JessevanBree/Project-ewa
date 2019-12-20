@@ -9,9 +9,13 @@
         </button>
       </div>
         <div class="modal-body">
-        <canvas baseChart [chartType]="editingDataset.chart.type" [datasets]="[editingDataset.chart]"
+        <canvas *ngIf="editingDataset.fileType == 'csv'"
+                baseChart [chartType]="editingDataset.chart.type" [datasets]="[editingDataset.chart]"
                 [labels]="editingDataset.chartLabels"
                 width="400" height="500"></canvas>
+          <pdf-viewer *ngIf="editingDataset.fileType == 'pdf'"
+                      [src]="pdfSource" style="display:block"
+          [render-text]="true" [original-size]="false" [autoresize]="true"></pdf-viewer>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>

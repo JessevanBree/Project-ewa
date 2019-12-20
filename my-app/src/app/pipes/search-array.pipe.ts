@@ -15,7 +15,7 @@ export class SearchArrayNamePipe implements PipeTransform {
 	// 	}
 	// }
 
-  transform(array: Dataset[], args: any[]): any {
+  transform(array, args: any[]): any {
     // only if dataset array exists filter the dataset array
     if (array) {
       return array.filter(item => {

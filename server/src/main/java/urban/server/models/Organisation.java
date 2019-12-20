@@ -12,7 +12,10 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@NamedQuery(name = "find_all_organisations", query = "select o from Organisation o")
+@NamedQueries({
+        @NamedQuery(name = "find_all_organisations", query = "select o from Organisation o"),
+        @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1")
+})
 public class Organisation {
     @Id
     @GeneratedValue
@@ -26,6 +29,9 @@ public class Organisation {
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "organisations")
+    private List<Dataset> datasets = new ArrayList<>();
 
    /* @JsonView({OrganisationsView.Full.class})
     @JsonSerialize(using = DatasetsView.IdNameSimpleUsersSerializer.class)
@@ -87,10 +93,10 @@ public class Organisation {
         this.users.add(user);
     }
 
-   /* public List<Dataset> getDatasets() {
-        return datasets;
-    }
-*/
+    /* public List<Dataset> getDatasets() {
+         return datasets;
+     }
+ */
   /*  public void setDatasets(List<Dataset> datasets) {
         this.datasets = datasets;
     }
@@ -113,6 +119,15 @@ public class Organisation {
 
     public void setOrganisationAdmin(User organisationAdmin) {
         this.organisationAdmin = organisationAdmin;
+    }
+
+    public List<Dataset> getDatasets() {
+        return datasets;
+    }
+
+    public void addDataset(Dataset dataset) {
+        dataset.addOrganisation(this);
+        this.datasets.add(dataset);
     }
 
     @Override

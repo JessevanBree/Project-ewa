@@ -1,12 +1,8 @@
 package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.node.POJONode;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import urban.server.models.converters.HashMapConverter;
-import urban.server.models.helpers.CustomJson;
+import com.sun.istack.Nullable;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
 import urban.server.views.DatasetsView;
@@ -42,12 +38,18 @@ public class Dataset {
     private PublicityEnum publicity;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @Nullable
     private String description;
 
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     private int year;
 
-//    @Convert(converter = HashMapConverter.class)
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    private String fileName;
+
+    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    private String fileType;
+
     @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
     @OneToOne(cascade = CascadeType.ALL)
     private ChartDataSets chart;// TODO:: Set the right dataset for this -> update constructor
@@ -59,6 +61,11 @@ public class Dataset {
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     @ManyToOne
     private User user;
+
+    @ManyToMany
+    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
+    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
+    private List<Organisation> organisations = new ArrayList<>();
 
     /*@JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
@@ -77,13 +84,14 @@ public class Dataset {
     }
 
     public Dataset(String name, RegionLevelEnum region, PublicityEnum publicity,
-                   User user, int year, List<String> chartLabels, ChartDataSets chart,
+                   User user, int year, String fileName, String fileType, List<String> chartLabels, ChartDataSets chart,
                    String description) {
         this.name = name;
         this.region = region;
         this.publicity = publicity;
         this.user = user;
         this.year = year;
+        this.fileName = fileName;
         this.chartLabels = chartLabels;
         this.chart = chart;
         this.description = description;
@@ -96,11 +104,6 @@ public class Dataset {
         this.publicity = publicity;
         this.user = user;
         this.year = year;
-    }
-
-    public Dataset(String name, Map<String, Object> chartData) {
-        this.name = name;
-
     }
 
     public Long getId() {
@@ -151,6 +154,22 @@ public class Dataset {
         this.year = year;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
     public User getUser() {
         return user;
     }
@@ -173,6 +192,14 @@ public class Dataset {
 
     public void setChartLabels(List<String> chartLabels) {
         this.chartLabels = chartLabels;
+    }
+
+    public List<Organisation> getOrganisations() {
+        return organisations;
+    }
+
+    public void addOrganisation(Organisation organisation) {
+        this.organisations.add(organisation);
     }
 
     @Override

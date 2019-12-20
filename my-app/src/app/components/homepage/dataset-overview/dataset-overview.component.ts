@@ -1,13 +1,14 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Dataset, RegionLevel} from "../../../models/dataset";
+import {Dataset, Publicity, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
 import {FbUserService} from "../../../services/fb-user.service";
 import {FbSessionService} from "../../../services/session/fb-session.service";
 import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
-import {setInterval} from "timers";
 import {DatasetService} from "../../../services/dataset.service";
+import {SpringSessionService} from "../../../services/session/spring-session.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-dataset-overview',
@@ -15,11 +16,11 @@ import {DatasetService} from "../../../services/dataset.service";
   styleUrls: ['./dataset-overview.component.css']
 })
 export class DatasetOverviewComponent implements OnInit {
-  private readonly datasets: Dataset[];
+  private datasets: Dataset[];
   private copyDatasets: Dataset[];
 
   // if subscribing wants to be done in the view component
-  private datasets$: Observable<Dataset[]>;
+  // private datasets$: Observable<Dataset[]>;
 
   // private filters: {} = {regionSearch: null, publicitySearch: null};
   @ViewChild('formElement', {static: false})
@@ -33,8 +34,8 @@ export class DatasetOverviewComponent implements OnInit {
   private searchQuery: any;
 
   constructor(private datasetService: DatasetService, private router: Router,
-              private activatedRoute: ActivatedRoute, private aUserService: FbUserService,
-              private sessionService: FbSessionService) {
+              private activatedRoute: ActivatedRoute, private aUserService: UserService,
+              private sessionService: SpringSessionService) {
     this.datasets = [];
     this.activeIndex = null;
     this.searchQuery = '';
@@ -47,7 +48,7 @@ export class DatasetOverviewComponent implements OnInit {
   onSelection(index: number, dataset: Dataset) {
     this.activeIndex = dataset.id;
     console.log("OVERVIEW: Dataset ID = " + dataset.id);
-    this.selectedDataset = this.copyDatasets.find(dataset => dataset.id == this.activeIndex);
+    this.selectedDataset = this.datasets.find(dataset => dataset.id == this.activeIndex);
     console.log(this.selectedDataset);
     this.router.navigate(['detail'], {
       relativeTo: this.activatedRoute,
@@ -100,18 +101,9 @@ export class DatasetOverviewComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*this.activatedRoute.queryParams.subscribe(
-      (params: Params) => {
-        console.log("in overview id=" + params['id']);
-        this.activeIndex = params['id'];
-        this.selectedDataset = this.datasets.find(dataset => dataset.id === Number.parseInt(String [params['id']]));
-        console.log("overview Index: " + this.activeIndex);
-      }
-    );*/
-
     this.activatedRoute.queryParams.subscribe(
       (params: Params) => {
-        // this.activeIndex = null;
+        this.activeIndex = null;
         if (params['id']) {
           console.log("ID IN PARAM OVERVIEW: " + params['id']);
           this.activeIndex = params['id'];
@@ -127,18 +119,28 @@ export class DatasetOverviewComponent implements OnInit {
     );
 
     // subscribing in the view component
-
     this.datasetService.getAllDatasets().subscribe(
-      (data:Dataset[]) => {
-        this.copyDatasets = data;
-        this.datasetService.datasets = data;
-        console.log(data);
+      (data: Dataset[]) => {
+        if (data && this.sessionService.isAuthenticated()) {
+          let userEmail: string = this.sessionService.displayName;
+          data.map((o) => {
+            console.log(o);
+            o && o.publicity.includes("PUBLIC")  || o.user.email == userEmail ?
+              this.datasets.push(o) : [];
+          });
+        } else if (data) {
+          data.map((o) => {
+            console.log(o);
+            o && o.publicity.includes("PUBLIC")  ? this.datasets.push(o) : []
+          })
+        }
+        // console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log(this.copyDatasets);
+        // console.log(this.datasets);
         console.log("Retrieved all datasets");
       }
     );
