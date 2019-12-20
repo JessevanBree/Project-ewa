@@ -86,7 +86,7 @@ export class AddMemberPopupComponent implements OnInit {
       }
     );
 
-    //TODO: Filter the users list to not have have values of the orgMembers list (so no duplicates), DOES NOT WORK YET
+    //TODO: Filter the users list to not have have values of the orgMembers list (prevents for showing users that are already in the organisation no duplicates), DOES NOT WORK YET
     for( var i=this.users.length - 1; i>=0; i--){
       for( var j=0; j<this.orgMembers.length; j++){
         if(this.users[i] && (this.users[i].email === this.orgMembers[j].email)){

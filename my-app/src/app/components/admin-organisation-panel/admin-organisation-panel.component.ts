@@ -26,6 +26,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private addMemberToggle: boolean;
   private createMemberToggle: boolean;
 
+  searchFilter: String;
+  emptyList: boolean;
+
   constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
               private route: ActivatedRoute,) {
 
@@ -47,15 +50,6 @@ export class AdminOrganisationPanelComponent implements OnInit {
       console.log(event);
   }
 
-  //  exec() {
-  //   for(var i=0;i<5;i++) {
-  //     setTimeout(function() {
-  //       console.log("Its getting called!")
-  //       this.organisationChanged();
-  //     },(i+i+1)*1000);
-  //   }
-  // }
-
   // This function is called when another organisation has been selected in the selectbox
   organisationChanged(){
     // Empty and fill the new members array
@@ -74,8 +68,14 @@ export class AdminOrganisationPanelComponent implements OnInit {
   onDelete(member: User) {
     console.log("Current selected org: " + this.currentSelectedOrg.name);
     if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
-      this.adminOrganisationService.deleteUserFromOrganisation(this.currentSelectedOrg, member);
-      console.log("Member has succesfully been removed from the organisation");
+      this.adminOrganisationService.deleteUserFromOrganisation(this.currentSelectedOrg, member).subscribe(
+        (user: User) => {
+          this.organisationChanged();
+          console.log(user);
+        },
+        (error: any) => console.log(error)
+      );
+      console.log("Member has successfully been removed from the organisation");
     }
   }
 
@@ -92,6 +92,13 @@ export class AdminOrganisationPanelComponent implements OnInit {
   onAddNewMember(){
     console.log("Opening modal..");
     this.addMemberToggle = true;
+  }
+
+  checkIfListEmpty(): void {
+    if(this.members.length == 0) this.emptyList = true;
+    setTimeout(() => {
+      this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+    }, 5)
   }
 
   ngOnInit() {

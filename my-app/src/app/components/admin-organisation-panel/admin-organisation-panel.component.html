@@ -33,6 +33,10 @@
           <br>
           <br>
           <p *ngIf="this.organisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
+
+            <label for="searchFilter">Search user</label>
+            <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
+
         </div>
         <ul class="dataList list-group list-group-flush">
           <!-- Show a message if the organisation doesn't have any members -->
