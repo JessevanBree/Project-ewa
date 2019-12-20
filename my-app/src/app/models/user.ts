@@ -21,7 +21,7 @@ export class User {
     this.organisations.push(organisation);
   }
 
-  equals(user: User): Boolean {
+  equals(user: User): boolean {
     return this.id === user.id &&
       this.email === user.email &&
       this.isAdmin === user.isAdmin &&

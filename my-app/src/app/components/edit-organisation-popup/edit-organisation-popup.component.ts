@@ -16,7 +16,6 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   // @Input() editingOrganisation: Organisation;
   @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
-
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
   private queryParamSubscription: Subscription;
   private selectedOrg: Organisation;
@@ -29,6 +28,8 @@ export class EditOrganisationPopupComponent implements OnInit {
   constructor(private organisationService: OrganisationService,
               private userService: UserService,
               private route: ActivatedRoute) {
+    this.errorMessage = null
+
   }
 
   ngOnInit() {
@@ -39,6 +40,7 @@ export class EditOrganisationPopupComponent implements OnInit {
             this.selectedOrg = this.organisationService.getOrganisations().find(org => org.id == id);
             this.editingOrg = Organisation.trueCopy(this.selectedOrg);
             this.editingOrgAdminEmail = this.editingOrg.organisationAdmin.email;
+
             console.log(this.editingOrg);
           }
         }
@@ -51,14 +53,21 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   onSaveChanges() {
     // this.savedOrganisation.emit(this.editingOrg);
-    this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
-
-    this.organisationService.updateOrgAdminUserAndName(this.editingOrg.id, this.editingOrg.organisationAdmin.id
-      , this.editingOrg.name);
-    this.savedOrganisation.emit(this.editingOrg);
+    let user: User = this.userService.getUserByEmail(this.editingOrgAdminEmail);
+    if (this.editingOrg.users.some(u => u.id == user.id)) {
+      this.errorHandling("Organisation administrator needs to be removed from the member's list first");
+      return;
+    } else {
+      this.errorMessage = null;
+      this.editingOrg.organisationAdmin = user;
+      this.organisationService.updateOrgAdminUserAndName(this.editingOrg.id, this.editingOrg.organisationAdmin.id
+        , this.editingOrg.name);
+      this.savedOrganisation.emit(this.editingOrg);
+    }
   }
 
   onClose() {
+    this.errorMessage = null;
     this.closed.emit(true);
     // this.savedOrganisation.emit(this.editingOrg);
   }
@@ -90,6 +99,9 @@ export class EditOrganisationPopupComponent implements OnInit {
         return this.errorMessage = error;
       }
       case "User is already part of this organisation": {
+        return this.errorMessage = error;
+      }
+      case "Organisation administrator needs to be removed from the member's list first": {
         return this.errorMessage = error;
       }
     }

@@ -1,5 +1,5 @@
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
-     aria-hidden="true">
+     aria-hidden="true" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -25,9 +25,11 @@
           <div class="form-group mt-2">
             <label for="publicityInput">Organisation Admin</label>
             <select [(ngModel)]="editingOrgAdminEmail"
+                    (change)="errorMessage = null"
                     class="form-control" name="publicityInput"
                     id="publicityInput" required>
-              <option class="form-control" *ngFor="let user of userService.getUsers()">
+              <option class="form-control" *ngFor="let user of this.userService.getUsers()"
+              [disabled]="">
                 {{user.email}}</option>
             </select>
           </div>
@@ -35,27 +37,32 @@
             <label for="listOfMembers">Members of organisation</label>
             <ul class="list-group mt-2" id="listOfMembers">
               <li class="list-group-item" *ngIf="editingOrg.users.length == 0">
-                There are no users in this organisation</li>
+                There are no users in this organisation
+              </li>
               <li class="list-group-item" *ngFor="let user of editingOrg.users">{{user.email}}
-              <button type="button" class="btn btn-danger float-right fa fa-remove"
-              (click)="deleteMember(user)"></button>
+                <button type="button" class="btn btn-danger float-right fa fa-remove"
+                        (click)="deleteMember(user)"></button>
               </li>
             </ul>
           </div>
-          <div class="form-group">
+          <div class="form-group mb-5">
             <input type="text" name="addMemberInput" id="addMemberInput" [(ngModel)]="memberToAdd"
                    class="form-control form-check-inline float-left col-md-6"
                    placeholder="Enter a user's email here">
             <button type="button" class="btn btn-info float-left col-md-5" (click)="addMember(memberToAdd)">
-              Add member</button>
+              Add member
+            </button>
           </div>
-          <div class="form-group alert alert-danger mt-2" *ngIf="this.errorMessage">{{this.errorMessage}}</div>
+          <div class="form-group">
+          <div class="alert alert-danger mt-5" role="alert" *ngIf="this.errorMessage">
+            <strong>Error!</strong> {{this.errorMessage}}</div>
+          </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSaveChanges()"
-                [disabled]="formElement.invalid">Save Changes
+                [disabled]="formElement.invalid || errorMessage">Save Changes
         </button>
       </div>
     </div>
