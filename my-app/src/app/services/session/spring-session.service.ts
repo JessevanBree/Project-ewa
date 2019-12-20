@@ -19,7 +19,7 @@ export class SpringSessionService {
   public errorMessage: string;
 
   private readonly BS_TOKEN_NAME = "tokenName";
-  private readonly BS_USER_NAME = "userName";
+  private readonly BS_USER_EMAIL = "userMale";
 
   constructor(private httpClient: HttpClient,
               private route: Router,
@@ -85,7 +85,7 @@ export class SpringSessionService {
       return;
     }
     sessionStorage.setItem(this.BS_TOKEN_NAME, token);
-    sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
+    sessionStorage.setItem(this.BS_USER_EMAIL, nameOfUser);
   }
 
   public getToken(): string {
@@ -97,21 +97,16 @@ export class SpringSessionService {
     return token;
   }
 
-  getNameOfUser() {
-    let nameOfUser = sessionStorage.getItem(this.BS_USER_NAME);
-    if (nameOfUser == null) {
-      nameOfUser = localStorage.getItem(this.BS_USER_NAME);
-      sessionStorage.setItem(this.BS_USER_NAME, nameOfUser);
-    }
-    return nameOfUser;
-  }
-
-
   get token(): string {
     return this._token;
   }
 
   get displayName(): string {
-    return this._displayName;
+    let nameOfUser = sessionStorage.getItem(this.BS_USER_EMAIL);
+    if (nameOfUser == null) {
+      nameOfUser = localStorage.getItem(this.BS_USER_EMAIL);
+      sessionStorage.setItem(this.BS_USER_EMAIL, nameOfUser);
+    }
+    return nameOfUser;
   }
 }
