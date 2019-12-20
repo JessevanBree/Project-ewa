@@ -19,33 +19,17 @@ export class AddMemberPopupComponent implements OnInit {
 
   private users: User[];
 
+  searchFilter: String;
+
   private orgMembers: User[]; // All the members of the current selected organisation
 
   private emptyList: boolean;
-  searchedUser: String;
 
   constructor(private userService: UserService, private adminOrganisationService: AdminOrganisationService) {
     this.closingToggle = new EventEmitter<boolean>();
     this.userAdded = new EventEmitter<User>();
-    this.searchedUser = "";
 
     this.users = [];
-  }
-
-  // This method is called when the user submits the form (temporary not being used since the org admin clicks on a user)
-  onSubmit(form: NgForm) {
-    // let addedUserEmail = form.value.searchInput;
-    //
-    // if (confirm("Are you sure to add the following member: " + addedUserEmail)) {
-    //   // Logic to actually add the new member to the org
-    //
-    //   console.log("Member added!");
-    // } else {
-    //   alert("Adding new member has been canceled");
-    // }
-    //
-    // // Close the modal when the form has been submitted
-    // this.closingToggle.emit(true);
   }
 
   // Called when the org admin clicks on a user to add the user to the org
@@ -86,7 +70,7 @@ export class AddMemberPopupComponent implements OnInit {
       }
     );
 
-    //TODO: Filter the users list to not have have values of the orgMembers list (prevents for showing users that are already in the organisation no duplicates), DOES NOT WORK YET
+    //TODO: Filter the users list to not have have values of the orgMembers list (prevent showing users that are already in the organisation), DOES NOT WORK YET
     for( var i=this.users.length - 1; i>=0; i--){
       for( var j=0; j<this.orgMembers.length; j++){
         if(this.users[i] && (this.users[i].email === this.orgMembers[j].email)){
@@ -96,7 +80,6 @@ export class AddMemberPopupComponent implements OnInit {
     }
     // this.users = this.users.filter((user:User ) => !this.orgMembers.includes(user));
 
-    this.emptyList = this.users.length == 0;
   }
 }
 

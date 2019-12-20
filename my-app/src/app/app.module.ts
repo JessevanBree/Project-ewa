@@ -40,6 +40,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CreateMemberPopupComponent } from './components/admin-organisation-panel/create-member-popup/create-member-popup.component';
 import {AdminOrganisationService} from "./services/admin-organisation.service";
 import {SpringSessionService} from "./services/session/spring-session.service";
+import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-filter-pipe";
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {SpringSessionService} from "./services/session/spring-session.service";
     AddMemberPopupComponent,
     AdminOrganisationPanelComponent,
     HomeComponent,
+    UserFilterPipe,
     CreateMemberPopupComponent
   ],
   imports: [

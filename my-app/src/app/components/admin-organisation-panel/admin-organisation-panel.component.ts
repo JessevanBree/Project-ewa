@@ -27,7 +27,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private createMemberToggle: boolean;
 
   searchFilter: String;
-  emptyList: boolean;
+  private emptyList: boolean;
 
   constructor(private adminOrganisationService: AdminOrganisationService, private router: Router,
               private route: ActivatedRoute,) {
@@ -97,7 +97,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   checkIfListEmpty(): void {
     if(this.members.length == 0) this.emptyList = true;
     setTimeout(() => {
-      this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+      this.emptyList = document.getElementsByClassName("list-group-item p-1").length == 0;
     }, 5)
   }
 
@@ -117,7 +117,5 @@ export class AdminOrganisationPanelComponent implements OnInit {
           }
         );
       });
-
-    // this.organisationChanged();
   }
 }

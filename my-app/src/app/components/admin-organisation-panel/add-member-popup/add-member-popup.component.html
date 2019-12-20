@@ -10,27 +10,9 @@
         </button>
       </div>
       <div class="modal-body">
-                <form (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
-                      novalidate>
-                  <label for="searchInput">Search registered user by email</label><br>
-        <input type="text"
-               required minlength="1"
-               class="form-control"
-               name="searchInput"
-               id="searchInput"
-               [(ngModel)]="searchedUser"
-               #search="ngModel"
-               (ngModelChange)="checkIfListEmpty()"
-               ngModel>
-<!--                  <div *ngIf="!search.valid && search.touched" class="alert alert-danger">-->
-<!--                    <p><span>Please select a valid user email</span></p>-->
-<!--                  </div>-->
-                  <br>
 
-<!--                  <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid">-->
-<!--                    Add-->
-<!--                  </button>-->
-                </form>
+        <label for="searchFilter">Search user by email</label>
+        <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
       </div>
 
       <ul class="userList list-group list-group-flush">
@@ -40,7 +22,7 @@
 				</span>
       </li>
 
-      <li class="org-admin-user-item list-group-item p-2 pl-3" *ngFor="let user of this.users; index as index">
+      <li class="org-admin-user-item list-group-item p-2 pl-3" *ngFor="let user of this.users | userFilter:searchFilter">
 				<span class="row mx-1 align-middle">
 					<p style="cursor:pointer" (click)="userSelected(user)" class="my-auto">{{user.email}}</p>
 				</span>
