@@ -10,7 +10,6 @@ import urban.server.models.Dataset;
 import urban.server.models.Organisation;
 import urban.server.models.User;
 import urban.server.repositories.DatasetRepository;
-import urban.server.repositories.JPAUserRepository;
 import urban.server.repositories.OrganisationRepository;
 import urban.server.repositories.UserRepository;
 
@@ -21,7 +20,6 @@ public class ServerApplication implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerApplication.class);
 
-    @Autowired
     private UserRepository userRepository;
     private OrganisationRepository organisationRepository;
     private DatasetRepository datasetRepository;
@@ -55,32 +53,21 @@ public class ServerApplication implements CommandLineRunner {
         users.add(new User("ferran@hva.nl", "ferran", null, null, true));
         users.add(new User("maarten@hva.nl", "maarten", null, null, false));
 
-        User ferran2 = new User("ferran2@hva.nl", "ferran", null, null, true);
-        userRepository.save(ferran2);
-        User orgUser = User.generateRandomUser();
-        orgUser = userRepository.save(orgUser);
 
         for (int i = 0; i < 5; i++) {
+            userRepository.save(users.get(i));
+        }
+
+        for (int i = 0; i < 5 ; i++) {
             Organisation organisation = Organisation.getRandomRegistration();
-            logger.info("{}", organisation);
-            organisation.addUser(users.get(i));
 
-            if (i == 4 || i == 3 || i == 2) {
-                organisation.addUser(ferran2);
-                organisation.addUser(orgUser);
-                organisation.setOrganisationAdmin(orgUser);
-                organisation.setOrganisationAdmin(ferran2);
-                logger.info("Org admin: {}", organisation.getOrganisationAdmin());
-
-                organisation = organisationRepository.save(organisation);
-//                secondUser = userRepository.save(secondUser);
+            if (i == 1 || i == 2){
+                organisation.addUser(users.get(3));
+                users.get(3).addOrganisation(organisation);
+                organisation.setOrganisationAdmin(users.get(3));
             }
 
             organisationRepository.save(organisation);
-
-            for (int j = 0; j < 5; j++) {
-                userRepository.save(users.get(j));
-            }
         }
     }
 }

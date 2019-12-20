@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
+import {UserService} from "../../../services/user.service";
+import {AdminOrganisationService} from "../../../services/admin-organisation.service";
 
 @Component({
   selector: 'app-create-member-popup',
@@ -14,7 +16,7 @@ export class CreateMemberPopupComponent implements OnInit {
 
   @Input() private receivedSelectedOrg: Organisation;
 
-  constructor() {
+  constructor(private userService: UserService, private adminOrganisationService: AdminOrganisationService) {
     this.closingToggle = new EventEmitter<boolean>();
   }
 
@@ -28,13 +30,25 @@ export class CreateMemberPopupComponent implements OnInit {
 
     if (confirm("Are you sure to create and add the following member: " + email)){
 
-      //1. First create the member
-      let newMember = new User(email, password, false, firstName, surName, this.receivedSelectedOrg);
+      // Create user
+      let newMember = new User(email, false, firstName, surName, password, this.receivedSelectedOrg);
+      this.userService.createUser(newMember).subscribe(
+        (user: User) => {
+          newMember = user; // Assign returned user to also get the ID
+          console.log(user);
+        },
+        (error: any) => console.log(error)
+      );
 
-      //2. Post the member to backend
-
-
-      //2. Add member to the organisation
+      setTimeout(() => {
+        // Add user to the organisation
+        this.adminOrganisationService.addUserToOrganisation(newMember, this.receivedSelectedOrg).subscribe(
+          (user: User) => {
+            console.log(user);
+          },
+          (error: any) => console.log(error)
+        );
+      }, 200);
 
     } else {
       alert("Adding new member has been canceled");
