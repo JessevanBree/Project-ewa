@@ -59,6 +59,7 @@ export class OrganisationService {
     console.log(this.organisations);
   }
 
+  // Not recommended to use because it can cause json parse errors due to recursion
   public updateOrganisation(index: number, org: Organisation) {
     if (!this.organisations[index] || !org) return false;
     /*this.organisations[index] = org;
@@ -91,6 +92,16 @@ export class OrganisationService {
     )
   }
 
+  // Updates or changes the organisation admin user and can change the name of the organisation
+  public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?:string){
+    this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error),
+        () => console.log("Updated organisation: ", orgId)
+      );
+  }
+
   public addMemberToOrg(orgId: number, userId: number){
     this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId +  "/" + userId, null).subscribe(
       response => {
@@ -101,7 +112,14 @@ export class OrganisationService {
         console.log("Finished adding user to organisation");
       }
     );
+  }
 
+  public deleteMemberFromOrg(orgId: number, userId: number){
+    this.http.delete(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId).subscribe(
+      response => console.log(response),
+      error => console.log(error),
+      () => console.log("Finished deleting member from organisation")
+    );
   }
 
   getOrganisations(): Organisation[] {

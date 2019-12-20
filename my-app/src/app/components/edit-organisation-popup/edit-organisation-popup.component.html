@@ -36,7 +36,10 @@
             <ul class="list-group mt-2" id="listOfMembers">
               <li class="list-group-item" *ngIf="editingOrg.users.length == 0">
                 There are no users in this organisation</li>
-              <li class="list-group-item" *ngFor="let user of editingOrg.users">{{user.email}}</li>
+              <li class="list-group-item" *ngFor="let user of editingOrg.users">{{user.email}}
+              <button type="button" class="btn btn-danger float-right fa fa-remove"
+              (click)="deleteMember(user)"></button>
+              </li>
             </ul>
           </div>
           <div class="form-group">
@@ -46,6 +49,7 @@
             <button type="button" class="btn btn-info float-left col-md-5" (click)="addMember(memberToAdd)">
               Add member</button>
           </div>
+          <div class="form-group alert alert-danger mt-2" *ngIf="this.errorMessage">{{this.errorMessage}}</div>
         </form>
       </div>
       <div class="modal-footer">

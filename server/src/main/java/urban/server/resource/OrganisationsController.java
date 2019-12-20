@@ -81,7 +81,6 @@ public class OrganisationsController {
 
     @PutMapping()
     public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
-        System.out.println(organisation.getUsers());
 
         Organisation organisationById = organisationRepo.findById(organisation.getId());
 
@@ -92,6 +91,22 @@ public class OrganisationsController {
         organisationRepo.save(organisation);
 
         return ResponseEntity.ok(organisation);
+    }
+
+    //Changes admin of organisation and title of organisation(optional)
+    @PutMapping("/{organisationId}")
+    public ResponseEntity<Organisation> changeOrgAdmin(@PathVariable Long organisationId,
+            @RequestParam(name="user") Long userId,
+            @RequestParam(name="name", required=false) String newOrgName){
+        Organisation organisation = organisationRepo.findById(organisationId);
+        User user = userRepository.findById(userId);
+
+        organisation.setOrganisationAdmin(user);
+        if(newOrgName != null) organisation.setName(newOrgName);
+
+        organisationRepo.save(organisation);
+
+       return ResponseEntity.ok(organisation);
     }
 
 

@@ -23,6 +23,7 @@ export class EditOrganisationPopupComponent implements OnInit {
   private editingOrg: Organisation;
   private editingOrgAdminEmail: string;
   private memberToAdd: string;
+  private errorMessage: string;
 
 
   constructor(private organisationService: OrganisationService,
@@ -34,10 +35,12 @@ export class EditOrganisationPopupComponent implements OnInit {
     this.queryParamSubscription =
       this.route.queryParams.subscribe((params) => {
           const id = params['id'];
-          console.log(id);
-          this.selectedOrg = this.organisationService.getOrganisations().find(org => org.id == id);
-          this.editingOrg = Organisation.trueCopy(this.selectedOrg);
-          this.editingOrgAdminEmail = this.editingOrg.organisationAdmin.email;
+          if (id) {
+            this.selectedOrg = this.organisationService.getOrganisations().find(org => org.id == id);
+            this.editingOrg = Organisation.trueCopy(this.selectedOrg);
+            this.editingOrgAdminEmail = this.editingOrg.organisationAdmin.email;
+            console.log(this.editingOrg);
+          }
         }
       );
   }
@@ -49,6 +52,9 @@ export class EditOrganisationPopupComponent implements OnInit {
   onSaveChanges() {
     // this.savedOrganisation.emit(this.editingOrg);
     this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
+
+    this.organisationService.updateOrgAdminUserAndName(this.editingOrg.id, this.editingOrg.organisationAdmin.id
+      , this.editingOrg.name);
     this.savedOrganisation.emit(this.editingOrg);
   }
 
@@ -59,10 +65,34 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   addMember(email: string) {
     let user: User = this.userService.getUserByEmail(email);
-    if (user == null || undefined || email == null || undefined
-      || this.editingOrg.users.includes(user) || this.editingOrg.organisationAdmin.id === user.id) return;
-    this.editingOrg.addUser(user);
-    this.organisationService.addMemberToOrg(this.editingOrg.id, user.id);
-    this.memberToAdd = null;
+    console.log(this.editingOrg.users);
+    if (user == null || undefined || email == null || undefined) {
+      return this.errorHandling("User not found");
+    } else if (this.editingOrg.users.includes(user) || this.editingOrg.organisationAdmin.id === user.id) {
+      return this.errorHandling("User is already part of this organisation");
+    } else {
+      this.editingOrg.addUser(user);
+      this.organisationService.addMemberToOrg(this.editingOrg.id, user.id);
+      this.memberToAdd = null;
+    }
   }
+
+  deleteMember(user: User) {
+    if (user == null) return;
+    this.editingOrg.users = this.editingOrg.users.filter(u => u.id != user.id);
+    this.organisationService.deleteMemberFromOrg(this.editingOrg.id, user.id);
+    console.log(this.editingOrg.users);
+  }
+
+  errorHandling(error: string) {
+    switch (error) {
+      case "User not found": {
+        return this.errorMessage = error;
+      }
+      case "User is already part of this organisation": {
+        return this.errorMessage = error;
+      }
+    }
+  }
+
 }

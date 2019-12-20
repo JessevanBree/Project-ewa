@@ -2,14 +2,14 @@ import {User} from './user';
 
 export class Organisation {
   id: number;
-	name: String;
+	name: string;
 	organisationAdmin: User;
 	users: User[];
 	isDeleted: boolean;
 	dateCreated: Date;
 	dateEdited?: Date;
 
-	constructor(name:String, orgAdmin: User) {
+	constructor(name: string, orgAdmin: User) {
 		this.name = name;
 		this.organisationAdmin = orgAdmin;
 		this.isDeleted = false;

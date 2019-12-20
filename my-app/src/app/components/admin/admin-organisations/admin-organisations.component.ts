@@ -62,11 +62,11 @@ export class AdminOrganisationsComponent implements OnInit {
   }
 
   saveRequest($event): void {
-    this.router.navigate(['admin']);
     this.editIsClicked = false;
     this.organisations[this.activeIndex] = $event;
-    this.aOrganisationService.updateOrganisation(this.activeIndex, this.organisations[this.activeIndex]);
-
+    this.aOrganisationService.getOrganisations()[this.activeIndex] = $event;
+    console.log(this.organisations[this.activeIndex]);
+    this.router.navigate(['admin']);
   }
 
   onDeleteClick(org: Organisation) {
