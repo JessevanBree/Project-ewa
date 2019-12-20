@@ -85,8 +85,6 @@ export class AdminOrganisationService {
 
     const url = `${this.REST_URL}/${orgId}/${userId}`;
 
-    console.log("IS THIS THE CORRECT URL?: " + url );
-
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     };

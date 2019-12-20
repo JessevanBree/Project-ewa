@@ -110,8 +110,6 @@ public class OrganisationsController {
     @PostMapping("/{organisationId}/{userId}")
     public ResponseEntity<User> addExistingUser(@PathVariable Long organisationId, @PathVariable Long userId) {
 
-        // TODO: check if the user already exists in the organisation, if so don't add the user again
-
         Organisation organisation = organisationRepo.findById(organisationId);
         User userToBeAdded = userRepository.findById(userId);
 

@@ -1,5 +1,5 @@
 <app-add-member-popup *ngIf="addMemberToggle"
-                   (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                   (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg" (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-create-member-popup *ngIf="createMemberToggle"
                       (closingToggle)="onCloseReq()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 

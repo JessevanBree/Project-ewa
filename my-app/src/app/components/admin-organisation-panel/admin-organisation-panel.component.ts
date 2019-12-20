@@ -37,7 +37,26 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.createMemberToggle = false;
   }
 
-  // This method is called when another organisation has been selected in the selectbox
+  // Is called when an organisation has been added from the modal (to refresh the members list)
+  onAddedRequest(event){
+
+    setTimeout(() => {
+       this.organisationChanged();
+    }, 100);
+
+      console.log(event);
+  }
+
+  //  exec() {
+  //   for(var i=0;i<5;i++) {
+  //     setTimeout(function() {
+  //       console.log("Its getting called!")
+  //       this.organisationChanged();
+  //     },(i+i+1)*1000);
+  //   }
+  // }
+
+  // This function is called when another organisation has been selected in the selectbox
   organisationChanged(){
     // Empty and fill the new members array
     this.members = [];
@@ -60,20 +79,18 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // Called when modals are being close
   onCloseReq() {
     console.log("Closing modal..");
     this.addMemberToggle = false;
   }
 
-  // Called when onclick button
   onCreateNewMember(){
+    console.log("Opening modal..");
     this.createMemberToggle = true;
   }
 
-  // Called when onclick button
   onAddNewMember(){
-    console.log("Add new member button is clicked");
+    console.log("Opening modal..");
     this.addMemberToggle = true;
   }
 
