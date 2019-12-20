@@ -15,7 +15,7 @@ import {User} from "../../models/user";
 export class EditOrganisationPopupComponent implements OnInit {
 
   // @Input() editingOrganisation: Organisation;
- /* @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();*/
+  @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
 
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
   private queryParamSubscription: Subscription;
@@ -44,10 +44,13 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   onSaveChanges() {
     // this.savedOrganisation.emit(this.editingOrg);
+    this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
+    this.savedOrganisation.emit(this.editingOrg);
+    this.closed.emit(true);
+
   }
 
   onClose() {
-    this.editingOrg.organisationAdmin = this.userService.getUserByEmail(this.editingOrgAdminEmail);
     this.closed.emit(true);
     // this.savedOrganisation.emit(this.editingOrg);
   }
