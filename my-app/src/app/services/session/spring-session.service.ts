@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
-
+import {AdminOrganisationService} from "../admin-organisation.service";
 
 @Injectable({
   providedIn: 'root'
@@ -56,13 +56,19 @@ export class SpringSessionService {
         // console.log(this.token);
         console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
+        // this.adminOrganisationService.isAdminOfOrgs();
         return this.route.navigateByUrl("/");
       }
     );
   }
 
+  public getUser(){
+    return this.user;
+  }
+
   signOut() {
     this.token = null;
+    this.user = null;
     this.authenticated = false;
     this.displayName = null;
   }

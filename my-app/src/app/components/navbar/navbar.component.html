@@ -34,11 +34,11 @@
         <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <a class="nav-link" id="UserEmail" routerLinkActive="active" [routerLink]="['/profile', this.sessionService.displayName]">Profile</a>
         </li>
-      </ul>
-      <ul class="nav justify-content-end w-100">
-        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated() && this.adminOrganisationService.userIsAdminOfOrgs">
           <a class="nav-link" routerLinkActive="active" routerLink="/admin-organisation-panel">Organisation panel</a>
         </li>
+      </ul>
+      <ul class="nav justify-content-end w-100">
         <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
           <a class="nav-link" routerLinkActive="active" routerLink="/admin">Admin</a>
         </li>

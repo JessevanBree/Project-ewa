@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import urban.server.models.Organisation;
 import urban.server.resource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.JPAUserRepository;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/users")
 public class UsersController {
+
     @Autowired
     private JPAUserRepository userRepo;
 
@@ -87,5 +89,14 @@ public class UsersController {
         userRepo.save(user);
 
         return ResponseEntity.ok(user);
+    }
+
+    // This mapping gets all the organisations a user is admin of
+    @GetMapping("/adminOrgs/{id}")
+    public List<Organisation> getOrganisationsOfAdmin(@PathVariable Long id){
+
+        User user = userRepo.findById(id);
+
+        return user.getAdminOfOrganisations();
     }
 }

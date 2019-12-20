@@ -57,5 +57,17 @@ public class ServerApplication implements CommandLineRunner {
         for (int i = 0; i < 5; i++) {
             userRepository.save(users.get(i));
         }
+
+        for (int i = 0; i < 5 ; i++) {
+            Organisation organisation = Organisation.getRandomRegistration();
+
+            if (i == 1 || i == 2){
+                organisation.addUser(users.get(3));
+                users.get(3).addOrganisation(organisation);
+                organisation.setOrganisationAdmin(users.get(3));
+            }
+
+            organisationRepository.save(organisation);
+        }
     }
 }
