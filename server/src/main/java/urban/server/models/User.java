@@ -44,9 +44,6 @@ public class User {
     @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
     private boolean isAdmin;
 
-    @OneToOne(mappedBy = "organisationAdmin")
-    private Organisation adminOfOrganisation;
-
     @JsonView({UsersView.Full.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToMany()
@@ -57,7 +54,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
-
+    @OneToMany(mappedBy = "organisationAdmin")
+    private List<Organisation> adminOfOrganisations;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
     public User() {
@@ -166,12 +164,16 @@ public class User {
         this.datasets.add(dataset);
     }
 
-    public Organisation getAdminOfOrganisation() {
-        return adminOfOrganisation;
+    public List<Organisation> getAdminOfOrganisations() {
+        return adminOfOrganisations;
     }
 
-    public void setAdminOfOrganisation(Organisation adminOfOrganisation) {
-        this.adminOfOrganisation = adminOfOrganisation;
+    public void addAdminOfOrganisation(Organisation organisation) {
+        adminOfOrganisations.add(organisation);
+    }
+
+    public void deleteOrganisation(Organisation organisation){
+        organisations.remove(organisation);
     }
 
     public List<Organisation> getOrganisations() {

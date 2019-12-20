@@ -55,8 +55,8 @@ export class UserService {
     return this.httpClient.post(this.REST_USERS_URL, user);
   }
 
-  public getUserByEmail() {
-
+  public getUserByEmail(email: string): User {
+    return this.users.find(user => user.email === email);
   }
 
   getUsers() {

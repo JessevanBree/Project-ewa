@@ -38,7 +38,7 @@ public class Organisation {
     @OneToMany(mappedBy = "datasetOrganisation")
     private List<Dataset> datasets = new ArrayList<>();*/
 
-    @OneToOne()
+    @ManyToOne()
     @JsonView({OrganisationsView.Full.class})
     @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
     private User organisationAdmin;
@@ -76,6 +76,17 @@ public class Organisation {
     public void addUser(User user) {
         user.addOrganisation(this);
         this.users.add(user);
+    }
+
+    @PreRemove
+    private void removeUsersFromOrganisation() {
+        for (User u : users) {
+            u.getOrganisations().remove(this);
+        }
+    }
+
+    public void deleteUser(User user){
+        users.remove(user);
     }
 
     public void setUser(User user) {

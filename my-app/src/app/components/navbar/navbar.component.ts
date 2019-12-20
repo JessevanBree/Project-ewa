@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {SessionService} from "../../services/session/session.service";
 import {FbSessionService} from "../../services/session/fb-session.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
+import {AdminOrganisationService} from "../../services/admin-organisation.service";
+
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private sessionService: SpringSessionService) {
+              private sessionService: SpringSessionService, private adminOrganisationService: AdminOrganisationService) {
   }
 
   ngOnInit() {

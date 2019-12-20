@@ -1,4 +1,4 @@
-<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)"></app-edit-metadata-popup>
+<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)" (closingToggle)="editPopUpIsClosed()"></app-edit-metadata-popup>
 <!-- Open the Edit pop-up when an edit button is clicked -->
 
 <div class="row">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 		<ul class="dataList list-group list-group-flush">
-			<li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+			<li class="list-group-item p-2 pl-3" *ngIf="this.datasets.length == 0">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">No datasets available</p>
 				</span>

@@ -30,8 +30,7 @@ export class OrganisationService {
 
         this.userService.getLoggedInUser().organisationsList = [this.organisations[0], this.organisations[1]];
       }
-    )
-    ;
+    );
   }
 
   public getAllOrganisations(): Observable<Organisation[]> {
@@ -42,21 +41,13 @@ export class OrganisationService {
     return this.organisations[index];
   }
 
-  public deleteOrganisation(org: Organisation): Boolean {
-    let orgIndex: number = this.organisations.indexOf(org);
-    if (orgIndex != -1) {
-      this.organisations.splice(orgIndex, 1);
-      return this.organisations[orgIndex].equals(org);
-    } else {
-      return;
-    }
-  }
+
 
   public addOrganisation(org: Organisation) {
     /*this.organisations.push(org);
     return this.organisations[this.organisations.length - 1].equals(org);*/
     this.http.post(this.REST_ORGANISATIONS_URL, org).subscribe(
-      (data:Organisation) => {
+      (data: Organisation) => {
         console.log(data);
         this.organisations.push(data);
       },
@@ -68,11 +59,36 @@ export class OrganisationService {
     console.log(this.organisations);
   }
 
-  public updateOrganisation(index: number, org: Organisation): Boolean {
+  public updateOrganisation(index: number, org: Organisation) {
     if (!this.organisations[index] || !org) return false;
+    /*this.organisations[index] = org;
+    return this.organisations[index].equals(org);*/
+    this.http.put(this.REST_ORGANISATIONS_URL, org).subscribe(
+      (data: Organisation) => {
+        this.organisations[index] = data;
+        console.log(index, this.organisations[index]);
+        console.log(this.organisations);
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished updating organisation");
+      }
+    );
+  }
 
-    this.organisations[index] = org;
-    return this.organisations[index].equals(org);
+  public deleteOrganisation(org: Organisation) {
+    this.organisations = this.organisations.filter(o => o.id != org.id);
+    this.http.delete(this.REST_ORGANISATIONS_URL + "/" + org.id).subscribe(
+      (data) => {
+        console.log(data);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        console.log("Finished deleting organisation from database");
+      }
+    )
   }
 
   getOrganisations(): Organisation[] {
