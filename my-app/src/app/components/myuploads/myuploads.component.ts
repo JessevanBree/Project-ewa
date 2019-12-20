@@ -38,8 +38,7 @@ export class MyuploadsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.sessionService.getUser());
-    this.userId = this.sessionService.getUser().id;
+    this.userId = this.sessionService.getUserId();
     this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       const userEmail = params.email;
       this.datasetService.getAllDatasets().subscribe(

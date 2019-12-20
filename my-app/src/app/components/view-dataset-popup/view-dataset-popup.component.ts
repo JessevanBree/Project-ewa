@@ -49,7 +49,7 @@ export class ViewDatasetPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.displayName]);
+    this.router.navigate(['myuploads/', this.sessionService.userEmail]);
   }
 
   ngOnDestroy() {

@@ -122,7 +122,7 @@ export class DatasetOverviewComponent implements OnInit {
     this.datasetService.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         if (data && this.sessionService.isAuthenticated()) {
-          let userEmail: string = this.sessionService.displayName;
+          let userEmail: string = this.sessionService.userEmail;
           data.map((o) => {
             console.log(o);
             o && o.publicity.includes("PUBLIC")  || o.user.email == userEmail ?
@@ -148,8 +148,8 @@ export class DatasetOverviewComponent implements OnInit {
     // subscribe to get all the datasets
     /*this.datasetService.getAllDatasets().subscribe(
       (data: Dataset[]) => {
-        if (data != null && this.sessionService.displayName != null || undefined) {
-          let userEmail: String = this.sessionService.displayName;
+        if (data != null && this.sessionService.userEmail != null || undefined) {
+          let userEmail: String = this.sessionService.userEmail;
           data.map((o) => {
             o && o.publicity.includes("Public") || o && o.user.email == userEmail ?
               this.datasets.push(o) : [];
