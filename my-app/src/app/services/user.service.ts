@@ -35,7 +35,14 @@ export class UserService {
   }
 
   public getLoggedInUser(): User {
-    return this.loggedInUser
+    // console.log(this.loggedInUser);
+    if (this.loggedInUser == null || undefined) {
+      // console.log(this.loggedInUser + " als user is null or undefined");
+      console.log(this.getUserByEmail(sessionStorage.getItem("userEmail")));
+      this.loggedInUser = this.getUserByEmail(sessionStorage.getItem("userEmail"));
+      console.log(this.loggedInUser);
+    }
+    return this.loggedInUser;
   }
 
   public getAllUsers() {
@@ -43,7 +50,7 @@ export class UserService {
   }
 
   public deleteUser(user: User) {
-	this.users.splice(this.users.indexOf(user),1)
+    this.users.splice(this.users.indexOf(user), 1);
     return this.httpClient.delete(this.REST_USERS_URL + "/" + user.id);
   }
 
@@ -56,6 +63,9 @@ export class UserService {
   }
 
   public getUserByEmail(email: string): User {
+    // console.log(this.users);
+    // console.log(email);
+    // console.log(this.users.find(user => user.email === email));
     return this.users.find(user => user.email === email);
   }
 

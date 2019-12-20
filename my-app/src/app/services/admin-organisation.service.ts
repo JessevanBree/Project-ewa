@@ -5,6 +5,7 @@ import {User} from "../models/user";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {SpringSessionService} from "./session/spring-session.service";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AdminOrganisationService {
   private organisations: Organisation[];
   orgMembers: User[];
 
-  constructor(private httpClient: HttpClient, private sessionService: SpringSessionService) {
+  constructor(private httpClient: HttpClient, private userService: UserService, private sessionService: SpringSessionService) {
     this.orgMembers = [];
     this.organisations = [];
 
@@ -46,7 +47,8 @@ export class AdminOrganisationService {
 
   // Function to get all organisations that the logged in user is administrator of
   getMyOrganisations(){
-    let loggedInUserId = this.sessionService.getUser().id;
+    let loggedInUserId = this.sessionService.getUserId();
+
 
     console.log("Logged in user ID: " + loggedInUserId);
 

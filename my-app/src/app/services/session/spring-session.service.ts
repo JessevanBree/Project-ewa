@@ -15,21 +15,23 @@ export class SpringSessionService {
   private _token: string;
   private authenticated: boolean;
   private user: User;
-  public displayName: string;
+  public userEmail: string;
+  private userId: number;
+  private userIsAdmin: boolean;
   public errorMessage: string;
 
   private readonly BS_TOKEN_NAME = "tokenName";
-  private readonly BS_USER_EMAIL = "userMail";
+  private readonly BS_USER_EMAIL = "userEmail";
+  private readonly BS_USER_ID = "id";
+  private readonly BS_USER_IS_ADMIN = "admin";
 
   constructor(private httpClient: HttpClient,
               private route: Router,
               private userService: UserService) {
     this._token = null;
-    this.displayName = null;
+    this.userEmail = null;
     this.errorMessage = null;
     this.authenticated = false;
-
-    this.getUser();
   }
 
   signIn(email: String, password: String, errorMessage?: string) {
@@ -38,9 +40,11 @@ export class SpringSessionService {
       (response) => {
         this.authenticated = true;
         this.user = response.body as unknown as User;
-        this.displayName = ((response.body as unknown) as User).email;
+        this.userEmail = ((response.body as unknown) as User).email;
         this.setToken(response.headers.get("Authorization"),
-          ((response.body as unknown) as User).email);
+          this.user.email,
+          this.user.id,
+          this.user.isAdmin);
       },
       (error: HttpErrorResponse) => {
         this.authenticated = false;
@@ -58,7 +62,6 @@ export class SpringSessionService {
         }
       },
       () => {
-        // console.log(this.token);
         console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
         // this.adminOrganisationService.isAdminOfOrgs();
@@ -72,56 +75,68 @@ export class SpringSessionService {
     this.displayName = null;
     this.user = null;
     this.authenticated = false;
-    // this.setToken(null, null);
+    this.setToken(null, null, null, null);
   }
 
   public isAuthenticated(): boolean {
-    // return sessionStorage.getItem("tokenName") != null;
-    return this.authenticated != false;
+    return sessionStorage.getItem("tokenName") != null;
   }
 
   public getErrorMessage(): string {
     return this.errorMessage;
   }
 
-  private setToken(token: string, nameOfUser: string): void {
-
-    this.displayName = nameOfUser;
+  private setToken(token: string, emailOfUser: string, id: number, isAdmin: boolean): void {
+    this._token = token;
+    this.userEmail = emailOfUser;
     this.authenticated = true;
-    // if (token == null && nameOfUser == null) {
-    //   sessionStorage.clear();
-    //   return;
-    // }
-    // sessionStorage.setItem(this.BS_TOKEN_NAME, token);
-    // sessionStorage.setItem(this.BS_USER_EMAIL, nameOfUser);
+    if (token == null) {
+      sessionStorage.clear();
+      return;
+    }
+    sessionStorage.setItem(this.BS_TOKEN_NAME, token);
+    sessionStorage.setItem(this.BS_USER_EMAIL, emailOfUser);
+    sessionStorage.setItem(this.BS_USER_ID, JSON.stringify(id));
+    sessionStorage.setItem(this.BS_USER_IS_ADMIN, JSON.stringify(isAdmin));
   }
 
   public getToken(): string {
-    // let token = sessionStorage.getItem(this.BS_TOKEN_NAME);
-    // if (token == null) {
-    //   token = localStorage.getItem(this.BS_TOKEN_NAME);
-    //   sessionStorage.setItem(this.BS_TOKEN_NAME, token);
-    // }
-    // return token;
-
+    let token = this._token;
+    if (token == null) {
+      token = sessionStorage.getItem(this.BS_TOKEN_NAME);
+      this._token = token;
+    }
     return this._token;
-  }
-
-  public getUser() {
-    // if (!this.user) {
-    //   console.log("User " + this.user);
-    //   this.user = this.userService.getUserByEmail(this.BS_USER_EMAIL);
-    //   this.userService.setLoggedInUser(this.user);
-    //   console.log("User " + this.user);
-    // }
-    return this.user;
   }
 
   get token(): string {
     return this._token;
   }
 
-  public getDisplayName(){
-    return this.displayName;
+  public getUserEmail() {
+    let userEmail = this.userEmail;
+    if (userEmail == null) {
+      userEmail = sessionStorage.getItem(this.BS_USER_EMAIL);
+      this.userEmail = userEmail;
+    }
+    return this.userEmail;
+  }
+
+  public getUserId() {
+    let userId = this.userId;
+    if (userId == null) {
+      userId = JSON.parse(sessionStorage.getItem(this.BS_USER_ID));
+      this.userId = userId;
+    }
+    return this.userId;
+  }
+
+  public getUserIsAdmin() {
+    let userIsAdmin = this.userIsAdmin;
+    if (userIsAdmin == null) {
+      userIsAdmin = JSON.parse(sessionStorage.getItem(this.BS_USER_IS_ADMIN));
+      this.userIsAdmin = userIsAdmin;
+    }
+    return this.userIsAdmin;
   }
 }

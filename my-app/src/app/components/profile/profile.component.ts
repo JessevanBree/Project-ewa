@@ -9,6 +9,7 @@ import * as firebase from "firebase";
 import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {DatasetService} from "../../services/dataset.service";
 import {UserService} from "../../services/user.service";
+import {SpringSessionService} from "../../services/session/spring-session.service";
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private userService: UserService,
               private httpClient: HttpClient,
-              private datasetService: DatasetService) {
+              private datasetService: DatasetService,
+              private sessionService: SpringSessionService) {
     this.updateButtonToggle = true;
   }
 
