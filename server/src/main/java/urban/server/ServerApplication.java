@@ -54,30 +54,7 @@ public class ServerApplication implements CommandLineRunner {
         users.add(new User("maarten@hva.nl", "maarten", null, null, false));
 
 
-        User orgUser = User.generateRandomUser();
-        orgUser = userRepository.save(orgUser);
-
-
         for (int i = 0; i < 5; i++) {
-            Organisation organisation = Organisation.getRandomRegistration();
-            logger.info("{}", organisation);
-            organisation.addUser(users.get(i));
-
-            if (i == 4) {
-
-                organisation.setOrganisationAdmin(orgUser);
-                logger.info("Org admin: {}", organisation.getOrganisationAdmin());
-
-                organisation = organisationRepository.save(organisation);
-//                secondUser = userRepository.save(secondUser);
-
-//
-
-                organisation = organisationRepository.save(organisation);
-
-            }
-
-            organisationRepository.save(organisation);
             userRepository.save(users.get(i));
         }
     }

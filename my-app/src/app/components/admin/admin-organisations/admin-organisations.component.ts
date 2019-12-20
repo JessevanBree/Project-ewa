@@ -79,4 +79,5 @@ export class AdminOrganisationsComponent implements OnInit {
   editPopUpIsClosed() {
     this.router.navigate(['admin']);
   }
+
 }

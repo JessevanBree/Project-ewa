@@ -1,8 +1,6 @@
-<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"
-                               (closed)="createPopUpIsClosed()"></app-create-organisation-popup>
-<app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
-                             [editingOrganisation]="selectedOrganisation"
-                             (closed)="editPopUpIsClosed()"></app-edit-organisation-popup>
+<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"></app-create-organisation-popup>
+<app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)">
+</app-edit-organisation-popup>
 
 <div class="row">
   <div class="card w-100 mb-3">
@@ -15,8 +13,8 @@
     </div>
     <div class="card-body">
       <label for="searchFilter">Search</label>
-      <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
-             (ngModelChange)="checkIfListEmpty()">
+      <input id="searchFilter" type="text" class="form-control"
+             [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
     </div>
   </div>
   <div class="card w-100">
@@ -34,7 +32,7 @@
       </div>
     </div>
     <ul class="orgList list-group list-group-flush">
-      <li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+      <li class="list-group-item p-2 pl-3" *ngIf="this.organisations.length == 0">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">No organisations available</p>
 				</span>
@@ -45,8 +43,8 @@
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">{{item.name}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">
-						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal"
-                    data-target="#editModal">
+						<button class="btn btn-primary" (click)="onEditClick(index)"
+                    data-toggle="modal" data-target="#editModal">
 							<i class="fa fa-edit fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" (click)="onDeleteClick(item)">
