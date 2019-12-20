@@ -54,9 +54,10 @@ export class EditOrganisationPopupComponent implements OnInit {
 
   addMember(email: string){
     let user: User = this.userService.getUserByEmail(email);
-    if(user == null || undefined || email == null || undefined) return;
+    if(user == null || undefined || email == null || undefined
+    || this.editingOrg.users.includes(user)) return;
     let indexOfOrg = this.organisationService.getOrganisations().findIndex(org => org.id === this.editingOrg.id)
-    this.editingOrg.users.push(user);
+    this.editingOrg.addUser(user);
     console.log(this.editingOrg, indexOfOrg, this.organisationService.getOrganisations());
     this.organisationService.updateOrganisation(indexOfOrg, this.editingOrg);
     this.memberToAdd = null;

@@ -28,7 +28,7 @@ export class OrganisationService {
       () => {
         console.log("All Organisations are retrieved correctly!");
 
-        this.userService.getLoggedInUser().organisationsList = [this.organisations[0], this.organisations[1]];
+        this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];
       }
     );
   }

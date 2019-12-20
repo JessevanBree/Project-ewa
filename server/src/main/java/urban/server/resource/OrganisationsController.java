@@ -64,7 +64,7 @@ public class OrganisationsController {
 
     @PutMapping()
     public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
-
+        System.out.println(organisation.getUsers());
 
         Organisation organisationById = organisationRepo.findById(organisation.getId());
 

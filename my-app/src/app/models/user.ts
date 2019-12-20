@@ -8,7 +8,7 @@ export class User {
   public surName?: string;
   public dateCreated: Date;
   public isAdmin: boolean;
-  public organisationsList?: Organisation[] = [];
+  public organisations?: Organisation[] = [];
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
               surName?: string, password?: string, organisationsList?: Organisation[]) {
@@ -18,7 +18,7 @@ export class User {
     this.firstName = firstName;
     this.surName = surName;
     this.dateCreated = new Date(Date.now());
-    this.organisationsList = organisationsList;
+    this.organisations = organisationsList;
   }
 
   equals(user: User): Boolean {

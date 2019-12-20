@@ -25,6 +25,7 @@ export class Organisation {
 	}
 
 	public addUser(user: User): boolean{
+	  user.organisations.push(this);
 	  this.users.push(user);
 	  return this.users.includes(user)
 	}

@@ -69,7 +69,7 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationsOfUser = this.userService.getLoggedInUser().organisationsList;
+    this.organisationsOfUser = this.userService.getLoggedInUser().organisations;
   }
 
   ngOnInit() {
