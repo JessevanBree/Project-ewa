@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 
 //Models
 import { Organisation } from '../../../models/organisation';
@@ -21,7 +21,7 @@ export class AdminUsersComponent implements OnInit {
 	searchFilter: String;
 	emptyList: boolean;
 
-	constructor(private aUserService: UserService) {
+	constructor(private aUserService: UserService, private zone:NgZone) {
 		this.activeIndex;
 		this.selectedUser = null;
 		this.editIsClicked;
@@ -48,8 +48,10 @@ export class AdminUsersComponent implements OnInit {
 		this.editIsClicked = false;
 		this.aUserService.createUser($event).subscribe(
 			(user) => {
-				let u = User.trueCopy(user);
-				this.aUserService.getUsers().push(u);
+				// this.zone.run(() => {
+					let u = User.trueCopy(user);
+					this.aUserService.getUsers().push(u);
+				// })
 			},
 			(err) => console.log(err));
 	}
@@ -61,8 +63,10 @@ export class AdminUsersComponent implements OnInit {
 		)
 		this.aUserService.saveUser($event).subscribe(
 			() => {
-				let u = User.trueCopy($event);
-				this.aUserService.getUsers()[this.activeIndex] = u;
+				// this.zone.run(() => {
+					let u = User.trueCopy($event);
+					this.aUserService.getUsers()[this.activeIndex] = u;
+				// })
 			},
 			(err) => console.log(err));
 	}
@@ -71,7 +75,9 @@ export class AdminUsersComponent implements OnInit {
 		if(confirm("Delete user: "+ user.email)){
 			this.aUserService.deleteUser(user).subscribe(() => 
 				(result) => {
-					console.log(result)
+					// this.zone.run(() => {
+						console.log(result)
+					// })
 				},
 				(err) => console.log(err)
 			);

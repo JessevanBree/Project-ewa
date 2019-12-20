@@ -65,13 +65,13 @@ public class UsersController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+    public ResponseEntity deleteUser(@PathVariable Long id) {
 
         User user = getUserById(id);
 
         userRepo.delete(user);
 
-        return ResponseEntity.ok(user);
+        return ResponseEntity.noContent().build();
 
     }
 
