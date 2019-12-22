@@ -2,8 +2,8 @@ package urban.server.repositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import urban.server.models.CMS;
 import urban.server.models.Dataset;
 import urban.server.models.User;
 
@@ -11,43 +11,42 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+/**
+ * @Author Jesse van Bree
+ */
+
 @Repository
 @Transactional
-public class JPADatasetRepository implements EntityRepository<Dataset> {
-
+public class JPACMSRepository implements EntityRepository<CMS> {
     @Autowired
     private EntityManager em;
 
     @Override
-    public Dataset save(Dataset dataset) {
-        if (dataset.getId() == null) {
-            em.persist(dataset);
+    public CMS save(CMS entity) {
+        if (entity.getId() == null) {
+            em.persist(entity);
         } else {
-            em.merge(dataset);
+            em.merge(entity);
         }
-        return dataset;
+        return entity;
     }
 
     @Override
-    public void delete(Dataset dataset) {
-
-        Dataset toRemove = em.merge(dataset);
+    public void delete(CMS entity) {
+        CMS toRemove = em.merge(entity);
 
         em.remove(toRemove);
     }
 
     @Override
-    public Dataset findById(Long id) {
-
-        return em.find(Dataset.class, id);
+    public CMS findById(Long id) {
+        return em.find(CMS.class, id);
     }
 
     @Override
-    public List<Dataset> findAll() {
-        TypedQuery<Dataset> namedQuery = em.createNamedQuery("find_all_datasets", Dataset.class);
+    public List<CMS> findAll() {
+        TypedQuery<CMS> namedQuery = em.createNamedQuery("get_all_cms", CMS.class);
 
         return namedQuery.getResultList();
     }
-
-
 }
