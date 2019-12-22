@@ -14,7 +14,11 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "find_all_organisations", query = "select o from Organisation o"),
-        @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1")
+        @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1"),
+        @NamedQuery(name = "find_organisation_by_user", query = "select o from Organisation o " +
+                "where o.organisationAdmin.id = ?1 or ?1 in (select u.id from User u " +
+                "join u.organisations uo on uo.id = o.id)")
+
 })
 public class Organisation {
     @Id
@@ -128,6 +132,11 @@ public class Organisation {
     public void addDataset(Dataset dataset) {
         dataset.addOrganisation(this);
         this.datasets.add(dataset);
+    }
+
+    public boolean removeUser(User user) {
+        this.users.remove(user);
+        return this.users.contains(user);
     }
 
     @Override

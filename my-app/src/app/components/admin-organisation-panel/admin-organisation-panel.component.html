@@ -23,7 +23,7 @@
 <!--<ng-template #isAdminOfOrg>-->
 <div class="container bg-light shadow"
      style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;"
-     *ngIf="!this.organisationService.getMyOrganisations().length">
+     *ngIf="!this.userOrganisations.length">
   <div class="pt-3 pb-3 my-auto mx-auto text-center">
     <h3 class="">
       You are not part of any organisation
@@ -35,23 +35,23 @@
   </div>
 </div>
 
-<div class="container" *ngIf="this.organisationService.getMyOrganisations().length">
+<div class="container" *ngIf="this.userOrganisations.length">
   <div class="row">
     <div class="col-md-6 col-sm-12">
-      <div class="card" id="list" >
+      <div class="card" id="list">
         <div class="card-header">
           <p> Select an organisation to manage </p>
 
           <!-- Select box for the admin to select an organisation -->
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
-                  (change)="organisationChanged()"
+                  (change)="orgSelectionChanged()"
                   [(ngModel)]="this.currentSelectedOrg">
-            <option *ngFor="let organisation of this.organisations" [ngValue]="organisation"
-                    selected>{{organisation.name}}</option>
+            <option *ngFor="let organisation of this.userOrganisations" [ngValue]="organisation"
+                    >{{organisation.name}}</option>
           </select>
           <br>
           <br>
-          <p *ngIf="this.organisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
+          <p *ngIf="this.userOrganisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
           <p> Amount of members: {{ members.length }}</p>
 
           <label for="searchFilter">Search user by email</label>

@@ -69,7 +69,9 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationsOfUser = this.organisationService.getMyOrganisations();
+    this.organisationService.getMyOrganisations().subscribe(
+      (data: Organisation[]) => this.organisationsOfUser = data
+    );
     /*this.userService.getLoggedInUser().organisations.forEach(org => this.organisationsOfUser.push(org));*/
     // this.userService.getLoggedInUser().adminOfOrganisations.forEach(org => this.organisationsOfUser.push(org));
     console.log(this.organisationsOfUser);

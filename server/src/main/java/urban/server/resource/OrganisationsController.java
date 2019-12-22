@@ -36,10 +36,10 @@ public class OrganisationsController {
     }
 
     @GetMapping("/orgMembers/{id}")
-    public List<User> getOrganisationMembers(@PathVariable Long id){
+    public ResponseEntity<List<User>> getOrganisationMembers(@PathVariable Long id){
         Organisation org = organisationRepo.findById(id);
 
-        return org.getUsers();
+        return ResponseEntity.ok(org.getUsers());
     }
 
     // Get mapping to get an organisation by the id
@@ -54,6 +54,19 @@ public class OrganisationsController {
         }
 
         return organisationById;
+    }
+
+    // Retrieves organisations that given user is part of
+    @GetMapping("/find-by-user/{userId}")
+    public ResponseEntity<List<Organisation>> getOrganisationByUserID(@PathVariable Long userId){
+
+        User user = this.userRepository.findById(userId);
+        if(user == null) {
+            throw new ResourceNotFoundException("User with id: " +  userId + " not found: ");
+        }
+        List<Organisation> userOrganisations = this.organisationRepo.findByUser(userId);
+
+        return ResponseEntity.ok(userOrganisations);
     }
 
 

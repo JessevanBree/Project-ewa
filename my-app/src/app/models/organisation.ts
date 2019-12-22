@@ -1,4 +1,4 @@
-import {User} from './user';
+import {User} from "./user";
 
 export class Organisation {
   id: number;
@@ -30,7 +30,7 @@ export class Organisation {
 	  return this.users.includes(user)
 	}
 
-  public removeUser(user: User): boolean{
+  public removeUser(user: User): boolean {
 	  this.users = this.users.filter(u => u.id != user.id);
 	  return !this.users.includes(user);
   }

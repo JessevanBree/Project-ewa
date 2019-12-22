@@ -28,10 +28,7 @@ export class OrganisationService {
       (error) => console.log("Error when retrieving Organisations: " + error),
       () => {
         console.log("All Organisations are retrieved correctly!");
-
-
         this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];
-
       }
     );
   }
@@ -40,11 +37,25 @@ export class OrganisationService {
     return this.http.get<Organisation[]>(this.REST_ORGANISATIONS_URL);
   }
 
-  getOrganisation(index: number): Organisation {
+  public getOrganisation(index: number): Organisation {
     return this.organisations[index];
   }
 
 
+  public getOrganisations(): Organisation[] {
+    return this.organisations;
+  }
+
+  //Returns an observable which can be subscribed to retrieve user
+  public getMyOrganisations() {
+    /*this.myOrganisations = this.organisations.filter( org => {
+      if(org.users.find(user  => user.id == this.userService.getLoggedInUser().id) ||
+      org.organisationAdmin.id == this.userService.getLoggedInUser().id) return org;
+      }
+    );
+    return this.myOrganisations;*/
+    return this.http.get(this.REST_ORGANISATIONS_URL + "/find-by-user/" + this.userService.getLoggedInUser().id);
+  }
 
   public addOrganisation(org: Organisation) {
     /*this.organisations.push(org);
@@ -60,6 +71,31 @@ export class OrganisationService {
       }
     );
     console.log(this.organisations);
+  }
+
+  public addMemberToOrg(orgId: number, userId: number){
+    let organisation: Organisation = this.organisations.find(org => org.id == orgId);
+    let user: User = this.userService.getUsers().find(u => u.id == userId);
+    organisation.users.push(user);
+    this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId +  "/" + userId, null).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => console.log(error),
+      () => {
+        console.log("Finished adding user to organisation");
+      }
+    );
+  }
+
+  // Updates or changes the organisation admin user and can change the name of the organisation
+  public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?:string){
+    this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error),
+        () => console.log("Updated organisation: ", orgId)
+      );
   }
 
   // Not recommended to use because it can cause json parse errors due to recursion
@@ -95,47 +131,20 @@ export class OrganisationService {
     )
   }
 
-  // Updates or changes the organisation admin user and can change the name of the organisation
-  public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?:string){
-    this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error),
-        () => console.log("Updated organisation: ", orgId)
-      );
-  }
-
-  public addMemberToOrg(orgId: number, userId: number){
-    this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId +  "/" + userId, null).subscribe(
-      response => {
-        console.log(response);
-      },
-      error => console.log(error),
-      () => {
-        console.log("Finished adding user to organisation");
-      }
-    );
-  }
-
+  // Removes the user first from the organisation list in the service
+  // and deletes the member from the org in the database
   public deleteMemberFromOrg(orgId: number, userId: number){
+    let organisation = this.organisations.find(org => org.id == orgId);
+    console.log(organisation);
+    organisation.users = organisation.users.filter(user => user.id != userId);
+    // Doesn't work properly
+    /*let user: User = this.userService.getUserById(userId);
+    organisation.removeUser(user);*/
     this.http.delete(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId).subscribe(
       response => console.log(response),
       error => console.log(error),
       () => console.log("Finished deleting member from organisation")
     );
-  }
-
-  getOrganisations(): Organisation[] {
-    return this.organisations;
-  }
-
-  public getMyOrganisations(): Organisation[] {
-    this.myOrganisations = this.organisations.filter( org => {
-      if(org.users.find(user  => user.id == this.userService.getLoggedInUser().id) ||
-      org.organisationAdmin.id == this.userService.getLoggedInUser().id) return org;
-      }
-    );
-    return this.myOrganisations;
   }
 
   genRandomOrganisation(): Organisation {

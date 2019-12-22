@@ -13,6 +13,7 @@ export class SpringSessionService {
   private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login";
 
   private _token: string;
+  public displayName: string
   private authenticated: boolean;
   private user: User;
   public userEmail: string;
