@@ -40,7 +40,7 @@ export class CreateMemberPopupComponent implements OnInit {
         throw new Error();
     }
     else if (boolean === true){
-      alert("Email address already exists")
+      alert("Email address already exists");
       throw new Error();
     } else {
       if (confirm("Are you sure to create and add the following member: " + email)){

@@ -89,6 +89,11 @@ const routes: Routes = [
   {
     path: 'admin-organisation-panel',
     component: AdminOrganisationPanelComponent, canActivate: [AuthGuardService],
+    children: [
+      {
+        path: 'view-dataset', component: ViewDatasetPopupComponent
+      }
+    ]
   },
   {
     path: 'forgot-password',

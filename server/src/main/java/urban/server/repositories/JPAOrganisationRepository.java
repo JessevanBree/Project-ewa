@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.Organisation;
+import urban.server.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -51,5 +52,13 @@ public class JPAOrganisationRepository implements OrganisationRepository {
         namedQuery.setParameter(1, name);
 
         return namedQuery.getSingleResult();
+    }
+
+    @Override
+    public List<Organisation> findByUser(Long userId) {
+        TypedQuery<Organisation> namedQuery = em.createNamedQuery("find_organisation_by_user", Organisation.class);
+        namedQuery.setParameter(1, userId);
+
+        return namedQuery.getResultList();
     }
 }

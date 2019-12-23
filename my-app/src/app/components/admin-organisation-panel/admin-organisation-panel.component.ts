@@ -6,6 +6,8 @@ import {Subscription} from "rxjs";
 import {User} from "../../models/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrganisationService} from "../../services/organisation.service";
+import {UserService} from "../../services/user.service";
+import {FirebaseFileService} from "../../services/firebase-file.service";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -14,29 +16,30 @@ import {OrganisationService} from "../../services/organisation.service";
 })
 export class AdminOrganisationPanelComponent implements OnInit {
 
+  // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
-
-  // All the orgs managed by the logged in org admin
-  private organisations: Organisation[];
-
+  // All the orgs managed by the logged in user
+  private userOrganisations: Organisation[];
   // List of members of the current org
   private members: User[];
-
+  private organisationDatasets: Dataset[];
   private userIsAdminOfOrgs: boolean;
+  private downloadUrl: string;
 
   private addMemberToggle: boolean;
   private createMemberToggle: boolean;
+  private viewDatasetToggle: boolean;
 
-  searchFilter: String;
+  private searchFilter: String;
   private emptyList: boolean;
 
-  constructor(private adminOrganisationService: AdminOrganisationService,
-              private organisationService: OrganisationService,
+  constructor(private organisationService: OrganisationService,
+              private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
               private route: ActivatedRoute) {
 
     this.members = [];
-    this.organisations = [];
+    this.userOrganisations = [];
     this.userIsAdminOfOrgs = false;
 
     this.addMemberToggle = false;
@@ -44,26 +47,31 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Is called when an organisation has been added from the modal (to refresh the members list)
-  onAddedRequest(event) {
-
-    setTimeout(() => {
-      this.organisationChanged();
-    }, 100);
-
-    console.log(event);
+  onAddedRequest(user: User) {
+    // Update the view org first
+    this.currentSelectedOrg.users.push(user);
+    this.members = this.currentSelectedOrg.users;
+    // Updates the organisation service which in turn updates the database
+    this.organisationService.addMemberToOrg(this.currentSelectedOrg.id, user.id);
   }
 
-  // This function is called when another organisation has been selected in the selectbox
-  organisationChanged() {
+  // This function is called when another organisation has been selected in the dropdown box
+  orgSelectionChanged() {
     // Empty and fill the new members array
     console.log(this.currentSelectedOrg);
+    this.members = [];
+    this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
+    this.currentSelectedOrg.users.forEach(u => {
+      this.members.push(u)
+    });
 
-    this.adminOrganisationService.getOrgMembers(this.currentSelectedOrg).subscribe(
-      (data: User[]) => {
+    //Updates the datasets list when selection changed with correct results
+    this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
+      (data: Dataset[]) => {
+        this.organisationDatasets = data;
         console.log(data);
-        data.map(o => {
-          o ? this.members.push(o) : [];
-        });
+      }, error => {
+        console.log(error)
       }
     );
   }
@@ -72,13 +80,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
   onDelete(member: User) {
     console.log("Current selected org: " + this.currentSelectedOrg.name);
     if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
-      this.adminOrganisationService.deleteUserFromOrganisation(this.currentSelectedOrg, member).subscribe(
-        (user: User) => {
-          this.organisationChanged();
-          console.log(user);
-        },
-        (error: any) => console.log(error)
-      );
+      this.currentSelectedOrg.users = this.members.filter(u => u.id != member.id);
+      this.organisationService.deleteMemberFromOrg(this.currentSelectedOrg.id, member.id);
+      this.orgSelectionChanged();
       console.log("Member has successfully been removed from the organisation");
     }
   }
@@ -93,7 +97,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   onCloseReqCreate() {
     console.log("Closing modal..");
     setTimeout(() => {
-      this.organisationChanged();
+      this.orgSelectionChanged();
     }, 100);
     this.createMemberToggle = false;
   }
@@ -108,6 +112,20 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = true;
   }
 
+  onViewDataset(datasetId: number){
+    this.router.navigate(['view-dataset'], {
+      relativeTo: this.route,
+      queryParams: {id: datasetId}
+    });
+    this.viewDatasetToggle = true;
+  }
+
+  //Downloads the dataset file by retrieving the specific download url from firebase storage
+  onDownload(index: number) {
+    let dataset = this.organisationDatasets[index];
+    this.downloadUrl = this.fileService.getDownloadUrl(dataset.fileName, dataset.id, dataset.fileType);
+  }
+
   checkIfListEmpty(): void {
     if (this.members.length == 0) this.emptyList = true;
     setTimeout(() => {
@@ -116,30 +134,36 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(
-      params => {
-        // Fill the organisations array for the selectbox
-        this.adminOrganisationService.getMyOrganisations().subscribe(
-          (data: Organisation[]) => {
-            data.map(o => {
-              o ? this.organisations.push(o) : [];
-              console.log(this.organisations);
-              this.currentSelectedOrg = this.organisations[0];
-              this.members = this.currentSelectedOrg.users;
-              console.log(o);
-            });
-            this.organisationChanged();
-          }
-        );
-      });
-        /*this.organisationService.getMyOrganisations().map(
-          o => this.organisations.push(o)
-        );
-        this.currentSelectedOrg = this.organisations[0];
-        this.members = this.currentSelectedOrg.users;
-      });
+    this.organisationService.getMyOrganisations().subscribe(
+      (data: Organisation[]) => {
+        console.log(data);
+        this.userOrganisations = data;
+        this.currentSelectedOrg = this.userOrganisations[0];
+      },
+      error => {
+        console.log(error)
+      },
+      () => {
+        if (this.currentSelectedOrg) {
+          this.currentSelectedOrg.users.forEach(u => this.members.push(u));
+          this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
+          console.log(this.currentSelectedOrg.organisationAdmin, this.userService.getLoggedInUser());
+          console.log("Finished retrieving user's organisations");
 
-    console.log(this.organisations);*/
-
+          //Retrieves datasets of the current selected organisation
+          this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
+            (data: Dataset[]) => {
+              this.organisationDatasets = data;
+              console.log(data);
+            }, error => {
+              console.log(error)
+            },
+            () => {
+              console.log("Finished retrieving datasets of organisation with id: " + this.currentSelectedOrg.id);
+            }
+          );
+        }
+      }
+    );
   }
 }
