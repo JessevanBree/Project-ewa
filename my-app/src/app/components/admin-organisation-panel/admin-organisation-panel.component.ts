@@ -7,6 +7,7 @@ import {User} from "../../models/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrganisationService} from "../../services/organisation.service";
 import {UserService} from "../../services/user.service";
+import {FirebaseFileService} from "../../services/firebase-file.service";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -17,21 +18,23 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
-  // All the orgs managed by the logged in org admin
+  // All the orgs managed by the logged in user
   private userOrganisations: Organisation[];
   // List of members of the current org
   private members: User[];
-
+  private organisationDatasets: Dataset[];
   private userIsAdminOfOrgs: boolean;
+  private downloadUrl: string;
 
   private addMemberToggle: boolean;
   private createMemberToggle: boolean;
+  private viewDatasetToggle: boolean;
 
-  searchFilter: String;
+  private searchFilter: String;
   private emptyList: boolean;
 
   constructor(private organisationService: OrganisationService,
-              private userService: UserService,
+              private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
               private route: ActivatedRoute) {
 
@@ -61,6 +64,16 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.currentSelectedOrg.users.forEach(u => {
       this.members.push(u)
     });
+
+    //Updates the datasets list when selection changed with correct results
+    this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
+      (data: Dataset[]) => {
+        this.organisationDatasets = data;
+        console.log(data);
+      }, error => {
+        console.log(error)
+      }
+    );
   }
 
   // Function to delete a member from the organisation
@@ -99,6 +112,20 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = true;
   }
 
+  onViewDataset(datasetId: number){
+    this.router.navigate(['view-dataset'], {
+      relativeTo: this.route,
+      queryParams: {id: datasetId}
+    });
+    this.viewDatasetToggle = true;
+  }
+
+  //Downloads the dataset file by retrieving the specific download url from firebase storage
+  onDownload(index: number) {
+    let dataset = this.organisationDatasets[index];
+    this.downloadUrl = this.fileService.getDownloadUrl(dataset.fileName, dataset.id, dataset.fileType);
+  }
+
   checkIfListEmpty(): void {
     if (this.members.length == 0) this.emptyList = true;
     setTimeout(() => {
@@ -113,16 +140,30 @@ export class AdminOrganisationPanelComponent implements OnInit {
         this.userOrganisations = data;
         this.currentSelectedOrg = this.userOrganisations[0];
       },
-      error => { console.log(error) },
+      error => {
+        console.log(error)
+      },
       () => {
-        if(this.currentSelectedOrg) {
+        if (this.currentSelectedOrg) {
           this.currentSelectedOrg.users.forEach(u => this.members.push(u));
           this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
           console.log(this.currentSelectedOrg.organisationAdmin, this.userService.getLoggedInUser());
           console.log("Finished retrieving user's organisations");
+
+          //Retrieves datasets of the current selected organisation
+          this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
+            (data: Dataset[]) => {
+              this.organisationDatasets = data;
+              console.log(data);
+            }, error => {
+              console.log(error)
+            },
+            () => {
+              console.log("Finished retrieving datasets of organisation with id: " + this.currentSelectedOrg.id);
+            }
+          );
         }
       }
     );
-
   }
 }

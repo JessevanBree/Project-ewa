@@ -7,6 +7,7 @@ import {UserService} from "./user.service";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {SpringSessionService} from "./session/spring-session.service";
+import {Dataset} from "../models/dataset";
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +58,24 @@ export class OrganisationService {
     return this.http.get(this.REST_ORGANISATIONS_URL + "/find-by-user/" + this.userService.getLoggedInUser().id);
   }
 
+  public getDatasetsByOrganisation(orgId: number) {
+    let datasets: Dataset[] = [];
+    return this.http.get(this.REST_ORGANISATIONS_URL + "/organisation-datasets/" + orgId);/*.subscribe(
+      (data: Dataset[]) => {
+        datasets = data;
+        console.log(data);
+      }, error => {
+        console.log(error)
+      },
+      () => {
+        return datasets;
+        console.log("Finished retrieving datasets of organisation with id: " + orgId);
+      }
+    );*/
+
+
+  }
+
   public addOrganisation(org: Organisation) {
     /*this.organisations.push(org);
     return this.organisations[this.organisations.length - 1].equals(org);*/
@@ -73,11 +92,11 @@ export class OrganisationService {
     console.log(this.organisations);
   }
 
-  public addMemberToOrg(orgId: number, userId: number){
+  public addMemberToOrg(orgId: number, userId: number) {
     let organisation: Organisation = this.organisations.find(org => org.id == orgId);
     let user: User = this.userService.getUsers().find(u => u.id == userId);
     organisation.users.push(user);
-    this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId +  "/" + userId, null).subscribe(
+    this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId, null).subscribe(
       response => {
         console.log(response);
       },
@@ -89,7 +108,7 @@ export class OrganisationService {
   }
 
   // Updates or changes the organisation admin user and can change the name of the organisation
-  public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?:string){
+  public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?: string) {
     this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
       .subscribe(
         response => console.log(response),
@@ -133,7 +152,7 @@ export class OrganisationService {
 
   // Removes the user first from the organisation list in the service
   // and deletes the member from the org in the database
-  public deleteMemberFromOrg(orgId: number, userId: number){
+  public deleteMemberFromOrg(orgId: number, userId: number) {
     let organisation = this.organisations.find(org => org.id == orgId);
     console.log(organisation);
     organisation.users = organisation.users.filter(user => user.id != userId);

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import urban.server.models.Dataset;
 import urban.server.models.Organisation;
 import urban.server.models.User;
 import urban.server.repositories.JPAOrganisationRepository;
@@ -42,6 +43,15 @@ public class OrganisationsController {
         return ResponseEntity.ok(org.getUsers());
     }
 
+    @GetMapping("/organisation-datasets/{id}")
+    public ResponseEntity<List<Dataset>> getDatasetByOrganisation(@PathVariable Long id){
+        Organisation organisation = organisationRepo.findById(id);
+        if(organisation == null) throw new ResourceNotFoundException("Organisation with id: " + id + " not found");
+        List<Dataset> datasets = organisation.getDatasets();
+
+        return ResponseEntity.ok(datasets);
+    }
+
     // Get mapping to get an organisation by the id
     @GetMapping("/{id}")
     public Organisation getOrganisationById(
@@ -62,7 +72,7 @@ public class OrganisationsController {
 
         User user = this.userRepository.findById(userId);
         if(user == null) {
-            throw new ResourceNotFoundException("User with id: " +  userId + " not found: ");
+            throw new ResourceNotFoundException("User with id: " +  userId + " not found");
         }
         List<Organisation> userOrganisations = this.organisationRepo.findByUser(userId);
 
