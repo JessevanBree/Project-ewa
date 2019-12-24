@@ -10,7 +10,8 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "get_all_cms", query = "select cms from CMS cms")
+        @NamedQuery(name = "get_all_cms", query = "select cms from CMS cms"),
+        @NamedQuery(name = "get_all_cms_by_page", query = "select cms from CMS cms where cms.page = ?1")
 })
 public class CMS {
     @Id
@@ -25,11 +26,15 @@ public class CMS {
     @Column(length = 2048)
     private String content;
 
+    @JsonView({CMSView.Full.class})
+    private String page;
+
     public CMS() {
     }
 
-    public CMS(String location, String content) {
+    public CMS(String location, String page, String content) {
         this.location = location;
+        this.page = page;
         this.content = content;
     }
 
@@ -55,5 +60,13 @@ public class CMS {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getPage() {
+        return page;
+    }
+
+    public void setPage(String page) {
+        this.page = page;
     }
 }

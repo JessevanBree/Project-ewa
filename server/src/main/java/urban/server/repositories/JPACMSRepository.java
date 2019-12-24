@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.CMS;
-import urban.server.models.Dataset;
-import urban.server.models.User;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -17,7 +16,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class JPACMSRepository implements EntityRepository<CMS> {
+public class JPACMSRepository implements CMSRepository {
     @Autowired
     private EntityManager em;
 
@@ -47,6 +46,13 @@ public class JPACMSRepository implements EntityRepository<CMS> {
     public List<CMS> findAll() {
         TypedQuery<CMS> namedQuery = em.createNamedQuery("get_all_cms", CMS.class);
 
+        return namedQuery.getResultList();
+    }
+
+    @Override
+    public List<CMS> findByPage(String page) {
+        TypedQuery<CMS> namedQuery = em.createNamedQuery("get_all_cms_by_page", CMS.class);
+        namedQuery.setParameter(1, page);
         return namedQuery.getResultList();
     }
 }

@@ -50,9 +50,10 @@ public class ServerApplication implements CommandLineRunner {
         if (users.size() > 0) return;
         System.out.println("Configuring default CMS data");
 
-        cmsList.add(new CMS("HOME_TITLE", "Dataset visualization tool of Empower 2.0"));
-        cmsList.add(new CMS("HOME_INFO", "EMPOWER 2.0 is the abbreviation of Empowering the citizens - Towards European Energy Market 2.0 (Enabling More People’s Ownership in Energy transition). The project aims to demonstrate and accelerate the empowerment of citizens to become active energy citizens - and to create local energy communities via existing civil society structures - through development of new solutions (e.g. organisational) and adoption of new, emerging and existing solutions for energy ownership. This will lead to an increase of energy awareness and renewable energy production, and hence reduce the environmental footprint in the North Sea Region."));
-        cmsList.add(new CMS("HOME_BUTTON", "Explore"));
+        cmsList.add(new CMS("HOME_TITLE", "landing", "Dataset visualization tool of Empower 2.0"));
+        cmsList.add(new CMS("HOME_INFO", "landing", "EMPOWER 2.0 is the abbreviation of Empowering the citizens - Towards European Energy Market 2.0 (Enabling More People’s Ownership in Energy transition). The project aims to demonstrate and accelerate the empowerment of citizens to become active energy citizens - and to create local energy communities via existing civil society structures - through development of new solutions (e.g. organisational) and adoption of new, emerging and existing solutions for energy ownership. This will lead to an increase of energy awareness and renewable energy production, and hence reduce the environmental footprint in the North Sea Region."));
+        cmsList.add(new CMS("HOME_BUTTON", "landing", "Explore"));
+        cmsList.add(new CMS("NAV_TITLE", "navbar", "Explore"));
 
         System.out.println("Configuring some initial Users data");
 
