@@ -46,6 +46,7 @@ import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.component';
+import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.compon
     UserFilterPipe,
     CreateMemberPopupComponent,
     LandingPageComponent,
-    AdminCmsComponent
+	AdminCmsComponent,
+	SearchCMSArrayPipe
   ],
   imports: [
     BrowserModule,

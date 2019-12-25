@@ -8,9 +8,10 @@ import { CmsService } from 'src/app/services/cms.service';
   styleUrls: ['./admin-cms.component.css']
 })
 export class AdminCmsComponent implements OnInit {
-	public cmsData: CMS[]
+	public cmsData: CMS[];
+	public searchFilter: String;
 	constructor(private cmsService: CmsService) {
-
+		this.searchFilter = "";
 		this.cmsService.getAllCMSContent().subscribe(
 			(data: CMS[]) => {
 				console.log(data)
