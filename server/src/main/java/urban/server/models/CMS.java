@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "get_all_cms", query = "select cms from CMS cms"),
-        @NamedQuery(name = "get_all_cms_by_page", query = "select cms from CMS cms where cms.page = ?1")
+        @NamedQuery(name = "get_all_cms_by_page", query = "select cms from CMS cms where cms.page = ?1"),
+        @NamedQuery(name = "get_all_cms_by_location", query = "select cms from CMS cms where cms.location = ?1")
 })
 public class CMS {
     @Id
@@ -29,7 +30,16 @@ public class CMS {
     @JsonView({CMSView.Full.class})
     private String page;
 
+    @JsonView({CMSView.Full.class})
+    @Column(length = 512)
+    private String adminInfo;
+
     public CMS() {
+    }
+
+    public CMS(String location, String page, String content, String adminInfo) {
+        this(location, page, content);
+        this.adminInfo = adminInfo;
     }
 
     public CMS(String location, String page, String content) {
@@ -68,5 +78,13 @@ public class CMS {
 
     public void setPage(String page) {
         this.page = page;
+    }
+
+    public String getAdminInfo() {
+        return adminInfo;
+    }
+
+    public void setAdminInfo(String adminInfo) {
+        this.adminInfo = adminInfo;
     }
 }

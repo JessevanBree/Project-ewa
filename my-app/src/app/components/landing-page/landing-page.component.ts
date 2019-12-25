@@ -15,16 +15,18 @@ export class LandingPageComponent implements OnInit {
 
 		this.cmsService.getCMSContent("landing").subscribe(
 			(data: CMS[]) => {
+				console.log(data);
+				
 				let temp;
-				if ((temp = data.find((cms: CMS) => cms.location === "HOME_TITLE")) != null) {
+				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_TITLE")) != null) {
 					this.title = temp.content;
 				}
 
-				if ((temp = data.find((cms: CMS) => cms.location === "HOME_INFO")) != null) {
+				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_INFO")) != null) {
 					this.info = temp.content;
 				}
 
-				if ((temp = data.find((cms: CMS) => cms.location === "HOME_BUTTON")) != null) {
+				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_BUTTON")) != null) {
 					this.buttonText = temp.content;
 				}
 				
