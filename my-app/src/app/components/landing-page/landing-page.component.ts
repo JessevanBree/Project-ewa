@@ -8,34 +8,38 @@ import { CMS } from 'src/app/models/CMS';
 	styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-	public title: String;
-	public info: String;
-	public buttonText: String;
+	public CMSContent: Object;
+
 	constructor(private cmsService: CmsService) {
-
-		this.cmsService.getCMSContent("landing").subscribe(
-			(data: CMS[]) => {
-				console.log(data);
-				
-				let temp;
-				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_TITLE")) != null) {
-					this.title = temp.content;
-				}
-
-				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_INFO")) != null) {
-					this.info = temp.content;
-				}
-
-				if ((temp = data.find((cms: CMS) => cms.location === "LANDING_BUTTON")) != null) {
-					this.buttonText = temp.content;
-				}
-				
-			},
-			(err) => console.log(err)
-		)
+		this.CMSContent = {
+			"LANDING_TITLE": "",
+			"LANDING_INFO": "",
+			"LANDING_BUTTON": "",
+		};
+		this.fillPage();
 	}
 
 	ngOnInit() {
 		
+	}
+
+	/**
+	 * Fills the CMSContent array which is used to fill the content in the website
+	 */
+	public fillPage() {
+		this.cmsService.getCMSContent("landing").subscribe(
+			(data: CMS[]) => {
+				for(let key in this.CMSContent){
+					if (!this.CMSContent.hasOwnProperty(key)) continue;
+
+					let temp;
+					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
+						this.CMSContent[key] = temp.content;
+					}
+				}
+			},
+			(err) => console.log(err),
+			() => console.log("Finished retrieving page data")
+		)
 	}
 }

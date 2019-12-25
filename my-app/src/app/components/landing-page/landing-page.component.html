@@ -4,14 +4,13 @@
     <h3 class="text-success">
 <!--      Download, upload datasets and many more features! What are you waiting for?-->
 	<!-- Dataset visualization tool of Empower 2.0 -->
-	{{title}}
+	{{CMSContent["LANDING_TITLE"]}}
 	<!-- {{ CMSData.find((cms: CMS) => cms.location === HOME_TITLE)}} -->
     </h3>
     <p>
       <!-- <b>EMPOWER 2.0</b> is the abbreviation of Empowering the citizens - Towards European Energy Market 2.0 (Enabling More
 	  People’s Ownership in Energy transition). -->
-	  {{info}}
-
+	  {{CMSContent["LANDING_INFO"]}}
 
       <!-- The project aims to demonstrate and accelerate the empowerment of citizens to become active energy citizens - and
       to create local energy communities via existing civil society structures - through development of new solutions
@@ -20,6 +19,6 @@
       the North Sea Region. -->
     </p>
     <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
-            routerLink="/homepage">{{buttonText}}</button>
+            routerLink="/homepage">{{CMSContent["LANDING_BUTTON"]}}</button>
   </div>
 </div>
