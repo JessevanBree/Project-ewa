@@ -13,4 +13,12 @@ export class CMS {
 		this.id = id ? id : null;
 		this.adminInfo = adminInfo ? adminInfo: null;
 	}
+
+	static fullEquals(cms: CMS, cmsToCompare: CMS): Boolean{
+		return cmsToCompare.id === cms.id && 
+		cmsToCompare.location === cms.location && 
+		cmsToCompare.content === cms.content && 
+		cmsToCompare.page === cms.page && 
+		cmsToCompare.adminInfo === cms.adminInfo;
+	}
 }

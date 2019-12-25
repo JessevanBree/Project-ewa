@@ -21,14 +21,14 @@ public class CMSDefaults {
         this.defaults = new ArrayList<>();
 
         /// Landing page
-        this.defaults.add(new CMS("LANDING_TITLE", pages.landing.name(), "Dataset visualization tool of Empower 2.0", ""));
+        this.defaults.add(new CMS("LANDING_TITLE", pages.landing.name(), "Dataset visualization tool of Empower 2.0", "Title in landing page text block"));
         this.defaults.add(new CMS("LANDING_INFO", pages.landing.name(),
                 "EMPOWER 2.0 is the abbreviation of Empowering the citizens - Towards European Energy Market 2.0 (Enabling More People’s Ownership in Energy transition). The project aims to demonstrate and accelerate the empowerment of citizens to become active energy citizens - and to create local energy communities via existing civil society structures - through development of new solutions (e.g. organisational) and adoption of new, emerging and existing solutions for energy ownership. This will lead to an increase of energy awareness and renewable energy production, and hence reduce the environmental footprint in the North Sea Region."
-        , ""));
-        this.defaults.add(new CMS("LANDING_BUTTON", pages.landing.name(), "Explore", ""));
+        , "Text in landing page text block"));
+        this.defaults.add(new CMS("LANDING_BUTTON", pages.landing.name(), "Explore", "Button text in landing page button"));
 
         // navbar
-        this.defaults.add(new CMS("NAV_HOME", pages.navbar.name(), "Home", ""));
+        this.defaults.add(new CMS("NAV_HOME", pages.navbar.name(), "Home", "Home page link in navbar"));
         this.defaults.add(new CMS("NAV_MY_UPLOADS", pages.navbar.name(), "My uploads", ""));
         this.defaults.add(new CMS("NAV_PROFILE", pages.navbar.name(), "Profile", ""));
         this.defaults.add(new CMS("NAV_ORG_PANEL", pages.navbar.name(), "Organisation panel", ""));
@@ -80,6 +80,8 @@ public class CMSDefaults {
         this.defaults.add(new CMS("LOGIN_BUTTON", pages.log_in.name(), "Login", ""));
         this.defaults.add(new CMS("LOGIN_FORGET", pages.log_in.name(), "Forgot password?", ""));
 
+        // Admin panel
+        //TODO: ADD CMS VALUES FOR CRUD MODALS
 
         this.locations = new String[]{
                 "LANDING_TITLE",

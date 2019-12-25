@@ -1,11 +1,9 @@
 package urban.server.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import urban.server.models.CMS;
 import urban.server.models.User;
 import urban.server.models.helpers.CMSDefaults;
@@ -43,9 +41,12 @@ public class CMSController {
         return mappingJacksonValue;
     }
 
-//    @GetMapping("/locations")
-//    public String[] getCMSLocations() {
-//        CMSDefaults defaults = new CMSDefaults();
-//        return defaults.getLocations();
-//    }
+    @PostMapping()
+    public ResponseEntity<List<CMS>> saveCMSContent(@RequestBody CMS[] cmsList) {
+        for (CMS cms: cmsList) {
+            cmsRepository.save(cms);
+        }
+
+        return ResponseEntity.ok(cmsRepository.findAll());
+    }
 }
