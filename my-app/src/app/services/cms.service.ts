@@ -14,4 +14,8 @@ export class CmsService {
   getCMSContent(page: String): Observable<Object> {
 	return this.http.get(this.REST_DATASETS_URL + "/" + page);
   }
+
+  getAllCMSContent(): Observable<Object> {
+	return this.http.get(this.REST_DATASETS_URL);
+  }
 }

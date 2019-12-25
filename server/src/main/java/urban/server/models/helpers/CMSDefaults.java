@@ -71,6 +71,7 @@ public class CMSDefaults {
         this.defaults.add(new CMS("ORG_PANEL_NO_ORGANISATION_BTN", pages.org_panel.name(), "Back to the homepage", ""));
 
         // Admin panel
+        //TODO: ADD ADMIN PANEL CMS VALUES
 
         // Login panel
         this.defaults.add(new CMS("LOGIN_TITLE", pages.log_in.name(), "Login", ""));

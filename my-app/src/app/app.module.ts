@@ -45,6 +45,7 @@ import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-f
 import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
     AdminOrganisationPanelComponent,
     UserFilterPipe,
     CreateMemberPopupComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AdminCmsComponent
   ],
   imports: [
     BrowserModule,
