@@ -42,6 +42,9 @@ public class CMSDefaults {
         this.defaults.add(new CMS("HOME_PUBLICITY_FILTER", pages.home.name(), "Publicity filter", ""));
         this.defaults.add(new CMS("HOME_FILTER_BUTTON", pages.home.name(), "Filter", ""));
         this.defaults.add(new CMS("HOME_LIST_TITLE", pages.home.name(), "Datasets", ""));
+
+        // TODO: add filter options to CMS
+
         this.defaults.add(new CMS("HOME_CHART_TITLE", pages.home.name(), "Dataset visualization", ""));
         this.defaults.add(new CMS("HOME_CHART_DOWNLOAD", pages.home.name(), "Download", ""));
         this.defaults.add(new CMS("HOME_DETAIL_TITLE", pages.home.name(), "Dataset visualization", ""));
@@ -51,6 +54,7 @@ public class CMSDefaults {
         this.defaults.add(new CMS("HOME_DETAIL_PUBLICITY", pages.home.name(), "Publicity", ""));
         this.defaults.add(new CMS("HOME_DETAIL_YEAR", pages.home.name(), "Year", ""));
         this.defaults.add(new CMS("HOME_DETAIL_BY", pages.home.name(), "Uploaded by", ""));
+        // TODO: add placeholder cms values
 
         // My uploads
         this.defaults.add(new CMS("MY_UPLOADS_TITLE", pages.my_uploads.name(), "My uploaded datasets", ""));

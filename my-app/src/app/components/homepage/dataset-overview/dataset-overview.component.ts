@@ -9,6 +9,8 @@ import {NgForm} from "@angular/forms";
 import {DatasetService} from "../../../services/dataset.service";
 import {SpringSessionService} from "../../../services/session/spring-session.service";
 import {UserService} from "../../../services/user.service";
+import { CmsService } from 'src/app/services/cms.service';
+import { CMS } from 'src/app/models/CMS';
 
 @Component({
   selector: 'app-dataset-overview',
@@ -16,8 +18,10 @@ import {UserService} from "../../../services/user.service";
   styleUrls: ['./dataset-overview.component.css']
 })
 export class DatasetOverviewComponent implements OnInit {
+  public CMSContent: Object;
   private datasets: Dataset[];
   private copyDatasets: Dataset[];
+	public readonly pageLink = "home";
 
   // if subscribing wants to be done in the view component
   // private datasets$: Observable<Dataset[]>;
@@ -35,7 +39,7 @@ export class DatasetOverviewComponent implements OnInit {
 
   constructor(private datasetService: DatasetService, private router: Router,
               private activatedRoute: ActivatedRoute, private aUserService: UserService,
-              private sessionService: SpringSessionService) {
+              private sessionService: SpringSessionService, private cmsService: CmsService) {
     this.datasets = [];
     this.activeIndex = null;
     this.searchQuery = '';
@@ -43,6 +47,14 @@ export class DatasetOverviewComponent implements OnInit {
     this.regionSearch = "All regions";
     this.publicitySearch = "All shared";
 
+    this.CMSContent = {
+			"HOME_SEARCH": "",
+			"HOME_REGION_FILTER": "",
+			"HOME_PUBLICITY_FILTER": "",
+			"HOME_FILTER_BUTTON": "",
+			"HOME_LIST_TITLE": "",
+		};
+		this.fillPage();
   }
 
   onSelection(index: number, dataset: Dataset) {
@@ -170,5 +182,28 @@ export class DatasetOverviewComponent implements OnInit {
 
       }
     );*/
+  }
+  /**
+	 * Fills the CMSContent array which is used to fill the content in the website
+	 */
+	public fillPage() {
+		this.cmsService.getCMSContent(this.pageLink).subscribe(
+			(data: CMS[]) => {
+				for(let key in this.CMSContent){
+					if (!this.CMSContent.hasOwnProperty(key)) continue;
+
+					let temp;
+					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
+						this.CMSContent[key] = temp.content;
+					}
+				}
+			},
+			(err) => console.log(err),
+			() => console.log("Finished retrieving component data")
+		)
+  }
+  
+  setPlaceholder(event: any) {
+    event.target.placeholder = this.CMSContent['HOME_SEARCH'];
   }
 }

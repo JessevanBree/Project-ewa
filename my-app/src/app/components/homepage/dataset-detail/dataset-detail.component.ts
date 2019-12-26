@@ -6,6 +6,8 @@ import {Papa, PapaParseModule} from "ngx-papaparse";
 import {FirebaseFileService} from "../../../services/firebase-file.service";
 import {DatasetService} from "../../../services/dataset.service";
 import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
+import { CmsService } from 'src/app/services/cms.service';
+import { CMS } from 'src/app/models/CMS';
 
 @Component({
   selector: 'app-dataset-detail',
@@ -14,6 +16,7 @@ import {PdfViewerComponent, PdfViewerModule} from "ng2-pdf-viewer";
 })
 export class DatasetDetailComponent implements OnInit {
   @Input() activeIndex: number;
+  private CMSContent: Object;
   private listDataset: Dataset;
   public listOfYears: number[];
   private editedDataset: Dataset;
@@ -26,9 +29,11 @@ export class DatasetDetailComponent implements OnInit {
   private regionLevel;
   private publicityOptions;
 
+  public readonly pageLink = "home";
+
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private datasetService: DatasetService, private fileService: FirebaseFileService,
-              private papa: Papa) {
+              private papa: Papa, private cmsService: CmsService) {
     this.listDataset = null;
     this.editedDataset = null;
     this.regionLevel = RegionLevel;
@@ -37,7 +42,20 @@ export class DatasetDetailComponent implements OnInit {
     for (let i = 1980; i < 2020; i++) {
       this.listOfYears.push(i);
     }
-    this.pdfPageIndex = 1;
+	this.pdfPageIndex = 1;
+	
+	this.CMSContent = {
+		"HOME_CHART_TITLE": "",
+		"HOME_CHART_DOWNLOAD": "",
+		"HOME_DETAIL_TITLE": "",
+		"HOME_DETAIL_NAME": "",
+		"HOME_DETAIL_DESC": "",
+		"HOME_DETAIL_REGION": "",
+		"HOME_DETAIL_PUBLICITY": "",
+		"HOME_DETAIL_YEAR": "",
+		"HOME_DETAIL_BY": "",
+  };
+  this.fillPage();
   }
 
   protected onDownload() {
@@ -93,5 +111,23 @@ export class DatasetDetailComponent implements OnInit {
     this.queryParamSubscription.unsubscribe();
   }
 
+/**
+	 * Fills the CMSContent array which is used to fill the content in the website
+	 */
+	public fillPage() {
+		this.cmsService.getCMSContent(this.pageLink).subscribe(
+			(data: CMS[]) => {
+				for(let key in this.CMSContent){
+					if (!this.CMSContent.hasOwnProperty(key)) continue;
 
+					let temp;
+					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
+						this.CMSContent[key] = temp.content;
+					}
+				}
+			},
+			(err) => console.log(err),
+			() => console.log("Finished retrieving component data")
+		)
+	}
 }

@@ -9,6 +9,7 @@ import { CMS } from 'src/app/models/CMS';
 })
 export class LandingPageComponent implements OnInit {
 	public CMSContent: Object;
+	public readonly pageLink = "landing";
 
 	constructor(private cmsService: CmsService) {
 		this.CMSContent = {
@@ -27,7 +28,7 @@ export class LandingPageComponent implements OnInit {
 	 * Fills the CMSContent array which is used to fill the content in the website
 	 */
 	public fillPage() {
-		this.cmsService.getCMSContent("landing").subscribe(
+		this.cmsService.getCMSContent(this.pageLink).subscribe(
 			(data: CMS[]) => {
 				for(let key in this.CMSContent){
 					if (!this.CMSContent.hasOwnProperty(key)) continue;
@@ -39,7 +40,7 @@ export class LandingPageComponent implements OnInit {
 				}
 			},
 			(err) => console.log(err),
-			() => console.log("Finished retrieving page data")
+			() => console.log("Finished retrieving component data")
 		)
 	}
 }

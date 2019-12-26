@@ -34,6 +34,8 @@ public class CMS {
     @Column(length = 512)
     private String adminInfo;
 
+    //TODO: Add component property
+
     public CMS() {
     }
 
