@@ -25,7 +25,7 @@ export class ViewDatasetPopupComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService,
               private router: Router, private sessionService: SpringSessionService,
               private fileService: FirebaseFileService) {
-    this.datasets = datasetService.getMyDatasets();
+    this.datasets = datasetService.getDatasets();
     this.closingToggle = new EventEmitter<boolean>();
     this.pdfSource = null;
     // this.chartData = [this.selectedDataset.chartData];

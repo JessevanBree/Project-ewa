@@ -51,8 +51,9 @@
           </select>
           <br>
           <br>
-          <p *ngIf="this.userOrganisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
-          <p> Amount of members: {{ members.length }}</p>
+          <span class="d-inline" *ngIf="this.userOrganisations != null">
+            <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}} <br>
+            <strong>Amount of members:</strong> {{ members.length }}</span><br>
 
           <label for="searchFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -78,7 +79,7 @@
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{member.email}}</p>
 					          <span class="btn-group col-lg-4 h-75">
-						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
+						          <button *ngIf="userIsAdminOfOrgs" class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
 					          </span>
 				</span>
