@@ -13,11 +13,12 @@
         <form (ngSubmit)="onSubmit (formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
 
-          <h5 class="border border-success text-center text-white bg-success">Dataset visualization</h5>
+          <h5 class="text-center text-white bg-dark" style="border-radius: 10px">Dataset visualization</h5>
           <div class="form-group col-md-12 mx-3">
             <label for="uploadModalControlFile1">Choose dataset file <span
               class="font-italic small">(Accepted format: <abbr
-              title="comma separated values">.csv</abbr>)</span></label>
+              title="comma separated values">.csv</abbr>, <abbr
+              title="portable document format">.pdf</abbr>)</span></label>
             <input type="file" class="form-control-file pt-2"
                    (change)="uploadListener($event.target.files)"
                    id="uploadModalControlFile1" name="fileInput"
@@ -74,8 +75,8 @@
               </div>
             </div>
           </div>
-          <hr/>
-          <h5 class="border border-success text-center text-white bg-success">Metadata</h5>
+          <hr>
+          <h5 class="text-center text-white bg-dark" style="border-radius: 10px">Metadata</h5>
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input
@@ -157,9 +158,9 @@
           </div>
 
 
-          <div class="form-row">
-            <div class="form-group col-md-12" id="regionOptions">
-              <label class="col-form-label">Regional level </label>
+          <div class="form-row mt-2">
+            <label class="form-check-label col-4">Regional level </label>
+            <div class="form-group col-8" id="regionOptions">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
                        name="regionOptions"
