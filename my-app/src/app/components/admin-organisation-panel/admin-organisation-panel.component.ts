@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OrganisationService} from "../../services/organisation.service";
 import {UserService} from "../../services/user.service";
 import {FirebaseFileService} from "../../services/firebase-file.service";
+import { CmsService } from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -15,6 +16,8 @@ import {FirebaseFileService} from "../../services/firebase-file.service";
   styleUrls: ['./admin-organisation-panel.component.css']
 })
 export class AdminOrganisationPanelComponent implements OnInit {
+	public CMSContent: Object;
+	public readonly componentLink = "org_panel";
 
   // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
@@ -36,7 +39,8 @@ export class AdminOrganisationPanelComponent implements OnInit {
   constructor(private organisationService: OrganisationService,
               private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
-              private route: ActivatedRoute) {
+			  private route: ActivatedRoute,
+			  private cmsService: CmsService) {
 
     this.members = [];
     this.userOrganisations = [];
@@ -44,6 +48,12 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
     this.addMemberToggle = false;
     this.createMemberToggle = false;
+
+    this.CMSContent = {
+			"ORG_PANEL_NO_ORGANISATION_MSG": "",
+			"ORG_PANEL_NO_ORGANISATION_BTN": "",
+		};
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   // Is called when an organisation has been added from the modal (to refresh the members list)

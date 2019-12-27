@@ -23,9 +23,9 @@ public class CMSController {
     @Autowired
     private JPACMSRepository cmsRepository;
 
-    @GetMapping("/{page}")
-    public MappingJacksonValue getCMSContent(@PathVariable String page) {
-        List<CMS> cmsList = cmsRepository.findByPage(page);
+    @GetMapping("/{component}")
+    public MappingJacksonValue getCMSContent(@PathVariable String component) {
+        List<CMS> cmsList = cmsRepository.findByComponent(component);
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(cmsList);
         mappingJacksonValue.setSerializationView(CMSView.Full.class);

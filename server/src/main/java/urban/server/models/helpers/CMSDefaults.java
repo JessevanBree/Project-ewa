@@ -21,68 +21,69 @@ public class CMSDefaults {
         this.defaults = new ArrayList<>();
 
         /// Landing page
-        this.defaults.add(new CMS("LANDING_TITLE", pages.landing.name(), "Dataset visualization tool of Empower 2.0", "Title in landing page text block"));
-        this.defaults.add(new CMS("LANDING_INFO", pages.landing.name(),
+        this.defaults.add(new CMS("LANDING_TITLE", "landing", "landing", "Dataset visualization tool of Empower 2.0", "Title in landing page text block"));
+        this.defaults.add(new CMS("LANDING_INFO", "landing", "landing",
                 "EMPOWER 2.0 is the abbreviation of Empowering the citizens - Towards European Energy Market 2.0 (Enabling More People’s Ownership in Energy transition). The project aims to demonstrate and accelerate the empowerment of citizens to become active energy citizens - and to create local energy communities via existing civil society structures - through development of new solutions (e.g. organisational) and adoption of new, emerging and existing solutions for energy ownership. This will lead to an increase of energy awareness and renewable energy production, and hence reduce the environmental footprint in the North Sea Region."
         , "Text in landing page text block"));
-        this.defaults.add(new CMS("LANDING_BUTTON", pages.landing.name(), "Explore", "Button text in landing page button"));
+        this.defaults.add(new CMS("LANDING_BUTTON", "landing", "landing","Explore", "Button text in landing page button"));
 
         // navbar
-        this.defaults.add(new CMS("NAV_HOME", pages.navbar.name(), "Home", "Home page link in navbar"));
-        this.defaults.add(new CMS("NAV_MY_UPLOADS", pages.navbar.name(), "My uploads", ""));
-        this.defaults.add(new CMS("NAV_PROFILE", pages.navbar.name(), "Profile", ""));
-        this.defaults.add(new CMS("NAV_ORG_PANEL", pages.navbar.name(), "Organisation panel", ""));
-        this.defaults.add(new CMS("NAV_ADMIN", pages.navbar.name(), "Admin panel", ""));
-        this.defaults.add(new CMS("NAV_LOG_IN", pages.navbar.name(), "Log in", ""));
-        this.defaults.add(new CMS("NAV_LOG_OUT", pages.navbar.name(), "Log out", ""));
+        this.defaults.add(new CMS("NAV_HOME", "navbar", "navbar", "Home", "Home page link in navbar"));
+        this.defaults.add(new CMS("NAV_MY_UPLOADS", "navbar", "navbar", "My uploads", ""));
+        this.defaults.add(new CMS("NAV_PROFILE", "navbar", "navbar", "Profile", ""));
+        this.defaults.add(new CMS("NAV_ORG_PANEL", "navbar", "navbar", "Organisation panel", ""));
+        this.defaults.add(new CMS("NAV_ADMIN", "navbar", "navbar", "Admin panel", ""));
+        this.defaults.add(new CMS("NAV_LOG_IN", "navbar", "navbar", "Log in", ""));
+        this.defaults.add(new CMS("NAV_LOG_OUT", "navbar", "navbar", "Log out", ""));
 
         // Home
-        this.defaults.add(new CMS("HOME_SEARCH", pages.home.name(), "Search by year or name", ""));
-        this.defaults.add(new CMS("HOME_REGION_FILTER", pages.home.name(), "Region filter", ""));
-        this.defaults.add(new CMS("HOME_PUBLICITY_FILTER", pages.home.name(), "Publicity filter", ""));
-        this.defaults.add(new CMS("HOME_FILTER_BUTTON", pages.home.name(), "Filter", ""));
-        this.defaults.add(new CMS("HOME_LIST_TITLE", pages.home.name(), "Datasets", ""));
+        this.defaults.add(new CMS("HOME_SEARCH", "home", "home_overview", "Search by year or name", ""));
+        this.defaults.add(new CMS("HOME_REGION_FILTER", "home", "home_overview", "Region filter", ""));
+        this.defaults.add(new CMS("HOME_PUBLICITY_FILTER", "home", "home_overview", "Publicity filter", ""));
+        this.defaults.add(new CMS("HOME_FILTER_BUTTON", "home", "home_overview", "Filter", ""));
+        this.defaults.add(new CMS("HOME_LIST_TITLE", "home", "home_overview", "Datasets", ""));
 
         // TODO: add filter options to CMS
 
-        this.defaults.add(new CMS("HOME_CHART_TITLE", pages.home.name(), "Dataset visualization", ""));
-        this.defaults.add(new CMS("HOME_CHART_DOWNLOAD", pages.home.name(), "Download", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_TITLE", pages.home.name(), "Dataset visualization", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_NAME", pages.home.name(), "Name", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_DESC", pages.home.name(), "Description", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_REGION", pages.home.name(), "Region", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_PUBLICITY", pages.home.name(), "Publicity", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_YEAR", pages.home.name(), "Year", ""));
-        this.defaults.add(new CMS("HOME_DETAIL_BY", pages.home.name(), "Uploaded by", ""));
+        this.defaults.add(new CMS("HOME_CHART_TITLE", "home", "home_detail", "Dataset visualization", ""));
+        this.defaults.add(new CMS("HOME_CHART_DOWNLOAD", "home", "home_detail", "Download", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_TITLE", "home", "home_detail", "Dataset visualization", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_NAME", "home", "home_detail", "Name", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_DESC", "home", "home_detail", "Description", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_REGION", "home", "home_detail", "Region", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_PUBLICITY", "home", "home_detail", "Publicity", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_YEAR", "home", "home_detail", "Year", ""));
+        this.defaults.add(new CMS("HOME_DETAIL_BY", "home", "home_detail", "Uploaded by", ""));
         // TODO: add placeholder cms values
 
         // My uploads
-        this.defaults.add(new CMS("MY_UPLOADS_TITLE", pages.my_uploads.name(), "My uploaded datasets", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_UPLOAD_BUTTON", pages.my_uploads.name(), "Upload datasets", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_DL_HOVER", pages.my_uploads.name(), "Download dataset file", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_VIEW_HOVER", pages.my_uploads.name(), "View this dataset", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_EDIT_HOVER", pages.my_uploads.name(), "Edit this dataset", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_DEL_HOVER", pages.my_uploads.name(), "Delete this dataset", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_TITLE", "my_uploads", "my_uploads", "My uploaded datasets", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_NO_UPLOADS", "my_uploads", "my_uploads", "You don't have any uploaded datasets", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_UPLOAD_BUTTON", "my_uploads", "my_uploads", "Upload datasets", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_DL_HOVER", "my_uploads", "my_uploads", "Download dataset file", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_VIEW_HOVER", "my_uploads", "my_uploads", "View this dataset", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_EDIT_HOVER", "my_uploads", "my_uploads", "Edit this dataset", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_DEL_HOVER", "my_uploads", "my_uploads", "Delete this dataset", ""));
 
         // Profile
-        this.defaults.add(new CMS("PROFILE_FIRSTNAME_EDIT", pages.profile.name(), "Firstname", ""));
-        this.defaults.add(new CMS("PROFILE_SURNAME_EDIT", pages.profile.name(), "Surname", ""));
-        this.defaults.add(new CMS("PROFILE_UPDATE_BUTTON", pages.profile.name(), "Update", ""));
-        this.defaults.add(new CMS("PROFILE_UPDATE_COUNT", pages.profile.name(), "Uploads", ""));
+        this.defaults.add(new CMS("PROFILE_FIRSTNAME_EDIT", "profile", "profile", "Firstname", ""));
+        this.defaults.add(new CMS("PROFILE_SURNAME_EDIT", "profile", "profile", "Surname", ""));
+        this.defaults.add(new CMS("PROFILE_UPDATE_BUTTON", "profile", "profile", "Update", ""));
+        this.defaults.add(new CMS("PROFILE_UPDATE_COUNT", "profile", "profile", "Uploads: ", ""));
 
         // Organisation panel
-        this.defaults.add(new CMS("ORG_PANEL_NO_ORGANISATION_MSG", pages.org_panel.name(), "You are not part of any organisation", ""));
-        this.defaults.add(new CMS("ORG_PANEL_NO_ORGANISATION_BTN", pages.org_panel.name(), "Back to the homepage", ""));
+        this.defaults.add(new CMS("ORG_PANEL_NO_ORGANISATION_MSG", "org_panel", "org_panel", "You are not part of any organisation", ""));
+        this.defaults.add(new CMS("ORG_PANEL_NO_ORGANISATION_BTN", "org_panel", "org_panel", "Back to the homepage", ""));
 
         // Admin panel
         //TODO: ADD ADMIN PANEL CMS VALUES
 
         // Login panel
-        this.defaults.add(new CMS("LOGIN_TITLE", pages.log_in.name(), "Login", ""));
-        this.defaults.add(new CMS("LOGIN_EMAIL", pages.log_in.name(), "Email", ""));
-        this.defaults.add(new CMS("LOGIN_PASSWORD", pages.log_in.name(), "Password", ""));
-        this.defaults.add(new CMS("LOGIN_BUTTON", pages.log_in.name(), "Login", ""));
-        this.defaults.add(new CMS("LOGIN_FORGET", pages.log_in.name(), "Forgot password?", ""));
+        this.defaults.add(new CMS("LOGIN_TITLE", "log_in", "log_in", "Login", ""));
+        this.defaults.add(new CMS("LOGIN_EMAIL", "log_in", "log_in", "Email", ""));
+        this.defaults.add(new CMS("LOGIN_PASSWORD", "log_in", "log_in", "Password", ""));
+        this.defaults.add(new CMS("LOGIN_BUTTON", "log_in", "log_in", "Login", ""));
+        this.defaults.add(new CMS("LOGIN_FORGET", "log_in", "log_in", "Forgot password?", ""));
 
         // Admin panel
         //TODO: ADD CMS VALUES FOR CRUD MODALS
@@ -113,6 +114,7 @@ public class CMSDefaults {
                 "HOME_DETAIL_YEAR",
                 "HOME_DETAIL_BY",
                 "MY_UPLOADS_TITLE",
+                "MY_UPLOADS_NO_UPLOADS",
                 "MY_UPLOADS_UPLOAD_BUTTON",
                 "MY_UPLOADS_DL_HOVER",
                 "MY_UPLOADS_VIEW_HOVER",
@@ -141,24 +143,8 @@ public class CMSDefaults {
         return defaults;
     }
 
-    public String[] getAppPages() {
-        return Arrays.stream(pages.values()).map(Enum::name).toArray(String[]::new);
-    }
-
     public String[] getLocations() {
         return locations;
-    }
-
-    private enum pages {
-        navbar,
-        landing,
-        home,
-        my_uploads,
-        profile,
-        org_panel,
-        admin,
-        log_in
-
     }
 
 }

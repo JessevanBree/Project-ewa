@@ -22,4 +22,25 @@ export class CmsService {
 	saveAllCMSContent(cmsData: CMS[]): Observable<Object> {
 		return this.http.post(this.REST_DATASETS_URL, cmsData);
 	}
+
+	/**
+	 * Fills the CMSContent array which is used to fill the content in the website
+	 */
+	public fillPage(CMSContent: Object, componentLink: String) {
+		this.getCMSContent(componentLink).subscribe(
+			(data: CMS[]) => {
+				for(let key in CMSContent){
+					if (!CMSContent.hasOwnProperty(key)) continue;
+
+					let temp;
+					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
+						CMSContent[key] = temp.content;
+					}
+				}
+				return CMSContent;
+			},
+			(err) => console.log(err),
+			() => console.log("Finished retrieving component data")
+		)
+	}
 }

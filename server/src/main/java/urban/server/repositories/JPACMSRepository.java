@@ -57,6 +57,13 @@ public class JPACMSRepository implements CMSRepository {
     }
 
     @Override
+    public List<CMS> findByComponent(String location) {
+        TypedQuery<CMS> namedQuery = em.createNamedQuery("get_all_cms_by_component", CMS.class);
+        namedQuery.setParameter(1, location);
+        return namedQuery.getResultList();
+    }
+
+    @Override
     public List<CMS> findByLocation(String location) {
         TypedQuery<CMS> namedQuery = em.createNamedQuery("get_all_cms_by_location", CMS.class);
         namedQuery.setParameter(1, location);

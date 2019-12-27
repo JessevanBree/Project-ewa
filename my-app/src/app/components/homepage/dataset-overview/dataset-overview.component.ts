@@ -10,7 +10,6 @@ import {DatasetService} from "../../../services/dataset.service";
 import {SpringSessionService} from "../../../services/session/spring-session.service";
 import {UserService} from "../../../services/user.service";
 import { CmsService } from 'src/app/services/cms.service';
-import { CMS } from 'src/app/models/CMS';
 
 @Component({
   selector: 'app-dataset-overview',
@@ -21,7 +20,7 @@ export class DatasetOverviewComponent implements OnInit {
   public CMSContent: Object;
   private datasets: Dataset[];
   private copyDatasets: Dataset[];
-	public readonly pageLink = "home";
+	public readonly componentLink = "home_overview";
 
   // if subscribing wants to be done in the view component
   // private datasets$: Observable<Dataset[]>;
@@ -54,7 +53,7 @@ export class DatasetOverviewComponent implements OnInit {
 			"HOME_FILTER_BUTTON": "",
 			"HOME_LIST_TITLE": "",
 		};
-		this.fillPage();
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   onSelection(index: number, dataset: Dataset) {
@@ -182,25 +181,6 @@ export class DatasetOverviewComponent implements OnInit {
 
       }
     );*/
-  }
-  /**
-	 * Fills the CMSContent array which is used to fill the content in the website
-	 */
-	public fillPage() {
-		this.cmsService.getCMSContent(this.pageLink).subscribe(
-			(data: CMS[]) => {
-				for(let key in this.CMSContent){
-					if (!this.CMSContent.hasOwnProperty(key)) continue;
-
-					let temp;
-					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
-						this.CMSContent[key] = temp.content;
-					}
-				}
-			},
-			(err) => console.log(err),
-			() => console.log("Finished retrieving component data")
-		)
   }
   
   setPlaceholder(event: any) {

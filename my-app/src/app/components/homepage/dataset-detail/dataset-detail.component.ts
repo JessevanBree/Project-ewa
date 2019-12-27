@@ -29,7 +29,7 @@ export class DatasetDetailComponent implements OnInit {
   private regionLevel;
   private publicityOptions;
 
-  public readonly pageLink = "home";
+  public readonly componentLink = "home_detail";
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router,
               private datasetService: DatasetService, private fileService: FirebaseFileService,
@@ -55,7 +55,7 @@ export class DatasetDetailComponent implements OnInit {
 		"HOME_DETAIL_YEAR": "",
 		"HOME_DETAIL_BY": "",
   };
-  this.fillPage();
+  this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   protected onDownload() {
@@ -110,24 +110,4 @@ export class DatasetDetailComponent implements OnInit {
   ngOnDestroy() {
     this.queryParamSubscription.unsubscribe();
   }
-
-/**
-	 * Fills the CMSContent array which is used to fill the content in the website
-	 */
-	public fillPage() {
-		this.cmsService.getCMSContent(this.pageLink).subscribe(
-			(data: CMS[]) => {
-				for(let key in this.CMSContent){
-					if (!this.CMSContent.hasOwnProperty(key)) continue;
-
-					let temp;
-					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
-						this.CMSContent[key] = temp.content;
-					}
-				}
-			},
-			(err) => console.log(err),
-			() => console.log("Finished retrieving component data")
-		)
-	}
 }

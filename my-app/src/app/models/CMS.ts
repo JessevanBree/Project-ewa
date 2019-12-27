@@ -3,11 +3,13 @@ export class CMS {
 	location: String;
 	content: String;
 	page: String;
+	component: String;
 	adminInfo: String;
 
-	constructor(location: String, content: String, page: String, id?: number, adminInfo?: String){
+	constructor(location: String, content: String, page: String, component: String, id?: number, adminInfo?: String){
 		this.location = location;
 		this.content = content;
+		this.component = component;
 		this.page = page;
 		
 		this.id = id ? id : null;
@@ -19,6 +21,7 @@ export class CMS {
 		cmsToCompare.location === cms.location && 
 		cmsToCompare.content === cms.content && 
 		cmsToCompare.page === cms.page && 
+		cmsToCompare.component === cms.component && 
 		cmsToCompare.adminInfo === cms.adminInfo;
 	}
 }

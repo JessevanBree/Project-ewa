@@ -12,6 +12,7 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "get_all_cms", query = "select cms from CMS cms"),
         @NamedQuery(name = "get_all_cms_by_page", query = "select cms from CMS cms where cms.page = ?1"),
+        @NamedQuery(name = "get_all_cms_by_component", query = "select cms from CMS cms where cms.component = ?1"),
         @NamedQuery(name = "get_all_cms_by_location", query = "select cms from CMS cms where cms.location = ?1")
 })
 public class CMS {
@@ -35,18 +36,21 @@ public class CMS {
     private String adminInfo;
 
     //TODO: Add component property
+    @JsonView({CMSView.Full.class})
+    private String component;
 
     public CMS() {
     }
 
-    public CMS(String location, String page, String content, String adminInfo) {
-        this(location, page, content);
+    public CMS(String location, String page, String component, String content, String adminInfo) {
+       this(location, page, component, content);
         this.adminInfo = adminInfo;
     }
 
-    public CMS(String location, String page, String content) {
+    public CMS(String location, String page, String component, String content) {
         this.location = location;
         this.page = page;
+        this.component = component;
         this.content = content;
     }
 
@@ -88,5 +92,13 @@ public class CMS {
 
     public void setAdminInfo(String adminInfo) {
         this.adminInfo = adminInfo;
+    }
+
+    public String getComponent() {
+        return component;
+    }
+
+    public void setComponent(String component) {
+        this.component = component;
     }
 }

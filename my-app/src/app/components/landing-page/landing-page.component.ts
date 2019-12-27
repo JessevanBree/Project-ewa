@@ -9,7 +9,7 @@ import { CMS } from 'src/app/models/CMS';
 })
 export class LandingPageComponent implements OnInit {
 	public CMSContent: Object;
-	public readonly pageLink = "landing";
+	public readonly componentLink = "landing";
 
 	constructor(private cmsService: CmsService) {
 		this.CMSContent = {
@@ -17,30 +17,10 @@ export class LandingPageComponent implements OnInit {
 			"LANDING_INFO": "",
 			"LANDING_BUTTON": "",
 		};
-		this.fillPage();
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
 	}
 
 	ngOnInit() {
 		
-	}
-
-	/**
-	 * Fills the CMSContent array which is used to fill the content in the website
-	 */
-	public fillPage() {
-		this.cmsService.getCMSContent(this.pageLink).subscribe(
-			(data: CMS[]) => {
-				for(let key in this.CMSContent){
-					if (!this.CMSContent.hasOwnProperty(key)) continue;
-
-					let temp;
-					if ((temp = data.find((cms: CMS) => cms.location === key)) != null) {
-						this.CMSContent[key] = temp.content;
-					}
-				}
-			},
-			(err) => console.log(err),
-			() => console.log("Finished retrieving component data")
-		)
 	}
 }
