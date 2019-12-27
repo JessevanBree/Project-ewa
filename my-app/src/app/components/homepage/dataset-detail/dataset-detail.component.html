@@ -14,11 +14,11 @@
           baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]"
           [labels]="editedDataset.chartLabels" width="400" height="350"></canvas>
       </div>
-      <div *ngIf="editedDataset.fileType == 'pdf'">
+      <div *ngIf="editedDataset.fileType == 'pdf'" >
         <pdf-viewer
-          [src]="url" style="display:block"
+          [src]="url" style="display:block;"
           [render-text]="true" [original-size]="false"
-          [show-all]="false" [(page)]="this.pdfPageIndex" (after-load-complete)="callBackFn($event)"></pdf-viewer>
+          [show-all]="false" [(page)]="this.pdfPageIndex" (after-load-complete)="callBackFn($event)" ></pdf-viewer>
         <div class="row justify-content-center">
           <button class="btn btn-primary float-right fa fa-arrow-left" (click)="onPDFPageNavClick(0)">
           </button>

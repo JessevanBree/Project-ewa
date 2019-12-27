@@ -40,7 +40,7 @@
     <div class="col-md-6 col-sm-12">
       <div class="card" id="Org-details">
         <div class="card-header">
-          <p> Select an organisation to manage </p>
+          <h3> Select an organisation to manage </h3>
 
           <!-- Select box for the admin to select an organisation -->
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
@@ -51,8 +51,10 @@
           </select>
           <br>
           <br>
-          <p *ngIf="this.userOrganisations != null"> Selected organisation: {{this.currentSelectedOrg?.name}} </p>
-          <p> Amount of members: {{ members.length }}</p>
+          <span class="d-inline"><p *ngIf="this.userOrganisations != null">
+            <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
+            <strong>Amount of members:</strong> {{ members.length }}</p></span>
+
 
           <label for="searchFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -77,7 +79,7 @@
             <span class="row mx-1 align-middle">
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{member.email}}</p>
-					          <span class="btn-group col-lg-4 h-75">
+					          <span class="btn-group col-lg-4 h-75" *ngIf="userIsAdminOfOrgs">
 						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
 					          </span>
@@ -89,7 +91,7 @@
     <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h2>Shared Datasets</h2>
+          <h2>Shared datasets</h2>
         </div>
         <div class="card-body">
           <ul class="list-group">
