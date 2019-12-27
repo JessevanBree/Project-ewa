@@ -9,6 +9,7 @@ import {UserService} from "../../services/user.service";
 import {OrganisationService} from "../../services/organisation.service";
 import {SessionService} from "../../services/session/session.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
+import { CmsService } from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-myuploads',
@@ -16,7 +17,9 @@ import {SpringSessionService} from "../../services/session/spring-session.servic
   styleUrls: ['./myuploads.component.css']
 })
 export class MyuploadsComponent implements OnInit {
-
+	public CMSContent: Object;
+  public readonly componentLink = "my_uploads";
+  
   private userDatasets: Dataset[];
   private uploadDatasetToggle: boolean;
   private editMetaDataToggle: boolean;
@@ -30,11 +33,24 @@ export class MyuploadsComponent implements OnInit {
   constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
               private activatedRoute: ActivatedRoute,
               private userService: UserService, private router: Router,
-              private fileService: FirebaseFileService, private sessionService: SpringSessionService) {
+              private fileService: FirebaseFileService, 
+              private sessionService: SpringSessionService,
+              private cmsService: CmsService) {
     this.userDatasets = [];
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
+
+    this.CMSContent = {
+			"MY_UPLOADS_TITLE": "",
+      "MY_UPLOADS_NO_UPLOADS": "",
+      "MY_UPLOADS_UPLOAD_BUTTON": "",
+      "MY_UPLOADS_DL_HOVER": "",
+      "MY_UPLOADS_VIEW_HOVER": "",
+      "MY_UPLOADS_EDIT_HOVER": "",
+      "MY_UPLOADS_DEL_HOVER": "",
+		};
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   ngOnInit() {

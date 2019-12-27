@@ -10,6 +10,7 @@ import {FirebaseDatasetService} from "../../services/firebase-dataset.service";
 import {DatasetService} from "../../services/dataset.service";
 import {UserService} from "../../services/user.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
+import { CmsService } from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +18,9 @@ import {SpringSessionService} from "../../services/session/spring-session.servic
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-
+	public CMSContent: Object;
+	public readonly componentLink = "profile";
+  
   private readonly REST_USERS_URL = 'http://localhost:8080/users';
   /*private readonly DB_URL = 'https://projectewa-a2355.firebaseio.com';
   private readonly DB_USERS = this.DB_URL + '/Users';*/
@@ -33,8 +36,16 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private httpClient: HttpClient,
               private datasetService: DatasetService,
-              private sessionService: SpringSessionService) {
+              private sessionService: SpringSessionService,
+              private cmsService: CmsService) {
     this.updateButtonToggle = true;
+    this.CMSContent = {
+			"PROFILE_FIRSTNAME_EDIT": "",
+      "PROFILE_SURNAME_EDIT": "",
+      "PROFILE_UPDATE_BUTTON": "",
+      "PROFILE_UPDATE_COUNT": "",
+		};
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   ngOnInit() {

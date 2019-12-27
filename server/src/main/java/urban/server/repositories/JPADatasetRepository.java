@@ -13,7 +13,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class JPADatasetRepository implements DatasetRepository {
+public class JPADatasetRepository implements EntityRepository<Dataset> {
 
     @Autowired
     private EntityManager em;

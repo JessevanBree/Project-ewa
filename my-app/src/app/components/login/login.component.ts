@@ -6,6 +6,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FbUserService} from "../../services/fb-user.service";
 import {SessionService} from "../../services/session/session.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
+import { CmsService } from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-login',
@@ -16,14 +17,27 @@ export class LoginComponent implements OnInit {
   private emailInput: string;
   private passwordInput: string;
 
+  public CMSContent: Object;
+  public readonly componentLink = "log_in";
+
   @ViewChild("formElement", {static: false}) editForm: NgForm;
 
   constructor(private userService: FbUserService,
               private sessionService: SpringSessionService,
               private route: Router,
-              private activeRoute: ActivatedRoute) {
+			  private activeRoute: ActivatedRoute,
+			  private cmsService: CmsService) {
     this.emailInput = null;
-    this.passwordInput = null;
+	this.passwordInput = null;
+	
+	this.CMSContent = {
+		"LOGIN_TITLE": "",
+		"LOGIN_EMAIL": "",
+		"LOGIN_PASSWORD": "",
+		"LOGIN_BUTTON": "",
+		"LOGIN_FORGET": "",
+	};
+	this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
 
