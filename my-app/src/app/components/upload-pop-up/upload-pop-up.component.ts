@@ -69,11 +69,11 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationService.getMyOrganisations().subscribe(
-      (data: Organisation[]) => this.organisationsOfUser = data
-    );
-    /*this.userService.getLoggedInUser().organisations.forEach(org => this.organisationsOfUser.push(org));*/
-    // this.userService.getLoggedInUser().adminOfOrganisations.forEach(org => this.organisationsOfUser.push(org));
+    // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
+    this.organisationsOfUser = this.organisationService.getOrganisations()
+      .filter((organistion: Organisation) =>
+        organistion.id = this.userService.getLoggedInUser().id
+      );
     console.log(this.organisationsOfUser);
   }
 
@@ -105,7 +105,7 @@ export class UploadPopUpComponent implements OnInit {
     let createdDataset: Dataset;
 
     if (this.publicityInput == "Group") {
-      createdDataset= new Dataset(this.nameInput, this.regionInput,
+      createdDataset = new Dataset(this.nameInput, this.regionInput,
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
         this.descriptionInput, this.selected);
     } else {
@@ -114,7 +114,6 @@ export class UploadPopUpComponent implements OnInit {
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
         this.descriptionInput);
     }
-    console.log(createdDataset);
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
     this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
