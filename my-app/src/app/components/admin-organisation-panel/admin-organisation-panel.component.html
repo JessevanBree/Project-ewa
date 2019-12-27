@@ -26,11 +26,11 @@
      *ngIf="!this.userOrganisations.length">
   <div class="pt-3 pb-3 my-auto mx-auto text-center">
     <h3 class="">
-      You are not part of any organisation
+		{{CMSContent["ORG_PANEL_NO_ORGANISATION_MSG"]}}
     </h3>
     <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
             routerLink="/homepage"
-    >Back to homepage
+    >{{CMSContent["ORG_PANEL_NO_ORGANISATION_BTN"]}}
     </button>
   </div>
 </div>

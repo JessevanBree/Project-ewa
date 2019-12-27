@@ -9,6 +9,7 @@ import {NgForm} from "@angular/forms";
 import {DatasetService} from "../../../services/dataset.service";
 import {SpringSessionService} from "../../../services/session/spring-session.service";
 import {UserService} from "../../../services/user.service";
+import { CmsService } from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-dataset-overview',
@@ -16,8 +17,10 @@ import {UserService} from "../../../services/user.service";
   styleUrls: ['./dataset-overview.component.css']
 })
 export class DatasetOverviewComponent implements OnInit {
+  public CMSContent: Object;
   private datasets: Dataset[];
   private copyDatasets: Dataset[];
+	public readonly componentLink = "home_overview";
 
   // if subscribing wants to be done in the view component
   // private datasets$: Observable<Dataset[]>;
@@ -35,7 +38,7 @@ export class DatasetOverviewComponent implements OnInit {
 
   constructor(private datasetService: DatasetService, private router: Router,
               private activatedRoute: ActivatedRoute, private aUserService: UserService,
-              private sessionService: SpringSessionService) {
+              private sessionService: SpringSessionService, private cmsService: CmsService) {
     this.datasets = [];
     this.activeIndex = null;
     this.searchQuery = '';
@@ -43,6 +46,14 @@ export class DatasetOverviewComponent implements OnInit {
     this.regionSearch = "All regions";
     this.publicitySearch = "All shared";
 
+    this.CMSContent = {
+			"HOME_SEARCH": "",
+			"HOME_REGION_FILTER": "",
+			"HOME_PUBLICITY_FILTER": "",
+			"HOME_FILTER_BUTTON": "",
+			"HOME_LIST_TITLE": "",
+		};
+		this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   onSelection(index: number, dataset: Dataset) {
@@ -170,5 +181,9 @@ export class DatasetOverviewComponent implements OnInit {
 
       }
     );*/
+  }
+  
+  setPlaceholder(event: any) {
+    event.target.placeholder = this.CMSContent['HOME_SEARCH'];
   }
 }

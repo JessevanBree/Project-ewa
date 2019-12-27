@@ -2,7 +2,7 @@
 <!-- Open the Edit pop-up when an edit button is clicked -->
 
 <div class="row">
-	<div class="card w-100 mb-3">
+	<!-- <div class="card w-100 mb-3">
 		<div class="card-header">
 			<div class="row" style="height:38px">
 				<p class="pl-3 card-title my-auto">
@@ -12,15 +12,20 @@
 		</div>
 		<div class="card-body">
 			<label for="datasetSearchFilter">Search</label>
-			<input id="datasetSearchFilter" type="text" class="form-control" [(ngModel)]="datasetSearchFilter" (ngModelChange)="checkIfListEmpty()">
+			
 		</div>
-	</div>
+	</div> -->
 	<div class="card w-100">
 		<div class="card-header">
-			<div class="row" style="height:38px">
+			<div class="row">
 				<p class="pl-3 card-title my-auto">
 					Datasets
 				</p>
+				<span class="ml-auto mr-3 btn-group">
+					<input type="button" name="" class="btn">
+				</span>
+				<input id="datasetSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="datasetSearchFilter" 
+					(ngModelChange)="checkIfListEmpty()" placeholder="Search">
 			</div>
 		</div>
 		<ul class="dataList list-group list-group-flush">
