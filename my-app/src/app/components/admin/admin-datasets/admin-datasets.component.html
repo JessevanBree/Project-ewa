@@ -12,7 +12,7 @@
 		</div>
 		<div class="card-body">
 			<label for="datasetSearchFilter">Search</label>
-			
+
 		</div>
 	</div> -->
 	<div class="card w-100">
@@ -24,7 +24,7 @@
 				<span class="ml-auto mr-3 btn-group">
 					<input type="button" name="" class="btn">
 				</span>
-				<input id="datasetSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="datasetSearchFilter" 
+				<input id="datasetSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="datasetSearchFilter"
 					(ngModelChange)="checkIfListEmpty()" placeholder="Search">
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">{{item.name}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">
-						<button class="btn btn-primary" data-toggle="modal" data-target="#editModal"
+						<button class="btn btn-primary" data-toggle="modal" data-target="#editMetaModal"
 							(click)="onEditButtonClick(item)">
 							<i class="fa fa-edit fa-lg"></i>
 						</button>

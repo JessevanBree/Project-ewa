@@ -23,7 +23,8 @@ export class AdminDatasetsComponent implements OnInit {
   emptyList: boolean;
   private activeIndex;
 
-	constructor(private datasetService: DatasetService, private router: Router) {
+	constructor(private datasetService: DatasetService, private router: Router,
+              private route: ActivatedRoute) {
 		this.uploadIsClicked, this.editIsClicked = false;
 		this.searchFilter = "";
 		this.datasets = [];
@@ -57,8 +58,11 @@ export class AdminDatasetsComponent implements OnInit {
 
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
-
     this.editIsClicked = true;
+    this.router.navigate(['edit-dataset'], {
+      relativeTo: this.route,
+      queryParams: {id: dataset.id}
+    });
   }
 
   onDeleteClick(dataset: Dataset) {

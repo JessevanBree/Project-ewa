@@ -49,7 +49,9 @@ export class EditMetadataPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.closingToggle.emit(true);
-    this.router.navigate(['myuploads/', this.sessionService.userEmail]);
+    this.router.navigate(['./'], {
+      relativeTo: this.activatedRoute
+    });
 }
 
   ngOnInit() {

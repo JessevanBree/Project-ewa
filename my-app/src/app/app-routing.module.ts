@@ -57,7 +57,7 @@ const routes: Routes = [
         component: EditOrganisationPopupComponent
       },
       {
-        path: 'editDataset',
+        path: 'edit-dataset',
         component: EditMetadataPopupComponent
       }
 

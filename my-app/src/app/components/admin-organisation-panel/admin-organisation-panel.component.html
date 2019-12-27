@@ -26,7 +26,7 @@
      *ngIf="!this.userOrganisations.length">
   <div class="pt-3 pb-3 my-auto mx-auto text-center">
     <h3 class="">
-		{{CMSContent["ORG_PANEL_NO_ORGANISATION_MSG"]}}
+      {{CMSContent["ORG_PANEL_NO_ORGANISATION_MSG"]}}
     </h3>
     <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
             routerLink="/homepage"
@@ -79,16 +79,12 @@
             <span class="row mx-1 align-middle">
               <!-- show this block if the user does have uploaded datasets -->
                     <p class="col-lg-8">{{member.email}}</p>
-<<<<<<< HEAD
-					          <span class="btn-group col-lg-4 h-75">
-						          <button *ngIf="userIsAdminOfOrgs" class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
-=======
+
 					          <span class="btn-group col-lg-4 h-75" *ngIf="userIsAdminOfOrgs">
 						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
->>>>>>> master
                               (click)="onDelete(member)"></button>
-					          </span>
-				</span>
+                    </span>
+            </span>
           </li>
         </ul>
       </div>
