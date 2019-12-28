@@ -20,10 +20,9 @@
               title="comma separated values">.csv</abbr>, <abbr
               title="portable document format">.pdf</abbr>)</span></label>
             <input type="file" class="form-control-file pt-2"
-                   (change)="uploadListener($event.target.files)"
+                   (change)="uploadListener($event)"
                    id="uploadModalControlFile1" name="fileInput"
                    accept=".csv, .pdf"
-                   #csvReader
                    ngModel
                    required
                    [disabled]=confirmToggle>
@@ -184,7 +183,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose(formElement)">Close</button>
             <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid || confirmToggle == false">
               Upload
             </button>
