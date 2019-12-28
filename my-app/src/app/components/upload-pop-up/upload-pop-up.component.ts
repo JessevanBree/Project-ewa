@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {Form, NgForm} from '@angular/forms';
 import {Papa} from "ngx-papaparse";
 import {Dataset, Publicity, RegionLevel} from "../../models/dataset";
 import {Router} from "@angular/router";
@@ -10,6 +10,7 @@ import {ChartDataSets} from "chart.js";
 import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {IDropdownSettings} from 'ng-multiselect-dropdown';
+import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
 
 
 @Component({
@@ -24,10 +25,9 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('uploadModal', {static: false}) private uploadModal;
 
   private detailForm: NgForm;
-  private csvReader: NgForm;
   private headers: string[];
   private csvData: object[];
-  private organisationsOfUser: Organisation[];
+  private readonly organisationsOfUser: Organisation[];
 
   private selected: Organisation[] = [];
 
@@ -58,7 +58,7 @@ export class UploadPopUpComponent implements OnInit {
               private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
               private router: Router) {
     this.listOfYears = [];
-    for (let i = 1980; i < 2020; i++) {
+    for (let i = 1980; i <= new Date().getFullYear(); i++) {
       this.listOfYears.push(i);
     }
     this.closingToggle = new EventEmitter<boolean>();
@@ -69,11 +69,11 @@ export class UploadPopUpComponent implements OnInit {
     this.publicityGroupInput = null;
     this.yearInput = new Date().getFullYear();
 
-    this.organisationService.getMyOrganisations().subscribe(
-      (data: Organisation[]) => this.organisationsOfUser = data
-    );
-    /*this.userService.getLoggedInUser().organisations.forEach(org => this.organisationsOfUser.push(org));*/
-    // this.userService.getLoggedInUser().adminOfOrganisations.forEach(org => this.organisationsOfUser.push(org));
+    // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
+    this.organisationsOfUser = this.organisationService.getOrganisations()
+      .filter((organistion: Organisation) =>
+        organistion.id = this.userService.getLoggedInUser().id
+      );
     console.log(this.organisationsOfUser);
   }
 
@@ -92,7 +92,7 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm) {
+  onSubmit() {
     console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
@@ -105,7 +105,7 @@ export class UploadPopUpComponent implements OnInit {
     let createdDataset: Dataset;
 
     if (this.publicityInput == "Group") {
-      createdDataset= new Dataset(this.nameInput, this.regionInput,
+      createdDataset = new Dataset(this.nameInput, this.regionInput,
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
         this.descriptionInput, this.selected);
     } else {
@@ -114,9 +114,7 @@ export class UploadPopUpComponent implements OnInit {
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
         this.descriptionInput);
     }
-    console.log(createdDataset);
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
-    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
   }
 
@@ -147,20 +145,19 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //Method that registers what file is uploaded by the user
-  uploadListener(files: FileList): void {
+  uploadListener($event): void {
+    this.file = $event.target.files.item(0);
     let arrayOfObjects = [];
 
-    if (this.isValidPDFFile(files)) {
-      this.file = files.item(0);
+    if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";
       this.validationToggle = true;
       this.confirmToggle = true;
       return;
     }
 
-    if (this.isValidCSVFile(files)) {
+    if (this.isValidCSVFile(this.file)) {
       this.fileTypeUploaded = "csv";
-      this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
           dynamicTyping: true,
@@ -215,12 +212,12 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(files: FileList): boolean {
-    return files.item(0).name.endsWith(".csv");
+  isValidCSVFile(files: File): boolean {
+    return files.type.endsWith(".csv");
   }
 
-  isValidPDFFile(files: FileList) {
-    return files.item(0).type.endsWith("pdf");
+  isValidPDFFile(file: File) {
+    return file.type.endsWith("pdf");
   }
 
 
@@ -289,4 +286,7 @@ export class UploadPopUpComponent implements OnInit {
     this.chartLabels = chartLabels;
   }
 
+  onClose() {
+    this.closingToggle.emit(true);
+  }
 }

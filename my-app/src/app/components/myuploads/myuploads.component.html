@@ -6,10 +6,13 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-9 col-sm-12 col-lg-8">
+		<div class="col-md-11 col-sm-12 col-lg-11">
 			<div class="card" id="list">
 				<div class="card-header">
-					<h4 class="text-center">{{CMSContent["MY_UPLOADS_TITLE"]}}</h4>
+          <span class="h4">{{CMSContent["MY_UPLOADS_TITLE"]}}</span>
+          <button type="button" id="uploadButton" class="btn btn-primary float-right m-0" data-toggle="modal"
+                  data-target="#uploadModal" (click)="onUploadButtonClick()">{{CMSContent["MY_UPLOADS_UPLOAD_BUTTON"]}}
+          </button>
 				</div>
 				<ul class="dataList list-group list-group-flush">
 					<!-- Check if the logged in user has any uploaded datasets, if not show a message -->
@@ -26,7 +29,7 @@
 							<span class="btn-group col-lg-4 h-75">
 								<a [href]="url" [download]="url" target="_blank" class="btn btn-warning fa fa-download"
 									[title]="CMSContent['MY_UPLOADS_DL_HOVER']" (click)="onDownload(i)"></a>
-								<button class="btn btn-info fa fa-eye" data-toggle="modal"
+								<button *ngIf="item.fileType == 'csv'" class="btn btn-info fa fa-eye" data-toggle="modal"
 									data-target="#viewDatasetModal" [title]="CMSContent['MY_UPLOADS_VIEW_HOVER']"
 									(click)="onViewDatasetClick(i)"></button>
 								<button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
@@ -39,11 +42,6 @@
 					</li>
 				</ul>
 			</div>
-		</div>
-		<div class="col-md-3 col-sm-12 mt-5">
-			<button type="button" id="uploadButton" class="btn btn-primary float-right" data-toggle="modal"
-				data-target="#uploadModal" (click)="onUploadButtonClick()">{{CMSContent["MY_UPLOADS_UPLOAD_BUTTON"]}}
-			</button>
 		</div>
 
 		<!--    <div class="col-md-3 col-sm-12 mt-5 ">-->

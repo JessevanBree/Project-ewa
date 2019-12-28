@@ -20,9 +20,12 @@ export class FirebaseFileService {
 
   //Saves the file to firebase storage
   public saveFile(file: File, datasetId: number, datasetName?: string) {
-    let fileName = file.name.split(".");
+    let fileName = file.name.split(/\.pdf|\.csv/g);
+    let fileType = file.type.split("/")[1];
+    console.log(file);
+    console.log(fileName);
     this.httpClient.post<File>(this.STORAGE_URL + fileName[0] + "_" + datasetId
-      + "." + fileName[1], file).subscribe(
+      + "." + fileType, file).subscribe(
       (file: File) => {
         console.log(file);
       },
