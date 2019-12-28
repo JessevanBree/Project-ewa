@@ -12,7 +12,7 @@
     </div>
     <div class="col-sm-12 my-2 form-row mx-auto float-left">
       <div class="col-sm-12 col-md-5 float-left">
-        <label for="regionFilter" class="text-white">{{CMSContent['HOME_REGION_FILTER']}}</label>
+        <label for="regionFilter" class="text-green-secondary">{{CMSContent['HOME_REGION_FILTER']}}</label>
         <select name="regionSelectBox" id="regionFilter" class="custom-select" style="cursor: pointer" ngForm
                           [(ngModel)]="this.regionSearch">
         <option value="All regions" selected>All regions</option>
@@ -23,7 +23,7 @@
       </div>
       <!--      <select *ngIf="this.sessionService.userEmail" class="custom-select" style="cursor: pointer">-->
       <div class="col-sm-12 col-md-5 float-left">
-        <label for="publicityFilter" class="text-white">{{CMSContent['HOME_PUBLICITY_FILTER']}}</label>
+        <label for="publicityFilter" class="text-green-secondary">{{CMSContent['HOME_PUBLICITY_FILTER']}}</label>
         <select name="publicitySelectBox" id="publicityFilter" class="custom-select" style="cursor: pointer" ngForm
                 [(ngModel)]="this.publicitySearch">
           <option value="All shared">All shared</option>
@@ -47,7 +47,7 @@
     <table class="table table-bordered m-0 text-center">
       <thead class="tablehead table-borderless">
       <tr>
-        <th class="text-light font-weight-normal">{{CMSContent['HOME_LIST_TITLE']}}
+        <th class="bg-green-secondary text-light">{{CMSContent['HOME_LIST_TITLE']}}
           <span class="custom-badge float-right"
                 *ngIf="this.datasets && this.searchQuery != ''">{{(this.datasets| searchArrayName: [searchQuery, 'value']).length}}</span>
         </th>
