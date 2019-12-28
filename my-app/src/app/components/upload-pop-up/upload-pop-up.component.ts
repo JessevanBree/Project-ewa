@@ -286,8 +286,7 @@ export class UploadPopUpComponent implements OnInit {
     this.chartLabels = chartLabels;
   }
 
-  onClose(form: NgForm) {
-    form.reset();
+  onClose() {
     this.closingToggle.emit(true);
   }
 }
