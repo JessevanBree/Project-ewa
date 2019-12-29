@@ -213,11 +213,11 @@ export class UploadPopUpComponent implements OnInit {
 
   //This method checks if the uploaded csv file is valid
   isValidCSVFile(files: File): boolean {
-    return files.type.endsWith(".csv");
+    return files.name.endsWith(".csv");
   }
 
   isValidPDFFile(file: File) {
-    return file.type.endsWith("pdf");
+    return file.name.endsWith(".pdf");
   }
 
 

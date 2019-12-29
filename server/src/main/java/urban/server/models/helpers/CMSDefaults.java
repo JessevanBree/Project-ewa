@@ -59,7 +59,7 @@ public class CMSDefaults {
         // My uploads
         this.defaults.add(new CMS("MY_UPLOADS_TITLE", "my_uploads", "my_uploads", "My uploaded datasets", ""));
         this.defaults.add(new CMS("MY_UPLOADS_NO_UPLOADS", "my_uploads", "my_uploads", "You don't have any uploaded datasets", ""));
-        this.defaults.add(new CMS("MY_UPLOADS_UPLOAD_BUTTON", "my_uploads", "my_uploads", "Upload datasets", ""));
+        this.defaults.add(new CMS("MY_UPLOADS_UPLOAD_BUTTON", "my_uploads", "my_uploads", "Upload dataset", ""));
         this.defaults.add(new CMS("MY_UPLOADS_DL_HOVER", "my_uploads", "my_uploads", "Download dataset file", ""));
         this.defaults.add(new CMS("MY_UPLOADS_VIEW_HOVER", "my_uploads", "my_uploads", "View this dataset", ""));
         this.defaults.add(new CMS("MY_UPLOADS_EDIT_HOVER", "my_uploads", "my_uploads", "Edit this dataset", ""));
