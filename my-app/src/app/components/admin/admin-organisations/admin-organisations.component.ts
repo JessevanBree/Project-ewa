@@ -34,6 +34,7 @@ export class AdminOrganisationsComponent implements OnInit {
     // this.organisations = this.aOrganisationService.getOrganisations();
     this.aOrganisationService.getAllOrganisations().subscribe(
       (data: Organisation[]) => {
+        console.log(data);
         this.organisations = data;
       },
       error => console.log(error),

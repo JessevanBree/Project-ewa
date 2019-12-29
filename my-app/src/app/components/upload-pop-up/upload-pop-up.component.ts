@@ -27,7 +27,7 @@ export class UploadPopUpComponent implements OnInit {
   private detailForm: NgForm;
   private headers: string[];
   private csvData: object[];
-  private readonly organisationsOfUser: Organisation[];
+  private organisationsOfUser: Organisation[];
 
   private selected: Organisation[] = [];
 
@@ -71,21 +71,23 @@ export class UploadPopUpComponent implements OnInit {
     this.yearInput = new Date().getFullYear();
 
     // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
-    this.organisationsOfUser = this.organisationService.getOrganisations()
-      .filter((organistion: Organisation) =>
-        organistion.id = this.userService.getLoggedInUser().id
-      );
+    this.organisationService.getMyOrganisations().subscribe(
+      (data: Organisation[]) =>
+        this.organisationsOfUser = data,
+      (error) => console.log(error),
+      () => console.log("Finished retrieving user's organisations"));
   }
+
 
   ngOnInit() {
   }
 
-  onClearAll() {
+  onClearAllOrganisations() {
     this.selected = [];
     console.log("Selected organisations after CLEAR: " + this.selected);
   }
 
-  onSelectAll() {
+  onSelectAllOrganisations() {
     this.selected = this.organisationsOfUser;
     console.log("Selected organisations after ALL: " + this.selected);
   }
