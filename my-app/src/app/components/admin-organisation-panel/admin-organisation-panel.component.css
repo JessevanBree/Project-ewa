@@ -4,16 +4,17 @@
 }
 
 #addMemberButton {
-  /*margin-top: 50px;*/
+  margin-top: 10px;
   margin-bottom: 10px;
-  margin-left: 20px;
   margin-right: 40px;
-  /*float: right;*/
-  /*background-color: #28a745;*/
-  /*border: none;*/
+}
+
+p.p1 {
+  margin-bottom: 0px;
 }
 
 #createMemberButton {
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 

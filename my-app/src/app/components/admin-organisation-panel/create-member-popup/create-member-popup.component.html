@@ -10,7 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form autocomplete="off" (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+        <form autocomplete="off" (keyup.enter)="onSubmit(formElement)" (ngSubmit)="onSubmit(formElement)" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
 
           <label for="firstName">First name</label><br>
@@ -21,10 +21,10 @@
                  id="firstName"
                  #firstName="ngModel"
                  ngModel>
+          <br>
           <div *ngIf="!firstName.valid && firstName.touched" class="alert alert-danger">
             <p><span>Please enter a valid first name</span></p>
           </div>
-          <br>
 
           <label for="surName">Surname</label><br>
           <input type="text"
@@ -34,10 +34,10 @@
                  id="surName"
                  #surName="ngModel"
                  ngModel>
+          <br>
           <div *ngIf="!surName.valid && surName.touched" class="alert alert-danger">
             <p><span>Please enter a valid surname</span></p>
           </div>
-          <br>
 
           <label for="email">Email address</label><br>
           <input type="search"
@@ -45,14 +45,19 @@
                  name="email"
                  id="email"
                  autocomplete="off"
+                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                  #email="ngModel"
                  ngModel
                  required>
           <br>
-          <div *ngIf="!email.valid && surName.touched" class="alert alert-danger">
-            <p><span>Please enter an email address</span></p>
+          <div class="alert alert-danger" [hidden]="email.valid || email.untouched">
+            <div  *ngIf="email.errors && email.errors.required">
+              <p><span>Email is required</span></p>
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+              <p><span>Email is invalid</span></p>
+            </div>
           </div>
-
           <label for="password">Password</label><br>
           <input type="password"
                  required minlength="6"
@@ -62,12 +67,12 @@
                  autocomplete="new-password"
                  #password="ngModel"
                  ngModel>
+          <br>
           <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
             <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
           </div>
-          <br>
 
-          <label for="password">Re-enter password</label><br>
+          <label for="password">Confirm password</label><br>
           <input type="password"
                  required minlength="6"
                  class="form-control"
@@ -75,10 +80,7 @@
                  id="passwordCheck"
                  #passwordCheck="ngModel"
                  ngModel>
-          <div *ngIf="!passwordCheck.valid && passwordCheck.touched" class="alert alert-danger">
-            <p><span>Password is not the same </span></p>
-          </div>
-
+          <br>
           <br>
 
           <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid">
