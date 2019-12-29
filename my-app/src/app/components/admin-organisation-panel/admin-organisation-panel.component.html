@@ -1,8 +1,9 @@
 <app-add-member-popup *ngIf="addMemberToggle"
                       (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg"
-                      (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                      (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
-                         (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                         (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has been clicked -->
+<app-view-member-popup *ngIf="viewMemberToggle" [receivedSelectedUser]="selectedUser" (userDeleted)="onDelete($event)"></app-view-member-popup> <!-- Open the "View member" pop-up when the "View member" button has been clicked -->
 <app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
 
 <div class="container bg-light shadow"
@@ -24,8 +25,8 @@
     <div class="col-md-6 col-sm-12">
       <div class="card" id="Org-details">
         <div class="card-header">
-          <h3> Select an organisation to manage </h3>
-
+          <h4> Select an organisation </h4>
+          <br>
           <!-- Select box for the admin to select an organisation -->
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
                   (change)="orgSelectionChanged()"
@@ -38,14 +39,16 @@
 
           <span class="d-inline"><p class="p1" *ngIf="this.userOrganisations != null">
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
-            <strong>Amount of members:</strong> {{ members.length }}</p></span>
+            <strong>Amount of members:</strong> {{ members.length }}</p></span><br>
 
+          <span *ngIf="userIsAdminOfOrgs">
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
                       data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
               </button>
               <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
                       data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
-              </button>
+              </button><br><br>
+          </span>
 
           <label for="searchFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -72,6 +75,9 @@
                     <p class="col-lg-8">{{member.email}}</p>
 
 					          <span class="btn-group col-lg-4 h-75" *ngIf="userIsAdminOfOrgs">
+                       <button type="button" class="btn btn-info fa fa-eye" id="viewMemberModal" data-toggle="modal"
+                               data-target="#viewMemberModal"
+                               (click)="onViewMemberClick(member)"></button>
 						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
                     </span>
@@ -83,7 +89,7 @@
     <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h3>Shared datasets</h3>
+          <h4>Shared datasets</h4>
         </div>
         <div class="card-body">
           <ul class="list-group">
