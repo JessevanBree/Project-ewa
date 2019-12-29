@@ -4,23 +4,7 @@
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
                          (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
-<!--
-<div *ngIf="!userIsAdminOfOrgs; else isAdminOfOrg">
-  <div class="container bg-light shadow" style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;">
-    <div class="pt-3 pb-3 my-auto mx-auto text-center">
-      <h3 class="">
-      You are not an administrator of any organisation
-      </h3>
-      <button class="btn btn-danger text-white mt-2" style="font-size: 140%"
-              routerLink="/homepage"
-      >Back to homepage
-      </button>
-    </div>
-  </div>
-</div>
--->
 
-<!--<ng-template #isAdminOfOrg>-->
 <div class="container bg-light shadow"
      style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;"
      *ngIf="!this.userOrganisations.length">
@@ -52,9 +36,16 @@
           <br>
           <br>
 
-          <span class="d-inline"><p *ngIf="this.userOrganisations != null">
+          <span class="d-inline"><p class="p1" *ngIf="this.userOrganisations != null">
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
             <strong>Amount of members:</strong> {{ members.length }}</p></span>
+
+              <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
+                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
+              </button>
+              <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
+                      data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
+              </button>
 
           <label for="searchFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -112,14 +103,12 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6 col-sm-12 mt-5" *ngIf="userIsAdminOfOrgs">
-    <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
-            data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
-    </button>
-    <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
-            data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
-    </button>
-  </div>
+<!--  <div class="col-md-6 col-sm-12 mt-5" *ngIf="userIsAdminOfOrgs">-->
+<!--    <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"-->
+<!--            data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member-->
+<!--    </button>-->
+<!--    <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"-->
+<!--            data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member-->
+<!--    </button>-->
+<!--  </div>-->
 </div>
-
-<!--</ng-template>-->
