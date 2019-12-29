@@ -23,6 +23,9 @@ export class DatasetService {
     this.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         this.datasets = data;
+        this.datasets.forEach((dataset: Dataset) => {
+          this.updateDataset(dataset);
+        });
       },
       (error) => {
         console.log(error);

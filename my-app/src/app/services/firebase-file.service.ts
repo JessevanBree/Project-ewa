@@ -71,12 +71,11 @@ export class FirebaseFileService {
       error => console.log(error),
       () => {
         items.forEach(item => {
-          console.log(item);
           this.storage.ref().child(item.name).getDownloadURL().then(
             url => {
               url ? this.fileDownloadUrls.push(url) : null;
             }
-          ).finally(() => console.log(this.fileDownloadUrls));
+          );
         });
       }
     );

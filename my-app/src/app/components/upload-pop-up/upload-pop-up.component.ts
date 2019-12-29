@@ -71,6 +71,7 @@ export class UploadPopUpComponent implements OnInit {
     this.yearInput = new Date().getFullYear();
 
     // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
+    this.organisationsOfUser = [];
     this.organisationService.getMyOrganisations().subscribe(
       (data: Organisation[]) =>
         this.organisationsOfUser = data,
