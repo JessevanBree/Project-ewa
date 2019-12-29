@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Dataset} from "../../models/dataset";
 import {Organisation} from "../../models/organisation";
 import {OrganisationService} from "../../services/organisation.service";
@@ -6,15 +6,17 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-organisation-popup',
   templateUrl: './edit-organisation-popup.component.html',
   styleUrls: ['./edit-organisation-popup.component.css']
 })
-export class EditOrganisationPopupComponent implements OnInit {
+export class EditOrganisationPopupComponent implements OnInit, OnDestroy {
 
-  // @Input() editingOrganisation: Organisation;
+  @ViewChild('formElement', {static: false})
+  private form: NgForm;
   @Output() savedOrganisation: EventEmitter<Organisation> = new EventEmitter<Organisation>();
   @Output() closed: EventEmitter<boolean> = new EventEmitter<boolean>();
   private queryParamSubscription: Subscription;
