@@ -183,7 +183,7 @@ export class OrganisationService {
       () => console.log("Finished deleting member from organisation")
     );
   }
-
+  
   // Function to handle the HTTP errors
   handleError(error) {
     let errorMessage = '';
