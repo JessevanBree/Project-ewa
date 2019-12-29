@@ -90,7 +90,7 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //Retreive form data and upload new dataset
-  onSubmit(form: NgForm) {
+  onSubmit() {
     console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
     console.log(uploadingUser);
