@@ -20,9 +20,18 @@ export class FirebaseFileService {
 
   //Saves the file to firebase storage
   public saveFile(file: File, datasetId: number, datasetName?: string) {
-    let fileName = file.name.split(".");
-    this.httpClient.post<File>(this.STORAGE_URL + fileName[0] + "_" + datasetId
-      + "." + fileName[1], file).subscribe(
+    let fileName = file.name.split(/\.csv|\.pdf/)[0];
+    let fileType = file.type.split("/")[1];
+    console.log(file);
+    console.log("Filename: " + fileName);
+    console.log("Filetype: " + fileType);
+    if (fileType === "vnd.ms-excel"){
+      fileType = "csv"
+    }
+    console.log("Filename2: " + fileName);
+    console.log("Filetype2: " + fileType);
+    this.httpClient.post<File>(this.STORAGE_URL + fileName + "_" + datasetId
+      + "." + fileType, file).subscribe(
       (file: File) => {
         console.log(file);
       },

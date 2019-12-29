@@ -74,11 +74,9 @@ export class UploadPopUpComponent implements OnInit {
       .filter((organistion: Organisation) =>
         organistion.id = this.userService.getLoggedInUser().id
       );
-    console.log(this.organisationsOfUser);
   }
 
   ngOnInit() {
-    console.log(this.publicityInput);
   }
 
   onClearAll() {
@@ -115,7 +113,6 @@ export class UploadPopUpComponent implements OnInit {
         this.descriptionInput);
     }
     this.datasetService.saveDataset(createdDataset, this.file, this.closingToggle);
-    this.fileService.saveFile(this.file, createdDataset.id, createdDataset.fileName);
     this.router.navigate(['myuploads', uploadingUser.email]);
   }
 
@@ -146,20 +143,20 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //Method that registers what file is uploaded by the user
-  uploadListener(files: FileList): void {
+  uploadListener(file: any): void {
     let arrayOfObjects = [];
+    this.file = file.target.files.item(0);
+    console.log(file.target.files.item(0));
 
-    if (this.isValidPDFFile(files)) {
-      this.file = files.item(0);
+    if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";
       this.validationToggle = true;
       this.confirmToggle = true;
       return;
     }
 
-    if (this.isValidCSVFile(files)) {
+    if (this.isValidCSVFile(this.file)) {
       this.fileTypeUploaded = "csv";
-      this.file = files.item(0);
       this.papa.parse(this.file, {
           header: true,
           dynamicTyping: true,
@@ -214,12 +211,15 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //This method checks if the uploaded csv file is valid
-  isValidCSVFile(files: FileList): boolean {
-    return files.item(0).name.endsWith(".csv");
+  isValidCSVFile(file: File): boolean {
+    console.log(file.type.endsWith("vnd.ms-excel"));
+    console.log(file.type);
+    return file.type.endsWith("vnd.ms-excel");
   }
 
-  isValidPDFFile(files: FileList) {
-    return files.item(0).type.endsWith("pdf");
+  isValidPDFFile(file: File) {
+    console.log(file.type.endsWith("pdf"));
+    return file.type.endsWith("pdf");
   }
 
 
@@ -288,4 +288,7 @@ export class UploadPopUpComponent implements OnInit {
     this.chartLabels = chartLabels;
   }
 
+  onClose() {
+    this.closingToggle.emit(true);
+  }
 }
