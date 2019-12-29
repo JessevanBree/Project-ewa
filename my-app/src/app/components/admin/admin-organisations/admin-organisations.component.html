@@ -1,4 +1,4 @@
-<app-create-organisation-popup (savedOrganisation)="saveRequest($event)"
+<app-create-organisation-popup *ngIf="createIsClicked" (savedOrganisation)="saveRequest($event)"
                                (closed)="createPopUpIsClosed()"></app-create-organisation-popup>
 <app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
                              (closed)="editPopUpIsClosed()">
