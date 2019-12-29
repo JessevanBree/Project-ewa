@@ -4,8 +4,8 @@ import {ChartsModule} from 'ng2-charts';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {NgMultiSelectDropDownModule} from 'ng-multiselect-dropdown';
 
 import {AppComponent} from './app.component';
 import {UploadPopUpComponent} from './components/upload-pop-up/upload-pop-up.component';
@@ -34,22 +34,21 @@ import {ViewDatasetPopupComponent} from './components/view-dataset-popup/view-da
 import {EditMetadataPopupComponent} from './components/edit-metadata-popup/edit-metadata-popup.component';
 import {CreateUserPopupComponent} from './components/create-user-popup/create-user-popup.component';
 import {EditUserPopupComponent} from './components/edit-user-popup/edit-user-popup.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
+import {FooterComponent} from './components/footer/footer.component';
+import {AdminOrganisationPanelComponent} from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/admin-organisation-panel/add-member-popup/add-member-popup.component";
-import { CreateMemberPopupComponent } from './components/admin-organisation-panel/create-member-popup/create-member-popup.component';
+import {CreateMemberPopupComponent} from './components/admin-organisation-panel/create-member-popup/create-member-popup.component';
 import {SpringSessionService} from "./services/session/spring-session.service";
 import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-filter-pipe";
-import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';
+import {SearchUserArrayPipe} from './pipes/search-user-array.pipe';
 import {LandingPageComponent} from "./components/landing-page/landing-page.component";
 import {PdfViewerModule} from "ng2-pdf-viewer";
-import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.component';
-import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
-<<<<<<< HEAD
+import {AdminCmsComponent} from './components/admin/admin-cms/admin-cms.component';
+import {SearchCMSArrayPipe} from './pipes/search-cms-array.pipe';
 import {NgxPaginationModule} from "ngx-pagination";
-=======
-import { ViewMemberPopupComponent } from './components/admin-organisation-panel/view-member-popup/view-member-popup.component';
->>>>>>> ad0a58bc80cf8eeb9654564f486549ef0242c5c8
+import {ViewMemberPopupComponent} from './components/admin-organisation-panel/view-member-popup/view-member-popup.component';
+
+
 
 @NgModule({
   declarations: [
@@ -63,8 +62,8 @@ import { ViewMemberPopupComponent } from './components/admin-organisation-panel/
     NavbarComponent,
     DatasetOverviewComponent,
     DatasetDetailComponent,
-	SearchArrayNamePipe,
-	SearchUserArrayPipe,
+    SearchArrayNamePipe,
+    SearchUserArrayPipe,
     MyuploadsComponent,
     LoginComponent,
     ProfileComponent,
@@ -84,9 +83,9 @@ import { ViewMemberPopupComponent } from './components/admin-organisation-panel/
     UserFilterPipe,
     CreateMemberPopupComponent,
     LandingPageComponent,
-	AdminCmsComponent,
-	SearchCMSArrayPipe,
-	ViewMemberPopupComponent
+    AdminCmsComponent,
+    SearchCMSArrayPipe,
+    ViewMemberPopupComponent
   ],
   imports: [
     BrowserModule,
