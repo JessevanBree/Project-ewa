@@ -62,6 +62,7 @@ export class EditMetadataPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.editingDataset = Dataset.trueCopy(this.originalDataset);
+    this.selectedOrganisations = [];
     this.closingToggle.emit(true);
     this.router.navigate(['./'], {
       relativeTo: this.activatedRoute
