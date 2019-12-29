@@ -64,6 +64,7 @@ export class UploadPopUpComponent implements OnInit {
     this.closingToggle = new EventEmitter<boolean>();
     this.confirmToggle = false;
     this.xAxisInputs = [null];
+    this.chartType = "bar";
 
     this.publicityInput = 'Private';
     this.publicityGroupInput = null;
