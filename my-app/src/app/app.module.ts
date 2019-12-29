@@ -45,6 +45,7 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.component';
 import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -92,7 +93,8 @@ import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
     PapaParseModule,
     PdfViewerModule,
     NgSelectModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxPaginationModule
   ],
 
   providers: [

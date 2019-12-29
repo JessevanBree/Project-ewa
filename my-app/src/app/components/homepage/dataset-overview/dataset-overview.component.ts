@@ -1,10 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Dataset, Publicity, RegionLevel} from "../../../models/dataset";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {FirebaseDatasetService} from "../../../services/firebase-dataset.service";
-import {FbUserService} from "../../../services/fb-user.service";
-import {FbSessionService} from "../../../services/session/fb-session.service";
-import {Observable} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {DatasetService} from "../../../services/dataset.service";
 import {SpringSessionService} from "../../../services/session/spring-session.service";
@@ -35,6 +31,7 @@ export class DatasetOverviewComponent implements OnInit {
   private selectedDataset: Dataset;
   private activeIndex: number;
   private searchQuery: any;
+  private p: number = 1;
 
   constructor(private datasetService: DatasetService, private router: Router,
               private activatedRoute: ActivatedRoute, private aUserService: UserService,
@@ -111,6 +108,7 @@ export class DatasetOverviewComponent implements OnInit {
     }
   }
 
+
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(
       (params: Params) => {
@@ -182,7 +180,7 @@ export class DatasetOverviewComponent implements OnInit {
       }
     );*/
   }
-  
+
   setPlaceholder(event: any) {
     event.target.placeholder = this.CMSContent['HOME_SEARCH'];
   }
