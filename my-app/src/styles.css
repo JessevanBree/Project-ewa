@@ -12,7 +12,7 @@ i.btn {
 
 .btn.btn-primary:hover:enabled {
   font-weight: 500;
-  background: #89bd3c !important;
+  background: #8DA242 !important;
 }
 
 body.bg {
@@ -31,7 +31,8 @@ body.bg {
   /*background-repeat: no-repeat; !* Do not repeat the image *!*/
   /*background-size: cover; !* Resize the background image to cover the entire container *!*/
   min-height: 100%;
-  background-image: url("/assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");
+  /*background-image: url("/assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");*/
+  background-color: #EDF2DC;
   background-position: center; /* Center the image */
 }
 
@@ -42,9 +43,27 @@ body {
 
 }
 
+.text-green-primary {
+  font-weight: bold;
+  color: #A7BC5B !important;
+}
+
+.text-green-secondary {
+  font-weight: bold;
+  color: #8DA242 !important;
+}
+
+.bg-green-primary {
+  background-color: #A7BC5B !important;
+}
+
+.bg-green-secondary {
+  background-color: #8DA242 !important;
+}
+
 .btn-primary {
-  background: #97CB3B !important;
-  border-color: #97CB3B !important;
+  background: #A7BC5B !important;
+  border-color: #A7BC5B !important;
 }
 
 .page-container {

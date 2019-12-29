@@ -44,10 +44,19 @@ export class DatasetService {
   // using firebase-file service.
   saveDataset(dataset: Dataset, file: File, closingToggle?: EventEmitter<boolean>){
     if(dataset == null || undefined) return;
+    let fileName = file.name.split(/\.csv|\.pdf/)[0];
+    let fileType = file.type.split("/")[1];
+    if (fileType === "vnd.ms-excel"){
+      fileType = "csv"
+    }
+    dataset.fileType = fileType;
+    dataset.fileName = fileName;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
         console.log(data);
         this.datasets.push(data);
+        console.log(file);
+        console.log(data.id);
         this.fileService.saveFile(file, data.id, data.name);
       },
       error => {
