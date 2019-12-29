@@ -28,7 +28,6 @@ import {CreateOrganisationPopupComponent} from './components/create-organisation
 import {EditOrganisationPopupComponent} from './components/edit-organisation-popup/edit-organisation-popup.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {FirebaseLoginComponent} from './components/firebase-login/firebase-login.component';
-import {FbSessionService} from "./services/session/fb-session.service";
 import {AuthInterceptor} from "./auth-interceptor";
 import {PapaParseGlobalConfig, PapaParseModule} from "ngx-papaparse";
 import {ViewDatasetPopupComponent} from './components/view-dataset-popup/view-dataset-popup.component';
@@ -39,7 +38,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AdminOrganisationPanelComponent } from './components/admin-organisation-panel/admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./components/admin-organisation-panel/add-member-popup/add-member-popup.component";
 import { CreateMemberPopupComponent } from './components/admin-organisation-panel/create-member-popup/create-member-popup.component';
-import {AdminOrganisationService} from "./services/admin-organisation.service";
 import {SpringSessionService} from "./services/session/spring-session.service";
 import {UserFilterPipe} from "./components/admin-organisation-panel/pipes/user-filter-pipe";
 import { SearchUserArrayPipe } from './pipes/search-user-array.pipe';

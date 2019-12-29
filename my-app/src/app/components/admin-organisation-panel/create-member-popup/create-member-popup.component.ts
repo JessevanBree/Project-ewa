@@ -3,7 +3,6 @@ import {NgForm} from "@angular/forms";
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
-import {AdminOrganisationService} from "../../../services/admin-organisation.service";
 
 @Component({
   selector: 'app-create-member-popup',
@@ -14,10 +13,13 @@ export class CreateMemberPopupComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
 
+  @Output() userAdded: EventEmitter<User>;
+
   @Input() private receivedSelectedOrg: Organisation;
 
-  constructor(private userService: UserService, private adminOrganisationService: AdminOrganisationService) {
+  constructor(private userService: UserService) {
     this.closingToggle = new EventEmitter<boolean>();
+    this.userAdded = new EventEmitter<User>();
   }
 
   onSubmit(form: NgForm){
@@ -55,15 +57,8 @@ export class CreateMemberPopupComponent implements OnInit {
           (error: any) => console.log(error)
         );
 
-        setTimeout(() => {
-          // Add user to the organisation
-          this.adminOrganisationService.addUserToOrganisation(newMember, this.receivedSelectedOrg).subscribe(
-            (user: User) => {
-              console.log(user);
-            },
-            (error: any) => console.log(error)
-          );
-        }, 200);
+        // Emit the event to add the user to the organisation
+        this.userAdded.emit(newMember);
 
       } else {
         alert("Adding new member has been canceled");
@@ -72,8 +67,6 @@ export class CreateMemberPopupComponent implements OnInit {
       // Close the modal when the form has been submitted
       this.closingToggle.emit(true);
     }
-
-
   }
 
   ngOnInit() {

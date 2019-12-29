@@ -2,7 +2,7 @@
                       (closingToggle)="onCloseReq()" [receivedSelectedOrg]="currentSelectedOrg"
                       (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
-                         (closingToggle)="onCloseReqCreate()"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
+                         (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button is clicked -->
 <app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
 <!--
 <div *ngIf="!userIsAdminOfOrgs; else isAdminOfOrg">
@@ -91,7 +91,7 @@
     <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h2>Shared datasets</h2>
+          <h3>Shared datasets</h3>
         </div>
         <div class="card-body">
           <ul class="list-group">

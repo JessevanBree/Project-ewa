@@ -3,7 +3,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse} from "@angular
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
 import {UserService} from "../user.service";
-import {AdminOrganisationService} from "../admin-organisation.service";
 
 @Injectable({
   providedIn: 'root'

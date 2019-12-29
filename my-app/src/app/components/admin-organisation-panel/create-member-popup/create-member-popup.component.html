@@ -40,7 +40,7 @@
           <br>
 
           <label for="email">Email address</label><br>
-          <input type="text"
+          <input type="search"
                  class="form-control"
                  name="email"
                  id="email"
@@ -55,7 +55,7 @@
                  class="form-control"
                  name="password"
                  id="password"
-                 autocomplete="off"
+                 autocomplete="new-password"
                  #password="ngModel"
                  ngModel>
           <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
