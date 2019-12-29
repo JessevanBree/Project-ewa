@@ -19,7 +19,7 @@ import { CmsService } from 'src/app/services/cms.service';
 export class MyuploadsComponent implements OnInit {
 	public CMSContent: Object;
   public readonly componentLink = "my_uploads";
-  
+
   private userDatasets: Dataset[];
   private uploadDatasetToggle: boolean;
   private editMetaDataToggle: boolean;
@@ -33,7 +33,7 @@ export class MyuploadsComponent implements OnInit {
   constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
               private activatedRoute: ActivatedRoute,
               private userService: UserService, private router: Router,
-              private fileService: FirebaseFileService, 
+              private fileService: FirebaseFileService,
               private sessionService: SpringSessionService,
               private cmsService: CmsService) {
     this.userDatasets = [];
@@ -168,12 +168,10 @@ export class MyuploadsComponent implements OnInit {
 
 
   onCloseReq() {
-    console.log("Closing modal..");
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.userDatasets = this.datasetService.getMyDatasets();
-    console.log(this.userDatasets);
     /*this.datasetService.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         data.map( o => o.user.id == this.userId ? this.userDatasets.push(o) : null);

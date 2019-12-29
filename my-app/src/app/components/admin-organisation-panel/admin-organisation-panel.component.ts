@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Organisation} from "../../models/organisation";
 import {Dataset} from "../../models/dataset";
-import {AdminOrganisationService} from "../../services/admin-organisation.service";
-import {Subscription} from "rxjs";
 import {User} from "../../models/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrganisationService} from "../../services/organisation.service";
 import {UserService} from "../../services/user.service";
 import {FirebaseFileService} from "../../services/firebase-file.service";
-import { CmsService } from 'src/app/services/cms.service';
+import { CmsService } from '../../services/cms.service';
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -63,6 +61,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.members = this.currentSelectedOrg.users;
     // Updates the organisation service which in turn updates the database
     this.organisationService.addMemberToOrg(this.currentSelectedOrg.id, user.id);
+    this.createMemberToggle = false; // Close the modal
   }
 
   // This function is called when another organisation has been selected in the dropdown box
@@ -104,13 +103,13 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Called when the create modal has been closed
-  onCloseReqCreate() {
-    console.log("Closing modal..");
-    setTimeout(() => {
-      this.orgSelectionChanged();
-    }, 100);
-    this.createMemberToggle = false;
-  }
+  // onCloseReqCreate() {
+  //   console.log("Closing modal..");
+  //   setTimeout(() => {
+  //     this.orgSelectionChanged();
+  //   }, 100);
+  //   this.createMemberToggle = false;
+  // }
 
   onCreateNewMember() {
     console.log("Opening modal..");
@@ -145,9 +144,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   ngOnInit() {
     this.organisationService.getMyOrganisations().subscribe(
-      (data: Organisation[]) => {
-        console.log(data);
-        this.userOrganisations = data;
+      (organisations: Organisation[]) => {
+        console.log(organisations);
+        this.userOrganisations = organisations;
         this.currentSelectedOrg = this.userOrganisations[0];
       },
       error => {
@@ -162,9 +161,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
           //Retrieves datasets of the current selected organisation
           this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
-            (data: Dataset[]) => {
-              this.organisationDatasets = data;
-              console.log(data);
+            (datasets: Dataset[]) => {
+              this.organisationDatasets = datasets;
+              console.log(datasets);
             }, error => {
               console.log(error)
             },

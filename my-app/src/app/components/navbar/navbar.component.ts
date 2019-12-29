@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from "../../services/session/session.service";
 import { FbSessionService } from "../../services/session/fb-session.service";
 import { SpringSessionService } from "../../services/session/spring-session.service";
-import { AdminOrganisationService } from "../../services/admin-organisation.service";
 import { UserService } from "../../services/user.service";
 import { CmsService } from 'src/app/services/cms.service';
+import {OrganisationService} from "../../services/organisation.service";
 
 
 @Component({
@@ -16,6 +16,7 @@ import { CmsService } from 'src/app/services/cms.service';
 export class NavbarComponent implements OnInit {
 	public CMSContent: Object;
 	public readonly componentLink = "navbar";
+
 	/*constructor(private activatedRoute: ActivatedRoute,
 				private router: Router,
 				private sessionService: SessionService) {
@@ -25,7 +26,7 @@ export class NavbarComponent implements OnInit {
 		private router: Router,
 		private sessionService: SpringSessionService,
 		private userService: UserService,
-		private adminOrganisationService: AdminOrganisationService,
+		private organisationService: OrganisationService,
 		private cmsService: CmsService) {
 		this.CMSContent = {
 			"NAV_HOME": "",

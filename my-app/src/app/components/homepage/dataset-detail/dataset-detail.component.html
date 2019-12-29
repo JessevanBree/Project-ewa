@@ -4,7 +4,7 @@
     <div class="card mb-2 w-100">
       <div class="card-header">
         <h3 class="d-inline">{{CMSContent["HOME_CHART_TITLE"]}}</h3>
-        <a [href]="url" [download]="url" target="_blank" title="Download file in csv or pdf format"
+        <a [href]="url" download target="_blank" title="Download file in csv or pdf format"
            class="btn btn-primary float-right"
            (click)="onDownload()">{{CMSContent["HOME_CHART_DOWNLOAD"]}}  <i class="fa fa-download"></i></a>
       </div>
@@ -16,7 +16,7 @@
       </div>
       <div *ngIf="editedDataset.fileType == 'pdf'" >
         <pdf-viewer
-          [src]="url" style="display:block;"
+          [src]="url"
           [render-text]="true" [original-size]="false"
           [show-all]="false" [(page)]="this.pdfPageIndex" (after-load-complete)="callBackFn($event)" ></pdf-viewer>
         <div class="row justify-content-center">

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {Form, NgForm} from '@angular/forms';
+import {NgForm} from '@angular/forms';
 import {Papa} from "ngx-papaparse";
 import {Dataset, Publicity, RegionLevel} from "../../models/dataset";
 import {Router} from "@angular/router";
@@ -74,11 +74,9 @@ export class UploadPopUpComponent implements OnInit {
       .filter((organistion: Organisation) =>
         organistion.id = this.userService.getLoggedInUser().id
       );
-    console.log(this.organisationsOfUser);
   }
 
   ngOnInit() {
-    console.log(this.publicityInput);
   }
 
   onClearAll() {
@@ -145,9 +143,10 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   //Method that registers what file is uploaded by the user
-  uploadListener($event): void {
-    this.file = $event.target.files.item(0);
+  uploadListener(file: any): void {
     let arrayOfObjects = [];
+    this.file = file.target.files.item(0);
+    console.log(file.target.files.item(0));
 
     if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";

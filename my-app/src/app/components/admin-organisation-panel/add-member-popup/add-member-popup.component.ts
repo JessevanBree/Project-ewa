@@ -3,7 +3,6 @@ import {NgForm} from "@angular/forms";
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
-import {AdminOrganisationService} from "../../../services/admin-organisation.service";
 import {OrganisationService} from "../../../services/organisation.service";
 
 @Component({
@@ -27,8 +26,7 @@ export class AddMemberPopupComponent implements OnInit {
   private emptyList: boolean;
   private errorMessage: string;
 
-  constructor(private userService: UserService, private adminOrganisationService: AdminOrganisationService,
-              private organisationService: OrganisationService) {
+  constructor(private userService: UserService, private organisationService: OrganisationService) {
     this.closingToggle = new EventEmitter<boolean>();
     this.userAdded = new EventEmitter<User>();
 
@@ -63,7 +61,7 @@ export class AddMemberPopupComponent implements OnInit {
 
     this.orgMembers = [];
 
-    this.adminOrganisationService.getOrgMembers(this.receivedSelectedOrg).subscribe(
+    this.organisationService.getOrgMembers(this.receivedSelectedOrg).subscribe(
       (data: User[]) => {
         console.log(data);
         data.map(o => {

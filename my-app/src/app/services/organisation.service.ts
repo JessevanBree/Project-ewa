@@ -4,15 +4,17 @@ import {User} from 'src/app/models/user';
 import {Organisation} from 'src/app/models/organisation';
 import {SUR_NAMES} from 'src/app/models/testData';
 import {UserService} from "./user.service";
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {Observable, throwError} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {SpringSessionService} from "./session/spring-session.service";
 import {Dataset} from "../models/dataset";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrganisationService {
+  private readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
   private readonly REST_ORGANISATIONS_URL = "http://localhost:8080/organisations";
   private organisations: Organisation[];
   private myOrganisations: Organisation[];
@@ -135,6 +137,22 @@ export class OrganisationService {
     );
   }
 
+  // Gets all members from an organisation
+  getOrgMembers(org: Organisation) {
+    let orgId = org.id;
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+    };
+
+    const url = `${this.REST_ORG_USERS_URL}/${orgId}`;
+
+    return this.http.get<User[]>(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   public deleteOrganisation(org: Organisation) {
     this.organisations = this.organisations.filter(o => o.id != org.id);
     this.http.delete(this.REST_ORGANISATIONS_URL + "/" + org.id).subscribe(
@@ -164,6 +182,20 @@ export class OrganisationService {
       error => console.log(error),
       () => console.log("Finished deleting member from organisation")
     );
+  }
+  
+  // Function to handle the HTTP errors
+  handleError(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 
   genRandomOrganisation(): Organisation {

@@ -40,14 +40,18 @@
           <br>
 
           <label for="email">Email address</label><br>
-          <input type="text"
+          <input type="search"
                  class="form-control"
                  name="email"
                  id="email"
                  autocomplete="off"
-                 #emaill="ngModel"
-                 ngModel>
+                 #email="ngModel"
+                 ngModel
+                 required>
           <br>
+          <div *ngIf="!email.valid && surName.touched" class="alert alert-danger">
+            <p><span>Please enter an email address</span></p>
+          </div>
 
           <label for="password">Password</label><br>
           <input type="password"
@@ -55,11 +59,11 @@
                  class="form-control"
                  name="password"
                  id="password"
-                 autocomplete="off"
+                 autocomplete="new-password"
                  #password="ngModel"
                  ngModel>
           <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
-            <p><span>Please enter a valid password (Password should contain atleast 6 characters)</span></p>
+            <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
           </div>
           <br>
 

@@ -141,7 +141,6 @@ public class OrganisationsController {
         User userToBeAdded = userRepository.findById(userId);
 
         organisation.addUser(userToBeAdded);
-//        userToBeAdded.addOrganisation(organisation);
 
         organisationRepo.save(organisation);
 

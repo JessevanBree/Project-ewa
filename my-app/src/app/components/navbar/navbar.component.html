@@ -33,7 +33,7 @@
 						[routerLink]="['/profile', this.sessionService.getUserEmail()]">{{CMSContent["NAV_PROFILE"]}}</a>
 				</li>
 				<li class="nav-item"
-					*ngIf="this.sessionService.isAuthenticated() && this.adminOrganisationService.userIsAdminOfOrgs">
+					*ngIf="this.sessionService.isAuthenticated()">
 					<a class="nav-link" routerLink="/admin-organisation-panel">{{CMSContent["NAV_ORG_PANEL"]}}</a>
 				</li>
 			</ul>
