@@ -72,6 +72,8 @@ export class DatasetOverviewComponent implements OnInit {
     if ((this.regionSearch !== "" && this.regionSearch !== null) && (this.publicitySearch !== "" && this.publicitySearch !== null)) {
       // reset the copyDatasets to the orgininal complete dataset array
       this.copyDatasets = this.datasets;
+      console.log(this.regionSearch);
+      console.log(this.publicitySearch);
 
       // if 'no' filters are selected return
       if ((this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") &&
@@ -79,10 +81,11 @@ export class DatasetOverviewComponent implements OnInit {
         console.log("IF1");
         return;
         // if only region has filterable input
-      } else if (this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") {
+      } else if (this.publicitySearch === "All shared") {
         console.log("IF2");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
-          return dataset.region.trim().toLowerCase().includes(this.regionSearch.trim().split(' ')[0].toLowerCase());
+          console.log(dataset);
+          return dataset.region.includes(this.regionSearch);
         });
         // if only publicity has filterable input
       } else if (this.regionSearch === "All regions") {
@@ -94,7 +97,7 @@ export class DatasetOverviewComponent implements OnInit {
       } else {
         console.log("IF4");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
-          return dataset.region.trim().toLowerCase().includes(this.regionSearch.trim().split(' ')[0].toLowerCase()) &&
+          return dataset.region.includes(this.regionSearch) &&
             dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
         });
       }
@@ -132,10 +135,10 @@ export class DatasetOverviewComponent implements OnInit {
       (data: Dataset[]) => {
         if (data && this.sessionService.isAuthenticated()) {
           let userEmail: string = this.sessionService.userEmail;
-          data.map((o) => {
-            console.log(o);
-            o && o.publicity.includes("PUBLIC")  || o.user.email == userEmail ?
-              this.datasets.push(o) : [];
+          data.map((dataset: Dataset) => {
+            console.log(dataset);
+            dataset && dataset.publicity.includes("PUBLIC")  || dataset.user.email == userEmail ?
+              this.datasets.push(dataset) : [];
           });
         } else if (data) {
           data.map((o) => {
@@ -151,6 +154,7 @@ export class DatasetOverviewComponent implements OnInit {
       () => {
         // console.log(this.datasets);
         console.log("Retrieved all datasets");
+        this.copyDatasets = this.datasets;
       }
     );
 

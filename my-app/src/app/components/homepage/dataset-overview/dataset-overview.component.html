@@ -16,9 +16,9 @@
         <select name="regionSelectBox" id="regionFilter" class="custom-select" style="cursor: pointer" ngForm
                 [(ngModel)]="this.regionSearch">
           <option value="All regions" selected>All regions</option>
-          <option value="European">European Level</option>
-          <option value="National">National Level</option>
-          <option value="Urban">Urban Level</option>
+          <option value="EU_LEVEL">European Level</option>
+          <option value="NAT_LEVEL">National Level</option>
+          <option value="URBAN_LEVEL">Urban Level</option>
         </select>
       </div>
       <!--      <select *ngIf="this.sessionService.userEmail" class="custom-select" style="cursor: pointer">-->
@@ -49,13 +49,13 @@
       <tr>
         <th class="text-light font-weight-normal h3">{{CMSContent['HOME_LIST_TITLE']}}
           <span class="custom-badge float-right"
-                *ngIf="this.datasets && this.searchQuery != ''">{{(this.datasets | searchArrayName:
+                *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.datasets | searchArrayName:
               [searchQuery, 'value']).length}}</span>
         </th>
       </tr>
       </thead>
       <tbody class="table-light" *ngIf="this.datasets.length > 0">
-      <tr *ngFor="let dataset of datasets | searchArrayName: [searchQuery, 'value']: pT  |
+      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']: pT  |
       paginate: {itemsPerPage: 10, currentPage: p}; let index = index;"
           (click)="onSelection(index, dataset)"
           class="mt-auto mb-auto">
