@@ -23,12 +23,14 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private userOrganisations: Organisation[];
   // List of members of the current org
   private members: User[];
+  private selectedUser: User;
   private organisationDatasets: Dataset[];
   private userIsAdminOfOrgs: boolean;
   private downloadUrl: string;
 
   private addMemberToggle: boolean;
   private createMemberToggle: boolean;
+  private viewMemberToggle: boolean;
   private viewDatasetToggle: boolean;
 
   private searchFilter: String;
@@ -42,8 +44,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
     this.members = [];
     this.userOrganisations = [];
+    this.selectedUser = null;
     this.userIsAdminOfOrgs = false;
-
+    this.viewMemberToggle = false;
     this.addMemberToggle = false;
     this.createMemberToggle = false;
 
@@ -83,6 +86,13 @@ export class AdminOrganisationPanelComponent implements OnInit {
         console.log(error)
       }
     );
+  }
+
+  // Called when the view member button has been clicked
+  onViewMemberClick(member: User){
+    console.log("Opening view member modal..");
+    this.viewMemberToggle = true;
+    this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
   }
 
   // Function to delete a member from the organisation

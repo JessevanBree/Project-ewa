@@ -38,8 +38,14 @@ export class AddMemberPopupComponent implements OnInit {
     //Checks whether an organisation already contains the given user
     if (this.receivedSelectedOrg.users.find(u => u.id == user.id)) {
       return this.errorMessage = "Error: selected user " + user.email + " is already in the organisation"
-    } else {
+    }
+    // Checks whether the logged in organisation admin clicks on itself
+    else if (this.receivedSelectedOrg.organisationAdmin.email == user.email){
+      return this.errorMessage = "Error, you can't add yourself to the organisation since you are the organisation admin of this organisation (" + this.receivedSelectedOrg.name + ")"
+    }
+    else {
       if (confirm("Are you sure to add the following user: " + user.email)) {
+        console.log("IS ADMIN ORG SET OR NOT : " + this.receivedSelectedOrg.organisationAdmin.email);
         this.userAdded.emit(user);
       } else {
         alert("Adding new member has been canceled");

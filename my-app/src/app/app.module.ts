@@ -45,6 +45,11 @@ import {LandingPageComponent} from "./components/landing-page/landing-page.compo
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import { AdminCmsComponent } from './components/admin/admin-cms/admin-cms.component';
 import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
+<<<<<<< HEAD
+import {NgxPaginationModule} from "ngx-pagination";
+=======
+import { ViewMemberPopupComponent } from './components/admin-organisation-panel/view-member-popup/view-member-popup.component';
+>>>>>>> ad0a58bc80cf8eeb9654564f486549ef0242c5c8
 
 @NgModule({
   declarations: [
@@ -80,7 +85,8 @@ import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
     CreateMemberPopupComponent,
     LandingPageComponent,
 	AdminCmsComponent,
-	SearchCMSArrayPipe
+	SearchCMSArrayPipe,
+	ViewMemberPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -92,7 +98,8 @@ import { SearchCMSArrayPipe } from './pipes/search-cms-array.pipe';
     PapaParseModule,
     PdfViewerModule,
     NgSelectModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxPaginationModule
   ],
 
   providers: [
