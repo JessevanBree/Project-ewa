@@ -37,6 +37,7 @@ export class DatasetOverviewComponent implements OnInit {
               private activatedRoute: ActivatedRoute, private aUserService: UserService,
               private sessionService: SpringSessionService, private cmsService: CmsService) {
     this.datasets = [];
+    this.copyDatasets = [];
     this.activeIndex = null;
     this.searchQuery = '';
 

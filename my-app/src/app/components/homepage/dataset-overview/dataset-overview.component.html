@@ -48,13 +48,13 @@
       <thead class="tablehead table-borderless">
       <tr>
         <th class="text-light font-weight-normal h3">{{CMSContent['HOME_LIST_TITLE']}}
-          <span class="custom-badge float-right"
-                *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.datasets | searchArrayName:
-              [searchQuery, 'value']).length}}</span>
+<!--          <span class="custom-badge float-right"-->
+<!--                *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.copyDatasets | searchArrayName:-->
+<!--              [searchQuery, 'value']).length}}</span>-->
         </th>
       </tr>
       </thead>
-      <tbody class="table-light" *ngIf="this.datasets.length > 0">
+      <tbody class="table-light" *ngIf="this.copyDatasets.length > 0">
       <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']: pT  |
       paginate: {itemsPerPage: 10, currentPage: p}; let index = index;"
           (click)="onSelection(index, dataset)"

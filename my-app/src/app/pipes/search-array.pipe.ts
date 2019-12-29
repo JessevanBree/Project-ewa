@@ -18,13 +18,15 @@ export class SearchArrayNamePipe implements PipeTransform {
 
   transform(array, args: any[], pageControls?: PaginationControlsDirective): any {
     // only if dataset array exists filter the dataset array
-    if(pageControls){
-      pageControls.setCurrent(1);
-    }
+    // if(pageControls){
+    //   pageControls.setCurrent(1);
+    // }
     if (array) {
       return array.filter(item => {
+        console.log(item);
+        console.log(args);
         return item.name.toLowerCase().includes(args[0].toLowerCase()) || item.year == parseInt(args[0]) ||
-          item.description.toLowerCase().includes(args[0].toLowerCase());
+          (item.description ? item.description.toLowerCase().includes(args[0].toLowerCase()) : null);
       });
     }
   }
