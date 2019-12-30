@@ -11,8 +11,8 @@ export class SearchArrayNamePipe implements PipeTransform {
   // transform(array: Dataset[], args: string): any {
   // 	// only if dataset array exists filter the dataset array
   // 	if (array) {
-  // 		return array.filter(item => {
-  // 			return item[args[1]].toLowerCase().includes(args[0].toLowerCase())
+  // 		return array.filter(organisation => {
+  // 			return organisation[args[1]].toLowerCase().includes(args[0].toLowerCase())
   // 		});
   // 	}
   // }

@@ -15,10 +15,10 @@ export class SearchCMSArrayPipe implements PipeTransform {
 					item.adminInfo ? item.adminInfo.toLowerCase().includes(args[0].toLowerCase()) : false  ||
 					item.location ? item.location.toLowerCase().includes(args[0].toLowerCase()) : false;
 			});
-			// return array.filter(item => {
-			// 	return item.firstName ? item.firstName.toLowerCase().includes(args[0].toLowerCase()) : false ||
-			// 		item.surName ? item.surName.toLowerCase().includes(args[0].toLowerCase()) : false  ||
-			// 		item.email ? item.email.toLowerCase().includes(args[0].toLowerCase()) : false ;
+			// return array.filter(organisation => {
+			// 	return organisation.firstName ? organisation.firstName.toLowerCase().includes(args[0].toLowerCase()) : false ||
+			// 		organisation.surName ? organisation.surName.toLowerCase().includes(args[0].toLowerCase()) : false  ||
+			// 		organisation.email ? organisation.email.toLowerCase().includes(args[0].toLowerCase()) : false ;
 			// });
 		}
 	}

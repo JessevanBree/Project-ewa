@@ -1,4 +1,4 @@
- <!--Search and filter bar start-->
+<!--Search and filter bar start-->
 <div class="row">
   <div class="col-sm-12 col-md-8 col-lg-5 form-group">
     <div class="col-sm-12 col-lg-10 form-row has-search float-left m-0 rounded-circle">
@@ -47,10 +47,10 @@
     <table class="table table-bordered m-0 text-center">
       <thead class="tablehead table-borderless">
       <tr>
-        <th class="text-light font-weight-normal h3">{{CMSContent['HOME_LIST_TITLE']}}
-<!--          <span class="custom-badge float-right"-->
-<!--                *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.copyDatasets | searchArrayName:-->
-<!--              [searchQuery, 'value']).length}}</span>-->
+        <th class="text-light bg-green-secondary h3">{{CMSContent['HOME_LIST_TITLE']}}
+          <!--          <span class="custom-badge float-right"-->
+          <!--                *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.copyDatasets | searchArrayName:-->
+          <!--              [searchQuery, 'value']).length}}</span>-->
         </th>
       </tr>
       </thead>
@@ -68,7 +68,7 @@
     </table>
     <!--<ul class="list-group">
       <li *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
-          (click)="onSelection(index, dataset)" class="list-group-item list-group-item-action">
+          (click)="onSelection(index, dataset)" class="list-group-organisation list-group-organisation-action">
         {{dataset.name}}
       </li>
     </ul>-->
@@ -76,7 +76,8 @@
       <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="pT.isFirstPage()">
           <a class="page-link" (click)="pT.previous()">Previous</a></li>
-        <li class="page-item"  [ngClass]="{'active': page.value == p}" *ngFor="let page of pT.pages" [class.current]="pT.getCurrent() === page.value">
+        <li class="page-item" [ngClass]="{'active': page.value == p}" *ngFor="let page of pT.pages"
+            [class.current]="pT.getCurrent() === page.value">
           <a class="page-link" (click)="pT.setCurrent(page.value)">
             <span>{{ page.label }}</span>
           </a></li>

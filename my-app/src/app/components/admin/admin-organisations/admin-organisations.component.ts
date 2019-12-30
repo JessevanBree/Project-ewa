@@ -63,7 +63,7 @@ export class AdminOrganisationsComponent implements OnInit {
 
     onCreateButtonClick() {
         this.createIsClicked = true;
-        this.router.navigate(['createOrganisation'], {
+        this.router.navigate(['create-organisation'], {
             relativeTo: this.activatedRoute
         });
     }
@@ -80,14 +80,6 @@ export class AdminOrganisationsComponent implements OnInit {
             this.aOrganisationService.deleteOrganisation(org);
         }
     }
-
-    checkIfListEmpty(): void {
-        if (this.organisations.length == 0) this.emptyList = true;
-        setTimeout(() => {
-            this.emptyList = document.getElementsByClassName("admin-organisation-item").length == 0;
-        }, 5)
-    }
-
     onClose() {
         this.editIsClicked = false;
 

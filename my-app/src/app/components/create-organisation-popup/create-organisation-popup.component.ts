@@ -37,6 +37,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
 
     this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, user));
     this.savedOrganisation.emit(this.organisation);
+    this.onClose();
   }
 
   onClose() {

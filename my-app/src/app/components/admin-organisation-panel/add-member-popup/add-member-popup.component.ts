@@ -58,7 +58,7 @@ export class AddMemberPopupComponent implements OnInit {
   checkIfListEmpty(): void {
     if (this.users.length == 0) this.emptyList = true;
     setTimeout(() => {
-      this.emptyList = document.getElementsByClassName("org-admin-user-item").length == 0;
+      this.emptyList = document.getElementsByClassName("org-admin-user-organisation").length == 0;
     }, 5)
   }
 

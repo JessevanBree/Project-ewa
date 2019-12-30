@@ -74,7 +74,7 @@ export class AdminDatasetsComponent implements OnInit {
   checkIfListEmpty(): void {
     if (this.datasets.length == 0) this.emptyList = true;
     setTimeout(() => {
-      this.emptyList = document.getElementsByClassName("admin-dataset-item").length == 0;
+      this.emptyList = document.getElementsByClassName("admin-dataset-organisation").length == 0;
     }, 5)
   }
 
