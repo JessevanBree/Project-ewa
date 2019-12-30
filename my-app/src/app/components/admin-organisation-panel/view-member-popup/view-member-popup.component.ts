@@ -1,51 +1,58 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
 import {UserService} from "../../../services/user.service";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view-member-popup',
   templateUrl: './view-member-popup.component.html',
   styleUrls: ['./view-member-popup.component.css']
 })
-export class ViewMemberPopupComponent implements OnInit {
+export class ViewMemberPopupComponent implements OnInit, OnDestroy {
 
   @Output() userDeleted: EventEmitter<User>;
 
-  private user: User;
+  @Output() modalClosed: EventEmitter<boolean>;
 
-  @Input() private receivedSelectedUser: User;
+  private selectedUser: User;
+
   private hasFirstNameSet: boolean;
   private hasSurNameSet: boolean;
 
-  constructor(private userService: UserService) {
+  private queryParamSubscription: Subscription;
+
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) {
     this.userDeleted = new EventEmitter<User>();
+    this.modalClosed = new EventEmitter<boolean>();
     this.hasFirstNameSet = false;
     this.hasSurNameSet = false;
   }
 
   onClose(){
     console.log("Modal has succesfully been closed");
+    this.modalClosed.emit(true);
   }
 
   onDelete(){
-      this.userDeleted.emit(this.receivedSelectedUser);
+      this.userDeleted.emit(this.selectedUser);
   }
 
   ngOnInit() {
-    this.user = this.userService.getUserByEmail(this.receivedSelectedUser.email);
+    // Get selected user from the url parameter ID
+    this.queryParamSubscription =
+      this.activatedRoute.queryParams.subscribe((params) => {
+          const id = params['id'];
+          if (id) {
+            this.selectedUser = this.userService.getUserById(id);
+            console.log(this.selectedUser.email);
+          }
+        }
+      );
+  }
 
-    // Check if names of the selected user are set
-    if (typeof this.receivedSelectedUser.firstName !== "undefined"){
-      this.hasFirstNameSet = true;
-    }
-
-    if (typeof this.receivedSelectedUser.surName !== "undefined"){
-      this.hasSurNameSet = true;
-    }
-
-    console.log("IS FIRST NAME SET: " + this.hasFirstNameSet + " FIRST NAME: " + this.receivedSelectedUser.firstName + " IS SURNAME: " + this.hasSurNameSet + " SURNAME: " + this.receivedSelectedUser.surName);
-
-    // console.log("DATE CREATED OF SELECTED ACCOUNT: " + this.receivedSelectedUser.dateCreated.getDate());
+  ngOnDestroy(): void {
+    this.queryParamSubscription.unsubscribe();
   }
 }

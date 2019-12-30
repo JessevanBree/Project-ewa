@@ -39,7 +39,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   constructor(private organisationService: OrganisationService,
               private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
-			  private route: ActivatedRoute,
+			  private activatedRoute: ActivatedRoute,
 			  private cmsService: CmsService) {
 
     this.members = [];
@@ -93,6 +93,12 @@ export class AdminOrganisationPanelComponent implements OnInit {
     console.log("Opening view member modal..");
     this.viewMemberToggle = true;
     this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
+
+    // Routing stuff
+    this.router.navigate(['viewMember'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: member.id}
+    });
   }
 
   // Function to delete a member from the organisation
@@ -106,9 +112,14 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // Called when the add existing modal has been closed
+  // Called when a modal has been closed
   onCloseReq() {
     console.log("Closing modal..");
+    // Route stuff
+    this.router.navigate(["./"],
+      {
+        relativeTo: this.activatedRoute,
+      });
     this.addMemberToggle = false;
   }
 
@@ -119,15 +130,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
       // Get the index of the current selected organisation and remove it the frontend and backend
       for (let i = 0; i < this.userOrganisations.length ; i++) {
         if (this.userOrganisations[i].name == this.currentSelectedOrg.name){
-          if (i > 0){
             this.organisationService.deleteOrganisation(this.currentSelectedOrg);
             this.userOrganisations.splice(i, 1);
             this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
-          } else {
-            this.organisationService.deleteOrganisation(this.currentSelectedOrg);
-            this.userOrganisations.splice(i, 1);
-            this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
-          }
         }
       }
 
@@ -149,7 +154,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   onViewDataset(datasetId: number){
     this.router.navigate(['view-dataset'], {
-      relativeTo: this.route,
+      relativeTo: this.activatedRoute,
       queryParams: {id: datasetId}
     });
     this.viewDatasetToggle = true;

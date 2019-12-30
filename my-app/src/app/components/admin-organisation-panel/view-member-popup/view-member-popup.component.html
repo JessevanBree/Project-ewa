@@ -8,38 +8,30 @@
         </button>
       </div>
       <div class="modal-body">
-        <h6> <b>Email:</b> {{ receivedSelectedUser.email }}</h6>
+        <h6> <b>Email:</b> {{ selectedUser.email }}</h6>
         <br>
 
-<!--        <div *ngIf="hasFirstNameSet; else hasNoFirstNameSet">-->
-<!--          <h6> <b>First name:</b> {{ receivedSelectedUser.firstName }}</h6>-->
-<!--        </div>-->
-<!--        <ng-template #hasNoFirstNameSet>-->
-<!--          <h6> <b>First name:</b> This user hasn't set his first name yet</h6>-->
-<!--        </ng-template>-->
+        <div *ngIf="selectedUser.firstName; else hasNoFirstNameSet">
+          <h6> <b>First name:</b> {{ selectedUser.firstName }}</h6>
+        </div>
+        <ng-template #hasNoFirstNameSet>
+          <h6> <b>First name:</b> This user hasn't set his first name yet</h6>
+        </ng-template>
 
+        <br>
+        <div *ngIf="selectedUser.surName; else hasNoSurNameSet">
+          <h6> <b>Surname:</b> {{selectedUser.surName}} </h6>
+        </div>
+        <br>
+        <ng-template #hasNoSurNameSet>
+          <h6> <b>Surname:</b> This user hasn't set his surname yet</h6>
+        </ng-template>
+
+<!--        <h6 *ngIf="selectedUser.firstName"> <b>First name:</b> {{ selectedUser.firstName }}</h6>-->
 <!--        <br>-->
-<!--        <div *ngIf="hasSurNameSet; else hasNoSurNameSet">-->
-<!--          <h6> <b>Surname:</b> {{receivedSelectedUser.surName}} </h6>-->
-<!--        </div>-->
-<!--        <ng-template #hasNoSurNameSet>-->
-<!--          <h6> <b>Surname:</b> This user hasn't set his surname yet</h6>-->
-<!--        </ng-template>-->
 
-        <h6 *ngIf="user.firstName"> <b>First name:</b> {{ user.firstName }}</h6>
-        <br>
-
-        <h6 *ngIf="user.firstName"> <b>Surname:</b> {{ user.surName }}</h6>
-        <br>
-
-<!--                <h6> <b>First name:</b> {{ receivedSelectedUser.firstName }}</h6>-->
-<!--                <br>-->
-
-<!--                <h6> <b>Surname:</b> {{ receivedSelectedUser.surName }}</h6>-->
-<!--                <br>-->
-
-        <!-- TODO: FIX, date is undefined? -->
-<!--        <h6> <b>Date created:</b> {{ receivedSelectedUser?.dateCreated.getDate() }}</h6>-->
+<!--        <h6 *ngIf="selectedUser.surName"> <b>Surname:</b> {{ selectedUser.surName }}</h6>-->
+<!--        <br>-->
 
       </div>
       <div class="modal-footer">
