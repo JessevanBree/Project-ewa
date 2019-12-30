@@ -32,7 +32,8 @@ export class OrganisationService {
       () => {
         console.log("All Organisations are retrieved correctly!");
         console.log(this.organisations);
-        if(this.userService.getLoggedInUser() != null || this.userService.getLoggedInUser() != undefined) this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];
+        /*if(this.userService.getLoggedInUser() != null || this.userService.getLoggedInUser() != undefined)
+          this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];*/
       }
     );
   }
@@ -113,6 +114,9 @@ export class OrganisationService {
 
   // Updates or changes the organisation admin user and can change the name of the organisation
   public updateOrgAdminUserAndName(orgId: number, userId: number, orgName?: string) {
+    let organisation: Organisation = this.organisations.find(org => org.id == orgId);
+    organisation.organisationAdmin = this.userService.getUserById(userId);
+    organisation.name = orgName;
     this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
       .subscribe(
         response => console.log(response),

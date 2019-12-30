@@ -81,9 +81,8 @@ export class DatasetService {
         dataset.publicity = "PRIVATE";
       }
     });
-
-
   }
+
   //POST request to database and adds the response(dataset) to the list inside the service
   //Closingtoggle optional parameter is used to let the myuploads page know that the dataset has succesfully been saved
   // so it can close the modal. The file parameter is used to store the given file in firebase storage

@@ -19,7 +19,7 @@ export class CreateOrganisationPopupComponent implements OnInit {
 
   users: User[];
 
-  @Input() organisation: Organisation;
+  private organisation: Organisation;
   @Output() savedOrganisation = new EventEmitter<Organisation>();
 
   constructor(private aOrganisationService: OrganisationService, private aUserService: UserService) {
@@ -34,7 +34,8 @@ export class CreateOrganisationPopupComponent implements OnInit {
     let user = this.users.find(user => {
       return user.email === form.value.orgAdminInput;
     });
-    this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, user));
+    this.organisation = new Organisation(form.value.nameInput, user);
+    this.aOrganisationService.addOrganisation(this.organisation);
     this.savedOrganisation.emit(this.organisation);
     this.onClose();
 

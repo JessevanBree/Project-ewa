@@ -6,7 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {OrganisationService} from "../../services/organisation.service";
 import {UserService} from "../../services/user.service";
 import {FirebaseFileService} from "../../services/firebase-file.service";
-import { CmsService } from '../../services/cms.service';
+import {CmsService} from '../../services/cms.service';
+import {DatasetService} from "../../services/dataset.service";
 
 @Component({
   selector: 'app-admin-organisation-panel',
@@ -14,8 +15,8 @@ import { CmsService } from '../../services/cms.service';
   styleUrls: ['./admin-organisation-panel.component.css']
 })
 export class AdminOrganisationPanelComponent implements OnInit {
-	public CMSContent: Object;
-	public readonly componentLink = "org_panel";
+  public CMSContent: Object;
+  public readonly componentLink = "org_panel";
 
   // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
@@ -36,14 +37,15 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private searchFilter: String;
   private emptyList: boolean;
 
-  constructor(private organisationService: OrganisationService,
+  constructor(private organisationService: OrganisationService, private datasetService: DatasetService,
               private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
-			  private activatedRoute: ActivatedRoute,
-			  private cmsService: CmsService) {
+              private activatedRoute: ActivatedRoute,
+              private cmsService: CmsService) {
 
     this.members = [];
     this.userOrganisations = [];
+    this.organisationDatasets = [];
     this.selectedUser = null;
     this.userIsAdminOfOrgs = false;
     this.viewMemberToggle = false;
@@ -51,10 +53,10 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.createMemberToggle = false;
 
     this.CMSContent = {
-			"ORG_PANEL_NO_ORGANISATION_MSG": "",
-			"ORG_PANEL_NO_ORGANISATION_BTN": "",
-		};
-		this.cmsService.fillPage(this.CMSContent, this.componentLink);
+      "ORG_PANEL_NO_ORGANISATION_MSG": "",
+      "ORG_PANEL_NO_ORGANISATION_BTN": "",
+    };
+    this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
   // Is called when an organisation has been added from the modal (to refresh the members list)
@@ -70,26 +72,27 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // This function is called when another organisation has been selected in the dropdown box
   orgSelectionChanged() {
     // Empty and fill the new members array
-    console.log(this.currentSelectedOrg);
     this.members = [];
-    this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
-    this.currentSelectedOrg.users.forEach(u => {
-      this.members.push(u)
-    });
+    if (this.currentSelectedOrg) {
+      this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
+      this.currentSelectedOrg.users.forEach(u => {
+        this.members.push(u)
+      });
 
-    //Updates the datasets list when selection changed with correct results
-    this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
-      (data: Dataset[]) => {
-        this.organisationDatasets = data;
-        console.log(data);
-      }, error => {
-        console.log(error)
-      }
-    );
+      //Updates the datasets list when selection changed with correct results
+      this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
+        (data: Dataset[]) => {
+          this.organisationDatasets = data;
+          console.log(data);
+        }, error => {
+          console.log(error)
+        }
+      );
+    }
   }
 
   // Called when the view member button has been clicked
-  onViewMemberClick(member: User){
+  onViewMemberClick(member: User) {
     console.log("Opening view member modal..");
     this.viewMemberToggle = true;
     this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
@@ -124,20 +127,13 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   // Called when an organisation admin wants to delete an organisation
-  onDeleteOrganisation(){
-    if(confirm("Are you sure to delete this organisation: " + this.currentSelectedOrg.name)){
-
-      // Get the index of the current selected organisation and remove it the frontend and backend
-      for (let i = 0; i < this.userOrganisations.length ; i++) {
-        if (this.userOrganisations[i].name == this.currentSelectedOrg.name){
-            this.organisationService.deleteOrganisation(this.currentSelectedOrg);
-            this.userOrganisations.splice(i, 1);
-            this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
-        }
-      }
-
-      // Also remove the organisation in the backend
+  onDeleteOrganisation() {
+    if (confirm("Are you sure to delete this organisation: " + this.currentSelectedOrg.name)) {
+      //Remove the organisation in the backend and front-end services
       this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+      this.datasetService.detachDatasetFromOrganisation(this.currentSelectedOrg);
+      this.userOrganisations = this.userOrganisations.filter(org => org.id != this.currentSelectedOrg.id);
+      this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length - 1];
       this.orgSelectionChanged();
     }
   }
@@ -152,7 +148,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = true;
   }
 
-  onViewDataset(datasetId: number){
+  onViewDataset(datasetId: number) {
     this.router.navigate(['view-dataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: datasetId}

@@ -69,6 +69,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.user = this.userService.getLoggedInUser();
       this.userCopy = User.trueCopy(this.user);
+      console.log(this.userCopy);
       if (!this.user.firstName && !this.user.surName) {
         this.updateButtonToggle = false;
       }
@@ -76,7 +77,6 @@ export class ProfileComponent implements OnInit {
   }
 
   onUpdateUser() {
-
     //this.httpClient.put.
     let formControls = this.myProfile.controls;
     if (formControls.firstname.dirty || formControls.surname.dirty || !(this.user.firstName === this.userCopy.firstName) ||

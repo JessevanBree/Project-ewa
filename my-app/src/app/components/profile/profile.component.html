@@ -60,7 +60,10 @@
               <div id="email" class="">
                 <i class="fa fa-envelope"></i> {{userCopy.email}}</div>
             </div>
-            <div class="form-group" *ngIf="userCopy.organisations">
+            <div class="form-group" *ngIf="userCopy.organisations || userCopy.adminOfOrganisations">
+              <div id="adminOfOrganisation" class="" *ngFor="let aOfOrganisation of userCopy.adminOfOrganisations;
+              let index = index">
+                <i class="fa fa-building-o"></i> {{aOfOrganisation.name}}</div>
               <div id="organisation" class="" *ngFor="let organisation of userCopy.organisations; let index = index">
                 <i class="fa fa-building"></i> {{organisation.name}}</div>
             </div>

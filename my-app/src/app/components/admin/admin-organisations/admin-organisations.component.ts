@@ -67,6 +67,7 @@ export class AdminOrganisationsComponent implements OnInit {
 
   saveRequest($event) {
     console.log(this.aOrganisationService.getOrganisations());
+    console.log($event);
     this.organisations.push($event);
     console.log(this.organisations);
     this.editIsClicked = false;
@@ -78,9 +79,9 @@ export class AdminOrganisationsComponent implements OnInit {
   }
 
   onDeleteClick(org: Organisation) {
-    this.organisations = this.organisations.filter(organisation => organisation.id != org.id);
-    this.datasetService.detachDatasetFromOrganisation(org);
     if (confirm("Delete organisation: " + org.name)) {
+      this.organisations = this.organisations.filter(organisation => organisation.id != org.id);
+      this.datasetService.detachDatasetFromOrganisation(org);
       this.aOrganisationService.deleteOrganisation(org);
     }
   }
