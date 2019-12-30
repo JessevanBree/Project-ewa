@@ -66,9 +66,8 @@ export class AdminOrganisationsComponent implements OnInit {
 
   saveRequest($event): void {
     this.editIsClicked = false;
-    this.organisations[this.activeIndex] = $event;
-    this.aOrganisationService.getOrganisations()[this.activeIndex] = $event;
-    console.log(this.organisations[this.activeIndex]);
+    // this.aOrganisationService.addOrganisation(Organisation.trueCopy($event));
+    this.organisations = this.aOrganisationService.getOrganisations(); 
     this.router.navigate(['admin']);
   }
 

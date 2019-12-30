@@ -1,46 +1,58 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
+import {UserService} from "../../../services/user.service";
+import {Subscription} from "rxjs";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view-member-popup',
   templateUrl: './view-member-popup.component.html',
   styleUrls: ['./view-member-popup.component.css']
 })
-export class ViewMemberPopupComponent implements OnInit {
+export class ViewMemberPopupComponent implements OnInit, OnDestroy {
 
   @Output() userDeleted: EventEmitter<User>;
 
-  @Input() private receivedSelectedUser: User;
-  private hasNoFirstNameSet: boolean;
-  private hasNoSurNameSet: boolean;
+  @Output() modalClosed: EventEmitter<boolean>;
 
-  constructor() {
+  private selectedUser: User;
+
+  private hasFirstNameSet: boolean;
+  private hasSurNameSet: boolean;
+
+  private queryParamSubscription: Subscription;
+
+  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) {
     this.userDeleted = new EventEmitter<User>();
-    this.hasNoFirstNameSet = false;
-    this.hasNoSurNameSet = false;
+    this.modalClosed = new EventEmitter<boolean>();
+    this.hasFirstNameSet = false;
+    this.hasSurNameSet = false;
   }
 
   onClose(){
     console.log("Modal has succesfully been closed");
+    this.modalClosed.emit(true);
   }
 
   onDelete(){
-      this.userDeleted.emit(this.receivedSelectedUser);
+      this.userDeleted.emit(this.selectedUser);
   }
 
   ngOnInit() {
-    // Check if names of the selected user are set
-    if (typeof this.receivedSelectedUser.firstName == "undefined"){
-      this.hasNoFirstNameSet = true;
-    }
+    // Get selected user from the url parameter ID
+    this.queryParamSubscription =
+      this.activatedRoute.queryParams.subscribe((params) => {
+          const id = params['id'];
+          if (id) {
+            this.selectedUser = this.userService.getUserById(id);
+            console.log(this.selectedUser.email);
+          }
+        }
+      );
+  }
 
-    if (typeof this.receivedSelectedUser.surName == "undefined"){
-      this.hasNoSurNameSet = true;
-    }
-
-    console.log("DOES USER HAVE SURNAME: " + this.hasNoSurNameSet);
-
-    console.log("DATE CREATED OF SELECTED ACCOUNT: " + this.receivedSelectedUser.dateCreated.getDate());
+  ngOnDestroy(): void {
+    this.queryParamSubscription.unsubscribe();
   }
 }
