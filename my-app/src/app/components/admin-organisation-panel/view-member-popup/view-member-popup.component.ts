@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Organisation} from "../../../models/organisation";
 import {User} from "../../../models/user";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-view-member-popup',
@@ -11,14 +12,16 @@ export class ViewMemberPopupComponent implements OnInit {
 
   @Output() userDeleted: EventEmitter<User>;
 
-  @Input() private receivedSelectedUser: User;
-  private hasNoFirstNameSet: boolean;
-  private hasNoSurNameSet: boolean;
+  private user: User;
 
-  constructor() {
+  @Input() private receivedSelectedUser: User;
+  private hasFirstNameSet: boolean;
+  private hasSurNameSet: boolean;
+
+  constructor(private userService: UserService) {
     this.userDeleted = new EventEmitter<User>();
-    this.hasNoFirstNameSet = false;
-    this.hasNoSurNameSet = false;
+    this.hasFirstNameSet = false;
+    this.hasSurNameSet = false;
   }
 
   onClose(){
@@ -30,17 +33,19 @@ export class ViewMemberPopupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = this.userService.getUserByEmail(this.receivedSelectedUser.email);
+
     // Check if names of the selected user are set
-    if (typeof this.receivedSelectedUser.firstName == "undefined"){
-      this.hasNoFirstNameSet = true;
+    if (typeof this.receivedSelectedUser.firstName !== "undefined"){
+      this.hasFirstNameSet = true;
     }
 
-    if (typeof this.receivedSelectedUser.surName == "undefined"){
-      this.hasNoSurNameSet = true;
+    if (typeof this.receivedSelectedUser.surName !== "undefined"){
+      this.hasSurNameSet = true;
     }
 
-    console.log("DOES USER HAVE SURNAME: " + this.hasNoSurNameSet);
+    console.log("IS FIRST NAME SET: " + this.hasFirstNameSet + " FIRST NAME: " + this.receivedSelectedUser.firstName + " IS SURNAME: " + this.hasSurNameSet + " SURNAME: " + this.receivedSelectedUser.surName);
 
-    console.log("DATE CREATED OF SELECTED ACCOUNT: " + this.receivedSelectedUser.dateCreated.getDate());
+    // console.log("DATE CREATED OF SELECTED ACCOUNT: " + this.receivedSelectedUser.dateCreated.getDate());
   }
 }

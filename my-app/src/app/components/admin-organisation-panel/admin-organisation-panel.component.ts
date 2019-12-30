@@ -19,7 +19,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
-  // All the orgs managed by the logged in user
+  // All the orgs the logged in user is member of
   private userOrganisations: Organisation[];
   // List of members of the current org
   private members: User[];
@@ -112,14 +112,30 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.addMemberToggle = false;
   }
 
-  // Called when the create modal has been closed
-  // onCloseReqCreate() {
-  //   console.log("Closing modal..");
-  //   setTimeout(() => {
-  //     this.orgSelectionChanged();
-  //   }, 100);
-  //   this.createMemberToggle = false;
-  // }
+  // Called when an organisation admin wants to delete an organisation
+  onDeleteOrganisation(){
+    if(confirm("Are you sure to delete this organisation: " + this.currentSelectedOrg.name)){
+
+      // Get the index of the current selected organisation and remove it the frontend and backend
+      for (let i = 0; i < this.userOrganisations.length ; i++) {
+        if (this.userOrganisations[i].name == this.currentSelectedOrg.name){
+          if (i > 0){
+            this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+            this.userOrganisations.splice(i, 1);
+            this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
+          } else {
+            this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+            this.userOrganisations.splice(i, 1);
+            this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
+          }
+        }
+      }
+
+      // Also remove the organisation in the backend
+      this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+      this.orgSelectionChanged();
+    }
+  }
 
   onCreateNewMember() {
     console.log("Opening modal..");
