@@ -137,13 +137,11 @@ export class DatasetOverviewComponent implements OnInit {
         if (data && this.sessionService.isAuthenticated()) {
           let userEmail: string = this.sessionService.userEmail;
           data.map((dataset: Dataset) => {
-            console.log(dataset);
             dataset && dataset.publicity.includes("PUBLIC")  || dataset.user.email == userEmail ?
               this.datasets.push(dataset) : [];
           });
         } else if (data) {
           data.map((o) => {
-            console.log(o);
             o && o.publicity.includes("PUBLIC")  ? this.datasets.push(o) : []
           })
         }
