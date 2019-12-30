@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="this.userCopy">
   <div class="row">
     <div class="col-md-8 mx-auto">
       <div class="card text-black bg-white border-0" style="border-radius: 15px">
@@ -30,25 +30,28 @@
                 <label for="firstName"></label>
                 <i class="fa fa-user-circle float-left mt-1 mr-1"></i>
                 <input type="text" id="firstName" name="firstname" class="form-control float-left "
-                  style="max-width: 100px" [(ngModel)]="userCopy.firstName" (ngModelChange)="updateButtonToggle = false"
-                  [placeholder]="CMSContent['PROFILE_FIRSTNAME_EDIT']">
+                       style="max-width: 100px" [(ngModel)]="userCopy.firstName"
+                       (ngModelChange)="updateButtonToggle = false"
+                       [placeholder]="CMSContent['PROFILE_FIRSTNAME_EDIT']">
                 <label for="surName"></label>
                 <input type="text" id="surName" name="surname" class="form-control float-left" style="max-width: 100px"
-                  [(ngModel)]="userCopy.surName" (ngModelChange)="updateButtonToggle = false" [placeholder]="CMSContent['PROFILE_SURNAME_EDIT']">
+                       [(ngModel)]="userCopy.surName" (ngModelChange)="updateButtonToggle = false"
+                       [placeholder]="CMSContent['PROFILE_SURNAME_EDIT']">
                 <button *ngIf="!this.updateButtonToggle" type="button"
-                  class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
-                  [disabled]="this.updateButtonToggle" (click)="updateButtonToggle = true"><i
-                    class="fa fa-times-circle"></i>
+                        class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
+                        [disabled]="this.updateButtonToggle" (click)="updateButtonToggle = true"><i
+                  class="fa fa-times-circle"></i>
                 </button>
                 <button *ngIf="!this.updateButtonToggle" type="button" class="btn btn-primary float-left ml-1"
-                  [disabled]="this.updateButtonToggle" (click)="onUpdateUser()">{{CMSContent['PROFILE_UPDATE_BUTTON']}}
+                        [disabled]="this.updateButtonToggle"
+                        (click)="onUpdateUser()">{{CMSContent['PROFILE_UPDATE_BUTTON']}}
                 </button>
               </div>
               <div *ngIf="updateButtonToggle" id="full-name" class="">
                 <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}
                 <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
                 <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
-                  (click)="this.updateButtonToggle = false">
+                        (click)="this.updateButtonToggle = false">
                   <i class="fa fa-edit" style="font-size: 18px">Edit</i>
                 </button>
               </div>
@@ -57,9 +60,9 @@
               <div id="email" class="">
                 <i class="fa fa-envelope"></i> {{userCopy.email}}</div>
             </div>
-            <div class="form-group" *ngIf="userCopy.organisation">
-              <div id="organisation" class="">
-                <i class="fa fa-building"></i> {{userCopy.organisation}}</div>
+            <div class="form-group" *ngIf="userCopy.organisations">
+              <div id="organisation" class="" *ngFor="let organisation of userCopy.organisations; let index = index">
+                <i class="fa fa-building"></i> {{organisation.name}}</div>
             </div>
             <div class="form-group">
               <div id="uploads" class="">
