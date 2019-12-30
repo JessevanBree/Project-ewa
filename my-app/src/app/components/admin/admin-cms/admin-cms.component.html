@@ -10,13 +10,13 @@
 					</button> -->
 					
 					<!-- <label for="editSlider" class="mt-1 mr-1"><i class="fa fa-edit fa-lg"></i></label> -->
-					<label for="editSlider" class="my-auto mr-1">Edit</label>
+					<input *ngIf="editMode == true" title="Cancel CMS values" type="button" class="btn btn-danger ml-3 rounded" value="Cancel" (click)="cancelChanges()">
+					<input *ngIf="editMode == true" title="Save CMS values" type="button" class="btn btn-primary ml-3 rounded" value="Save" (click)="saveChanges()">
+					<label for="editSlider" class="my-auto ml-1">Edit</label>
 					<label title="Edit CMS values" class="switch my-auto">
 						<input type="checkbox" id="editSlider" [(ngModel)]="editMode">
 						<span class="slider rounded"></span>
 					</label>
-					<input *ngIf="editMode == true" title="Cancel CMS values" type="button" class="btn btn-danger ml-3 rounded" value="Cancel" (click)="cancelChanges()">
-					<input *ngIf="editMode == true" title="Save CMS values" type="button" class="btn btn-primary ml-3 rounded" value="Save" (click)="saveChanges()">
 				</span>
 				<input id="cmsSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="searchFilter" placeholder="Search">
 			</div>

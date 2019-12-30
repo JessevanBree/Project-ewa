@@ -37,10 +37,7 @@ export class UserService {
   public getLoggedInUser(): User {
     // console.log(this.loggedInUser);
     if (this.loggedInUser == null || undefined) {
-      // console.log(this.loggedInUser + " als user is null or undefined");
-      console.log(this.getUserByEmail(sessionStorage.getItem("userEmail")));
       this.loggedInUser = this.getUserByEmail(sessionStorage.getItem("userEmail"));
-      console.log(this.loggedInUser);
     }
     return this.loggedInUser;
   }

@@ -107,7 +107,8 @@ export class AdminUsersComponent implements OnInit {
     }
   }
 
-  editPopUpIsClosed($event: boolean) {
+  editPopUpIsClosed($event: boolean){
+    this.editIsClicked = false;
     if ($event == true) {
       this.router.navigate(['admin']);
     }

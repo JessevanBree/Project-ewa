@@ -24,8 +24,10 @@ export class AdminOrganisationsComponent implements OnInit {
 
   constructor(private aOrganisationService: OrganisationService,
               private router: Router, private activatedRoute: ActivatedRoute) {
-    this.activeIndex, this.selectedOrganisation = null;
-    this.editIsClicked, this.createIsClicked = false;
+    this.activeIndex = null;
+    this.selectedOrganisation = null;
+    this.editIsClicked = false;
+    this.createIsClicked = false;
     this.searchFilter = "";
     this.organisations = [];
   }
@@ -83,11 +85,18 @@ export class AdminOrganisationsComponent implements OnInit {
     }, 5)
   }
 
+  onClose(){
+    this.editIsClicked = false;
+
+  }
+
   createPopUpIsClosed() {
+    this.createIsClicked = false;
     this.router.navigate(['admin']);
   }
 
   editPopUpIsClosed() {
+    this.editIsClicked = false;
     this.router.navigate(['admin']);
   }
 

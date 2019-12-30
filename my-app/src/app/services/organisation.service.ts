@@ -31,6 +31,7 @@ export class OrganisationService {
       (error) => console.log("Error when retrieving Organisations: " + error),
       () => {
         console.log("All Organisations are retrieved correctly!");
+        console.log(this.organisations);
         if(this.userService.getLoggedInUser() != null || this.userService.getLoggedInUser() != undefined) this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];
       }
     );

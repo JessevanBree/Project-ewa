@@ -62,9 +62,10 @@ export class MyuploadsComponent implements OnInit {
           // for each dataset check if dataset exists and if the email of the dataset uploader
           // is equal to the logged in user mail which gets extracted from the URL parameter
           // if true push the dataset to the datasets array else return an empty array
+          console.log(data);
           if (data != null) {
-            data.map((o) => {
-              o && o.user.email == userEmail ? this.userDatasets.push(o) : [];
+            data.map((dataset: Dataset) => {
+              dataset && dataset.user.email == userEmail ? this.userDatasets.push(dataset) : [];
             });
           } else return null;
         },
