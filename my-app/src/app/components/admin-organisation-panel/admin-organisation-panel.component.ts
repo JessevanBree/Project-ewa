@@ -19,7 +19,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   // The current selected organisation in the panel
   private currentSelectedOrg: Organisation;
-  // All the orgs managed by the logged in user
+  // All the orgs the logged in user is member of
   private userOrganisations: Organisation[];
   // List of members of the current org
   private members: User[];
@@ -39,7 +39,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   constructor(private organisationService: OrganisationService,
               private userService: UserService, private fileService: FirebaseFileService,
               private router: Router,
-			  private route: ActivatedRoute,
+			  private activatedRoute: ActivatedRoute,
 			  private cmsService: CmsService) {
 
     this.members = [];
@@ -93,6 +93,12 @@ export class AdminOrganisationPanelComponent implements OnInit {
     console.log("Opening view member modal..");
     this.viewMemberToggle = true;
     this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
+
+    // Routing stuff
+    this.router.navigate(['viewMember'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: member.id}
+    });
   }
 
   // Function to delete a member from the organisation
@@ -106,20 +112,35 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // Called when the add existing modal has been closed
+  // Called when a modal has been closed
   onCloseReq() {
     console.log("Closing modal..");
+    // Route stuff
+    this.router.navigate(["./"],
+      {
+        relativeTo: this.activatedRoute,
+      });
     this.addMemberToggle = false;
   }
 
-  // Called when the create modal has been closed
-  // onCloseReqCreate() {
-  //   console.log("Closing modal..");
-  //   setTimeout(() => {
-  //     this.orgSelectionChanged();
-  //   }, 100);
-  //   this.createMemberToggle = false;
-  // }
+  // Called when an organisation admin wants to delete an organisation
+  onDeleteOrganisation(){
+    if(confirm("Are you sure to delete this organisation: " + this.currentSelectedOrg.name)){
+
+      // Get the index of the current selected organisation and remove it the frontend and backend
+      for (let i = 0; i < this.userOrganisations.length ; i++) {
+        if (this.userOrganisations[i].name == this.currentSelectedOrg.name){
+            this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+            this.userOrganisations.splice(i, 1);
+            this.currentSelectedOrg = this.userOrganisations[this.userOrganisations.length -1];
+        }
+      }
+
+      // Also remove the organisation in the backend
+      this.organisationService.deleteOrganisation(this.currentSelectedOrg);
+      this.orgSelectionChanged();
+    }
+  }
 
   onCreateNewMember() {
     console.log("Opening modal..");
@@ -133,7 +154,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   onViewDataset(datasetId: number){
     this.router.navigate(['view-dataset'], {
-      relativeTo: this.route,
+      relativeTo: this.activatedRoute,
       queryParams: {id: datasetId}
     });
     this.viewDatasetToggle = true;

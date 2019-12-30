@@ -1,39 +1,37 @@
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="viewMemberModal" tabindex="-1" role="dialog"
      aria-labelledby="viewMemberModal" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
+    <div class="modal-content modal-md">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Member information</h5>
         <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
         </button>
       </div>
       <div class="modal-body">
-        <h6> <b>Email:</b> {{ receivedSelectedUser.email }}</h6>
+        <h6> <b>Email:</b> {{ selectedUser.email }}</h6>
         <br>
 
-        <!-- TODO: check if the user has set a first and surname, if not show a message (Does not work yet)-->
-<!--        <div *ngIf="hasNoFirstNameSet; else hasFirstNameSet">-->
-<!--          <h6 *ngIf="hasNoFirstNameSet"> <b>First name:</b> This user hasn't set his first name</h6>-->
-<!--        </div>-->
-<!--        <ng-template #hasFirstNameSet>-->
-<!--          <h6 *ngIf="!hasNoFirstNameSet"> <b>First name:</b> {{ receivedSelectedUser.firstName }}</h6>-->
-<!--        </ng-template>-->
+        <div *ngIf="selectedUser.firstName; else hasNoFirstNameSet">
+          <h6> <b>First name:</b> {{ selectedUser.firstName }}</h6>
+        </div>
+        <ng-template #hasNoFirstNameSet>
+          <h6> <b>First name:</b> This user hasn't set his first name yet</h6>
+        </ng-template>
 
-<!--        <div *ngIf="hasNoSurNameSet; else hasNoSurNameSet">-->
-<!--          <h6 *ngIf="hasNoSurNameSet"> <b>Surname:</b> This user hasn't set his surname</h6>-->
-<!--        </div>-->
-<!--        <ng-template #hasNoSurNameSet>-->
-<!--          <h6 *ngIf="!hasNoSurNameSet"> <b>Surname:</b> {{ receivedSelectedUser.surName }}</h6>-->
-<!--        </ng-template>-->
-
-        <h6> <b>First name:</b> {{ receivedSelectedUser?.firstName }}</h6>
         <br>
-
-        <h6> <b>Surname:</b> {{ receivedSelectedUser?.firstName }}</h6>
+        <div *ngIf="selectedUser.surName; else hasNoSurNameSet">
+          <h6> <b>Surname:</b> {{selectedUser.surName}} </h6>
+        </div>
         <br>
+        <ng-template #hasNoSurNameSet>
+          <h6> <b>Surname:</b> This user hasn't set his surname yet</h6>
+        </ng-template>
 
-        <!-- TODO: FIX, date is undefined? -->
-        <h6> <b>Date created:</b> {{ receivedSelectedUser?.dateCreated.getDate() }}</h6>
+<!--        <h6 *ngIf="selectedUser.firstName"> <b>First name:</b> {{ selectedUser.firstName }}</h6>-->
+<!--        <br>-->
+
+<!--        <h6 *ngIf="selectedUser.surName"> <b>Surname:</b> {{ selectedUser.surName }}</h6>-->
+<!--        <br>-->
 
       </div>
       <div class="modal-footer">
