@@ -7,6 +7,7 @@ import {User} from 'src/app/models/user';
 //Services
 import {OrganisationService} from '../../../services/organisation.service';
 import {ActivatedRoute, Router} from "@angular/router";
+import {DatasetService} from "../../../services/dataset.service";
 
 @Component({
   selector: 'app-admin-organisations',
@@ -19,14 +20,16 @@ export class AdminOrganisationsComponent implements OnInit {
   createIsClicked: boolean;
   activeIndex: number;
   selectedOrganisation: Organisation;
-  searchFilter: String;
+  searchFilter: any;
   emptyList: boolean;
 
-  constructor(private aOrganisationService: OrganisationService,
+  constructor(private aOrganisationService: OrganisationService, private datasetService: DatasetService,
               private router: Router, private activatedRoute: ActivatedRoute) {
-    this.activeIndex, this.selectedOrganisation = null;
-    this.editIsClicked, this.createIsClicked = false;
-    this.searchFilter = "";
+    this.activeIndex = null;
+    this.searchFilter = '';
+    this.selectedOrganisation = null;
+    this.editIsClicked = false;
+    this.createIsClicked = false;
     this.organisations = [];
   }
 
@@ -49,7 +52,7 @@ export class AdminOrganisationsComponent implements OnInit {
     let copyOrganisation = Organisation.trueCopy(this.aOrganisationService.getOrganisation(originalOrganisationIndex));
     this.activeIndex = originalOrganisationIndex;
     this.selectedOrganisation = copyOrganisation;
-    this.router.navigate(['editOrganisation'], {
+    this.router.navigate(['edit-organisation'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedOrganisation.id}
     });
@@ -57,20 +60,26 @@ export class AdminOrganisationsComponent implements OnInit {
 
   onCreateButtonClick() {
     this.createIsClicked = true;
-    this.router.navigate(['createOrganisation'], {
+    this.router.navigate(['create-organisation'], {
       relativeTo: this.activatedRoute
     });
   }
 
-  saveRequest($event): void {
+  saveRequest($event) {
+    console.log(this.aOrganisationService.getOrganisations());
+    this.organisations.push($event);
+    console.log(this.organisations);
     this.editIsClicked = false;
-    this.organisations[this.activeIndex] = $event;
-    this.aOrganisationService.getOrganisations()[this.activeIndex] = $event;
-    console.log(this.organisations[this.activeIndex]);
+    this.createIsClicked = false;
     this.router.navigate(['admin']);
+    /*this.organisations[this.activeIndex] = $event;
+    this.aOrganisationService.getOrganisations()[this.activeIndex] = $event;*/
+
   }
 
   onDeleteClick(org: Organisation) {
+    this.organisations = this.organisations.filter(organisation => organisation.id != org.id);
+    this.datasetService.detachDatasetFromOrganisation(org);
     if (confirm("Delete organisation: " + org.name)) {
       this.aOrganisationService.deleteOrganisation(org);
     }

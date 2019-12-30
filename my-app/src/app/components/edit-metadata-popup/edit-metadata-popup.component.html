@@ -37,7 +37,7 @@
               <label for="publicityInput">Publicity</label>
               <select [(ngModel)]="editingDataset.publicity" class="form-control" name="publicityInput"
                       id="publicityInput" required>
-                <!--<option class="form-control" *ngFor="let publicity of keys(Publicity)" >
+                <!--<option class=+"form-control" *ngFor="let publicity of keys(Publicity)" >
                   {{Publicity[publicity]}}</option>-->
                 <option value="PUBLIC">Public</option>
                 <option value="PRIVATE">Private</option>
@@ -55,19 +55,7 @@
                          name="organisationsSelect"
                          [multiple]="true"
                          [closeOnSelect]="false"
-                         [(ngModel)]="selectedOrganisations">
-                <ng-template ng-header-tmp>
-
-                  <div>
-                    <button class="btn btn-link"
-                            (click)="onSelectAllOrganisations()">Select All
-                    </button>
-                    <button class="btn btn-link"
-                            (click)="onClearAllOrganisations()">Clear All
-                    </button>
-                  </div>
-
-                </ng-template>
+                         [(ngModel)]="editingDataset.organisations">
               </ng-select>
               <div *ngIf="selectBox.touched && selectBox.hasError('required')" class="alert alert-danger">
                 <p>You must select one or more groups</p>

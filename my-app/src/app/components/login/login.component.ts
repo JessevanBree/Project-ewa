@@ -6,7 +6,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FbUserService} from "../../services/fb-user.service";
 import {SessionService} from "../../services/session/session.service";
 import {SpringSessionService} from "../../services/session/spring-session.service";
-import { CmsService } from 'src/app/services/cms.service';
+import {CmsService} from 'src/app/services/cms.service';
 
 @Component({
   selector: 'app-login',
@@ -25,25 +25,24 @@ export class LoginComponent implements OnInit {
   constructor(private userService: FbUserService,
               private sessionService: SpringSessionService,
               private route: Router,
-			  private activeRoute: ActivatedRoute,
-			  private cmsService: CmsService) {
+              private activeRoute: ActivatedRoute,
+              private cmsService: CmsService) {
     this.emailInput = null;
-	this.passwordInput = null;
-	
-	this.CMSContent = {
-		"LOGIN_TITLE": "",
-		"LOGIN_EMAIL": "",
-		"LOGIN_PASSWORD": "",
-		"LOGIN_BUTTON": "",
-		"LOGIN_FORGET": "",
-	};
-	this.cmsService.fillPage(this.CMSContent, this.componentLink);
+    this.passwordInput = null;
+
+    this.CMSContent = {
+      "LOGIN_TITLE": "",
+      "LOGIN_EMAIL": "",
+      "LOGIN_PASSWORD": "",
+      "LOGIN_BUTTON": "",
+      "LOGIN_FORGET": "",
+    };
+    this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
 
   onLogin() {
     this.sessionService.signIn(this.emailInput, this.passwordInput);
-
 
     /*if (this.sessionService.signIn(this.email, this.password)){
       this.isValidCredentials = true;

@@ -28,7 +28,6 @@ public class JPAOrganisationRepository implements OrganisationRepository {
 
     @Override
     public void delete(Organisation organisation) {
-
         Organisation toRemove = em.merge(organisation);
 
         em.remove(toRemove);

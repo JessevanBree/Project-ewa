@@ -8,6 +8,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import urban.server.models.Dataset;
 import urban.server.models.Organisation;
 import urban.server.models.User;
+import urban.server.models.helpers.PublicityEnum;
+import urban.server.repositories.JPADatasetRepository;
 import urban.server.repositories.JPAOrganisationRepository;
 import urban.server.repositories.JPAUserRepository;
 import urban.server.resource.exceptions.ResourceNotFoundException;
@@ -25,6 +27,9 @@ public class OrganisationsController {
 
     @Autowired
     private JPAUserRepository userRepository;
+
+    @Autowired
+    private JPADatasetRepository datasetRepository;
 
     // Get mapping to get all the organisations
     @GetMapping()
@@ -94,8 +99,12 @@ public class OrganisationsController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Organisation> deleteOrganisation(@PathVariable Long id) {
 
-        Organisation organisation = getOrganisationById(id);
-
+        Organisation organisation = organisationRepo.findById(id);
+        for(Dataset dataset : organisation.getDatasets()) {
+            dataset.setOrganisations(null);
+            dataset.setPublicity(PublicityEnum.PRIVATE);
+            datasetRepository.save(dataset);
+        }
         organisationRepo.delete(organisation);
 
         return ResponseEntity.noContent().build();

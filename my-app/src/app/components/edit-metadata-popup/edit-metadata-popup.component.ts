@@ -8,6 +8,7 @@ import {UserService} from "../../services/user.service";
 import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {NgForm} from "@angular/forms";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'app-edit-metadata-popup',
@@ -52,9 +53,9 @@ export class EditMetadataPopupComponent implements OnInit {
     }
   }
 
-  //This method saves the edited changes of a dataset
-  selectedOrganisations: Organisation[] = [];
+
   saveChanges() {
+    console.log(this.editingDataset.organisations);
     this.savedDataset.emit(this.editingDataset);
   }
 
@@ -62,7 +63,6 @@ export class EditMetadataPopupComponent implements OnInit {
   onClose() {
     this.queryParamSubscription.unsubscribe();
     this.editingDataset = Dataset.trueCopy(this.originalDataset);
-    this.selectedOrganisations = [];
     this.closingToggle.emit(true);
     this.router.navigate(['./'], {
       relativeTo: this.activatedRoute
@@ -77,7 +77,7 @@ export class EditMetadataPopupComponent implements OnInit {
             this.editingDataset = Dataset.trueCopy(this.datasets[i]);
             this.originalDataset = this.datasets[i];
 
-            let datasetUser = this.userService.getUserByEmail(this.editingDataset.user.email);
+            /*let datasetUser = this.userService.getUserByEmail(this.editingDataset.user.email);
             if (datasetUser.organisations.length) {
               this.userBelongsToOrganisation = true;
 
@@ -85,7 +85,17 @@ export class EditMetadataPopupComponent implements OnInit {
                 if (datasetUser.organisations[j] != null || undefined)
                   this.datasetUserOrganisations.push(datasetUser.organisations[i]);
               }
+            }*/
+            let user: User = this.userService.getLoggedInUser();
+            if (user.organisations.length > 0 || user.adminOfOrganisations.length > 0) {
+              this.userBelongsToOrganisation = true;
             }
+            this.organisationService.getMyOrganisations().subscribe(
+              (data: Organisation[]) =>
+                this.datasetUserOrganisations = data,
+              error => console.log(error),
+              () => console.log("Finished setting group items for editing a dataset")
+            );
             break;
           }
         }
@@ -93,12 +103,8 @@ export class EditMetadataPopupComponent implements OnInit {
     )
   }
 
-  onClearAllOrganisations() {
-    this.selectedOrganisations = [];
-  }
 
-  onSelectAllOrganisations() {
-    this.selectedOrganisations = this.datasetUserOrganisations;
-  }
+
+
 
 }

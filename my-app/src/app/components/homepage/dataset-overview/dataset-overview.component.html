@@ -72,7 +72,7 @@
         {{dataset.name}}
       </li>
     </ul>-->
-    <pagination-template #pT="paginationApi" (pageChange)="p = $event">
+    <pagination-template #pT="paginationApi" *ngIf="datasets.length != 0" (pageChange)="p = $event">
       <ul class="pagination justify-content-center">
         <li class="page-item" [class.disabled]="pT.isFirstPage()">
           <a class="page-link" (click)="pT.previous()">Previous</a></li>
