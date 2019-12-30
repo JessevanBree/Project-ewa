@@ -1,8 +1,7 @@
 <app-create-organisation-popup *ngIf="createIsClicked" (savedOrganisation)="saveRequest($event)"
                                (closed)="createPopUpIsClosed()"></app-create-organisation-popup>
 <app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
-                             (closed)="editPopUpIsClosed()">
-</app-edit-organisation-popup>
+                             (closed)="editPopUpIsClosed()"></app-edit-organisation-popup>
 
 <div class="row">
   <!-- <div class="card w-100 mb-3">
@@ -42,7 +41,6 @@
 					<p class="my-auto">No organisations available</p>
 				</span>
       </li>
-
       <li class="admin-organisation-item list-group-item p-2 pl-3"
           *ngFor="let organisation of this.aOrganisationService.getOrganisations() | searchArrayName: [searchFilter]; index as index">
 				<span class="row mx-1 align-middle">
@@ -50,6 +48,7 @@
 					<span class="btn-group crud-btn-group ml-auto mr-3">
 						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal"
                     data-target="#editModal">
+
 							<i class="fa fa-edit fa-lg"></i>
 						</button>
 						<button class="btn btn-danger" (click)="onDeleteClick(organisation)">

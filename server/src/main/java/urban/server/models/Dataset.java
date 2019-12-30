@@ -62,7 +62,7 @@ public class Dataset {
     @ManyToOne
     private User user;
 
-    @ManyToMany
+    @ManyToMany()
     @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     private List<Organisation> organisations = new ArrayList<>();
@@ -196,6 +196,10 @@ public class Dataset {
 
     public List<Organisation> getOrganisations() {
         return organisations;
+    }
+
+    public void setOrganisations(List<Organisation> organisations) {
+        this.organisations = organisations;
     }
 
     public void addOrganisation(Organisation organisation) {

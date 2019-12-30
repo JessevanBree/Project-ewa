@@ -82,8 +82,8 @@ export class EditOrganisationPopupComponent implements OnInit, OnDestroy {
     } else if (this.editingOrg.users.includes(user) || this.editingOrg.organisationAdmin.id === user.id) {
       return this.errorHandling("User is already part of this organisation");
     } else {
-      this.editingOrg.addUser(user);
-      this.organisationService.addMemberToOrg(this.editingOrg.id, user.id);
+      // this.editingOrg.addUser(user);
+      this.editingOrg = this.organisationService.addMemberToOrg(this.editingOrg.id, user.id);
       this.memberToAdd = null;
     }
   }

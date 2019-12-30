@@ -42,11 +42,11 @@ const routes: Routes = [
     component: AdminPanelComponent, canActivate: [AuthGuardAdminService],
     children: [
       {
-        path: 'createUser',
+        path: 'create-user',
         component: CreateUserPopupComponent
       },
       {
-        path: 'editUser',
+        path: 'edit-user',
         component: EditUserPopupComponent
       },
       {
@@ -54,7 +54,7 @@ const routes: Routes = [
         component: CreateOrganisationPopupComponent
       },
       {
-        path: 'editOrganisation',
+        path: 'edit-organisation',
         component: EditOrganisationPopupComponent
       },
       {

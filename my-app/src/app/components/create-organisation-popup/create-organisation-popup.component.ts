@@ -29,15 +29,15 @@ export class CreateOrganisationPopupComponent implements OnInit {
   ngOnInit() {
   }
 
-  //This method saves the edited changes of a dataset
+  //This method creates a new organisation
   onSubmit(form: NgForm) {
     let user = this.users.find(user => {
       return user.email === form.value.orgAdminInput;
     });
-
     this.aOrganisationService.addOrganisation(new Organisation(form.value.nameInput, user));
     this.savedOrganisation.emit(this.organisation);
     this.onClose();
+
   }
 
   onClose() {

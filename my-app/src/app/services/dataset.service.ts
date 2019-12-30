@@ -6,6 +6,7 @@ import {error} from "util";
 import {UserService} from "./user.service";
 import {SpringSessionService} from "./session/spring-session.service";
 import {FirebaseFileService} from "./firebase-file.service";
+import {Organisation} from "../models/organisation";
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,48 @@ export class DatasetService {
     return this.httpClient.get<Dataset[]>(this.REST_DATASETS_URL);
   }
 
+  public getDatasets() {
+    return this.datasets;
+  }
+
+  public getMyDatasets(){
+    return this.datasets.filter(dataset => dataset.user.id == this.userService.getLoggedInUser().id);
+  }
+
+  public getPublicDatasets() {
+    return this.datasets.filter(dataset =>
+      dataset.publicity.includes("Public")
+    );
+  }
+
+  getEUDatasets() {
+    return this.getPublicDatasets().filter(dataset =>
+      dataset.region.includes("European level")
+    );
+  }
+
+  getNATDatasets() {
+    return this.getPublicDatasets().filter(dataset =>
+      dataset.region == "NAT_LEVEL"
+    );
+  }
+
+  getURBDatasets() {
+    return this.getPublicDatasets().filter(dataset =>
+      dataset.region == "URB_LEVEL"
+    );
+  }
+
+  detachDatasetFromOrganisation(org: Organisation){
+    this.datasets.forEach(dataset => {
+      if(dataset.organisations.find(o => o.id === org.id)) {
+        dataset.organisations = dataset.organisations.filter(organisation => organisation.id != org.id);
+        dataset.publicity = "PRIVATE";
+      }
+    });
+
+
+  }
   //POST request to database and adds the response(dataset) to the list inside the service
   //Closingtoggle optional parameter is used to let the myuploads page know that the dataset has succesfully been saved
   // so it can close the modal. The file parameter is used to store the given file in firebase storage
@@ -104,38 +147,6 @@ export class DatasetService {
       }
     );
     return this.datasets.includes(dataset);
-  }
-
-  public getDatasets() {
-    return this.datasets;
-  }
-
-  public getMyDatasets(){
-    return this.datasets.filter(dataset => dataset.user.id == this.userService.getLoggedInUser().id);
-  }
-
-  public getPublicDatasets() {
-    return this.datasets.filter(dataset =>
-      dataset.publicity.includes("Public")
-    );
-  }
-
-  getEUDatasets() {
-    return this.getPublicDatasets().filter(dataset =>
-      dataset.region.includes("European level")
-    );
-  }
-
-  getNATDatasets() {
-    return this.getPublicDatasets().filter(dataset =>
-      dataset.region == "NAT_LEVEL"
-    );
-  }
-
-  getURBDatasets() {
-    return this.getPublicDatasets().filter(dataset =>
-      dataset.region == "URB_LEVEL"
-    );
   }
 
   //Adds dataset to list of datasets inside service manually, only use for developing purposes

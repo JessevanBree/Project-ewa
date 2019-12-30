@@ -187,7 +187,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
         if (this.currentSelectedOrg) {
           this.currentSelectedOrg.users.forEach(u => this.members.push(u));
           this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
-          console.log(this.currentSelectedOrg.organisationAdmin, this.userService.getLoggedInUser());
+          console.log(this.currentSelectedOrg.organisationAdmin);
           console.log("Finished retrieving user's organisations");
 
           //Retrieves datasets of the current selected organisation

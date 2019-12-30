@@ -108,6 +108,7 @@ export class OrganisationService {
         console.log("Finished adding user to organisation");
       }
     );
+    return organisation;
   }
 
   // Updates or changes the organisation admin user and can change the name of the organisation
