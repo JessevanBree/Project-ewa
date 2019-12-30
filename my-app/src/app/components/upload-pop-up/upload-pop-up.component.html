@@ -10,9 +10,8 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="onSubmit()" #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
-
           <h5 class="text-center text-white bg-dark" style="border-radius: 10px">Dataset visualization</h5>
           <div class="form-group col-md-12 mx-3">
             <label for="uploadModalControlFile1">Choose dataset file <span
@@ -184,9 +183,8 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
-            <button type="submit" class="btn btn-primary" [disabled]="formElement.invalid || confirmToggle == false">
-              Upload
-            </button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()" data-dismiss="modal"
+                    [disabled]="formElement.invalid || confirmToggle == false">Upload</button>
           </div>
         </form>
       </div>
