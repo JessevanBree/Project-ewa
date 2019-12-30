@@ -8,7 +8,7 @@
 				<span class="ml-auto mr-3 btn-group">
 					<!-- <button class="btn btn-primary" id="toggleEditButton" (click)="toggleEdit()">
 					</button> -->
-					
+
 					<!-- <label for="editSlider" class="mt-1 mr-1"><i class="fa fa-edit fa-lg"></i></label> -->
 					<input *ngIf="editMode == true" title="Cancel CMS values" type="button" class="btn btn-danger ml-3 rounded" value="Cancel" (click)="cancelChanges()">
 					<input *ngIf="editMode == true" title="Save CMS values" type="button" class="btn btn-primary ml-3 rounded" value="Save" (click)="saveChanges()">
@@ -63,8 +63,8 @@
 				</tbody>
 			</table>
 			<!-- <ul class="cmsList list-group list-group-flush" >
-			<li class="list-group-item" *ngFor="let cms of cmsData | searchCMSArray: [searchFilter] ">
-				<p *ngFor="let item of cms | keyvalue ">{{item.key}} {{item.value}}</p>
+			<li class="list-group-organisation" *ngFor="let cms of cmsData | searchCMSArray: [searchFilter] ">
+				<p *ngFor="let organisation of cms | keyvalue ">{{organisation.key}} {{organisation.value}}</p>
 			</li>
 		</ul> -->
 		</div>

@@ -35,14 +35,14 @@
 			</div>
 		</div>
 		<ul class="userList list-group list-group-flush">
-			<li class="list-group-item p-2 pl-3" *ngIf="emptyList">
+			<li class="list-group-item p-2 pl-3" *ngIf="!this.aUserService.getUsers()">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">No users available</p>
 				</span>
 			</li>
 
 			<li class="admin-user-item list-group-item p-2 pl-3"
-				*ngFor="let user of this.aUserService.getUsers() | searchUserArray: [searchFilter, 'value']; index as index">
+				*ngFor="let user of this.aUserService.getUsers() | searchUserArray: [searchFilter]; index as index">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto mw-100">{{user.email}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">

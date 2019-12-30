@@ -50,7 +50,7 @@ const routes: Routes = [
         component: EditUserPopupComponent
       },
       {
-        path: 'createOrganisation',
+        path: 'create-organisation',
         component: CreateOrganisationPopupComponent
       },
       {

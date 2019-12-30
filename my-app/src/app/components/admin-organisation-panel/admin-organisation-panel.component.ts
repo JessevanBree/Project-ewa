@@ -169,7 +169,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   checkIfListEmpty(): void {
     if (this.members.length == 0) this.emptyList = true;
     setTimeout(() => {
-      this.emptyList = document.getElementsByClassName("list-group-item p-1").length == 0;
+      this.emptyList = document.getElementsByClassName("list-group-organisation p-1").length == 0;
     }, 5)
   }
 

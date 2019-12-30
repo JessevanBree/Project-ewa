@@ -80,7 +80,7 @@ export class EditMetadataPopupComponent implements OnInit {
             let datasetUser = this.userService.getUserByEmail(this.editingDataset.user.email);
             if (datasetUser.organisations.length) {
               this.userBelongsToOrganisation = true;
-
+              console.log(datasetUser);
               for (let j = 0; j < datasetUser.organisations.length; j++) {
                 if (datasetUser.organisations[j] != null || undefined)
                   this.datasetUserOrganisations.push(datasetUser.organisations[i]);

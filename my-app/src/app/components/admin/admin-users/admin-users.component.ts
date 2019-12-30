@@ -97,7 +97,7 @@ export class AdminUsersComponent implements OnInit {
   checkIfListEmpty(): void {
     if (this.aUserService.getUsers().length == 0) this.emptyList = true;
     setTimeout(() => {
-      this.emptyList = document.getElementsByClassName("admin-user-item").length == 0;
+      this.emptyList = document.getElementsByClassName("admin-user-organisation").length == 0;
     }, 5)
   }
 

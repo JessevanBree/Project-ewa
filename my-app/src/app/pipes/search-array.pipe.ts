@@ -3,15 +3,16 @@ import {Dataset} from "../models/dataset";
 import {PaginationControlsComponent, PaginationControlsDirective, PaginationService} from "ngx-pagination";
 
 @Pipe({
-  name: 'searchArrayName'
+  name: 'searchArrayName',
+  pure: false
 })
 export class SearchArrayNamePipe implements PipeTransform {
 
   // transform(array: Dataset[], args: string): any {
   // 	// only if dataset array exists filter the dataset array
   // 	if (array) {
-  // 		return array.filter(item => {
-  // 			return item[args[1]].toLowerCase().includes(args[0].toLowerCase())
+  // 		return array.filter(organisation => {
+  // 			return organisation[args[1]].toLowerCase().includes(args[0].toLowerCase())
   // 		});
   // 	}
   // }
@@ -22,10 +23,14 @@ export class SearchArrayNamePipe implements PipeTransform {
     //   pageControls.setCurrent(1);
     // }
     if (array) {
-      return array.filter(item => {
+      let filtered = array.filter(item => {
         return item.name.toLowerCase().includes(args[0].toLowerCase()) || item.year == parseInt(args[0]) ||
           (item.description ? item.description.toLowerCase().includes(args[0].toLowerCase()) : null);
       });
+      // console.log(array);
+      // console.log(args);
+      // console.log(filtered);
+      return filtered;
     }
   }
 }
