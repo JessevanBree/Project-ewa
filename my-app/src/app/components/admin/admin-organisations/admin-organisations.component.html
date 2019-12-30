@@ -33,7 +33,7 @@
 					</button>
 				</span>
         <input id="orgSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="searchFilter"
-               (ngModelChange)="checkIfListEmpty()" placeholder="Search">
+               placeholder="Search">
       </div>
     </div>
     <ul class="orgList list-group list-group-flush">
@@ -44,7 +44,7 @@
       </li>
 
       <li class="admin-organisation-item list-group-item p-2 pl-3"
-          *ngFor="let item of organisations | searchArrayName: [searchFilter, 'name']; index as index">
+          *ngFor="let item of this.aOrganisationService.getOrganisations() | searchArrayName: [searchFilter]; index as index">
 				<span class="row mx-1 align-middle">
 					<p class="my-auto">{{item.name}}</p>
 					<span class="btn-group crud-btn-group ml-auto mr-3">
