@@ -17,10 +17,13 @@ import { CmsService } from 'src/app/services/cms.service';
   styleUrls: ['./myuploads.component.css']
 })
 export class MyuploadsComponent implements OnInit {
+  get userDatasets(): Dataset[] {
+    return this._userDatasets;
+  }
 	public CMSContent: Object;
   public readonly componentLink = "my_uploads";
 
-  private userDatasets: Dataset[];
+  private _userDatasets: Dataset[];
   private uploadDatasetToggle: boolean;
   private editMetaDataToggle: boolean;
   private editDatasetToggle: boolean;
@@ -36,7 +39,7 @@ export class MyuploadsComponent implements OnInit {
               private fileService: FirebaseFileService,
               private sessionService: SpringSessionService,
               private cmsService: CmsService) {
-    this.userDatasets = [];
+    this._userDatasets = [];
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
@@ -66,7 +69,7 @@ export class MyuploadsComponent implements OnInit {
           console.log(data);
           if (data != null) {
             data.map((dataset: Dataset) => {
-              dataset && dataset.user.email == userEmail ? this.userDatasets.push(dataset) : [];
+              dataset && dataset.user.email == userEmail ? this._userDatasets.push(dataset) : [];
             });
           } else return null;
         },
@@ -103,15 +106,15 @@ export class MyuploadsComponent implements OnInit {
     console.log($event);
     console.log(this.activeIndex);
     //Update (save) the dataset in both arrays
-    this.userDatasets[this.activeIndex] = $event;
-    this.datasetService.updateDataset(this.userDatasets[this.activeIndex]);
+    this._userDatasets[this.activeIndex] = $event;
+    this.datasetService.updateDataset(this._userDatasets[this.activeIndex]);
   }
 
   //Check if edit button is clicked to open pop-up
   onEditMetaDataClick(datasetIndex: number) {
     this.activeIndex = datasetIndex;
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
-    this.selectedDataset = Dataset.trueCopy(this.userDatasets[this.activeIndex]);
+    this.selectedDataset = Dataset.trueCopy(this._userDatasets[this.activeIndex]);
     console.log(this.selectedDataset);
     this.router.navigate(['edit-dataset'], {
       relativeTo: this.activatedRoute,
@@ -130,12 +133,12 @@ export class MyuploadsComponent implements OnInit {
 
   //Triggers when a dataset has been uploaded to refresh the overview
   onUploadDataset() {
-    this.userDatasets = this.datasetService.getMyDatasets();
+    this._userDatasets = this.datasetService.getMyDatasets();
   }
 
   //Button to view the dataset visualization/chart
   onViewDatasetClick(datasetIndex: number) {
-    this.selectedDataset = Dataset.trueCopy(this.userDatasets[datasetIndex]);
+    this.selectedDataset = Dataset.trueCopy(this._userDatasets[datasetIndex]);
     this.editDatasetToggle = true;
     this.router.navigate(['view-dataset'], {
       relativeTo: this.activatedRoute,
@@ -146,25 +149,25 @@ export class MyuploadsComponent implements OnInit {
   //Function to delete a dataset
   onDelete(datasetIndex: number) {
     let selectedDataset: Dataset;
-    selectedDataset = this.userDatasets[datasetIndex];
+    selectedDataset = this._userDatasets[datasetIndex];
     console.log(selectedDataset);
     if (confirm("Are you sure to delete this dataset?")) {
       this.datasetService.deleteDataset(selectedDataset);
       this.fileService.deleteFile(selectedDataset);
-      this.userDatasets = this.datasetService.getMyDatasets();
+      this._userDatasets = this.datasetService.getMyDatasets();
     }
   }
 
   //Downloads the dataset file by retrieving the specific download url from firebase storage
   onDownload(index: number) {
-    let dataset = this.userDatasets[index];
+    let dataset = this._userDatasets[index];
     this.url = this.fileService.getDownloadUrl(dataset.fileName, dataset.id, dataset.fileType);
   }
 
   //Testing purposes function, adds a random dataset
   onAdd() {
     this.datasetService.addDataset(this.datasetService.generateRandomDataset());
-    this.userDatasets = this.datasetService.getMyDatasets();
+    this._userDatasets = this.datasetService.getMyDatasets();
     console.log("Adding random dataset..");
   }
 
@@ -173,7 +176,7 @@ export class MyuploadsComponent implements OnInit {
     this.uploadDatasetToggle = false;
     this.editDatasetToggle = false;
     this.editMetaDataToggle = false;
-    this.userDatasets = this.datasetService.getMyDatasets();
+    this._userDatasets = this.datasetService.getMyDatasets();
     /*this.datasetService.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         data.map( o => o.user.id == this.userId ? this.userDatasets.push(o) : null);

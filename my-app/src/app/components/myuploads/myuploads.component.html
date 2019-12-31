@@ -17,12 +17,12 @@
 				<ul class="dataList list-group list-group-flush">
 					<!-- Check if the logged in user has any uploaded datasets, if not show a message -->
 					<!-- show this block if the user doesn't have any uploaded datasets -->
-					<li class="list-group-item p-1" *ngIf="userDatasets.length == 0">
+					<li class="list-group-item p-1" *ngIf="_userDatasets.length == 0">
 						<span class="row mx-1 align-middle">
 							{{CMSContent["MY_UPLOADS_NO_UPLOADS"]}}
 						</span>
 					</li>
-					<li class="list-group-item p-1" *ngFor="let item of userDatasets; index as i">
+					<li class="list-group-item p-1" *ngFor="let item of _userDatasets; index as i">
 						<span class="row mx-1 align-middle">
 							<!-- show this block if the user does have uploaded datasets -->
 							<p class="col-lg-8">{{item.name}}</p>
