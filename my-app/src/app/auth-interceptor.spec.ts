@@ -14,9 +14,7 @@ describe('AuthInterceptor', () => {
     });
   });
 
-  it('should create an instance', () => {
-    let fixture = TestBed.createComponent(AuthInterceptor);
-    let app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
+  it('should create', () => {
+    expect(AuthInterceptor).toBeTruthy();
   });
 });
