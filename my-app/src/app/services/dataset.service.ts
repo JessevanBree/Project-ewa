@@ -119,7 +119,7 @@ export class DatasetService {
   public updateDataset(dataset: Dataset): boolean {
     if (!dataset) return false;
     let index: number = this.datasets.findIndex(d => d.id == dataset.id);
-    console.log(index);
+    this.datasets[index] = dataset;
     this.httpClient.put(this.REST_DATASETS_URL, dataset).subscribe(
       (responseDataset: Dataset) => {
         this.datasets[index] = responseDataset;

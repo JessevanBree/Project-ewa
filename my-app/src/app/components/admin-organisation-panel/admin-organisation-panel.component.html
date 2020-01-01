@@ -3,7 +3,7 @@
                       (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
                          (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has been clicked -->
-<app-view-member-popup *ngIf="viewMemberToggle" (modalClosed)="onCloseReq()" (userDeleted)="onDelete($event)"></app-view-member-popup> <!-- Open the "View member" pop-up when the "View member" button has been clicked -->
+
 <app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
 
 <div class="container bg-light shadow"
@@ -76,14 +76,14 @@
           <li class="list-group-item p-1" *ngFor="let member of members | userFilter:searchFilter">
             <span class="row mx-1 align-middle">
 <!--                    <p class="col-lg-8">{{member.email}} , <br> {{member.firstName}},<br> {{member.surName}}</p>-->
-                <p class="col-lg-8">{{member.email}}</p>
+              <p class="col-lg-8">{{member.email}} <br> <strong>Name:</strong> {{member.firstName}} {{member.surName}}</p>
 					          <span class="btn-group col-lg-4 h-75" *ngIf="userIsAdminOfOrgs">
-                       <button type="button" class="btn btn-info fa fa-eye" id="viewMemberModal" data-toggle="modal"
-                               data-target="#viewMemberModal"
-                               (click)="onViewMemberClick(member)"></button>
 						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
                     </span>
+
+
+
             </span>
           </li>
         </ul>

@@ -58,7 +58,7 @@ public class Dataset {
 
     @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
             DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutOrganisation.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonSerialize(using = UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class)
     @ManyToOne
     private User user;
 

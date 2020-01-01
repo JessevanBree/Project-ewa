@@ -23,25 +23,25 @@ import java.util.Random;
 public class User {
     @Id
     @GeneratedValue
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class})
     private Long id;
 
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class})
     private String email;
 
     @JsonProperty("password")
     private String password;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class})
     private String firstName;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class})
     private String surName;
 
     @JsonView({UsersView.Full.class})
     private LocalDateTime dateCreated;
 
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class})
     private boolean isAdmin;
 
     @JsonView({UsersView.Full.class})

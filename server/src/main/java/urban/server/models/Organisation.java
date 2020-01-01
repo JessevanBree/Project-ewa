@@ -2,7 +2,6 @@ package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
 
@@ -16,8 +15,8 @@ import java.util.Objects;
         @NamedQuery(name = "find_all_organisations", query = "select o from Organisation o"),
         @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1"),
         @NamedQuery(name = "find_organisation_by_user", query = "select o from Organisation o " +
-                "where o.organisationAdmin.id = ?1 or ?1 in (select u.id from User u " +
-                "join u.organisations uo on uo.id = o.id)")
+                "where o.organisationAdmin.id = ?1 or ?1 in (select u.id from User u "
+                + "join u.organisations uo WHERE uo.id = o.id)")
 
 })
 public class Organisation {
@@ -30,7 +29,7 @@ public class Organisation {
     private String name;
 
     @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonSerialize(using = UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class)
     @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
 
@@ -44,7 +43,7 @@ public class Organisation {
 
     @ManyToOne()
     @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonSerialize(using = UsersView.OnlyIdEmailAdminFirstNameLastNameSerializer.class)
     private User organisationAdmin;
 
     // helper

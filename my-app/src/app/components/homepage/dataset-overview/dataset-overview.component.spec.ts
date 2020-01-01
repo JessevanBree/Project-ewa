@@ -15,6 +15,7 @@ import * as firebase from "firebase";
 
 describe('DatasetOverviewComponent', () => {
   let component: DatasetOverviewComponent;
+  let componentHTML: HTMLElement;
   let fixture: ComponentFixture<DatasetOverviewComponent>;
 
   beforeEach(async(() => {
@@ -37,4 +38,10 @@ describe('DatasetOverviewComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a dataset table', () => {
+    componentHTML = fixture.nativeElement;
+    let table: HTMLTableElement = componentHTML.querySelector("table");
+    expect(table).toBeDefined();
+  })
 });

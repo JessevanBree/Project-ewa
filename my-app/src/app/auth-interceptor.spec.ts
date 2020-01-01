@@ -14,7 +14,7 @@ describe('AuthInterceptor', () => {
     });
   });
 
-  it('should create', () => {
+  it('should create an instance of', () => {
     expect(AuthInterceptor).toBeTruthy();
   });
 });

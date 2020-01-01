@@ -44,11 +44,13 @@ export class AdminDatasetsComponent implements OnInit {
 	}
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
-  saveRequest($event) {
+  saveRequest($event: Dataset) {
     this.editIsClicked = false;
     //Update (save) the dataset in both arrays
+    console.log($event);
     this.datasets[this.activeIndex] = $event;
     //this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
+    this.datasetService.updateDataset($event);
     console.log("Dataset has been saved");
   }
 
@@ -66,7 +68,8 @@ export class AdminDatasetsComponent implements OnInit {
   }
 
   onDeleteClick(dataset: Dataset) {
-    if (confirm("Delete dataset: " + dataset.name)) {
+    if (confirm("Are you sure you want to delete dataset: " + dataset.name)) {
+      this.datasets = this.datasets.filter(d => d != dataset);
       this.datasetService.deleteDataset(dataset);
     }
   }
