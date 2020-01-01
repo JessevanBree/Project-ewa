@@ -35,12 +35,12 @@ export class ViewDatasetPopupComponent implements OnInit {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
           const id = params.id;
-          console.log(id);
+          // console.log(id);
           this.editingDataset = this.datasets.find(dataset => dataset.id == id);
           if(this.editingDataset){
             this.pdfSource = this.editingDataset.fileType == "pdf" ?
               this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id) : null;
-            console.log(this.pdfSource);
+            // console.log(this.pdfSource);
           }
 
         }

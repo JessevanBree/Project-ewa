@@ -24,7 +24,7 @@ export class UserService {
         console.log(error)
       },
       () => {
-        console.log("Finished retrieving users");
+        // console.log("Finished retrieving users");
       }
     )
 

@@ -43,7 +43,7 @@ export class EditOrganisationPopupComponent implements OnInit, OnDestroy {
             this.editingOrg = Organisation.trueCopy(this.selectedOrg);
             this.editingOrgAdminEmail = this.editingOrg.organisationAdmin.email;
 
-            console.log(this.editingOrg);
+            // console.log(this.editingOrg);
           }
         }
       );
@@ -76,7 +76,7 @@ export class EditOrganisationPopupComponent implements OnInit, OnDestroy {
 
   addMember(email: string) {
     let user: User = this.userService.getUserByEmail(email);
-    console.log(this.editingOrg.users);
+    // console.log(this.editingOrg.users);
     if (user == null || undefined || email == null || undefined) {
       return this.errorHandling("User not found");
     } else if (this.editingOrg.users.includes(user) || this.editingOrg.organisationAdmin.id === user.id) {
@@ -92,7 +92,7 @@ export class EditOrganisationPopupComponent implements OnInit, OnDestroy {
     if (user == null) return;
     this.editingOrg.users = this.editingOrg.users.filter(u => u.id != user.id);
     this.organisationService.deleteMemberFromOrg(this.editingOrg.id, user.id);
-    console.log(this.editingOrg.users);
+    // console.log(this.editingOrg.users);
   }
 
   errorHandling(error: string) {

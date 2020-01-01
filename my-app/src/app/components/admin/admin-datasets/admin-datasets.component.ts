@@ -38,7 +38,7 @@ export class AdminDatasetsComponent implements OnInit {
       },
       error => console.log(error),
       () => {
-        console.log("Finished retrieving datasets for admin");
+        // console.log("Finished retrieving datasets for admin");
       }
     );
 	}
@@ -47,17 +47,14 @@ export class AdminDatasetsComponent implements OnInit {
   saveRequest($event: Dataset) {
     this.editIsClicked = false;
     //Update (save) the dataset in both arrays
-    console.log($event);
+    // console.log($event);
     this.datasets[this.activeIndex] = $event;
-    //this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
     this.datasetService.updateDataset($event);
-    console.log("Dataset has been saved");
   }
 
   //Check if edit button is clicked to open pop-up
   onEditButtonClick(dataset) {
     this.activeIndex = this.datasets.indexOf(dataset);
-
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
     this.editIsClicked = true;

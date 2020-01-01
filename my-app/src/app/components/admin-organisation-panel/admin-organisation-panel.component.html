@@ -22,7 +22,7 @@
 
 <div class="container" *ngIf="this.userOrganisations.length">
   <div class="row">
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-5 col-sm-12">
       <div class="card" id="Org-details">
         <div class="card-header">
           <h4> Select an organisation </h4>
@@ -31,62 +31,51 @@
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
                   (change)="orgSelectionChanged()"
                   [(ngModel)]="this.currentSelectedOrg">
-            <option *ngFor="let organisation of this.userOrganisations" [ngValue]="organisation"
-            >{{organisation.name}}</option>
+            <option *ngFor="let organisation of this.userOrganisations" [ngValue]="organisation">
+              {{organisation.name}}</option>
           </select>
           <br>
-          <br>
-
           <span class="d-inline"><p class="p1" *ngIf="this.userOrganisations != null">
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
-            <strong>Amount of members:</strong> {{ members.length }}</p></span><br>
-
-          <span *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()" data-dismiss="modal">Delete organisation</button>
-                     <br><br>
+            <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
+            <strong>Amount of members:</strong> {{ members.length }}</p></span>
+          <div class="btn-group btn-group-sm" role="group" *ngIf="userIsAdminOfOrgs">
+            <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()">
+              Delete organisation</button>
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
                       data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
               </button>
               <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
                       data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
-              </button><br><br>
-
-          </span>
-
-
+              </button>
+          </div>
           <label for="searchFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
                  (ngModelChange)="checkIfListEmpty()">
 
         </div>
-
-        <ul class="userList list-group list-group-flush">
-          <li class="list-group-item p-2 pl-3" *ngIf="emptyList">
-				<span class="row mx-1 align-middle">
-					<p class="my-auto">No users found</p>
-				</span>
-          </li>
-          <!-- Show a message if the organisation doesn't have any members -->
-          <li class="list-group-item" id="noMemberMessage" *ngIf="members.length == 0">
+        <div class="card-body">
+          <h5>Members of organisation</h5>
+          <ul class="userList list-group" style="max-height: 500px; overflow-y: auto">
+            <!-- Show a message if the organisation doesn't have any members -->
+            <li class="list-group-item" id="noMemberMessage" *ngIf="members.length == 0">
             <span class="row mx-1 align-middle">
               The current selected organisation doesn't have any members
             </span>
-          </li>
-
-          <li class="list-group-item p-1" *ngFor="let member of members | userFilter:searchFilter">
+            </li>
+            <li class="list-group-item p-1" *ngFor="let member of members | userFilter:searchFilter">
             <span class="row mx-1 align-middle">
-<!--                    <p class="col-lg-8">{{member.email}} , <br> {{member.firstName}},<br> {{member.surName}}</p>-->
-              <p class="col-lg-8">{{member.email}} <br> <strong>Name:</strong> {{member.firstName}} {{member.surName}}</p>
-					          <span class="btn-group col-lg-4 h-75" *ngIf="userIsAdminOfOrgs">
-						          <button class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
+              <span class="col-lg-8">{{member.email}}
+                <p *ngIf="member.firstName || member.surName">
+                  <strong>Name:</strong> {{member.firstName}} {{member.surName}}</p></span>
+					          <span class="btn-group col-lg-3 h-75 float-right" *ngIf="userIsAdminOfOrgs">
+						          <button class="btn btn-sm btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
                     </span>
-
-
-
             </span>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="col-md-6 col-sm-12">

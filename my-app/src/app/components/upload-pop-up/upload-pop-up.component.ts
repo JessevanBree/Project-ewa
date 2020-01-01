@@ -81,32 +81,32 @@ export class UploadPopUpComponent implements OnInit {
       (data: Organisation[]) =>
         this.organisationsOfUser = data,
       (error) => console.log(error),
-      () => console.log("Finished retrieving user's organisations"));
+      () => {
+        // console.log("Finished retrieving user's organisations")
+      });
   }
 
   onClearAllOrganisations() {
     this.selected = [];
-    console.log("Selected organisations after CLEAR: " + this.selected);
+    // console.log("Selected organisations after CLEAR: " + this.selected);
   }
 
   onSelectAllOrganisations() {
     this.selected = this.organisationsOfUser;
-    console.log("Selected organisations after ALL: " + this.selected);
+    // console.log("Selected organisations after ALL: " + this.selected);
   }
 
   //Retreive form data and upload new dataset
   onSubmit() {
-    console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
+    // console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
-    console.log(uploadingUser);
+    // console.log(uploadingUser);
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     // let fileName = this.file.name.split(".");
-
-    console.log("input is " + this.publicityInput);
-    console.log("input is " + this.publicityGroupInput);
+    /*console.log("input is " + this.publicityInput);
+    console.log("input is " + this.publicityGroupInput);*/
 
     let createdDataset: Dataset;
-
     if (this.publicityInput == "Group") {
       createdDataset = new Dataset(this.nameInput, this.regionInput,
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
@@ -151,7 +151,7 @@ export class UploadPopUpComponent implements OnInit {
   uploadListener(file: any): void {
     let arrayOfObjects = [];
     this.file = file.target.files.item(0);
-    console.log(file.target.files.item(0));
+    // console.log(file.target.files.item(0));
 
     if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";
@@ -168,12 +168,12 @@ export class UploadPopUpComponent implements OnInit {
           skipEmptyLines: true,
           //results is an object with the data (chartdata), metadata (headers, delimiter...)
           complete: (results) => {
-            console.log(results);
+            // console.log(results);
             // get the data attribute from the results object and store the keys of the first data object
             // we do not get the metadata because the delimiter can be ';', otherwise the rest of the code will not work
             let csvObjects = results.data;
             this.headers = Object.keys(csvObjects[0]);
-            console.log("Headers: ", this.headers);
+            // console.log("Headers: ", this.headers);
             // check if the first element has a ';' in it. If so the headers need to be split according the ';' delimiter
             if (this.headers[0].includes(";")) {
               for (let i = 0; i < csvObjects.length; i++) {
@@ -232,8 +232,8 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   onChangeOrganisationSelect() {
-    console.log(this.organisationsOfUser);
-    console.log(this.selected);
+   /* console.log(this.organisationsOfUser);
+    console.log(this.selected);*/
   }
 
   //Core method which converts the csv data to chart data/visualization
@@ -247,7 +247,7 @@ export class UploadPopUpComponent implements OnInit {
     //Retrieves the header to use for the x and y axes
     xAxisLabel = this.headers[this.xAxisInputs[0]];
     yAxisLabel = this.headers[this.yAxisInput];
-    console.log(xAxisLabel, yAxisLabel);
+    // console.log(xAxisLabel, yAxisLabel);
 
     //Retrieves the records from the csv file in order to visualize the charts
     //Displays a max total of atleast
@@ -265,7 +265,7 @@ export class UploadPopUpComponent implements OnInit {
         chartData.push(recordYAxis);
         chartLabels.push(recordXAxis);
       }
-      console.log(chartLabels, chartData);
+      // console.log(chartLabels, chartData);
     } else for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
       let recordYAxis = object[this.headers[this.yAxisInput]];

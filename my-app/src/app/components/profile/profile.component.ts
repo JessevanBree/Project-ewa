@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
     } else {
       this.user = this.userService.getLoggedInUser();
       this.userCopy = User.trueCopy(this.user);
-      console.log(this.userCopy);
+      // console.log(this.userCopy);
       if (!this.user.firstName && !this.user.surName) {
         this.updateButtonToggle = false;
       }
@@ -84,7 +84,7 @@ export class ProfileComponent implements OnInit {
       this.user = this.userCopy;
       this.httpClient.put(this.REST_USERS_URL, this.user).subscribe(
         (user) => {
-          console.log("User being sent")
+          // console.log("User being sent")
         },
         error => {
           console.log(error)

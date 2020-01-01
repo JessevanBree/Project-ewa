@@ -37,7 +37,7 @@ public class CMSDefaults {
         this.defaults.add(new CMS("NAV_LOG_OUT", "navbar", "navbar", "Log out", ""));
 
         // Home
-        this.defaults.add(new CMS("HOME_SEARCH", "home", "home_overview", "Search by year or name", ""));
+        this.defaults.add(new CMS("HOME_SEARCH", "home", "home_overview", "Search by year, name or description", ""));
         this.defaults.add(new CMS("HOME_REGION_FILTER", "home", "home_overview", "Region filter", ""));
         this.defaults.add(new CMS("HOME_PUBLICITY_FILTER", "home", "home_overview", "Publicity filter", ""));
         this.defaults.add(new CMS("HOME_FILTER_BUTTON", "home", "home_overview", "Filter", ""));
