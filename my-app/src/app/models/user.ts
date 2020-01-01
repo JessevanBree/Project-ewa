@@ -7,20 +7,22 @@ export class User {
   public isAdmin: boolean;
   public dateCreated: Date;
   public organisations?: Organisation[] = [];
-  public adminOfOrganisations: Organisation[];
+  public adminOfOrganisations?: Organisation[] ;
   public firstName?: string;
   public surName?: string;
 
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
-              surName?: string, password?: string, organisation?: Organisation) {
+              surName?: string, password?: string, organisations?: Organisation[],
+              adminOfOrganisations?: Organisation[]) {
     this.email = email;
     this.passWord = password;
     this.isAdmin = isAdmin;
     this.firstName = firstName;
     this.surName = surName;
     this.dateCreated = new Date(Date.now());
-    this.organisations.push(organisation);
+    this.organisations = organisations;
+    this.adminOfOrganisations = adminOfOrganisations;
   }
 
   equals(user: User): boolean {

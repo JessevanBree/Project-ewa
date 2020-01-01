@@ -59,7 +59,12 @@ export class OrganisationService {
       }
     );
     return this.myOrganisations;*/
-    return this.http.get(this.REST_ORGANISATIONS_URL + "/find-by-user/" + this.userService.getLoggedInUser().id);
+    let userId: number;
+    if(this.userService.getLoggedInUser()){
+       userId = this.userService.getLoggedInUser().id;
+    } else userId = parseInt(sessionStorage.getItem("id"));
+
+    return this.http.get(this.REST_ORGANISATIONS_URL + "/find-by-user/" + userId);
   }
 
   public getDatasetsByOrganisation(orgId: number) {
@@ -145,10 +150,13 @@ export class OrganisationService {
 
   // Gets all members from an organisation
   getOrgMembers(org: Organisation) {
-    let orgId = org.id;
+    let orgId;
+    if (org) {
+      orgId = org.id
+    }
 
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
 
     const url = `${this.REST_ORG_USERS_URL}/${orgId}`;

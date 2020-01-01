@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="editingDataset">
           <div class="form-row">
             <div class="form-group col-12">
             <label for="titleInput">Title</label>

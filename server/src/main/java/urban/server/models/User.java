@@ -55,6 +55,7 @@ public class User {
     private List<Dataset> datasets = new ArrayList<>();
 
     @OneToMany(mappedBy = "organisationAdmin")
+    @JsonView({UsersView.Full.class})
     private List<Organisation> adminOfOrganisations;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes
@@ -62,7 +63,7 @@ public class User {
 
     }
 
-    private User(String email, String firstName, String surName, boolean isAdmin, Organisation organisation) {
+    private User(String email, String firstName, String surName, boolean isAdmin, List<Organisation> organisations) {
         this.email = email;
         this.firstName = firstName;
         this.surName = surName;
@@ -166,6 +167,10 @@ public class User {
 
     public List<Organisation> getAdminOfOrganisations() {
         return adminOfOrganisations;
+    }
+
+    public void setAdminOfOrganisations(List<Organisation> organisations) {
+        adminOfOrganisations = organisations;
     }
 
     public void addAdminOfOrganisation(Organisation organisation) {

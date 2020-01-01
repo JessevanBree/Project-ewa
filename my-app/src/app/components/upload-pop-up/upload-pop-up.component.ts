@@ -72,15 +72,16 @@ export class UploadPopUpComponent implements OnInit {
 
     // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
     this.organisationsOfUser = [];
+
+  }
+
+
+  ngOnInit() {
     this.organisationService.getMyOrganisations().subscribe(
       (data: Organisation[]) =>
         this.organisationsOfUser = data,
       (error) => console.log(error),
       () => console.log("Finished retrieving user's organisations"));
-  }
-
-
-  ngOnInit() {
   }
 
   onClearAllOrganisations() {

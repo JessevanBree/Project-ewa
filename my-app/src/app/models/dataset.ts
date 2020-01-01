@@ -43,8 +43,10 @@ export class Dataset {
     this.user = user;
     this.chart = chart;
     this.chartLabels = chartLabels;
+    if(fileName){
     this.fileName = fileName.split(".")[0];
     this.fileType = fileName.split(".")[1];
+    }
     this.description = description == null ? null : description;
     this.organisations = organisations == [] ? [] : organisations;
     this.id = id;

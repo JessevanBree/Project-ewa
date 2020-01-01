@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewMemberPopupComponent } from './view-member-popup.component';
+import {HttpClient, HttpHandler} from "@angular/common/http";
+import {ActivatedRoute} from "@angular/router";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {RouterTestingModule} from "@angular/router/testing";
 
 describe('ViewMemberPopupComponent', () => {
   let component: ViewMemberPopupComponent;
@@ -8,7 +12,9 @@ describe('ViewMemberPopupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewMemberPopupComponent ]
+      declarations: [ ViewMemberPopupComponent ],
+      imports: [HttpClientTestingModule, RouterTestingModule ],
+      providers: []
     })
     .compileComponents();
   }));

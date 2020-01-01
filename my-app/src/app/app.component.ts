@@ -1,8 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import * as firebase from "firebase";
-import {FirebaseFileService} from "./services/firebase-file.service";
 import {Router} from "@angular/router";
-import {DatasetService} from "./services/dataset.service";
 
 @Component({
   selector: 'app-root',

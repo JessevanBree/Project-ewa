@@ -48,7 +48,7 @@ export class CreateMemberPopupComponent implements OnInit {
       if (confirm("Are you sure to create and add the following member: " + email)){
 
         // Create user
-        let newMember = new User(email, false, firstName, surName, password, this.receivedSelectedOrg);
+        let newMember = new User(email, false, firstName, surName, password, [this.receivedSelectedOrg]);
         this.userService.createUser(newMember).subscribe(
           (user: User) => {
             newMember = user; // Assign returned user to also get the ID

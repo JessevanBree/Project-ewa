@@ -2,7 +2,7 @@
 <div class="modal fade" #addMemberModal id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberModalLabel"
      data-backdrop="false" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content modal-lg">
+    <div class="modal-content modal-lg" *ngIf="receivedSelectedOrg">
       <div class="modal-header">
         <h5 class="modal-title" id="addMemberModalLabel">Add an existing member to {{ receivedSelectedOrg.name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,9 +10,9 @@
         </button>
       </div>
       <div class="modal-body">
-
         <label for="searchFilter">Search user by email</label>
-        <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter" (ngModelChange)="checkIfListEmpty()">
+        <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+               (ngModelChange)="checkIfListEmpty()">
       </div>
 
       <ul class="userList list-group list-group-flush">

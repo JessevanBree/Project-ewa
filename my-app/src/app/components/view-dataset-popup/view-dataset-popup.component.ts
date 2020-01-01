@@ -37,8 +37,9 @@ export class ViewDatasetPopupComponent implements OnInit {
           const id = params.id;
           console.log(id);
           this.editingDataset = this.datasets.find(dataset => dataset.id == id);
-          if(this.editingDataset.fileType == "pdf"){
-            this.pdfSource = this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id);
+          if(this.editingDataset){
+            this.pdfSource = this.editingDataset.fileType == "pdf" ?
+              this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id) : null;
             console.log(this.pdfSource);
           }
 

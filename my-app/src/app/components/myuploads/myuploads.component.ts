@@ -7,7 +7,7 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {FirebaseFileService} from "../../services/firebase-file.service";
 import {UserService} from "../../services/user.service";
 import {OrganisationService} from "../../services/organisation.service";
-import {SessionService} from "../../services/session/session.service";
+
 import {SpringSessionService} from "../../services/session/spring-session.service";
 import { CmsService } from 'src/app/services/cms.service';
 
@@ -91,8 +91,7 @@ export class MyuploadsComponent implements OnInit {
       );
     }
   );*/
-
-      this.fileService.getAllFileUrls();
+      // this.fileService.getAllFileUrls();
     });
 
   }

@@ -19,7 +19,7 @@ export class AddMemberPopupComponent implements OnInit {
 
   private users: User[];
 
-  searchFilter: String;
+  searchFilter: string;
 
   private orgMembers: User[]; // All the members of the current selected organisation
 

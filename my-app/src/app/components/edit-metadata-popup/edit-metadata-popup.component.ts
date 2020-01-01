@@ -41,21 +41,26 @@ export class EditMetadataPopupComponent implements OnInit {
               private userService: UserService,
               private activatedRoute: ActivatedRoute,
               private organisationService: OrganisationService) {
-    let userId: number = userService.getLoggedInUser().id;
+    // let userId: number = userService.getLoggedInUser().id;
     this.datasets = this.datasetService.getDatasets();
     this.savedDataset = new EventEmitter<Dataset>();
     this.closingToggle = new EventEmitter<boolean>();
     this.listOfYears = [];
     this.datasetUserOrganisations = [];
     this.userBelongsToOrganisation = false;
-    for (let i = 1980; i < 2020; i++) {
+    for (let i = 1980; i < 2021; i++) {
       this.listOfYears.push(i);
     }
   }
 
 
   saveChanges() {
-    console.log(this.editingDataset.organisations);
+    // console.log(this.editingDataset.organisations);
+    //Makes sure the organisations list is empty of the dataset if another publicity has been selected
+    // other than GROUP
+    if(this.originalDataset.publicity != this.editingDataset.publicity && this.editingDataset.publicity != "GROUP") {
+      this.editingDataset.organisations = [];
+    }
     this.savedDataset.emit(this.editingDataset);
   }
 
@@ -87,9 +92,9 @@ export class EditMetadataPopupComponent implements OnInit {
               }
             }*/
             let user: User = this.userService.getLoggedInUser();
-            if (user.organisations.length > 0 || user.adminOfOrganisations.length > 0) {
-              this.userBelongsToOrganisation = true;
-            }
+            console.log(user);
+            this.userBelongsToOrganisation = user.organisations.length > 0 || user.adminOfOrganisations.length > 0;
+
             this.organisationService.getMyOrganisations().subscribe(
               (data: Organisation[]) =>
                 this.datasetUserOrganisations = data,

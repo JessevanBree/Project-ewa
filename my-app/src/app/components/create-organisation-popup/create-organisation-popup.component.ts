@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Dataset, Publicity} from "../../models/dataset";
-import {ADatasetService} from "../../services/a-dataset.service";
 import {Organisation} from "../../models/organisation";
 import {User} from "../../models/user";
 import {OrganisationService} from "../../services/organisation.service";

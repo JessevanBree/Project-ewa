@@ -7,10 +7,9 @@
         <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" *ngIf="selectedUser">
         <h6> <b>Email:</b> {{ selectedUser.email }}</h6>
         <br>
-
         <div *ngIf="selectedUser.firstName; else hasNoFirstNameSet">
           <h6> <b>First name:</b> {{ selectedUser.firstName }}</h6>
         </div>

@@ -12,7 +12,7 @@ export class FirebaseFileService {
   private readonly STORAGE_URL = "https://firebasestorage.googleapis.com/v0/b/projectewa-a2355.appspot.com/o/";
   private readonly CSV_FILE_TYPE = ".csv";
   private fileDownloadUrls: string[]; // Stores the download url's from firebase storage
-  private storage = firebase.storage();
+  // private storage = firebase.storage();
 
   constructor(private httpClient: HttpClient) {
     this.fileDownloadUrls = [];
@@ -22,14 +22,14 @@ export class FirebaseFileService {
   public saveFile(file: File, datasetId: number, datasetName?: string) {
     let fileName = file.name.split(/\.csv|\.pdf/)[0];
     let fileType = file.type.split("/")[1];
-    console.log(file);
-    console.log("Filename: " + fileName);
-    console.log("Filetype: " + fileType);
+    // console.log(file);
+    // console.log("Filename: " + fileName);
+    // console.log("Filetype: " + fileType);
     if (fileType === "vnd.ms-excel"){
       fileType = "csv"
     }
-    console.log("Filename2: " + fileName);
-    console.log("Filetype2: " + fileType);
+    // console.log("Filename2: " + fileName);
+    // console.log("Filetype2: " + fileType);
     this.httpClient.post<File>(this.STORAGE_URL + fileName + "_" + datasetId
       + "." + fileType, file).subscribe(
       (file: File) => {
@@ -51,6 +51,7 @@ export class FirebaseFileService {
     return this.STORAGE_URL + fileName + "_" + datasetId + "." + fileType + "?alt=media";
   }
 
+  // Retrieves specific PDF download url from firebase storage
   public getPDFUrl(fileName: string, datasetId: number) {
     /*this.httpClient.get(this.STORAGE_URL + fileName + "_" + datasetId + ".pdf").subscribe(
       (response) => console.log(response)
@@ -70,13 +71,14 @@ export class FirebaseFileService {
       },
       error => console.log(error),
       () => {
-        items.forEach(item => {
+        items.forEach(item => console.log(item.getDownloadURL()));
+        /*items.forEach(item => {
           this.storage.ref().child(item.name).getDownloadURL().then(
             url => {
               url ? this.fileDownloadUrls.push(url) : null;
             }
           );
-        });
+        });*/
       }
     );
   }

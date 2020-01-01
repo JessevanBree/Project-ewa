@@ -2,6 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateOrganisationPopupComponent } from './create-organisation-popup.component';
 import {FormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('CreateOrganisationPopupComponent', () => {
   let component: CreateOrganisationPopupComponent;
@@ -10,7 +12,8 @@ describe('CreateOrganisationPopupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateOrganisationPopupComponent ],
-      imports: [ FormsModule ]
+      imports: [ FormsModule, RouterTestingModule, HttpClientTestingModule ],
+      providers: []
     })
     .compileComponents();
   }));

@@ -4,6 +4,12 @@ import { DatasetDetailComponent } from './dataset-detail.component';
 import {ChartsModule} from "ng2-charts";
 import {FormsModule} from "@angular/forms";
 import {RouterTestingModule} from "@angular/router/testing";
+import {PdfViewerModule} from "ng2-pdf-viewer";
+import {HttpClient, HttpHandler} from "@angular/common/http";
+import {PapaParseModule} from "ngx-papaparse";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {FirebaseFileService} from "../../../services/firebase-file.service";
+import {DatasetService} from "../../../services/dataset.service";
 
 describe('DatasetDetailComponent', () => {
   let component: DatasetDetailComponent;
@@ -12,8 +18,10 @@ describe('DatasetDetailComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatasetDetailComponent ],
-      imports: [ChartsModule, FormsModule, RouterTestingModule]
+      declarations: [DatasetDetailComponent],
+      imports: [ChartsModule, FormsModule, PdfViewerModule, PapaParseModule,
+      RouterTestingModule, HttpClientTestingModule],
+      providers: []
     })
     .compileComponents();
   }));

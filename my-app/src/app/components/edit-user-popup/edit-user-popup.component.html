@@ -8,7 +8,7 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form class="editUserForm" #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+				<form class="editUserForm" #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="editingUser">
 					<div class="form-row">
 						<label for="firstNameInput">Firstname</label>
 						<input [(ngModel)]="editingUser.firstName" type="text"
