@@ -65,6 +65,13 @@ public class CMSDefaults {
         this.defaults.add(new CMS("MY_UPLOADS_EDIT_HOVER", "my_uploads", "my_uploads", "Edit this dataset", ""));
         this.defaults.add(new CMS("MY_UPLOADS_DEL_HOVER", "my_uploads", "my_uploads", "Delete this dataset", ""));
 
+        // Upload-popup
+        this.defaults.add(new CMS("UPLOAD_POPUP_CHART_INFO", "upload-popup", "upload-popup", "Configure your chart so that it uses the headers from the file you would like\n" +
+                "                  to visualize. A chart generally defines what is being measured in the x-axis and the y-axis\n" +
+                "                  defines how much of what is being measured. The configuration allows a maximum of two x-axes-e.g., " +
+                "to display the region and year data in the same x-axis.\n", ""));
+
+
         // Profile
         this.defaults.add(new CMS("PROFILE_FIRSTNAME_EDIT", "profile", "profile", "Firstname", ""));
         this.defaults.add(new CMS("PROFILE_SURNAME_EDIT", "profile", "profile", "Surname", ""));
@@ -120,6 +127,7 @@ public class CMSDefaults {
                 "MY_UPLOADS_VIEW_HOVER",
                 "MY_UPLOADS_EDIT_HOVER",
                 "MY_UPLOADS_DEL_HOVER",
+                "UPLOAD_POPUP_CHART_INFO",
                 "PROFILE_FIRSTNAME_EDIT",
                 "PROFILE_SURNAME_EDIT",
                 "PROFILE_UPDATE_BUTTON",

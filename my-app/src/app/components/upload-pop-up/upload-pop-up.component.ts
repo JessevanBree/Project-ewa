@@ -11,6 +11,7 @@ import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {IDropdownSettings} from 'ng-multiselect-dropdown';
 import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
+import {CmsService} from "../../services/cms.service";
 
 
 @Component({
@@ -24,6 +25,8 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('csvReader', {static: false})
   @ViewChild('uploadModal', {static: false}) private uploadModal;
 
+  public readonly componentLink = "upload-popup";
+  public CMSContent: Object;
   private detailForm: NgForm;
   private headers: string[];
   private csvData: object[];
@@ -56,7 +59,7 @@ export class UploadPopUpComponent implements OnInit {
 
   constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
               private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
-              private router: Router) {
+              private cmsService: CmsService, private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i <= new Date().getFullYear(); i++) {
       this.listOfYears.push(i);
@@ -72,6 +75,10 @@ export class UploadPopUpComponent implements OnInit {
 
     // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
     this.organisationsOfUser = [];
+    this.CMSContent = {
+      "UPLOAD_POPUP_CHART_INFO": ""
+    };
+    this.cmsService.fillPage(this.CMSContent, this.componentLink);
 
   }
 
@@ -139,6 +146,7 @@ export class UploadPopUpComponent implements OnInit {
   onAddXAxes(): void {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs.push(null);
+      this.chartType = 'bar';
       this.removeXAxesToggle = true;
       this.validationToggle = false;
     } else if (this.xAxisInputs.length == 2) {
