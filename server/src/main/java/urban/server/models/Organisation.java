@@ -2,6 +2,7 @@ package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import urban.server.views.CustomView;
 import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
@@ -23,14 +24,14 @@ import java.util.Objects;
 public class Organisation {
     @Id
     @GeneratedValue
-    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private Long id;
 
-    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private String name;
 
-    @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonView({CustomView.Full.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
 
@@ -43,8 +44,8 @@ public class Organisation {
     private List<Dataset> datasets = new ArrayList<>();*/
 
     @ManyToOne()
-    @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonView({CustomView.Full.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     private User organisationAdmin;
 
     // helper

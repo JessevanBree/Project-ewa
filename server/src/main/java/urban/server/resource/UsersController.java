@@ -9,6 +9,7 @@ import urban.server.models.Organisation;
 import urban.server.resource.exceptions.ResourceNotFoundException;
 import urban.server.models.User;
 import urban.server.repositories.JPAUserRepository;
+import urban.server.views.CustomView;
 import urban.server.views.UsersView;
 
 import java.net.URI;
@@ -26,7 +27,7 @@ public class UsersController {
         List<User> users = userRepo.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(users);
-        mappingJacksonValue.setSerializationView(UsersView.Full.class);
+        mappingJacksonValue.setSerializationView(CustomView.Full.class);
         return mappingJacksonValue;
     }
 

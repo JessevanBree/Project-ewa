@@ -3,6 +3,7 @@ package urban.server.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import urban.server.views.CustomView;
 import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
@@ -23,39 +24,39 @@ import java.util.Random;
 public class User {
     @Id
     @GeneratedValue
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private Long id;
 
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private String email;
 
     @JsonProperty("password")
     private String password;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({CustomView.Full.class})
     private String firstName;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({CustomView.Full.class})
     private String surName;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({CustomView.Full.class})
     private LocalDateTime dateCreated;
 
-    @JsonView({UsersView.Full.class, UsersView.OnlyIdEmailIsadminSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private boolean isAdmin;
 
-    @JsonView({UsersView.Full.class})
+    @JsonView({CustomView.Full.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     @ManyToMany()
     private List<Organisation> organisations = new ArrayList<>();
 
-    @JsonView(UsersView.Full.class)
-    @JsonSerialize(using = DatasetsView.OnlyIdDataSerializer.class)
+    @JsonView({CustomView.Full.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     @OneToMany(mappedBy = "user")
     private List<Dataset> datasets = new ArrayList<>();
 
     @OneToMany(mappedBy = "organisationAdmin")
-    @JsonView({UsersView.Full.class})
+    @JsonView({CustomView.Full.class})
     private List<Organisation> adminOfOrganisations;
 
     // we need to have a default no argument constructor so that we can create user without giving all attributes

@@ -13,6 +13,7 @@ import urban.server.repositories.JPADatasetRepository;
 import urban.server.repositories.JPAOrganisationRepository;
 import urban.server.repositories.JPAUserRepository;
 import urban.server.resource.exceptions.ResourceNotFoundException;
+import urban.server.views.CustomView;
 import urban.server.views.OrganisationsView;
 
 import java.net.URI;
@@ -37,7 +38,7 @@ public class OrganisationsController {
         List<Organisation> organisations = organisationRepo.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(organisations);
-        mappingJacksonValue.setSerializationView(OrganisationsView.Full.class);
+        mappingJacksonValue.setSerializationView(CustomView.Full.class);
         return mappingJacksonValue;
     }
 

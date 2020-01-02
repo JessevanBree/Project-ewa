@@ -3,8 +3,10 @@ package urban.server.models;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.sun.istack.Nullable;
+import urban.server.models.helpers.CustomJson;
 import urban.server.models.helpers.PublicityEnum;
 import urban.server.models.helpers.RegionLevelEnum;
+import urban.server.views.CustomView;
 import urban.server.views.DatasetsView;
 import urban.server.views.OrganisationsView;
 import urban.server.views.UsersView;
@@ -19,51 +21,46 @@ import java.util.*;
 public class Dataset {
     @Id
     @GeneratedValue
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
-            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutUser.class,
-            DatasetsView.FullWithoutOrganisation.class, DatasetsView.OnlyIdDataSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private Long id;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
-            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutUser.class,
-            DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private String name;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     @Enumerated(value = EnumType.STRING)
     private RegionLevelEnum region;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     @Enumerated(value = EnumType.STRING)
     private PublicityEnum publicity;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     @Nullable
     private String description;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private int year;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private String fileName;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private String fileType;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     @OneToOne(cascade = CascadeType.ALL)
     private ChartDataSets chart;// TODO:: Set the right dataset for this -> update constructor
 
     //TODO:: data attr add @JsonView({DatasetsView.OnlyIdDataLabelsSerializer.class})
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class,
-            DatasetsView.IdNameSimpleUsersSerializer.class, DatasetsView.FullWithoutOrganisation.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     @ManyToOne
     private User user;
 
     @ManyToMany()
-    @JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
     private List<Organisation> organisations = new ArrayList<>();
 
@@ -72,7 +69,7 @@ public class Dataset {
     @ManyToOne
     private Organisation datasetOrganisation;*/
 
-    @JsonView({DatasetsView.Full.class})
+    @JsonView({CustomView.Full.class})
     @ElementCollection(targetClass = String.class)
     private List<String> chartLabels;
     // Specifies that a persistent property or field should be persisted as a large object to a database-supported large object type
