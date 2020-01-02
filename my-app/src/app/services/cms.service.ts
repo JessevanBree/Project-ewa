@@ -40,7 +40,9 @@ export class CmsService {
 				return CMSContent;
 			},
 			(err) => console.log(err),
-			() => console.log("Finished retrieving component data")
+			() => {
+        // console.log("Finished retrieving component data")
+      }
 		)
 	}
 }

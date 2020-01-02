@@ -62,10 +62,8 @@ export class SpringSessionService {
         }
       },
       () => {
-        console.log("Login successful for user: ", this.user);
+        // console.log("Login successful for user: ", this.user);
         this.userService.setLoggedInUser(this.user);
-
-        // this.adminOrganisationService.isAdminOfOrgs();
         return this.route.navigateByUrl("/");
       }
     );

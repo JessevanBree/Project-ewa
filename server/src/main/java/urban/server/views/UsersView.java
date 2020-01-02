@@ -15,7 +15,7 @@ public class UsersView {
 
     public static class Full { }
 
-    public static class OnlyIdEmailIsadminSerializer extends JsonSerializer<Object> {
+    public static class OnlyIdEmailAdminFirstNameLastNameSerializer extends JsonSerializer<Object> {
 
         @Override
         public void serialize(Object object, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -29,7 +29,7 @@ public class UsersView {
 
             // Include the view-class restricted part of the serialization
             mapper.setConfig(mapper.getSerializationConfig()
-                    .withView(UsersView.OnlyIdEmailIsadminSerializer.class));
+                    .withView(OnlyIdEmailAdminFirstNameLastNameSerializer.class));
 
             jsonGenerator.setCodec(mapper);
             jsonGenerator.writeObject(object);

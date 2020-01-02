@@ -5,8 +5,7 @@
       <div class="card-header">
         <h3 class="d-inline">{{CMSContent["HOME_CHART_TITLE"]}}</h3>
         <a [href]="url" download target="_blank" title="Download file in csv or pdf format"
-           class="btn btn-primary float-right"
-           (click)="onDownload()">{{CMSContent["HOME_CHART_DOWNLOAD"]}}  <i class="fa fa-download"></i></a>
+           class="btn btn-primary float-right">{{CMSContent["HOME_CHART_DOWNLOAD"]}}  <i class="fa fa-download"></i></a>
       </div>
 
       <div *ngIf="editedDataset.fileType == 'csv'">
@@ -15,9 +14,9 @@
           [labels]="editedDataset.chartLabels" width="400" height="350"></canvas>
       </div>
       <div *ngIf="editedDataset.fileType == 'pdf'" >
-        <pdf-viewer style="display:block; max-height: 400px"
+        <pdf-viewer style="display:block"
           [src]="url"
-          [render-text]="true" [original-size]="false" [autoresize]="true"
+          [render-text]="true" [original-size]="false"
           [show-all]="false" [(page)]="this.pdfPageIndex" (after-load-complete)="callBackFn($event)" ></pdf-viewer>
         <div class="row justify-content-center">
           <button class="btn btn-primary float-right fa fa-arrow-left" (click)="onPDFPageNavClick(0)">
@@ -29,7 +28,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left">
+  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left pt-1">
     <div class="card mb-2 w-100">
       <div class="card-header"><h3>{{CMSContent["HOME_DETAIL_TITLE"]}}</h3></div>
       <div class="card-body p-1 m-0">

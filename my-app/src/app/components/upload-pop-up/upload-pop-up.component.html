@@ -28,7 +28,7 @@
 
           </div>
 
-          <div id="chartConfiguration" class="form-row my-4" *ngIf="fileTypeUploaded == 'csv'">
+          <div id="chartConfiguration" class="form-row justify-content-center my-4" *ngIf="fileTypeUploaded == 'csv'">
             <div class="card mx-4" id="headerCard">
               <div class="card-header"><h5>Chart configuration</h5></div>
               <div class="card-body">
@@ -43,7 +43,8 @@
                               name="xOption">{{i}}. {{header}}</option>
                     </select>
                     <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
-                            class="btn btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
+                            class="btn btn-sm ml-3" id="addXAxes" (click)="onAddXAxes()"
+                    title="Add a second x-axes that defines your data">
                       <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
                     </button>
                   </div>
@@ -65,11 +66,15 @@
                     </select>
                   </div>
                 </div>
-                <button type="button" class="btn float-right" data-toggle="collapse" data-target="#chartOptions"
+                <div class="form-row">
+                  <p class="border border-success rounded p-2" *ngIf="!confirmToggle">
+                    {{CMSContent["UPLOAD_POPUP_CHART_INFO"]}}</p>
+                  <button type="button" class="btn float-right" data-toggle="collapse" data-target="#chartOptions"
                         aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
                         [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
                         [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
                         [disabled]="!validationToggle"></button>
+                </div>
               </div>
             </div>
           </div>

@@ -69,7 +69,7 @@ export class AddMemberPopupComponent implements OnInit {
 
     this.organisationService.getOrgMembers(this.receivedSelectedOrg).subscribe(
       (data: User[]) => {
-        console.log(data);
+        // console.log(data);
         data.map(o => {
           o ? this.orgMembers.push(o) : [];
         });

@@ -58,15 +58,15 @@ export class MyuploadsComponent implements OnInit {
 
   ngOnInit() {
     this.userId = this.sessionService.getUserId();
-    console.log(this.userService.getLoggedInUser());
+    // console.log(this.userService.getLoggedInUser());
     this.paramSubscription = this.activatedRoute.params.subscribe((params: Params) => {
       const userEmail = params.email;
       this.datasetService.getAllDatasets().subscribe(
         (data: Dataset[]) => {
+          // console.log(data);
           // for each dataset check if dataset exists and if the email of the dataset uploader
           // is equal to the logged in user mail which gets extracted from the URL parameter
           // if true push the dataset to the datasets array else return an empty array
-          console.log(data);
           if (data != null) {
             data.map((dataset: Dataset) => {
               dataset && dataset.user.email == userEmail ? this._userDatasets.push(dataset) : [];
@@ -77,7 +77,7 @@ export class MyuploadsComponent implements OnInit {
           console.log(error);
         },
         () => {
-          console.log("Finished retrieving user's datasets");
+          // console.log("Finished retrieving user's datasets");
         }
       );
       /*this.datasetService.getAllDatasets2().subscribe(
@@ -102,8 +102,8 @@ export class MyuploadsComponent implements OnInit {
   //This method gets the dataset from child component (edit-metadata-popup) to save the given edited dataset
   saveRequest($event) {
     this.editMetaDataToggle = false;
-    console.log($event);
-    console.log(this.activeIndex);
+    // console.log($event);
+    // console.log(this.activeIndex);
     //Update (save) the dataset in both arrays
     this._userDatasets[this.activeIndex] = $event;
     this.datasetService.updateDataset(this._userDatasets[this.activeIndex]);
@@ -114,7 +114,7 @@ export class MyuploadsComponent implements OnInit {
     this.activeIndex = datasetIndex;
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this._userDatasets[this.activeIndex]);
-    console.log(this.selectedDataset);
+    // console.log(this.selectedDataset);
     this.router.navigate(['edit-dataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
@@ -149,7 +149,7 @@ export class MyuploadsComponent implements OnInit {
   onDelete(datasetIndex: number) {
     let selectedDataset: Dataset;
     selectedDataset = this._userDatasets[datasetIndex];
-    console.log(selectedDataset);
+    // console.log(selectedDataset);
     if (confirm("Are you sure to delete this dataset?")) {
       this.datasetService.deleteDataset(selectedDataset);
       this.fileService.deleteFile(selectedDataset);
@@ -167,7 +167,7 @@ export class MyuploadsComponent implements OnInit {
   onAdd() {
     this.datasetService.addDataset(this.datasetService.generateRandomDataset());
     this._userDatasets = this.datasetService.getMyDatasets();
-    console.log("Adding random dataset..");
+    // console.log("Adding random dataset..");
   }
 
 

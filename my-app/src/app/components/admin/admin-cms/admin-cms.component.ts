@@ -21,7 +21,9 @@ export class AdminCmsComponent implements OnInit {
 				this.cmsDataCopy = [] = JSON.parse(JSON.stringify(data));
 			},
 			(err) => console.log(err),
-			() => console.log("Finished retrieving cms data")
+			() => {
+        // console.log("Finished retrieving cms data")
+      }
 		)
 	}
 
@@ -34,7 +36,7 @@ export class AdminCmsComponent implements OnInit {
 		// only send changed objects which are changed
 		for(let key in this.cmsData) {
 			if (!this.cmsData.hasOwnProperty(key)) continue;
-			
+
 			if(!CMS.fullEquals(this.cmsData[key], this.cmsDataCopy[key])){
 				changedValues.push(this.cmsData[key])
 			}
@@ -42,11 +44,13 @@ export class AdminCmsComponent implements OnInit {
 
 		if(changedValues.length == 0) return;
 		this.cmsService.saveAllCMSContent(changedValues).subscribe(
-			(response) => { 
+			(response) => {
 				this.editMode = !this.editMode;
 			},
 			(err) => console.log(err),
-			() => console.log("Saved cms data") 
+			() => {
+			  // console.log("Saved cms data")
+      }
 		)
 	}
 

@@ -30,10 +30,8 @@ export class OrganisationService {
       },
       (error) => console.log("Error when retrieving Organisations: " + error),
       () => {
-        console.log("All Organisations are retrieved correctly!");
-        console.log(this.organisations);
-        /*if(this.userService.getLoggedInUser() != null || this.userService.getLoggedInUser() != undefined)
-          this.userService.getLoggedInUser().organisations = [this.organisations[0], this.organisations[1]];*/
+        // console.log("All Organisations are retrieved correctly!");
+        // console.log(this.organisations);
       }
     );
   }
@@ -95,10 +93,9 @@ export class OrganisationService {
       },
       error => console.log(error),
       () => {
-        console.log("Finished posting organisation");
+        // console.log("Finished posting organisation");
       }
     );
-    console.log(this.organisations);
   }
 
   public addMemberToOrg(orgId: number, userId: number) {
@@ -107,11 +104,11 @@ export class OrganisationService {
     organisation.users.push(user);
     this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId, null).subscribe(
       response => {
-        console.log(response);
+        // console.log(response);
       },
       error => console.log(error),
       () => {
-        console.log("Finished adding user to organisation");
+        // console.log("Finished adding user to organisation");
       }
     );
     return organisation;
@@ -124,10 +121,13 @@ export class OrganisationService {
     organisation.name = orgName;
     this.http.put(this.REST_ORGANISATIONS_URL + "/" + orgId + "?user=" + userId + "&name=" + orgName, null)
       .subscribe(
-        response => console.log(response),
+        response => {
+          // console.log(response)
+        },
         error => console.log(error),
-        () => console.log("Updated organisation: ", orgId)
-      );
+        () => {
+          // console.log("Updated organisation: ", orgId)
+        });
   }
 
   // Not recommended to use because it can cause json parse errors due to recursion
@@ -138,12 +138,12 @@ export class OrganisationService {
     this.http.put(this.REST_ORGANISATIONS_URL, org).subscribe(
       (data: Organisation) => {
         this.organisations[index] = data;
-        console.log(index, this.organisations[index]);
-        console.log(this.organisations);
+        // console.log(index, this.organisations[index]);
+        // console.log(this.organisations);
       },
       error => console.log(error),
       () => {
-        console.log("Finished updating organisation");
+        // console.log("Finished updating organisation");
       }
     );
   }
@@ -154,11 +154,9 @@ export class OrganisationService {
     if (org) {
       orgId = org.id
     }
-
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-
     const url = `${this.REST_ORG_USERS_URL}/${orgId}`;
 
     return this.http.get<User[]>(url, httpOptions)
@@ -171,13 +169,13 @@ export class OrganisationService {
     this.organisations = this.organisations.filter(o => o.id != org.id);
     this.http.delete(this.REST_ORGANISATIONS_URL + "/" + org.id).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log("Finished deleting organisation from database");
+        // console.log("Finished deleting organisation from database");
       }
     )
   }
@@ -192,9 +190,13 @@ export class OrganisationService {
     /*let user: User = this.userService.getUserById(userId);
     organisation.removeUser(user);*/
     this.http.delete(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId).subscribe(
-      response => console.log(response),
+      response => {
+        // console.log(response)
+      },
       error => console.log(error),
-      () => console.log("Finished deleting member from organisation")
+      () => {
+        // console.log("Finished deleting member from organisation")
+      }
     );
   }
 

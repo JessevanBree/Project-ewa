@@ -89,12 +89,12 @@
         </dependency>
         <!-- end JWT jackson -->
 
-        <!--MYSQL DB CONNECTOR START-->
-        <!--<dependency>
+<!--        MYSQL DB CONNECTOR START-->
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>-->
-        <!--MYSQL DB CONNECTOR END-->
+        </dependency>
+<!--        MYSQL DB CONNECTOR END-->
 
 
     </dependencies>

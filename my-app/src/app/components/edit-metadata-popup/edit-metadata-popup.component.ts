@@ -92,14 +92,16 @@ export class EditMetadataPopupComponent implements OnInit {
               }
             }*/
             let user: User = this.userService.getLoggedInUser();
-            console.log(user);
+            // console.log(user);
             this.userBelongsToOrganisation = user.organisations.length > 0 || user.adminOfOrganisations.length > 0;
 
             this.organisationService.getMyOrganisations().subscribe(
               (data: Organisation[]) =>
                 this.datasetUserOrganisations = data,
               error => console.log(error),
-              () => console.log("Finished setting group items for editing a dataset")
+              () => {
+                // console.log("Finished setting group items for editing a dataset")
+              }
             );
             break;
           }
