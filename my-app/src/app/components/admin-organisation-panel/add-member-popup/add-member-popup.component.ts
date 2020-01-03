@@ -13,7 +13,6 @@ import {OrganisationService} from "../../../services/organisation.service";
 export class AddMemberPopupComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
-  // @Output() userAdded = new EventEmitter<User>();
   @Output() userAdded: EventEmitter<User>;
   @Input() private receivedSelectedOrg: Organisation;
 
@@ -45,7 +44,6 @@ export class AddMemberPopupComponent implements OnInit {
     }
     else {
       if (confirm("Are you sure to add the following user: " + user.email)) {
-        console.log("IS ADMIN ORG SET OR NOT : " + this.receivedSelectedOrg.organisationAdmin.email);
         this.userAdded.emit(user);
       } else {
         alert("Adding new member has been canceled");
@@ -75,17 +73,6 @@ export class AddMemberPopupComponent implements OnInit {
         });
       }
     );
-
-    //TODO: Filter the users list to not have have values of the orgMembers list (prevent showing users that are already in the organisation), DOES NOT WORK YET
-    /*for (var i = this.users.length - 1; i >= 0; i--) {
-      for (var j = 0; j < this.orgMembers.length; j++) {
-        if (this.users[i] && (this.users[i].email === this.orgMembers[j].email)) {
-          this.users.splice(i, 1);
-        }
-      }
-    }*/
-    // this.users = this.users.filter((user:User ) => !this.orgMembers.includes(user));
-
   }
 }
 

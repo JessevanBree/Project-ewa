@@ -91,18 +91,6 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // Called when the view member button has been clicked
-  onViewMemberClick(member: User) {
-    this.viewMemberToggle = true;
-    this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
-
-    // Routing stuff
-    this.router.navigate(['viewMember'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {id: member.id}
-    });
-  }
-
   // Function to delete a member from the organisation
   onDelete(member: User) {
     // console.log("Current selected org: " + this.currentSelectedOrg.name);

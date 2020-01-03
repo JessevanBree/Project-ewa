@@ -3,6 +3,10 @@
   overflow: auto;
 }
 
+.p1 {
+  margin-bottom: 7px;
+}
+
 span.row.mx-1.align-middle {
   margin: 5px 0px;
 }
@@ -10,3 +14,17 @@ span.row.mx-1.align-middle {
 #noDatasetMessage {
   border: none;
 }
+
+#selectOrg {
+  margin-bottom: 7px;
+}
+
+#searchEmailFilter {
+  margin-top: 7px;
+}
+
+#amountOfMembers {
+  margin-bottom: 7px;
+}
+
+

@@ -38,7 +38,7 @@
           <span class="d-inline"><p class="p1" *ngIf="this.userOrganisations != null">
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
             <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
-            <strong>Amount of members:</strong> {{ members.length }}</p></span>
+            <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
           <div class="btn-group btn-group-sm" role="group" *ngIf="userIsAdminOfOrgs">
             <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()">
               Delete organisation</button>
@@ -49,7 +49,7 @@
                       data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
               </button>
           </div>
-          <label for="searchFilter">Search user by email</label>
+          <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
                  (ngModelChange)="checkIfListEmpty()">
 
