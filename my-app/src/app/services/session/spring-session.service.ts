@@ -12,7 +12,7 @@ export class SpringSessionService {
   private readonly REST_AUTHENTICATION_URL = "http://localhost:8080/authenticate/login";
 
   private _token: string;
-  public displayName: string
+  public displayName: string;
   private authenticated: boolean;
   private user: User;
   public userEmail: string;
@@ -40,6 +40,7 @@ export class SpringSessionService {
       (response) => {
         this.authenticated = true;
         this.user = response.body as unknown as User;
+        this.userIsAdmin = this.user.isAdmin;
         this.userEmail = ((response.body as unknown) as User).email;
         this.setToken(response.headers.get("Authorization"),
           this.user.email,
@@ -130,11 +131,9 @@ export class SpringSessionService {
     return this.userId;
   }
 
-  public getUserIsAdmin() {
-    let userIsAdmin = this.userIsAdmin;
-    if (userIsAdmin == null) {
-      userIsAdmin = JSON.parse(sessionStorage.getItem(this.BS_USER_IS_ADMIN));
-      this.userIsAdmin = userIsAdmin;
+  public getUserIsAdmin(): boolean {
+    if (!this.userIsAdmin) {
+      this.userIsAdmin =sessionStorage.getItem(this.BS_USER_IS_ADMIN) == "true";
     }
     return this.userIsAdmin;
   }
