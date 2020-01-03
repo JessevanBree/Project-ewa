@@ -44,7 +44,7 @@
                     </select>
                     <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
                             class="btn btn-sm ml-3" id="addXAxes" (click)="onAddXAxes()"
-                    title="Add a second x-axes that defines your data">
+                            title="Add a second x-axes that defines your data">
                       <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
                     </button>
                   </div>
@@ -66,14 +66,19 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-row">
+                <div class="form-group">
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length > this.MAX_RECORDS">
+                    Warning: your file exceeds more than 150 records, the dataset only visualizes a maximum of 150 records.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
                   <p class="border border-success rounded p-2" *ngIf="!confirmToggle">
                     {{CMSContent["UPLOAD_POPUP_CHART_INFO"]}}</p>
-                  <button type="button" class="btn float-right" data-toggle="collapse" data-target="#chartOptions"
-                        aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
-                        [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
-                        [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
-                        [disabled]="!validationToggle"></button>
+                  <button type="button" class="btn float-left" data-toggle="collapse" data-target="#chartOptions"
+                          aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
+                          [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
+                          [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
+                          [disabled]="!validationToggle"></button>
                 </div>
               </div>
             </div>
@@ -189,7 +194,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
             <button type="submit" class="btn btn-primary" (click)="onSubmit()" data-dismiss="modal"
-                    [disabled]="formElement.invalid || confirmToggle == false">Upload</button>
+                    [disabled]="formElement.invalid || confirmToggle == false">Upload
+            </button>
           </div>
         </form>
       </div>

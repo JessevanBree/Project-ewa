@@ -25,7 +25,8 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('csvReader', {static: false})
   @ViewChild('uploadModal', {static: false}) private uploadModal;
 
-  public readonly componentLink = "upload-popup";
+  public readonly componentLink = "upload-popup"; //
+  public readonly MAX_RECORDS: number = 150; //  Max records to visualize in chart
   public CMSContent: Object;
   private detailForm: NgForm;
   private headers: string[];
@@ -258,8 +259,8 @@ export class UploadPopUpComponent implements OnInit {
     // console.log(xAxisLabel, yAxisLabel);
 
     //Retrieves the records from the csv file in order to visualize the charts
-    //Displays a max total of atleast
-    if (objectsArray.length > 200) {
+    //Visualizes a maximum total of atleast 150 records
+    if (objectsArray.length > this.MAX_RECORDS) {
       for (let i = 0; i < 150; i++) {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
