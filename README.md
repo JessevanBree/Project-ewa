@@ -20,6 +20,7 @@ If everything went succesful, you now have the Angular CLI installed globally on
 
     > ng serve
 
+Now we will install everything to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install Java on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 ### Step 4: Running the application
 
 
