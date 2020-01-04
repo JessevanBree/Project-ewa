@@ -78,7 +78,6 @@ export class EditMetadataPopupComponent implements OnInit {
   ngOnInit() {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe((param: Params) => {
         const id = param.id;
-        console.log(this.activatedRoute.component);
         for (let i = 0; i < this.datasets.length; i++) {
           if (this.datasets[i].id == id) {
             this.editingDataset = Dataset.trueCopy(this.datasets[i]);
