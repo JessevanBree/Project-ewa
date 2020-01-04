@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import * as firebase from "firebase";
 import ListResult = firebase.storage.ListResult;
 import Reference = firebase.storage.Reference;
@@ -19,7 +19,7 @@ export class FirebaseFileService {
   }
 
   //Saves the file to firebase storage
-  public saveFile(file: File, datasetId: number, datasetName?: string) {
+  public saveFile(file: File, datasetId: number) {
     let fileName = file.name.split(/\.csv|\.pdf/)[0];
     let fileType = file.type.split("/")[1];
 

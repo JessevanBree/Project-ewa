@@ -23,10 +23,14 @@
                    id="uploadModalControlFile1" name="fileInput"
                    accept=".csv, .pdf"
                    ngModel
-                   required
-                   [disabled]=confirmToggle>
-
+                   required>
           </div>
+          <div class="alert alert-success alert-dismissible fade show my-4" role="alert"
+               *ngIf="this.file && this.fileTypeUploaded == 'pdf'">
+            Successful pdf upload
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+          </div>
+
 
           <div id="chartConfiguration" class="form-row justify-content-center my-4" *ngIf="fileTypeUploaded == 'csv'">
             <div class="card mx-4" id="headerCard">
@@ -67,9 +71,15 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length < this.MAX_RECORDS">
+                    Successful csv file upload: {{this.csvData.length}} records have been parsed
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
                   <div class="alert alert-warning alert-dismissible fade show" role="alert"
                        *ngIf="this.csvData && this.csvData.length > this.MAX_RECORDS">
-                    Warning: your file exceeds more than 150 records, the dataset only visualizes a maximum of 150 records.
+                    Warning: {{this.csvData.length}} records have been parsed, this large number of records might make
+                    the visualization less coherent and clear!
                     <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
                   </div>
                   <p class="border border-success rounded p-2" *ngIf="!confirmToggle">
