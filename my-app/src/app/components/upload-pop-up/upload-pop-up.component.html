@@ -78,8 +78,8 @@
                   </div>
                   <div class="alert alert-warning alert-dismissible fade show" role="alert"
                        *ngIf="this.csvData && this.csvData.length > this.MAX_RECORDS">
-                    Warning: {{this.csvData.length}} records have been parsed, this large number of records might make
-                    the visualization less coherent and clear!
+                    Warning: {{this.csvData.length}} records have been parsed from your csv file, this large number of records may impact
+                    the visualization!
                     <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
                   </div>
                   <p class="border border-success rounded p-2" *ngIf="!confirmToggle">

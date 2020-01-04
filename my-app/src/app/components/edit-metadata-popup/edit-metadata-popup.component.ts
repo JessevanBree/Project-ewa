@@ -9,6 +9,7 @@ import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {NgForm} from "@angular/forms";
 import {User} from "../../models/user";
+import {AdminDatasetsComponent} from "../admin/admin-datasets/admin-datasets.component";
 
 @Component({
   selector: 'app-edit-metadata-popup',
@@ -77,6 +78,7 @@ export class EditMetadataPopupComponent implements OnInit {
   ngOnInit() {
     this.queryParamSubscription = this.activatedRoute.queryParams.subscribe((param: Params) => {
         const id = param.id;
+        console.log(this.activatedRoute.component);
         for (let i = 0; i < this.datasets.length; i++) {
           if (this.datasets[i].id == id) {
             this.editingDataset = Dataset.trueCopy(this.datasets[i]);
