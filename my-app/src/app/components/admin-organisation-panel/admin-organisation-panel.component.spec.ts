@@ -3,7 +3,10 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AdminOrganisationPanelComponent } from './admin-organisation-panel.component';
 import {AddMemberPopupComponent} from "./add-member-popup/add-member-popup.component";
 import {CreateMemberPopupComponent} from "./create-member-popup/create-member-popup.component";
+<<<<<<< HEAD
 import {HttpClient, HttpHandler} from "@angular/common/http";
+=======
+>>>>>>> Mohamed
 import {ViewDatasetPopupComponent} from "../view-dataset-popup/view-dataset-popup.component";
 import {UserFilterPipe} from "./pipes/user-filter-pipe";
 import {FormsModule} from "@angular/forms";

@@ -3,13 +3,13 @@ import {Organisation} from './organisation';
 export class User {
   public id: number;
   public email: string;
-  public passWord: string;
   public isAdmin: boolean;
   public dateCreated: Date;
   public organisations?: Organisation[] = [];
   public adminOfOrganisations?: Organisation[] ;
   public firstName?: string;
   public surName?: string;
+  public passWord?: string;
 
 
   constructor(email: string, isAdmin: boolean, firstName?: string,
@@ -38,8 +38,9 @@ export class User {
     return tostring;
   }
 
-  static trueCopy(user: Object): User {
-    return Object.assign(new User(null, null, null, null, null, null), user)
+  static trueCopy(user: User): User {
+    return Object.assign(new User(user.email, user.isAdmin, user.firstName, user.surName, user.passWord, user.organisations,
+      user.adminOfOrganisations), user)
   }
 
 

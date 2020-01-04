@@ -99,7 +99,7 @@ export class DatasetService {
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
         this.datasets.push(data);
-        this.fileService.saveFile(file, data.id, data.name);
+        this.fileService.saveFile(file, data.id);
       },
       error => {
         console.log(error);

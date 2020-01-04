@@ -258,9 +258,9 @@ export class UploadPopUpComponent implements OnInit {
     yAxisLabel = this.headers[this.yAxisInput];
     // console.log(xAxisLabel, yAxisLabel);
 
-    //Retrieves the records from the csv file in order to visualize the charts
-    //Visualizes a maximum total of atleast 150 records
-    if (objectsArray.length > this.MAX_RECORDS) {
+
+    //If statement that visualizes a maximum total of atleast 150 records
+    /*if (objectsArray.length > this.MAX_RECORDS) {
       for (let i = 0; i < 150; i++) {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
@@ -275,7 +275,10 @@ export class UploadPopUpComponent implements OnInit {
         chartLabels.push(recordXAxis);
       }
       // console.log(chartLabels, chartData);
-    } else for (let i = 0; i < objectsArray.length; i++) {
+    } else*/
+
+    //Retrieves the records from the csv file in order to visualize the charts
+    for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
       let recordYAxis = object[this.headers[this.yAxisInput]];
       let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
@@ -290,7 +293,6 @@ export class UploadPopUpComponent implements OnInit {
     }
 
     // console.log(chartLabels, chartData);
-
     this.chart = ({
       type: this.chartType == null || undefined ? 'bar' : this.chartType,
       data: chartData,

@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
         (error => console.log(error)),
         () => {
           this.user = usersList.find((user: User) => {
-            return user.id == JSON.parse(sessionStorage.getItem("id"));
+              return user.id == JSON.parse(sessionStorage.getItem("id"));
           });
           this.userCopy = User.trueCopy(this.user);
           if (!this.user.firstName && !this.user.surName) {

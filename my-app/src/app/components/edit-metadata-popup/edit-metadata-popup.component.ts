@@ -9,6 +9,7 @@ import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {NgForm} from "@angular/forms";
 import {User} from "../../models/user";
+import {AdminDatasetsComponent} from "../admin/admin-datasets/admin-datasets.component";
 
 @Component({
   selector: 'app-edit-metadata-popup',

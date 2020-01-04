@@ -79,6 +79,7 @@ export class AdminDatasetsComponent implements OnInit {
   }
 
   editPopUpIsClosed() {
+	  this.editIsClicked = false;
     this.router.navigate(['admin']);
   }
 }
