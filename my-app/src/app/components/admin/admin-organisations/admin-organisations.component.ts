@@ -37,12 +37,12 @@ export class AdminOrganisationsComponent implements OnInit {
     // this.organisations = this.aOrganisationService.getOrganisations();
     this.aOrganisationService.getAllOrganisations().subscribe(
       (data: Organisation[]) => {
-        console.log(data);
+        // console.log(data);
         this.organisations = data;
       },
       error => console.log(error),
       () => {
-        console.log("Finished retrieving organisations for admin page");
+        // console.log("Finished retrieving organisations for admin page");
       }
     );
   }
@@ -66,10 +66,7 @@ export class AdminOrganisationsComponent implements OnInit {
   }
 
   saveRequest($event) {
-    console.log(this.aOrganisationService.getOrganisations());
-    console.log($event);
     this.organisations.push($event);
-    console.log(this.organisations);
     this.editIsClicked = false;
     this.createIsClicked = false;
     this.router.navigate(['admin']);

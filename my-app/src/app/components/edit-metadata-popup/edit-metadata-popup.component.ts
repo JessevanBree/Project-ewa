@@ -9,6 +9,7 @@ import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {NgForm} from "@angular/forms";
 import {User} from "../../models/user";
+import {AdminDatasetsComponent} from "../admin/admin-datasets/admin-datasets.component";
 
 @Component({
   selector: 'app-edit-metadata-popup',
@@ -92,14 +93,16 @@ export class EditMetadataPopupComponent implements OnInit {
               }
             }*/
             let user: User = this.userService.getLoggedInUser();
-            console.log(user);
+            // console.log(user);
             this.userBelongsToOrganisation = user.organisations.length > 0 || user.adminOfOrganisations.length > 0;
 
             this.organisationService.getMyOrganisations().subscribe(
               (data: Organisation[]) =>
                 this.datasetUserOrganisations = data,
               error => console.log(error),
-              () => console.log("Finished setting group items for editing a dataset")
+              () => {
+                // console.log("Finished setting group items for editing a dataset")
+              }
             );
             break;
           }

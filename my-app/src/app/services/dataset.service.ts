@@ -32,7 +32,7 @@ export class DatasetService {
         console.log(error);
       },
       () => {
-        console.log("Dataset service has retrieved all datasets");
+        // console.log("Dataset service has retrieved all datasets");
       }
     );
 
@@ -98,11 +98,8 @@ export class DatasetService {
     dataset.fileName = fileName;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
-        console.log(data);
         this.datasets.push(data);
-        console.log(file);
-        console.log(data.id);
-        this.fileService.saveFile(file, data.id, data.name);
+        this.fileService.saveFile(file, data.id);
       },
       error => {
         console.log(error);
@@ -111,7 +108,7 @@ export class DatasetService {
         if(closingToggle) {
           closingToggle.emit(true); // Used to notify view to close modal used for uploading dataset
         }
-        console.log("Finished posting dataset");
+        // console.log("Finished posting dataset");
       }
     );
   }
@@ -119,14 +116,14 @@ export class DatasetService {
   public updateDataset(dataset: Dataset): boolean {
     if (!dataset) return false;
     let index: number = this.datasets.findIndex(d => d.id == dataset.id);
-    console.log(index);
+    this.datasets[index] = dataset;
     this.httpClient.put(this.REST_DATASETS_URL, dataset).subscribe(
       (responseDataset: Dataset) => {
         this.datasets[index] = responseDataset;
-        console.log(this.datasets[index]);
+        // console.log(this.datasets[index]);
       }, error => { console.log(error); },
       () => {
-        console.log("Finished updating dataset");
+        // console.log("Finished updating dataset");
       }
     );
   }
@@ -136,13 +133,13 @@ export class DatasetService {
     this.datasets = this.datasets.filter(d =>  d.id != dataset.id);
     this.httpClient.delete(this.REST_DATASETS_URL + "/" + dataset.id).subscribe(
       (data: Dataset[]) => {
-        console.log(data);
+        // console.log(data);
       },
       error => {
         console.log(error);
       },
       () => {
-        console.log("Finished deleting dataset: ", dataset);
+        // console.log("Finished deleting dataset: ", dataset);
       }
     );
     return this.datasets.includes(dataset);

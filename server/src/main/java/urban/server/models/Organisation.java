@@ -2,9 +2,7 @@ package urban.server.models;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import urban.server.views.DatasetsView;
-import urban.server.views.OrganisationsView;
-import urban.server.views.UsersView;
+import urban.server.views.CustomView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,21 +14,21 @@ import java.util.Objects;
         @NamedQuery(name = "find_all_organisations", query = "select o from Organisation o"),
         @NamedQuery(name = "find_organisation_by_name", query = "select o from Organisation o where o.name = ?1"),
         @NamedQuery(name = "find_organisation_by_user", query = "select o from Organisation o " +
-                "where o.organisationAdmin.id = ?1 or ?1 in (select u.id from User u " +
-                "join u.organisations uo on uo.id = o.id)")
+                "where o.organisationAdmin.id = ?1 or ?1 in (select u.id from User u "
+                + "join u.organisations uo WHERE uo.id = o.id)")
 
 })
 public class Organisation {
     @Id
     @GeneratedValue
-    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private Long id;
 
-    @JsonView({OrganisationsView.Full.class, OrganisationsView.OnlyIdNameSerializer.class})
+    @JsonView({CustomView.Full.class, CustomView.Shallow.class})
     private String name;
 
-    @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonView({CustomView.Full.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     @ManyToMany(mappedBy = "organisations")
     private List<User> users = new ArrayList<>();
 
@@ -43,8 +41,8 @@ public class Organisation {
     private List<Dataset> datasets = new ArrayList<>();*/
 
     @ManyToOne()
-    @JsonView({OrganisationsView.Full.class})
-    @JsonSerialize(using = UsersView.OnlyIdEmailIsadminSerializer.class)
+    @JsonView({CustomView.Full.class})
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     private User organisationAdmin;
 
     // helper

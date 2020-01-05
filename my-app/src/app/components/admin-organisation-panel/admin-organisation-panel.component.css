@@ -3,19 +3,8 @@
   overflow: auto;
 }
 
-#addMemberButton {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  margin-right: 40px;
-}
-
-p.p1 {
-  margin-bottom: 0px;
-}
-
-#createMemberButton {
-  margin-top: 10px;
-  margin-bottom: 10px;
+.p1 {
+  margin-bottom: 7px;
 }
 
 span.row.mx-1.align-middle {
@@ -25,3 +14,17 @@ span.row.mx-1.align-middle {
 #noDatasetMessage {
   border: none;
 }
+
+#selectOrg {
+  margin-bottom: 7px;
+}
+
+#searchEmailFilter {
+  margin-top: 7px;
+}
+
+#amountOfMembers {
+  margin-bottom: 7px;
+}
+
+

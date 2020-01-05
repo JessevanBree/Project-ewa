@@ -44,7 +44,6 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import {AdminCmsComponent} from './components/admin/admin-cms/admin-cms.component';
 import {SearchCMSArrayPipe} from './pipes/search-cms-array.pipe';
 import {NgxPaginationModule} from "ngx-pagination";
-import {ViewMemberPopupComponent} from './components/admin-organisation-panel/view-member-popup/view-member-popup.component';
 
 
 
@@ -82,8 +81,7 @@ import {ViewMemberPopupComponent} from './components/admin-organisation-panel/vi
     CreateMemberPopupComponent,
     LandingPageComponent,
     AdminCmsComponent,
-    SearchCMSArrayPipe,
-    ViewMemberPopupComponent
+    SearchCMSArrayPipe
   ],
   imports: [
     BrowserModule,

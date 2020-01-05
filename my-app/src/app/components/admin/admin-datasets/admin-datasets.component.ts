@@ -38,24 +38,23 @@ export class AdminDatasetsComponent implements OnInit {
       },
       error => console.log(error),
       () => {
-        console.log("Finished retrieving datasets for admin");
+        // console.log("Finished retrieving datasets for admin");
       }
     );
 	}
 
   //This method gets the event from child component (edit-pop-up) to save the edited dataset
-  saveRequest($event) {
+  saveRequest($event: Dataset) {
     this.editIsClicked = false;
     //Update (save) the dataset in both arrays
+    // console.log($event);
     this.datasets[this.activeIndex] = $event;
-    //this.datasetService.updateDataset(this.activeIndex, this.datasetService.getDatasets()[this.activeIndex]);
-    console.log("Dataset has been saved");
+    this.datasetService.updateDataset($event);
   }
 
   //Check if edit button is clicked to open pop-up
   onEditButtonClick(dataset) {
     this.activeIndex = this.datasets.indexOf(dataset);
-
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
     this.editIsClicked = true;
@@ -66,7 +65,8 @@ export class AdminDatasetsComponent implements OnInit {
   }
 
   onDeleteClick(dataset: Dataset) {
-    if (confirm("Delete dataset: " + dataset.name)) {
+    if (confirm("Are you sure you want to delete dataset: " + dataset.name)) {
+      this.datasets = this.datasets.filter(d => d != dataset);
       this.datasetService.deleteDataset(dataset);
     }
   }
@@ -79,6 +79,7 @@ export class AdminDatasetsComponent implements OnInit {
   }
 
   editPopUpIsClosed() {
+	  this.editIsClicked = false;
     this.router.navigate(['admin']);
   }
 }

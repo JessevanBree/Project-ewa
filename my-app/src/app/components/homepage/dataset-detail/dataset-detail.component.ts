@@ -59,17 +59,12 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
   }
 
   protected onDownload() {
-    console.log("Downloading dataset..");
-    /*this.papa.parse(this.url,  {
-      download: true,
-      complete: function (results){
-        console.log(results);
-      }
-    });*/
+    // console.log("Downloading dataset..");
+
   }
 
   callBackFn(pdf: any) {
-    console.log(pdf['_pdfInfo']['numPages']);
+    // console.log(pdf['_pdfInfo']['numPages']);
     this.numberOfPages = pdf['_pdfInfo']['numPages'];
   }
 
@@ -79,13 +74,13 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
       case 0: {
         // Checks first whether the pageIndex falls below 0 before assignment
         this.pdfPageIndex = this.pdfPageIndex-- > 0 ? 1 : this.pdfPageIndex--;
-        console.log(this.pdfPageIndex);
+        // console.log(this.pdfPageIndex);
         return this.pdfPageIndex;
       }
       case 1: {
         // Checks first whether the pageIndex falls above total number of pages available before assignment
         this.pdfPageIndex = this.pdfPageIndex++ >= this.numberOfPages ? 1 : this.pdfPageIndex++;
-        console.log(this.pdfPageIndex);
+        // console.log(this.pdfPageIndex);
         return this.pdfPageIndex;
       }
     }
@@ -96,9 +91,9 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
     this.queryParamSubscription =
       this.activatedRoute.queryParams.subscribe((params: Params) => {
         const paramId = params['id'];
-        console.log(paramId);
+        // console.log(paramId);
         if (paramId) {
-          console.log(this.datasetService.getDatasets());
+          // console.log(this.datasetService.getDatasets());
           if (this.datasetService.getDatasets().length === 0) {
             let datasetList;
             this.datasetService.getAllDatasets().subscribe((datasets: Dataset[]) => {
@@ -108,13 +103,12 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
                 console.log(error)
               }),
               () => {
-                console.log(datasetList);
+                // console.log(datasetList);
                 this.originalDataset = datasetList.find(datasets => datasets.id == paramId);
                 this.editedDataset = Dataset.trueCopy(this.originalDataset);
                 this.url = this.fileService.getDownloadUrl(this.editedDataset.fileName, this.editedDataset.id, this.editedDataset.fileType);
               });
-            console.log(this.originalDataset);
-            console.log("Dataset is uit backend gehaald!");
+            // console.log(this.originalDataset);
           } else {
             this.originalDataset = this.datasetService.getDatasets().find(dataset => dataset.id == paramId);
             this.editedDataset = Dataset.trueCopy(this.originalDataset);

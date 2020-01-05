@@ -56,9 +56,7 @@ export class DatasetOverviewComponent implements OnInit {
 
   onSelection(index: number, dataset: Dataset) {
     this.activeIndex = dataset.id;
-    console.log("OVERVIEW: Dataset ID = " + dataset.id);
     this.selectedDataset = this.datasets.find(dataset => dataset.id == this.activeIndex);
-    console.log(this.selectedDataset);
     this.router.navigate(['detail'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
@@ -73,30 +71,30 @@ export class DatasetOverviewComponent implements OnInit {
     if ((this.regionSearch !== "" && this.regionSearch !== null) && (this.publicitySearch !== "" && this.publicitySearch !== null)) {
       // reset the copyDatasets to the orgininal complete dataset array
       this.copyDatasets = this.datasets;
-      console.log(this.regionSearch);
-      console.log(this.publicitySearch);
+      // console.log(this.regionSearch);
+      // console.log(this.publicitySearch);
 
       // if 'no' filters are selected return
       if ((this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") &&
         this.regionSearch === "All regions") {
-        console.log("IF1");
+        // console.log("IF1");
         return;
         // if only region has filterable input
       } else if (this.publicitySearch === "All shared") {
-        console.log("IF2");
+        // console.log("IF2");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
-          console.log(dataset);
+          // console.log(dataset);
           return dataset.region.includes(this.regionSearch);
         });
         // if only publicity has filterable input
       } else if (this.regionSearch === "All regions") {
-        console.log("IF3");
+        // console.log("IF3");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
           return dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
         });
         // if both filters have filterable input
       } else {
-        console.log("IF4");
+        // console.log("IF4");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
           return dataset.region.includes(this.regionSearch) &&
             dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
@@ -118,7 +116,7 @@ export class DatasetOverviewComponent implements OnInit {
       (params: Params) => {
         this.activeIndex = null;
         if (params['id']) {
-          console.log("ID IN PARAM OVERVIEW: " + params['id']);
+          // console.log("ID IN PARAM OVERVIEW: " + params['id']);
           this.activeIndex = params['id'];
           this.router.navigate(['detail'], {
             relativeTo: this.activatedRoute,
@@ -152,7 +150,7 @@ export class DatasetOverviewComponent implements OnInit {
       },
       () => {
         // console.log(this.datasets);
-        console.log("Retrieved all datasets");
+        // console.log("Retrieved all datasets");
         this.copyDatasets = this.datasets;
       }
     );

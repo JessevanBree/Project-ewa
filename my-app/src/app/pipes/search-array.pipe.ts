@@ -18,10 +18,11 @@ export class SearchArrayNamePipe implements PipeTransform {
   // }
 
   transform(array, args: any[], pageControls?: PaginationControlsDirective): any {
-    // only if dataset array exists filter the dataset array
+   // Page controls necessary for pagination module
     if (pageControls) {
       pageControls.setCurrent(1);
     }
+    // only if dataset array exists filter the dataset array
     if (array) {
       return array.filter(item => {
         if (item.description) {

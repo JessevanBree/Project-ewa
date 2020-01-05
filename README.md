@@ -1,3 +1,4 @@
+
 # Installation guide
 ### Step 1: Installing the neccesery software
 
@@ -7,7 +8,19 @@
 3. On your local machine open a terminal of choice
 
 ### Step 3: Installing the neccesery packages
+After forking the repository, you need to install some software. First you need to install the Node Package Manager also known as **NPM**.
 
+NPM can be installed from the official Node.js web site: [https://nodejs.org](https://nodejs.org)
+
+After installing NPM you need to install the **Angular CLI**. Open your terminal on your device and execute the following line.
+
+    > npm install -g @angular/cli
+
+If everything went succesful, you now have the Angular CLI installed globally on your computer. Now, navigate via the terminal to the project directory. Execute the following command (this command will run the Angular application):
+
+    > ng serve
+
+Now we will install everything to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install Java on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 ### Step 4: Running the application
 
 

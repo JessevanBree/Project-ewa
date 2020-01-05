@@ -24,7 +24,6 @@ import {EditUserPopupComponent} from "./components/edit-user-popup/edit-user-pop
 import {CreateOrganisationPopupComponent} from "./components/create-organisation-popup/create-organisation-popup.component";
 
 import {EditOrganisationPopupComponent} from "./components/edit-organisation-popup/edit-organisation-popup.component";
-import {ViewMemberPopupComponent} from "./components/admin-organisation-panel/view-member-popup/view-member-popup.component";
 
 const routes: Routes = [
 
@@ -93,10 +92,6 @@ const routes: Routes = [
     children: [
       {
         path: 'view-dataset', component: ViewDatasetPopupComponent
-      },
-      {
-        path: 'viewMember',
-        component: ViewMemberPopupComponent
       }
     ]
   },

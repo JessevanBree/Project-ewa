@@ -7,15 +7,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.io.IOException;
 
-public class UsersView {
-    public static class OnlyForAdminUsers{}
-    public static class OnlyForOrgAdminUsers{}
-    public static class OnlyForOrgUsers{}
-    public static class OnlyForAnonymousUsers{}
+public class CustomView {
+    public static class Full {
+    }
 
-    public static class Full { }
+    public static class Shallow {}
 
-    public static class OnlyIdEmailAdminFirstNameLastNameSerializer extends JsonSerializer<Object> {
+    public static class ShallowSerializer extends JsonSerializer<Object> {
 
         @Override
         public void serialize(Object object, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -29,11 +27,13 @@ public class UsersView {
 
             // Include the view-class restricted part of the serialization
             mapper.setConfig(mapper.getSerializationConfig()
-                    .withView(OnlyIdEmailAdminFirstNameLastNameSerializer.class));
+                    .withView(CustomView.Shallow.class));
 
             jsonGenerator.setCodec(mapper);
             jsonGenerator.writeObject(object);
 
         }
     }
+
+
 }

@@ -61,7 +61,7 @@ describe('MyuploadsComponent', () => {
     expect(myUploadscomponent).toBeTruthy();
   });
 
-/*  //Check if upload popup component is succesfully created
+  //Check if upload popup component is succesfully created
   it('should create', () => {
     expect(uploadPopupcomponent).toBeTruthy();
   });
@@ -77,10 +77,10 @@ describe('MyuploadsComponent', () => {
     expect(datasetService.getAllDatasets.length).not.toEqual(0);
   });
 
-  /!*!//Check if the datasets are succesfully loaded into the myuploads component
+  //Check if the datasets are succesfully loaded into the myuploads component
   it('should get the datasets from the database', () =>{
     //Check if getAllDatasets() does not return an empty list, if not that means the datasets are succesfully loaded into the component
     expect(myUploadscomponent.userDatasets.length).not.toEqual(0);
-  });*!/*/
+  });
 
 });

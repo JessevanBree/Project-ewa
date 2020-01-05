@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import * as firebase from "firebase";
 import ListResult = firebase.storage.ListResult;
 import Reference = firebase.storage.Reference;
@@ -19,12 +19,10 @@ export class FirebaseFileService {
   }
 
   //Saves the file to firebase storage
-  public saveFile(file: File, datasetId: number, datasetName?: string) {
+  public saveFile(file: File, datasetId: number) {
     let fileName = file.name.split(/\.csv|\.pdf/)[0];
     let fileType = file.type.split("/")[1];
-    // console.log(file);
-    // console.log("Filename: " + fileName);
-    // console.log("Filetype: " + fileType);
+
     if (fileType === "vnd.ms-excel"){
       fileType = "csv"
     }
@@ -33,13 +31,13 @@ export class FirebaseFileService {
     this.httpClient.post<File>(this.STORAGE_URL + fileName + "_" + datasetId
       + "." + fileType, file).subscribe(
       (file: File) => {
-        console.log(file);
+        // console.log(file);
       },
       (error) => {
         console.log(error);
       },
       () => {
-        console.log("File upload complete");
+        // console.log("File upload complete");
       },
     );
   }
@@ -95,7 +93,7 @@ export class FirebaseFileService {
       downloadUrl => {
         if (downloadUrl.includes(dataset.fileName + "_" + dataset.id)) {
           url = downloadUrl;
-          console.log(url);
+          // console.log(url);
           return;
         }
       }
@@ -112,7 +110,7 @@ export class FirebaseFileService {
       },
       error => console.log(error.error),
       () => {
-        console.log("Deleted file");
+        // console.log("Deleted file");
       }
     )
   }

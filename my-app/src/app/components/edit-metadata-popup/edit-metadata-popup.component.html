@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
         <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="editingDataset">
-          <div class="form-row">
+          <div class="form-row my-2">
             <div class="form-group col-12">
             <label for="titleInput">Title</label>
             <input
@@ -78,6 +78,18 @@
                 <option value="URBAN_LEVEL">Urban</option>
                 <option value="EU_LEVEL">European</option>
               </select>
+            </div>
+            <div class="form-group col-12" *ngIf="this.activatedRoute.component.toString().includes('AdminPanelComponent')">
+              <label for="userLabel">Uploaded by</label>
+              <input
+                [(ngModel)]="editingDataset.user.email"
+                required minlength="5"
+                type="text"
+                name="userLabel"
+                class="form-control"
+                id="userLabel"
+                disabled
+                ngModel>
             </div>
           </div>
           <div class="modal-footer">

@@ -9,7 +9,6 @@ import * as firebase from "firebase";
 export class UserService {
 
   private users: User[];
-  private listOfAdmins: string[];
   private loggedInUser: User;
 
   private readonly REST_USERS_URL = 'http://localhost:8080/users';
@@ -24,7 +23,7 @@ export class UserService {
         console.log(error)
       },
       () => {
-        console.log("Finished retrieving users");
+        // console.log("Finished retrieving users");
       }
     )
 
@@ -47,7 +46,7 @@ export class UserService {
   }
 
   public deleteUser(user: User) {
-    this.users.splice(this.users.indexOf(user), 1);
+    this.users = this.users.filter(u => u.id != user.id);
     return this.httpClient.delete(this.REST_USERS_URL + "/" + user.id);
   }
 

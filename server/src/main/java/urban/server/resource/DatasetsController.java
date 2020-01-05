@@ -12,6 +12,7 @@ import urban.server.models.User;
 import urban.server.repositories.JPADatasetRepository;
 import urban.server.repositories.JPAUserRepository;
 import urban.server.resource.exceptions.ResourceNotFoundException;
+import urban.server.views.CustomView;
 import urban.server.views.DatasetsView;
 import urban.server.views.UsersView;
 
@@ -29,7 +30,7 @@ public class DatasetsController {
         List<Dataset> datasets = datasetRepository.findAll();
 
         MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(datasets);
-        mappingJacksonValue.setSerializationView(DatasetsView.Full.class);
+        mappingJacksonValue.setSerializationView(CustomView.Full.class);
 
         return mappingJacksonValue;
     }

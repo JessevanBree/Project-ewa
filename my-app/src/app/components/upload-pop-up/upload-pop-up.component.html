@@ -23,12 +23,16 @@
                    id="uploadModalControlFile1" name="fileInput"
                    accept=".csv, .pdf"
                    ngModel
-                   required
-                   [disabled]=confirmToggle>
-
+                   required>
+          </div>
+          <div class="alert alert-success alert-dismissible fade show my-4" role="alert"
+               *ngIf="this.file && this.fileTypeUploaded == 'pdf'">
+            Successful pdf upload
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
           </div>
 
-          <div id="chartConfiguration" class="form-row my-4" *ngIf="fileTypeUploaded == 'csv'">
+
+          <div id="chartConfiguration" class="form-row justify-content-center my-4" *ngIf="fileTypeUploaded == 'csv'">
             <div class="card mx-4" id="headerCard">
               <div class="card-header"><h5>Chart configuration</h5></div>
               <div class="card-body">
@@ -43,7 +47,8 @@
                               name="xOption">{{i}}. {{header}}</option>
                     </select>
                     <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
-                            class="btn btn-sm ml-4" id="addXAxes" (click)="onAddXAxes()">
+                            class="btn btn-sm ml-3" id="addXAxes" (click)="onAddXAxes()"
+                            title="Add a second x-axes that defines your data">
                       <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
                     </button>
                   </div>
@@ -65,11 +70,26 @@
                     </select>
                   </div>
                 </div>
-                <button type="button" class="btn float-right" data-toggle="collapse" data-target="#chartOptions"
-                        aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
-                        [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
-                        [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
-                        [disabled]="!validationToggle"></button>
+                <div class="form-group">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length < this.MAX_RECORDS">
+                    Successful csv file upload: {{this.csvData.length}} records have been parsed
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length > this.MAX_RECORDS">
+                    Warning: {{this.csvData.length}} records have been parsed from your csv file, this large number of records may impact
+                    the visualization!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
+                  <p class="border border-success rounded p-2" *ngIf="!confirmToggle">
+                    {{CMSContent["UPLOAD_POPUP_CHART_INFO"]}}</p>
+                  <button type="button" class="btn float-left" data-toggle="collapse" data-target="#chartOptions"
+                          aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
+                          [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
+                          [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
+                          [disabled]="!validationToggle"></button>
+                </div>
               </div>
             </div>
           </div>
@@ -184,7 +204,8 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
             <button type="submit" class="btn btn-primary" (click)="onSubmit()" data-dismiss="modal"
-                    [disabled]="formElement.invalid || confirmToggle == false">Upload</button>
+                    [disabled]="formElement.invalid || confirmToggle == false">Upload
+            </button>
           </div>
         </form>
       </div>

@@ -11,6 +11,7 @@ import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
 import {IDropdownSettings} from 'ng-multiselect-dropdown';
 import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
+import {CmsService} from "../../services/cms.service";
 
 
 @Component({
@@ -24,6 +25,9 @@ export class UploadPopUpComponent implements OnInit {
   @ViewChild('csvReader', {static: false})
   @ViewChild('uploadModal', {static: false}) private uploadModal;
 
+  public readonly componentLink = "upload-popup"; //
+  public readonly MAX_RECORDS: number = 150; //  Max records to visualize in chart
+  public CMSContent: Object;
   private detailForm: NgForm;
   private headers: string[];
   private csvData: object[];
@@ -56,7 +60,7 @@ export class UploadPopUpComponent implements OnInit {
 
   constructor(private datasetService: DatasetService, private organisationService: OrganisationService,
               private papa: Papa, private userService: UserService, private fileService: FirebaseFileService,
-              private router: Router) {
+              private cmsService: CmsService, private router: Router) {
     this.listOfYears = [];
     for (let i = 1980; i <= new Date().getFullYear(); i++) {
       this.listOfYears.push(i);
@@ -72,6 +76,10 @@ export class UploadPopUpComponent implements OnInit {
 
     // TODO:: Make a service function which uses REST API to get only organisations of loggedinUser
     this.organisationsOfUser = [];
+    this.CMSContent = {
+      "UPLOAD_POPUP_CHART_INFO": ""
+    };
+    this.cmsService.fillPage(this.CMSContent, this.componentLink);
 
   }
 
@@ -81,32 +89,32 @@ export class UploadPopUpComponent implements OnInit {
       (data: Organisation[]) =>
         this.organisationsOfUser = data,
       (error) => console.log(error),
-      () => console.log("Finished retrieving user's organisations"));
+      () => {
+        // console.log("Finished retrieving user's organisations")
+      });
   }
 
   onClearAllOrganisations() {
     this.selected = [];
-    console.log("Selected organisations after CLEAR: " + this.selected);
+    // console.log("Selected organisations after CLEAR: " + this.selected);
   }
 
   onSelectAllOrganisations() {
     this.selected = this.organisationsOfUser;
-    console.log("Selected organisations after ALL: " + this.selected);
+    // console.log("Selected organisations after ALL: " + this.selected);
   }
 
   //Retreive form data and upload new dataset
   onSubmit() {
-    console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
+    // console.log(this.descriptionInput, this.nameInput, this.publicityInput.trim(), this.regionInput, this.yearInput);
     let uploadingUser = this.userService.getLoggedInUser();
-    console.log(uploadingUser);
+    // console.log(uploadingUser);
     this.regionInput = Dataset.getEnumFromValue(this.regionInput);
     // let fileName = this.file.name.split(".");
-
-    console.log("input is " + this.publicityInput);
-    console.log("input is " + this.publicityGroupInput);
+    /*console.log("input is " + this.publicityInput);
+    console.log("input is " + this.publicityGroupInput);*/
 
     let createdDataset: Dataset;
-
     if (this.publicityInput == "Group") {
       createdDataset = new Dataset(this.nameInput, this.regionInput,
         this.publicityInput.toUpperCase(), uploadingUser, this.yearInput, this.chart, this.chartLabels, this.file.name,
@@ -139,6 +147,7 @@ export class UploadPopUpComponent implements OnInit {
   onAddXAxes(): void {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs.push(null);
+      this.chartType = 'bar';
       this.removeXAxesToggle = true;
       this.validationToggle = false;
     } else if (this.xAxisInputs.length == 2) {
@@ -151,7 +160,7 @@ export class UploadPopUpComponent implements OnInit {
   uploadListener(file: any): void {
     let arrayOfObjects = [];
     this.file = file.target.files.item(0);
-    console.log(file.target.files.item(0));
+    // console.log(file.target.files.item(0));
 
     if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";
@@ -168,12 +177,12 @@ export class UploadPopUpComponent implements OnInit {
           skipEmptyLines: true,
           //results is an object with the data (chartdata), metadata (headers, delimiter...)
           complete: (results) => {
-            console.log(results);
+            // console.log(results);
             // get the data attribute from the results object and store the keys of the first data object
             // we do not get the metadata because the delimiter can be ';', otherwise the rest of the code will not work
             let csvObjects = results.data;
             this.headers = Object.keys(csvObjects[0]);
-            console.log("Headers: ", this.headers);
+            // console.log("Headers: ", this.headers);
             // check if the first element has a ';' in it. If so the headers need to be split according the ';' delimiter
             if (this.headers[0].includes(";")) {
               for (let i = 0; i < csvObjects.length; i++) {
@@ -232,8 +241,8 @@ export class UploadPopUpComponent implements OnInit {
   }
 
   onChangeOrganisationSelect() {
-    console.log(this.organisationsOfUser);
-    console.log(this.selected);
+   /* console.log(this.organisationsOfUser);
+    console.log(this.selected);*/
   }
 
   //Core method which converts the csv data to chart data/visualization
@@ -247,11 +256,11 @@ export class UploadPopUpComponent implements OnInit {
     //Retrieves the header to use for the x and y axes
     xAxisLabel = this.headers[this.xAxisInputs[0]];
     yAxisLabel = this.headers[this.yAxisInput];
-    console.log(xAxisLabel, yAxisLabel);
+    // console.log(xAxisLabel, yAxisLabel);
 
-    //Retrieves the records from the csv file in order to visualize the charts
-    //Displays a max total of atleast
-    if (objectsArray.length > 200) {
+
+    //If statement that visualizes a maximum total of atleast 150 records
+    /*if (objectsArray.length > this.MAX_RECORDS) {
       for (let i = 0; i < 150; i++) {
         let object = objectsArray[i];
         let recordYAxis = object[this.headers[this.yAxisInput]];
@@ -265,8 +274,11 @@ export class UploadPopUpComponent implements OnInit {
         chartData.push(recordYAxis);
         chartLabels.push(recordXAxis);
       }
-      console.log(chartLabels, chartData);
-    } else for (let i = 0; i < objectsArray.length; i++) {
+      // console.log(chartLabels, chartData);
+    } else*/
+
+    //Retrieves the records from the csv file in order to visualize the charts
+    for (let i = 0; i < objectsArray.length; i++) {
       let object = objectsArray[i];
       let recordYAxis = object[this.headers[this.yAxisInput]];
       let recordXAxis = object[this.headers[this.xAxisInputs[0]]];
@@ -281,7 +293,6 @@ export class UploadPopUpComponent implements OnInit {
     }
 
     // console.log(chartLabels, chartData);
-
     this.chart = ({
       type: this.chartType == null || undefined ? 'bar' : this.chartType,
       data: chartData,

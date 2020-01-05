@@ -83,7 +83,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
       this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
         (data: Dataset[]) => {
           this.organisationDatasets = data;
-          console.log(data);
+          // console.log(data);
         }, error => {
           console.log(error)
         }
@@ -91,33 +91,18 @@ export class AdminOrganisationPanelComponent implements OnInit {
     }
   }
 
-  // Called when the view member button has been clicked
-  onViewMemberClick(member: User) {
-    console.log("Opening view member modal..");
-    this.viewMemberToggle = true;
-    this.selectedUser = member; // Fill the selectedUser variable so it can be passed in to the child view member popup modal component
-
-    // Routing stuff
-    this.router.navigate(['viewMember'], {
-      relativeTo: this.activatedRoute,
-      queryParams: {id: member.id}
-    });
-  }
-
   // Function to delete a member from the organisation
   onDelete(member: User) {
-    console.log("Current selected org: " + this.currentSelectedOrg.name);
+    // console.log("Current selected org: " + this.currentSelectedOrg.name);
     if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
       this.currentSelectedOrg.users = this.members.filter(u => u.id != member.id);
       this.organisationService.deleteMemberFromOrg(this.currentSelectedOrg.id, member.id);
       this.orgSelectionChanged();
-      console.log("Member has successfully been removed from the organisation");
     }
   }
 
   // Called when a modal has been closed
   onCloseReq() {
-    console.log("Closing modal..");
     // Route stuff
     this.router.navigate(["./"],
       {
@@ -139,12 +124,10 @@ export class AdminOrganisationPanelComponent implements OnInit {
   }
 
   onCreateNewMember() {
-    console.log("Opening modal..");
     this.createMemberToggle = true;
   }
 
   onAddNewMember() {
-    console.log("Opening modal..");
     this.addMemberToggle = true;
   }
 
@@ -172,7 +155,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   ngOnInit() {
     this.organisationService.getMyOrganisations().subscribe(
       (organisations: Organisation[]) => {
-        console.log(organisations);
+        // console.log(organisations);
         this.userOrganisations = organisations;
         this.currentSelectedOrg = this.userOrganisations[0];
       },
@@ -183,19 +166,19 @@ export class AdminOrganisationPanelComponent implements OnInit {
         if (this.currentSelectedOrg) {
           this.currentSelectedOrg.users.forEach(u => this.members.push(u));
           this.userIsAdminOfOrgs = this.currentSelectedOrg.organisationAdmin.id == this.userService.getLoggedInUser().id;
-          console.log(this.currentSelectedOrg.organisationAdmin);
-          console.log("Finished retrieving user's organisations");
+          /*console.log(this.currentSelectedOrg.organisationAdmin);
+          console.log("Finished retrieving user's organisations");*/
 
           //Retrieves datasets of the current selected organisation
           this.organisationService.getDatasetsByOrganisation(this.currentSelectedOrg.id).subscribe(
             (datasets: Dataset[]) => {
               this.organisationDatasets = datasets;
-              console.log(datasets);
+              // console.log(datasets);
             }, error => {
               console.log(error)
             },
             () => {
-              console.log("Finished retrieving datasets of organisation with id: " + this.currentSelectedOrg.id);
+              // console.log("Finished retrieving datasets of organisation with id: " + this.currentSelectedOrg.id);
             }
           );
         }
