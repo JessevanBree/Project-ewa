@@ -4,10 +4,13 @@ import { CreateMemberPopupComponent } from './create-member-popup.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {RouterTestingModule} from "@angular/router/testing";
+import {DebugElement} from "@angular/core";
 
 describe('CreateMemberPopupComponent', () => {
-  let component: CreateMemberPopupComponent;
-  let fixture: ComponentFixture<CreateMemberPopupComponent>;
+
+  let createMemberPopupComponent: CreateMemberPopupComponent;
+  let createMemberPopupFixture: ComponentFixture<CreateMemberPopupComponent>;
+  let createMemberPopupElement: DebugElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -18,12 +21,14 @@ describe('CreateMemberPopupComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateMemberPopupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Setup the create member popup component
+    createMemberPopupFixture = TestBed.createComponent(CreateMemberPopupComponent);
+    createMemberPopupComponent = createMemberPopupFixture.componentInstance;
+    createMemberPopupElement = createMemberPopupFixture.debugElement;
+    createMemberPopupFixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(createMemberPopupComponent).toBeTruthy();
   });
 });

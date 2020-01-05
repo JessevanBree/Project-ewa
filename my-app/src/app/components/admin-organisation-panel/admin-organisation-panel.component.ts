@@ -29,10 +29,9 @@ export class AdminOrganisationPanelComponent implements OnInit {
   private userIsAdminOfOrgs: boolean;
   private downloadUrl: string;
 
-  private addMemberToggle: boolean;
-  private createMemberToggle: boolean;
-  private viewMemberToggle: boolean;
-  private viewDatasetToggle: boolean;
+  public addMemberToggle: boolean;
+  public createMemberToggle: boolean;
+  public viewDatasetToggle: boolean;
 
   private searchFilter: String;
   private emptyList: boolean;
@@ -48,7 +47,6 @@ export class AdminOrganisationPanelComponent implements OnInit {
     this.organisationDatasets = [];
     this.selectedUser = null;
     this.userIsAdminOfOrgs = false;
-    this.viewMemberToggle = false;
     this.addMemberToggle = false;
     this.createMemberToggle = false;
 
@@ -94,7 +92,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // Function to delete a member from the organisation
   onDelete(member: User) {
     // console.log("Current selected org: " + this.currentSelectedOrg.name);
-    if (confirm("Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
+    if (confirm("Warning: Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
       this.currentSelectedOrg.users = this.members.filter(u => u.id != member.id);
       this.organisationService.deleteMemberFromOrg(this.currentSelectedOrg.id, member.id);
       this.orgSelectionChanged();
@@ -113,7 +111,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
 
   // Called when an organisation admin wants to delete an organisation
   onDeleteOrganisation() {
-    if (confirm("Are you sure to delete this organisation: " + this.currentSelectedOrg.name)) {
+    if (confirm("Warning: Are you sure to delete this organisation: " + this.currentSelectedOrg.name)) {
       //Remove the organisation in the backend and front-end services
       this.organisationService.deleteOrganisation(this.currentSelectedOrg);
       this.datasetService.detachDatasetFromOrganisation(this.currentSelectedOrg);
