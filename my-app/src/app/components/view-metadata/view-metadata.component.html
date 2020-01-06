@@ -23,35 +23,35 @@
                 {{viewingDataset.description}}
               </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
               <label for="datasetRegion">Region</label>
               <p class="border border-success rounded p-1" id="datasetRegion">
                 {{regionLevels[viewingDataset.region]}}
               </p>
             </div>
-            <div class="col-md-6 d-inline">
+            <div class="col-md-3">
               <label for="datasetPublicity">Publicity</label>
               <p class="border border-success rounded p-1" id="datasetPublicity">
                 {{publicityLevels[viewingDataset.publicity]}}
               </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
               <label for="datasetYear">Year</label>
               <p class="border border-success rounded p-1" id="datasetYear">
                 {{viewingDataset.year}}
               </p>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-9">
               <label for="datasetDescription">Description</label>
               <p class="border border-success rounded p-1 " id="datasetDescription" style="min-height: 70px">
                  {{viewingDataset.description}}
               </p>
             </div>
-            <div class="col-md-6">
-              <label for="datasetUser">Uploaded by</label>
-              <p class="border border-success rounded p-1 " id="datasetUser">
-                {{viewingDataset.user.email}}
-              </p>
+
+            <div class="col-md-12">
+<!--              <label for="datasetUser">Uploaded by</label>-->
+              <p>Uploaded by<span class="font-weight-bold" id="datasetUser"> {{viewingDataset.user.email}}
+              </span></p>
             </div>
           </div>
           <div class="modal-footer">

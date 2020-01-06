@@ -39,8 +39,8 @@
                 <div class="form-group collapse show" id="chartOptions">
                   <label for="xAxisOptions">X axis</label>
                   <div class="form-group form-row mb-2">
-                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[i]"
-                            *ngFor="let input of xAxisInputs; let i = index"
+                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[index]"
+                            *ngFor="let input of xAxisInputs; index as index "
                             class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
                             required>
                       <option *ngFor="let header of headers; let i = index" [ngValue]="i"

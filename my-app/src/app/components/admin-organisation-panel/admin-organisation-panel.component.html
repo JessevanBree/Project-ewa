@@ -39,15 +39,19 @@
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
             <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
             <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
-          <div class="btn-group btn-group-sm" role="group" *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()">Delete organisation
+          <div *ngIf="userIsAdminOfOrgs">
+            <button type="button" class="btn btn-danger btn-sm mb-2" (click)="onDeleteOrganisation()">Delete organisation
             </button>
+            <div class="btn-group btn-group-sm">
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
-                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
+                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing user
               </button>
               <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
-                      data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
+                      data-target="#createMemberModal" (click)="onCreateNewMember()" title="Creates a user and adds
+the user to the orgnanisation">
+                Create new user
               </button>
+            </div>
           </div>
           <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -98,9 +102,9 @@
               <span class="btn-group col-md-3 col-lg-3">
               <a [href]="downloadUrl" [download]="downloadUrl" target="_blank" class="btn btn-warning fa fa-download"
                  title="Download dataset file" (click)="onDownload(i)"></a>
-              <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#viewDatasetModal"
+              <button class="btn btn-info fa fa-bar-chart" data-toggle="modal" data-target="#viewDatasetModal"
                       title="View dataset visualization" (click)="onViewDataset(dataset.id)"></button>
-                <button class="btn btn-primary fa fa-address-card" data-toggle="modal" data-target="#viewMetaDataModal"
+                <button class="btn btn-primary fa fa-info-circle" data-toggle="modal" data-target="#viewMetaDataModal"
                         title="View meta-data" (click)="onViewMetaData(dataset.id)"></button>
                 </span>
                 </span>
