@@ -74,7 +74,6 @@ export class ProfileComponent implements OnInit {
       if (!this.user.firstName && !this.user.surName) {
         this.updateButtonToggle = false;
       }
-      console.log(this.userCopy);
 
     }
   }

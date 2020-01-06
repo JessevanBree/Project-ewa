@@ -26,7 +26,7 @@ export class MyuploadsComponent implements OnInit {
   private _userDatasets: Dataset[];
   private uploadDatasetToggle: boolean;
   private editMetaDataToggle: boolean;
-  private editDatasetToggle: boolean;
+  private viewDatasetToggle: boolean;
   private selectedDataset: Dataset;
   private activeIndex;
   public userId: number;
@@ -40,7 +40,7 @@ export class MyuploadsComponent implements OnInit {
               private sessionService: SpringSessionService,
               private cmsService: CmsService) {
     this._userDatasets = [];
-    this.editDatasetToggle = false;
+    this.viewDatasetToggle = false;
     this.editMetaDataToggle = false;
     this.uploadDatasetToggle = false;
 
@@ -138,11 +138,11 @@ export class MyuploadsComponent implements OnInit {
   //Button to view the dataset visualization/chart
   onViewDatasetClick(datasetIndex: number) {
     this.selectedDataset = Dataset.trueCopy(this._userDatasets[datasetIndex]);
-    this.editDatasetToggle = true;
+    this.viewDatasetToggle = true;
     this.router.navigate(['view-dataset'], {
       relativeTo: this.activatedRoute,
       queryParams: {id: this.selectedDataset.id}
-    })
+    });
   }
 
   //Function to delete a dataset
@@ -173,7 +173,7 @@ export class MyuploadsComponent implements OnInit {
 
   onCloseReq() {
     this.uploadDatasetToggle = false;
-    this.editDatasetToggle = false;
+    this.viewDatasetToggle = false;
     this.editMetaDataToggle = false;
     this._userDatasets = this.datasetService.getMyDatasets();
     /*this.datasetService.getAllDatasets().subscribe(
