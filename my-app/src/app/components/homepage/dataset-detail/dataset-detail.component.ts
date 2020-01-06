@@ -93,7 +93,7 @@ export class DatasetDetailComponent implements OnInit, OnDestroy {
         const paramId = params['id'];
         // console.log(paramId);
         if (paramId) {
-          // console.log(this.datasetService.getDatasets());
+          console.log(this.datasetService.getDatasets());
           if (this.datasetService.getDatasets().length === 0) {
             let datasetList;
             this.datasetService.getAllDatasets().subscribe((datasets: Dataset[]) => {

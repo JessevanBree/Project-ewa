@@ -1,14 +1,8 @@
 
 # Installation guide
-### Step 1: Installing the neccesery software
-
-### Step 2: Pull the git repository to your local machine
-1. On this git projects home page: https://gitlab.fdmci.hva.nl/alim3/project-ewa click on the blue dropdown button with clone on the right side.
-2. Copy the link of the prevered method SSH or HTTPS
-3. On your local machine open a terminal of choice
-
-### Step 3: Installing the neccesery packages
-After forking the repository, you need to install some software. First you need to install the Node Package Manager also known as **NPM**.
+### Step 1: Installing the necessary software
+Before cloning the respository we need to install some software first. 
+It is required to install the Node Package Manager also known as **NPM**.
 
 NPM can be installed from the official Node.js web site: [https://nodejs.org](https://nodejs.org)
 
@@ -21,6 +15,13 @@ If everything went succesful, you now have the Angular CLI installed globally on
     > ng serve
 
 Now we will install everything to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install Java on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+
+### Step 2: Pull the git repository to your local machine
+1. On this git projects home page: https://gitlab.fdmci.hva.nl/alim3/project-ewa click on the blue dropdown button with clone on the right side.
+2. Copy the link of the prevered method SSH or HTTPS
+3. On your local machine open a terminal of choice
+
+
 ### Step 4: Running the application
 
 

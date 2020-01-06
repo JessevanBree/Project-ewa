@@ -61,7 +61,7 @@ public class Dataset {
 
     @ManyToMany()
     @JsonView({CustomView.Full.class, CustomView.Shallow.class})
-    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     private List<Organisation> organisations = new ArrayList<>();
 
     /*@JsonView({DatasetsView.Full.class, DatasetsView.IdNameSimpleUsersOrganisationsSerializer.class, DatasetsView.FullWithoutUser.class})
@@ -89,6 +89,7 @@ public class Dataset {
         this.user = user;
         this.year = year;
         this.fileName = fileName;
+        this.fileType = fileType;
         this.chartLabels = chartLabels;
         this.chart = chart;
         this.description = description;

@@ -9,8 +9,6 @@ import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
 import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
-import {IDropdownSettings} from 'ng-multiselect-dropdown';
-import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
 import {CmsService} from "../../services/cms.service";
 
 
