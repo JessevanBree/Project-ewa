@@ -20,6 +20,8 @@ describe('AdminOrganisationPanelComponent', () => {
   let adminOrganisationComponent: AdminOrganisationPanelComponent;
   let adminOrganisationFixture: ComponentFixture<AdminOrganisationPanelComponent>;
   let adminOrganisationElement: DebugElement;
+  let htmlElement: HTMLElement;
+
 
   let organisationService: OrganisationService;
 
@@ -75,7 +77,7 @@ describe('AdminOrganisationPanelComponent', () => {
     expect(adminOrganisationComponent.viewDatasetToggle).toBeTruthy();
   });
 
-  // TODO getting HTML elements does not work, (native element = null)
+  // TODO getting HTML elements does not work, (TypeError: Cannot read property 'nativeElement' of null)
 
   // Check if elements rendered properly in the DOM
   // it('should have an H4 tag of `Select an organisation`', () => {
