@@ -53,10 +53,9 @@ the user to the orgnanisation">
               </button>
             </div>
           </div>
-          <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
-          <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+          <label *ngIf="members.length != 0" for="searchFilter" id="searchEmailFilter">Search user by email</label>
+          <input *ngIf="members.length != 0" id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
                  (ngModelChange)="checkIfListEmpty()">
-
         </div>
         <div class="card-body">
           <h5>Members of organisation</h5>
