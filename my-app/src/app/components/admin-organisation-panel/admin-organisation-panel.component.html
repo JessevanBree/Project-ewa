@@ -3,8 +3,8 @@
                       (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
                          (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has been clicked -->
-<app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
-<app-view-metadata *ngIf="viewMetaDataToggle"></app-view-metadata>
+<app-view-dataset-popup *ngIf="viewDatasetToggle" (closingToggle)="viewDatasetToggle = false"></app-view-dataset-popup>
+<app-view-metadata *ngIf="viewMetaDataToggle" (closingToggle)="viewMetaDataToggle = false"></app-view-metadata>
 
 <div class="container bg-light shadow"
      style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;"

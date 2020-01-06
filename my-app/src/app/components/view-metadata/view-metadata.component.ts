@@ -15,29 +15,30 @@ export class ViewMetadataComponent implements OnInit {
   private viewingDataset: Dataset;
   protected regionLevels = RegionLevel;
   protected publicityLevels = Publicity;
+  @Output() private closingToggle: EventEmitter<boolean>;
+  private closed: boolean;
 
   constructor(private datasetService: DatasetService, private route: ActivatedRoute, private router: Router) {
-    // this.closingToggle = new EventEmitter<boolean>();
+    this.closingToggle = new EventEmitter<boolean>();
   }
 
-  onClose(){
+  onClose() {
     this.queryParams.unsubscribe();
-    this.router.navigate(['./'],{
+    this.closingToggle.emit(true);
+    this.router.navigate(['./'], {
       relativeTo: this.route
     });
   }
 
 
   ngOnInit() {
+    console.log("IS INITED");
     this.queryParams = this.route.queryParams.subscribe(
       (params) => {
         let id: number = params.id;
         this.viewingDataset = this.datasetService.getDatasets().find(dataset => dataset.id == id);
-        // console.log(this.viewingDataset);
+        console.log(this.viewingDataset);
       }
     );
-
-
   }
-
 }
