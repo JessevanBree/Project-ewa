@@ -9,6 +9,20 @@ After installing NPM you need to install the **Angular CLI**. Open your terminal
 
     > npm install -g @angular/cli
 
+### Step 2: downloading the application to your local machine
+On this git projects home page: https://gitlab.fdmci.hva.nl/alim3/project-ewa click on the blue dropdown button with clone on the right side.
+After clicking the button, 2 links will appear, HTTP and SSH. Use the HTTP link.
+
+After copying the link, open a terminal of your choice on your local machine (preferably git bash).
+In the terminal, navigate to the install location by using the 'cd' command.
+
+After navigating type: git clone 'LINK' into the terminal and press enter.
+There is a possibility that you may need to insert login info. For this use the information of a hva gitlab account.
+
+If everything was correct the project should be located on your local machine at the current working directory.
+
+### Step 3: Running the application
+
 If everything went succesful, you now have the Angular CLI installed globally on your computer. Now, navigate via the terminal to the project directory. Execute the following command (this command will run the Angular application):
 
     > ng serve
@@ -19,13 +33,6 @@ The other dependency that is required is Maven and can be install [here](https:/
 If everything went succesfully until this point, you are ready to start the Spring Boot application. You can start the Spring application by running the ***main*** thread in the
 *ServerApplication* class.
 
-### Step 2: Pull the git repository to your local machine
-1. On this git projects home page: https://gitlab.fdmci.hva.nl/alim3/project-ewa click on the blue dropdown button with clone on the right side.
-2. Copy the link of the prevered method SSH or HTTPS
-3. On your local machine open a terminal of choice
-
-
-### Step 4: Running the application
 
 
 # Work division
