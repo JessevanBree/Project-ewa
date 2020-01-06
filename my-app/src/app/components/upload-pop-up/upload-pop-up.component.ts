@@ -9,8 +9,6 @@ import {UserService} from "../../services/user.service";
 import {ChartDataSets} from "chart.js";
 import {OrganisationService} from "../../services/organisation.service";
 import {Organisation} from "../../models/organisation";
-import {IDropdownSettings} from 'ng-multiselect-dropdown';
-import {FileChangeEvent} from "@angular/compiler-cli/src/perform_watch";
 import {CmsService} from "../../services/cms.service";
 
 
@@ -146,7 +144,8 @@ export class UploadPopUpComponent implements OnInit {
 
   onAddXAxes(): void {
     if (this.xAxisInputs.length < 2) {
-      this.xAxisInputs.push(null);
+      this.xAxisInputs[1] = 0;
+      console.log(this.xAxisInputs[0]);
       this.chartType = 'bar';
       this.removeXAxesToggle = true;
       this.validationToggle = false;

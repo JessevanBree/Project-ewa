@@ -3,8 +3,8 @@
                       (userAdded)="onAddedRequest($event)"></app-add-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has clicked -->
 <app-create-member-popup *ngIf="createMemberToggle" [receivedSelectedOrg]="currentSelectedOrg"
                          (userAdded)="onAddedRequest($event)"></app-create-member-popup> <!-- Open the "Add member" pop-up when the "Add member" button has been clicked -->
-
-<app-view-dataset-popup *ngIf="viewDatasetToggle"></app-view-dataset-popup>
+<app-view-dataset-popup *ngIf="viewDatasetToggle" (closingToggle)="viewDatasetToggle = false"></app-view-dataset-popup>
+<app-view-metadata *ngIf="viewMetaDataToggle" (closingToggle)="viewMetaDataToggle = false"></app-view-metadata>
 
 <div class="container bg-light shadow"
      style="margin-top: 5%; font-family: Bahnschrift, serif; border-radius: 15px 50px;"
@@ -39,15 +39,19 @@
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
             <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
             <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
-          <div class="btn-group btn-group-sm" role="group" *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()">
-              Delete organisation</button>
+          <div *ngIf="userIsAdminOfOrgs">
+            <button type="button" class="btn btn-danger btn-sm mr-2" (click)="onDeleteOrganisation()">Delete organisation
+            </button>
+            <div class="btn-group btn-group-sm">
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
-                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
+                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing user
               </button>
               <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
-                      data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
+                      data-target="#createMemberModal" (click)="onCreateNewMember()" title="Creates a user and adds
+the user to the orgnanisation">
+                Create new user
               </button>
+            </div>
           </div>
           <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -56,22 +60,20 @@
         </div>
         <div class="card-body">
           <h5>Members of organisation</h5>
-          <ul class="userList list-group" style="max-height: 500px; overflow-y: auto">
+          <ul class="userList list-group" style="max-height: 400px; overflow-y: auto">
             <!-- Show a message if the organisation doesn't have any members -->
             <li class="list-group-item" id="noMemberMessage" *ngIf="members.length == 0">
             <span class="row mx-1 align-middle">
               The current selected organisation doesn't have any members
             </span>
             </li>
-            <li class="list-group-item p-1" *ngFor="let member of members | userFilter:searchFilter">
-            <span class="row mx-1 align-middle">
-              <span class="col-lg-8">{{member.email}}
-                <p *ngIf="member.firstName || member.surName">
-                  <strong>Name:</strong> {{member.firstName}} {{member.surName}}</p></span>
-					          <span class="btn-group col-lg-3 h-75 float-right" *ngIf="userIsAdminOfOrgs">
+            <li class="list-group-item p-1 border border-bottom" *ngFor="let member of members | userFilter:searchFilter">
+            <span class="row mx-1">
+              <span class="col-lg-8 mx-auto my-auto">{{member.email}}</span>
+              <span class="btn-group col-lg-3 h-75 mx-auto my-auto" *ngIf="userIsAdminOfOrgs">
 						          <button class="btn btn-sm btn-danger fa fa-trash mr-1" aria-hidden="true"
                               (click)="onDelete(member)"></button>
-                    </span>
+              </span>
             </span>
             </li>
           </ul>
@@ -84,7 +86,7 @@
           <h4 class="shared-datasets">Shared datasets</h4>
         </div>
 
-        <div class="card-body">
+        <div class="card-body" style="max-height: 600px !important; overflow-y: scroll !important;">
           <ul class="list-group">
             <!-- show this block if the user does have uploaded datasets -->
             <li class="list-group-item" id="noDatasetMessage" *ngIf="organisationDatasets.length == 0">
@@ -94,12 +96,16 @@
             </li>
             <li class="list-group-item" *ngFor="let dataset of organisationDatasets; index as i">
               <span class="row">
-              <p class="col-lg-8">{{dataset.name}}</p>
-              <span class="btn-group col-lg-4">
-              <a [href]="downloadUrl" [download]="downloadUrl" target="_blank" class="btn btn-warning fa fa-download"
+              <p class="col-md-5 col-lg-7 my-auto text-truncate" data-toggle="tooltip" data-placement="top"
+                 title="{{dataset.name}}">{{dataset.name}}</p>
+              <span class="btn-group col-md-3 col-lg-5">
+              <a [href]="downloadUrl" [download]="downloadUrl" target="_blank"
+                 class="btn btn-warning fa fa-download my-auto"
                  title="Download dataset file" (click)="onDownload(i)"></a>
-              <button class="btn btn-info fa fa-eye" data-toggle="modal" data-target="#viewDatasetModal"
-                      title="View dataset" (click)="onViewDataset(dataset.id)"></button>
+              <button class="btn btn-info fa fa-bar-chart my-auto" data-toggle="modal" data-target="#viewDatasetModal"
+                      title="View dataset visualization" (click)="onViewDataset(dataset.id)"></button>
+                <button class="btn btn-primary fa fa-info-circle my-auto" data-toggle="modal" data-target="#viewMetaDataModal"
+                        title="View meta-data" (click)="onViewMetaData(dataset.id)"></button>
                 </span>
                 </span>
             </li>

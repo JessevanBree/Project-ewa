@@ -10,7 +10,6 @@ import {LoginComponent} from './components/login/login.component';
 
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {FirebaseLoginComponent} from './components/firebase-login/firebase-login.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {AuthGuardAdminService} from './services/auth-guard-admin.service';
@@ -24,9 +23,9 @@ import {EditUserPopupComponent} from "./components/edit-user-popup/edit-user-pop
 import {CreateOrganisationPopupComponent} from "./components/create-organisation-popup/create-organisation-popup.component";
 
 import {EditOrganisationPopupComponent} from "./components/edit-organisation-popup/edit-organisation-popup.component";
+import {ViewMetadataComponent} from "./components/view-metadata/view-metadata.component";
 
 const routes: Routes = [
-
   {path: '', redirectTo: 'landing-page', pathMatch: 'full'},
   {
     path: 'landing-page', component: LandingPageComponent
@@ -59,7 +58,12 @@ const routes: Routes = [
       {
         path: 'edit-dataset',
         component: EditMetadataPopupComponent
-      }
+      },
+      {
+        path: 'view-dataset',
+        component: ViewDatasetPopupComponent
+      },
+
 
     ]
   },
@@ -92,12 +96,11 @@ const routes: Routes = [
     children: [
       {
         path: 'view-dataset', component: ViewDatasetPopupComponent
+      },
+      {
+        path: 'view-metadata', component: ViewMetadataComponent
       }
     ]
-  },
-  {
-    path: 'forgot-password',
-    component: ForgotPasswordComponent
   },
   {path: '**', component: PageNotFoundComponent}
 ];

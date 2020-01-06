@@ -37,14 +37,15 @@
           <form class="rounded p-0 m-0">
             <div class="form-group">
               <label for="datasetName">{{CMSContent["HOME_DETAIL_NAME"]}}</label>
-              <input type="text" class="form-control" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
+              <input type="text" class="form-control bg-white border-success" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
                      placeholder="Dataset name" readonly>
             </div>
             <div class="form-group">
               <label for="datasetDescription">{{CMSContent["HOME_DETAIL_DESC"]}}</label>
-              <input class="form-control" [(ngModel)]="editedDataset.description" name="description"
-                     id="datasetDescription"
+              <textarea class="form-control bg-white border-success" [(ngModel)]="editedDataset.description"
+                     name="description" id="datasetDescription" style="min-height: 100px"
                      placeholder="There is no description for this dataset" readonly>
+              </textarea>
             </div>
             <div class="form-group">
               <label for="datasetRegion">{{CMSContent["HOME_DETAIL_REGION"]}}</label>
@@ -82,7 +83,7 @@
             </div>
             <div class="form-group">
               <label for="userName">{{CMSContent["HOME_DETAIL_BY"]}}</label>
-              <input type="text" class="form-control border-success" name="userMail" id="userName"
+              <input type="text" class="form-control bg-white border-success" name="userMail" id="userName"
                      [ngModel]="editedDataset.user.email" readonly>
             </div>
 

@@ -44,8 +44,8 @@
       <li class="admin-organisation-item list-group-item p-2 pl-3"
           *ngFor="let organisation of this.aOrganisationService.getOrganisations() | searchArrayName: [searchFilter]; index as index">
 				<span class="row mx-1 align-middle">
-					<p class="my-auto">{{organisation.name}}</p>
-					<span class="btn-group crud-btn-group ml-auto mr-3">
+					<p class="my-auto text-truncate col-md-5 col-lg-7" data-toggle="tooltip" data-placement="top" title="{{organisation.name}}">{{organisation.name}}</p>
+					<span class="btn-group crud-btn-group col-md-3 col-lg-5">
 						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal"
                     data-target="#editOrgModal">
 

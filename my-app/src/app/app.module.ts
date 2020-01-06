@@ -23,7 +23,6 @@ import {LoginComponent} from './components/login/login.component';
 import {MyuploadsComponent} from './components/myuploads/myuploads.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {RegionFiltersPipe} from './components/homepage/pipes/region-filters.pipe';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
 import {CreateOrganisationPopupComponent} from './components/create-organisation-popup/create-organisation-popup.component';
 import {EditOrganisationPopupComponent} from './components/edit-organisation-popup/edit-organisation-popup.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
@@ -44,6 +43,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
 import {AdminCmsComponent} from './components/admin/admin-cms/admin-cms.component';
 import {SearchCMSArrayPipe} from './pipes/search-cms-array.pipe';
 import {NgxPaginationModule} from "ngx-pagination";
+import { ViewMetadataComponent } from './components/view-metadata/view-metadata.component';
 
 
 
@@ -65,7 +65,6 @@ import {NgxPaginationModule} from "ngx-pagination";
     LoginComponent,
     ProfileComponent,
     RegionFiltersPipe,
-    ForgotPasswordComponent,
     EditProfileComponent,
     CreateOrganisationPopupComponent,
     EditOrganisationPopupComponent,
@@ -81,7 +80,8 @@ import {NgxPaginationModule} from "ngx-pagination";
     CreateMemberPopupComponent,
     LandingPageComponent,
     AdminCmsComponent,
-    SearchCMSArrayPipe
+    SearchCMSArrayPipe,
+    ViewMetadataComponent
   ],
   imports: [
     BrowserModule,

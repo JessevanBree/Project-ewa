@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import urban.server.views.CMSView;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * @Author Jesse van Bree
@@ -100,5 +101,23 @@ public class CMS {
 
     public void setComponent(String component) {
         this.component = component;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CMS cms = (CMS) o;
+        return Objects.equals(id, cms.id) &&
+                Objects.equals(location, cms.location) &&
+                Objects.equals(content, cms.content) &&
+                Objects.equals(page, cms.page) &&
+                Objects.equals(adminInfo, cms.adminInfo) &&
+                Objects.equals(component, cms.component);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, location, content, page, adminInfo, component);
     }
 }

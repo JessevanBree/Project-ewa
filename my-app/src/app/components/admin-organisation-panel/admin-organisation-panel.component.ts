@@ -32,6 +32,8 @@ export class AdminOrganisationPanelComponent implements OnInit {
   public addMemberToggle: boolean;
   public createMemberToggle: boolean;
   public viewDatasetToggle: boolean;
+  private viewMetaDataToggle: boolean;
+
 
   private searchFilter: String;
   private emptyList: boolean;
@@ -135,6 +137,14 @@ export class AdminOrganisationPanelComponent implements OnInit {
       queryParams: {id: datasetId}
     });
     this.viewDatasetToggle = true;
+  }
+
+  onViewMetaData(datasetId: number){
+    this.router.navigate(['view-metadata'], {
+      relativeTo: this.activatedRoute,
+      queryParams: {id: datasetId}
+    });
+    this.viewMetaDataToggle = true;
   }
 
   //Downloads the dataset file by retrieving the specific download url from firebase storage

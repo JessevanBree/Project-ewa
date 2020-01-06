@@ -24,9 +24,9 @@ export class DatasetService {
     this.getAllDatasets().subscribe(
       (data: Dataset[]) => {
         this.datasets = data;
-        this.datasets.forEach((dataset: Dataset) => {
+        /*this.datasets.forEach((dataset: Dataset) => {
           this.updateDataset(dataset);
-        });
+        });*/
       },
       (error) => {
         console.log(error);
@@ -98,6 +98,7 @@ export class DatasetService {
     dataset.fileName = fileName;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
+        console.log(data);
         this.datasets.push(data);
         this.fileService.saveFile(file, data.id);
       },

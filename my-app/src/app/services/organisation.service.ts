@@ -88,7 +88,6 @@ export class OrganisationService {
     return this.organisations[this.organisations.length - 1].equals(org);*/
     this.http.post(this.REST_ORGANISATIONS_URL, org).subscribe(
       (data: Organisation) => {
-        console.log(data);
         this.organisations.push(data);
       },
       error => console.log(error),

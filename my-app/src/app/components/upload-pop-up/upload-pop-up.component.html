@@ -12,8 +12,8 @@
       <div class="modal-body">
         <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
               novalidate>
-          <h5 class="text-center text-white bg-dark" style="border-radius: 10px">Dataset visualization</h5>
-          <div class="form-group col-md-12 mx-3">
+          <h5 class="text-center text-light bg-green-secondary" style="border-radius: 10px">Dataset visualization</h5>
+          <div class="form-group mx-3">
             <label for="uploadModalControlFile1">Choose dataset file <span
               class="font-italic small">(Accepted format: <abbr
               title="comma separated values">.csv</abbr>, <abbr
@@ -39,8 +39,8 @@
                 <div class="form-group collapse show" id="chartOptions">
                   <label for="xAxisOptions">X axis</label>
                   <div class="form-group form-row mb-2">
-                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[i]"
-                            *ngFor="let input of xAxisInputs; let i = index"
+                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[index]"
+                            *ngFor="let input of xAxisInputs; index as index "
                             class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
                             required>
                       <option *ngFor="let header of headers; let i = index" [ngValue]="i"
@@ -48,7 +48,7 @@
                     </select>
                     <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
                             class="btn btn-sm ml-3" id="addXAxes" (click)="onAddXAxes()"
-                            title="Add a second x-axes that defines your data">
+                            title="Add a second x-axis that defines your data">
                       <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
                     </button>
                   </div>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <hr>
-          <h5 class="text-center text-white bg-dark" style="border-radius: 10px">Metadata</h5>
+          <h5 class="text-center text-light bg-green-secondary" style="border-radius: 10px">Metadata</h5>
           <div class="form-row">
             <label for="titleInput">Title</label>
             <input

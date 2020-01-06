@@ -69,7 +69,7 @@ public class ServerApplication implements CommandLineRunner {
 
         System.out.println("Configuring some initial Users data");
 
-        User abdul = new User("abdul2@hva.nl", "abdul", "Abdul", "Zor", true);
+        users.add(new User("abdul2@hva.nl", "abdul2", "Abdul", "Zor", true));
         users.add(new User("mohamed@hva.nl", "mohamed", "Mohamed", "Ben Ali", true));
         users.add(new User("jesse@hva.nl", "jesse", "Jesse", "van Bree", true));
         users.add(new User("abdul@hva.nl", "abdul", "Abdul", "Zor", true));
@@ -80,16 +80,16 @@ public class ServerApplication implements CommandLineRunner {
         for (int i = 0; i < users.size(); i++) {
             userRepository.save(users.get(i));
         }
-        Dataset dataset = Dataset.generateRandomDataset();
-        abdul.addDataset(dataset);
-
-        userRepository.save(abdul);
-        datasetRepository.save(dataset);
-
-        Organisation organisation = Organisation.getRandomRegistration();
-        organisation.addUser(abdul);
-
-        organisationRepository.save(organisation);
-        userRepository.save(abdul);
+//        Dataset dataset = Dataset.generateRandomDataset();
+//        abdul.addDataset(dataset);
+//
+//        userRepository.save(abdul);
+//        datasetRepository.save(dataset);
+//
+//        Organisation organisation = Organisation.getRandomRegistration();
+//        organisation.addUser(abdul);
+//
+//        organisationRepository.save(organisation);
+//        userRepository.save(abdul);
     }
 }
