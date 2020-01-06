@@ -94,7 +94,7 @@ export class AdminOrganisationPanelComponent implements OnInit {
   // Function to delete a member from the organisation
   onDelete(member: User) {
     // console.log("Current selected org: " + this.currentSelectedOrg.name);
-    if (confirm("Warning: Are you sure to delete this member with the following email " + member.email + " from the following organisation " + this.currentSelectedOrg.name)) {
+    if (confirm("Warning: Are you sure to delete this member with the following email: " + member.email + " from the following organisation: " + this.currentSelectedOrg.name)) {
       this.currentSelectedOrg.users = this.members.filter(u => u.id != member.id);
       this.organisationService.deleteMemberFromOrg(this.currentSelectedOrg.id, member.id);
       this.orgSelectionChanged();

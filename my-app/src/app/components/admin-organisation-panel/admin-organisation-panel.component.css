@@ -27,4 +27,13 @@ span.row.mx-1.align-middle {
   margin-bottom: 7px;
 }
 
+button#addMemberButton {
+  margin-right: 0.5rem !important;
+  border-top-right-radius: 0.2rem;
+  border-bottom-right-radius: 0.2rem;
+}
 
+button#createMemberButton {
+  border-top-left-radius: 0.2rem;
+  border-bottom-left-radius: 0.2rem;
+}

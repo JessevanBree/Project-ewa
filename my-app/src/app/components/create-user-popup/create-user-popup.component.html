@@ -11,7 +11,7 @@
 			<div class="modal-body">
 				<form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
 					<div class="form-row">
-						<label for="firstNameInput">Firstname</label>
+						<label for="firstNameInput">First name</label>
 						<input type="text" name="firstNameInput" class="form-control" id="firstNameInput" placeholder='Firstname' ngModel>
 					</div>
 					<div class="form-row">
@@ -22,13 +22,24 @@
 					<div class="form-row">
 						<label for="emailInput">Email*</label>
 						<input required type="email" name="emailInput"
-							class="form-control" id="emailInput" placeholder='Email' ngModel email>
+							class="form-control" id="emailInput" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder='Email' ngModel email>
 					</div>
+          <div class="alert alert-danger" [hidden]="email.valid || email.untouched">
+            <div  *ngIf="email.errors && email.errors.required">
+              <p><span>Email is required</span></p>
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+              <p><span>Email is invalid</span></p>
+            </div>
+          </div>
 					<div class="form-row">
 						<label for="passwordInput">Password*</label>
-						<input required type="text" name="passwordInput" minlength="6"
-							class="form-control" id="passwordInput" placeholder='password' ngModel>
+						<input required type="text" name="passwordInput"  minlength="6"
+							class="form-control" #password="ngModel" id="passwordInput" placeholder='password' ngModel>
 					</div>
+          <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
+            <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
+          </div>
 					<!-- <div class="form-row">
 						<label for="orgInput">Organisation</label>
 						<select ngModel class="form-control" name="orgInput"

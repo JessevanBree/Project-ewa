@@ -42,7 +42,7 @@ export class CreateMemberPopupComponent implements OnInit {
         throw new Error();
     }
     else if (boolean === true){
-      alert("Email address already exists");
+      alert("Error: A user with that email address already exists. Try another email address");
       throw new Error();
     } else {
       if (confirm("Are you sure to create and add the following member: " + email)){
@@ -65,7 +65,7 @@ export class CreateMemberPopupComponent implements OnInit {
       }
 
       // Close the modal when the form has been submitted
-      this.closingToggle.emit(true);
+      // this.closingToggle.emit(true);
     }
   }
 

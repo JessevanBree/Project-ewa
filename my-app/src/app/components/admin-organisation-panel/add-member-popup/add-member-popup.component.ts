@@ -49,8 +49,6 @@ export class AddMemberPopupComponent implements OnInit {
         alert("Adding new member has been canceled");
       }
     }
-
-    this.closingToggle.emit(true);
   }
 
   checkIfListEmpty(): void {
