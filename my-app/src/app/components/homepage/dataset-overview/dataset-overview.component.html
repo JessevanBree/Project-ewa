@@ -58,7 +58,7 @@
       <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']: pT  |
       paginate: {itemsPerPage: 10, currentPage: p}; let index = index;"
           (click)="onSelection(index, dataset)"
-          class="mt-auto mb-auto">
+          class="mt-auto mb-auto text-truncate">
         <td>{{dataset.name}} <i class="fa fa-arrow-right float-right mt-1"></i></td>
       </tr>
       <tr *ngIf="datasets.length == 0">

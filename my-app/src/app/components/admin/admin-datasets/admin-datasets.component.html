@@ -37,8 +37,8 @@
 
 			<li class="admin-dataset-item list-group-item p-2 pl-3" *ngFor="let item of datasets | searchArrayName: [searchFilter, 'name']; index as index">
 				<span class="row mx-1 align-middle">
-					<p class="my-auto">{{item.name}}</p>
-					<span class="btn-group crud-btn-group ml-auto mr-3">
+					<p class="my-auto text-truncate col-md-5 col-lg-7" data-toggle="tooltip" data-placement="top" title="{{item.name}}">{{item.name}}</p>
+					<div class="btn-group crud-btn-group col-md-3 col-lg-5">
 						<button class="btn btn-primary" data-toggle="modal" data-target="#editMetaModal"
 							(click)="onEditButtonClick(item)">
 							<i class="fa fa-edit fa-lg"></i>
@@ -46,7 +46,7 @@
 						<button class="btn btn-danger" (click)="onDeleteClick(item)">
 							<i class="fa fa-trash fa-lg"></i>
 						</button>
-					</span>
+					</div>
 				</span>
 			</li>
 		</ul>

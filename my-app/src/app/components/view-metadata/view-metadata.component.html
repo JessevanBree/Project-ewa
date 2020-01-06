@@ -19,37 +19,37 @@
           <div class="row">
             <div class="col-md-6">
               <label for="datasetName">Name</label>
-              <p class="border border-success rounded p-1" id="datasetName">
-                {{viewingDataset.description}}
+              <p class="border border-dark rounded p-1" id="datasetName" style="max-height: 100px !important; overflow-y: scroll !important;">
+                {{viewingDataset.name}}
               </p>
             </div>
             <div class="col-md-6">
               <label for="datasetRegion">Region</label>
-              <p class="border border-success rounded p-1" id="datasetRegion">
+              <p class="border border-dark rounded p-1" id="datasetRegion">
                 {{regionLevels[viewingDataset.region]}}
               </p>
             </div>
             <div class="col-md-6 d-inline">
               <label for="datasetPublicity">Publicity</label>
-              <p class="border border-success rounded p-1" id="datasetPublicity">
+              <p class="border border-dark rounded p-1" id="datasetPublicity">
                 {{publicityLevels[viewingDataset.publicity]}}
               </p>
             </div>
             <div class="col-md-6">
               <label for="datasetYear">Year</label>
-              <p class="border border-success rounded p-1" id="datasetYear">
+              <p class="border border-dark rounded p-1" id="datasetYear">
                 {{viewingDataset.year}}
               </p>
             </div>
-            <div class="col-md-12">
-              <label for="datasetDescription">Description</label>
-              <p class="border border-success rounded p-1 " id="datasetDescription" style="min-height: 70px">
+            <div class="col-md-12" *ngIf="viewingDataset.description">
+              <label for="datasetDescription" class="col-12 p-0">Description</label>
+              <textarea class="border border-dark rounded p-1 col-12" id="datasetDescription" readonly>
                  {{viewingDataset.description}}
-              </p>
+              </textarea>
             </div>
             <div class="col-md-6">
               <label for="datasetUser">Uploaded by</label>
-              <p class="border border-success rounded p-1 " id="datasetUser">
+              <p class="border border-dark rounded p-1 " id="datasetUser">
                 {{viewingDataset.user.email}}
               </p>
             </div>
