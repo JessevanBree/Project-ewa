@@ -1,10 +1,8 @@
 package urban.server.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import urban.server.models.helpers.CustomJson;
+import urban.server.views.CustomView;
 import urban.server.views.DatasetsView;
 
 import javax.persistence.*;
@@ -15,14 +13,18 @@ public class ChartDataSets {
 
     @Id
     @GeneratedValue
+//    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private long id;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    //    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private String type;
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    //    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     private String label;
 
-    @JsonView({DatasetsView.Full.class, DatasetsView.FullWithoutUser.class, DatasetsView.FullWithoutOrganisation.class})
+    @JsonView({CustomView.Full.class})
     @ElementCollection(targetClass = Number.class)
     private List<Object> data;
 

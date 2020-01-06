@@ -11,8 +11,7 @@
         <div class="modal-body" *ngIf="editingDataset">
         <canvas *ngIf="editingDataset.fileType == 'csv'"
                 baseChart [chartType]="editingDataset.chart.type" [datasets]="[editingDataset.chart]"
-                [labels]="editingDataset.chartLabels"
-                width="400" height="500"></canvas>
+                [labels]="editingDataset.chartLabels" width="400" height="500"></canvas>
           <pdf-viewer *ngIf="editingDataset.fileType == 'pdf'"
                       [src]="pdfSource" style="display:block"
           [render-text]="true" [original-size]="false" [autoresize]="true"></pdf-viewer>
