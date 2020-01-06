@@ -18,14 +18,14 @@
 					<!-- Check if the logged in user has any uploaded datasets, if not show a message -->
 					<!-- show this block if the user doesn't have any uploaded datasets -->
 					<li class="list-group-item p-1" *ngIf="_userDatasets.length == 0">
-						<span class="row mx-1 align-middle">
+						<span class="row mx-1 my-auto">
 							{{CMSContent["MY_UPLOADS_NO_UPLOADS"]}}
 						</span>
 					</li>
-					<li class="list-group-item p-1" *ngFor="let item of _userDatasets; index as i">
-						<span class="row mx-1 align-middle">
+					<li class="list-group-item p-2 border border-bottom" *ngFor="let item of _userDatasets; index as i">
+						<span class="row mx-1 my-auto">
 							<!-- show this block if the user does have uploaded datasets -->
-							<p class="col-lg-8">{{item.name}}</p>
+							<span class="col-lg-8">{{item.name}}</span>
 							<span class="btn-group col-lg-4 h-75">
 								<a [href]="url" [download]="url" target="_blank" class="btn btn-warning fa fa-download"
 									[title]="CMSContent['MY_UPLOADS_DL_HOVER']" (click)="onDownload(i)"></a>

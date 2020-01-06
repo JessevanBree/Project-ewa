@@ -71,30 +71,24 @@ export class DatasetOverviewComponent implements OnInit {
     if ((this.regionSearch !== "" && this.regionSearch !== null) && (this.publicitySearch !== "" && this.publicitySearch !== null)) {
       // reset the copyDatasets to the orgininal complete dataset array
       this.copyDatasets = this.datasets;
-      // console.log(this.regionSearch);
-      // console.log(this.publicitySearch);
 
       // if 'no' filters are selected return
       if ((this.publicitySearch === "All shared" || this.publicitySearch === "Publicity") &&
         this.regionSearch === "All regions") {
-        // console.log("IF1");
         return;
         // if only region has filterable input
       } else if (this.publicitySearch === "All shared") {
         // console.log("IF2");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
-          // console.log(dataset);
           return dataset.region.includes(this.regionSearch);
         });
         // if only publicity has filterable input
       } else if (this.regionSearch === "All regions") {
-        // console.log("IF3");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
           return dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
         });
         // if both filters have filterable input
       } else {
-        // console.log("IF4");
         this.copyDatasets = this.copyDatasets.filter(dataset => {
           return dataset.region.includes(this.regionSearch) &&
             dataset.publicity.trim().toLowerCase().includes(this.publicitySearch.trim().split(' ')[0].toLowerCase());
@@ -104,7 +98,6 @@ export class DatasetOverviewComponent implements OnInit {
         console.log("Dataset name: " + dataset.name + "\nDataset publ: " + dataset.publicity + "\nRegion lvl: " +
           dataset.region + "\n");
       });
-      // if only one input is selected !!!!TODO:: If selected in selectbox is fixed you can delete this part
     } else {
       this.copyDatasets = this.datasets;
     }
