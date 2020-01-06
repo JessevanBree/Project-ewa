@@ -48,7 +48,7 @@ export class ProfileComponent implements OnInit {
     this.cmsService.fillPage(this.CMSContent, this.componentLink);
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.user = this.userService.getLoggedInUser();
     this.userCopy = null;
     if (this.user == null || undefined) {
@@ -65,6 +65,7 @@ export class ProfileComponent implements OnInit {
           if (!this.user.firstName && !this.user.surName) {
             this.updateButtonToggle = false;
           }
+          console.log(this.userCopy);
         });
     } else {
       this.user = this.userService.getLoggedInUser();
@@ -73,6 +74,8 @@ export class ProfileComponent implements OnInit {
       if (!this.user.firstName && !this.user.surName) {
         this.updateButtonToggle = false;
       }
+      console.log(this.userCopy);
+
     }
   }
 

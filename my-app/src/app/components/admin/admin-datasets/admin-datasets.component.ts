@@ -18,6 +18,7 @@ export class AdminDatasetsComponent implements OnInit {
   datasets: Dataset[];
   uploadIsClicked: boolean;
   editIsClicked: boolean;
+  viewDatasetToggle: boolean;
   selectedDataset: Dataset;
   searchFilter: String;
   emptyList: boolean;
@@ -53,7 +54,7 @@ export class AdminDatasetsComponent implements OnInit {
   }
 
   //Check if edit button is clicked to open pop-up
-  onEditButtonClick(dataset) {
+  onEditButtonClick(dataset: Dataset) {
     this.activeIndex = this.datasets.indexOf(dataset);
     //Create a copy of the dataset so it won't immediately change in dataset overview while editing
     this.selectedDataset = Dataset.trueCopy(this.datasets[this.activeIndex]);
@@ -62,6 +63,17 @@ export class AdminDatasetsComponent implements OnInit {
       relativeTo: this.route,
       queryParams: {id: dataset.id}
     });
+  }
+
+  onViewDataset(dataset: Dataset){
+	  this.viewDatasetToggle = true;
+	  this.selectedDataset = Dataset.trueCopy(dataset);
+	  this.router.navigate(['view-dataset'],
+      {
+        relativeTo: this.route,
+        queryParams: {id: dataset.id}
+      });
+
   }
 
   onDeleteClick(dataset: Dataset) {

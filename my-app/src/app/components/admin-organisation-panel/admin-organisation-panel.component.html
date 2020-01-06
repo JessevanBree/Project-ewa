@@ -40,7 +40,7 @@
             <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
             <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
           <div *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger btn-sm mb-2" (click)="onDeleteOrganisation()">Delete organisation
+            <button type="button" class="btn btn-danger btn-sm mr-2" (click)="onDeleteOrganisation()">Delete organisation
             </button>
             <div class="btn-group btn-group-sm">
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"

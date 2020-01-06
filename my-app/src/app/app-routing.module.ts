@@ -58,7 +58,12 @@ const routes: Routes = [
       {
         path: 'edit-dataset',
         component: EditMetadataPopupComponent
-      }
+      },
+      {
+        path: 'view-dataset',
+        component: ViewDatasetPopupComponent
+      },
+
 
     ]
   },
