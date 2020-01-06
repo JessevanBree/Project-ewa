@@ -17,25 +17,25 @@
             <strong>Uploaded by:</strong> {{viewingDataset.user.email}}
           </span>-->
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12 mx-auto">
               <label for="datasetName">Name</label>
               <p class="border border-dark rounded p-1" id="datasetName" style="max-height: 100px !important; overflow-y: scroll !important;">
                 {{viewingDataset.name}}
               </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3 mx-auto">
               <label for="datasetRegion">Region</label>
               <p class="border border-dark rounded p-1" id="datasetRegion">
                 {{regionLevels[viewingDataset.region]}}
               </p>
             </div>
-            <div class="col-md-6 d-inline">
+            <div class="col-md-3 mx-auto">
               <label for="datasetPublicity">Publicity</label>
               <p class="border border-dark rounded p-1" id="datasetPublicity">
                 {{publicityLevels[viewingDataset.publicity]}}
               </p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3 mx-auto">
               <label for="datasetYear">Year</label>
               <p class="border border-dark rounded p-1" id="datasetYear">
                 {{viewingDataset.year}}
@@ -47,11 +47,11 @@
                  {{viewingDataset.description}}
               </textarea>
             </div>
-            <div class="col-md-6">
-              <label for="datasetUser">Uploaded by</label>
-              <p class="border border-dark rounded p-1 " id="datasetUser">
-                {{viewingDataset.user.email}}
-              </p>
+
+            <div class="col-md-12">
+<!--              <label for="datasetUser">Uploaded by</label>-->
+              <p>Uploaded by<span class="font-weight-bold" id="datasetUser"> {{viewingDataset.user.email}}
+              </span></p>
             </div>
           </div>
           <div class="modal-footer">

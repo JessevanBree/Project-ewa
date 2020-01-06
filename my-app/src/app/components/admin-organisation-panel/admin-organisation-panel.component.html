@@ -39,15 +39,19 @@
             <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
             <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
             <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
-          <div class="btn-group btn-group-sm" role="group" *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger" (click)="onDeleteOrganisation()">Delete organisation
+          <div *ngIf="userIsAdminOfOrgs">
+            <button type="button" class="btn btn-danger btn-sm" (click)="onDeleteOrganisation()">Delete organisation
             </button>
-            <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
-                    data-target="#addMemberModal" (click)="onAddNewMember()">Add existing member
-            </button>
-            <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
-                    data-target="#createMemberModal" (click)="onCreateNewMember()">Create a new member
-            </button>
+            <div class="btn-group btn-group-sm">
+              <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
+                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing user
+              </button>
+              <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
+                      data-target="#createMemberModal" (click)="onCreateNewMember()" title="Creates a user and adds
+the user to the orgnanisation">
+                Create new user
+              </button>
+            </div>
           </div>
           <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
           <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
@@ -98,10 +102,9 @@
               <a [href]="downloadUrl" [download]="downloadUrl" target="_blank"
                  class="btn btn-warning fa fa-download my-auto"
                  title="Download dataset file" (click)="onDownload(i)"></a>
-              <button class="btn btn-info fa fa-eye my-auto" data-toggle="modal" data-target="#viewDatasetModal"
+              <button class="btn btn-info fa fa-bar-chart my-auto" data-toggle="modal" data-target="#viewDatasetModal"
                       title="View dataset visualization" (click)="onViewDataset(dataset.id)"></button>
-                <button class="btn btn-primary fa fa-address-card my-auto" data-toggle="modal"
-                        data-target="#viewMetaDataModal"
+                <button class="btn btn-primary fa fa-info-circle my-auto" data-toggle="modal" data-target="#viewMetaDataModal"
                         title="View meta-data" (click)="onViewMetaData(dataset.id)"></button>
                 </span>
                 </span>
