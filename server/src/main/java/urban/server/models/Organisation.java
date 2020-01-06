@@ -33,6 +33,7 @@ public class Organisation {
     private List<User> users = new ArrayList<>();
 
     @ManyToMany(mappedBy = "organisations")
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     private List<Dataset> datasets = new ArrayList<>();
 
    /* @JsonView({OrganisationsView.Full.class})

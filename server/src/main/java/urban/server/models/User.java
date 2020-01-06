@@ -46,7 +46,7 @@ public class User {
     private boolean isAdmin;
 
     @JsonView({CustomView.Full.class})
-    @JsonSerialize(using = OrganisationsView.OnlyIdNameSerializer.class)
+    @JsonSerialize(using = CustomView.ShallowSerializer.class)
     @ManyToMany()
     private List<Organisation> organisations = new ArrayList<>();
 
