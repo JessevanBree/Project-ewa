@@ -1,4 +1,3 @@
-
 # Installation guide
 ### Step 1: Installing the necessary software
 Before cloning the respository we need to install some software first. 
@@ -14,7 +13,11 @@ If everything went succesful, you now have the Angular CLI installed globally on
 
     > ng serve
 
-Now we will install everything to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install Java on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+Now we will install the necessary  to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install **Java** on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+The other dependency that is required is Maven and can be install [here](https://maven.apache.org/install.html) or you can use the integrated Maven of your IDE.
+
+If everything went succesfully until this point, you are ready to start the Spring Boot application. You can start the Spring application by running the ***main*** thread in the
+*ServerApplication* class.
 
 ### Step 2: Pull the git repository to your local machine
 1. On this git projects home page: https://gitlab.fdmci.hva.nl/alim3/project-ewa click on the blue dropdown button with clone on the right side.
