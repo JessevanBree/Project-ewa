@@ -37,7 +37,6 @@ export class ViewMetadataComponent implements OnInit {
       (params) => {
         let id: number = params.id;
         this.viewingDataset = this.datasetService.getDatasets().find(dataset => dataset.id == id);
-        console.log(this.viewingDataset);
       }
     );
   }

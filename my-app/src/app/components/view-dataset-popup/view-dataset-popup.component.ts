@@ -40,7 +40,7 @@ export class ViewDatasetPopupComponent implements OnInit {
           if(this.editingDataset){
             this.pdfSource = this.editingDataset.fileType == "pdf" ?
               this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id) : null;
-            // console.log(this.pdfSource);
+
           }
 
         }

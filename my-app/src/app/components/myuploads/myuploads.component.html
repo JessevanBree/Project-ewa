@@ -2,7 +2,7 @@
 </app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
 <app-upload-pop-up *ngIf="uploadDatasetToggle" (closingToggle)="onCloseReq()"></app-upload-pop-up>
 <!-- Open the upload pop-up when the upload button is clicked -->
-<app-view-dataset-popup *ngIf="editDatasetToggle" (closingToggle)="onCloseReq()"></app-view-dataset-popup>
+<app-view-dataset-popup *ngIf="viewDatasetToggle" (closingToggle)="onCloseReq()"></app-view-dataset-popup>
 
 <div class="container">
 	<div class="row">
