@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { User } from '../models/user';
 
 @Pipe({
-	name: 'searchUserArray'
+	name: 'searchUserArray',
+	pure: false
 })
 export class SearchUserArrayPipe implements PipeTransform {
 
