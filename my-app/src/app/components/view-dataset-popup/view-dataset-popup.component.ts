@@ -40,7 +40,6 @@ export class ViewDatasetPopupComponent implements OnInit {
           if(this.editingDataset){
             this.pdfSource = this.editingDataset.fileType == "pdf" ?
               this.fileService.getPDFUrl(this.editingDataset.fileName, this.editingDataset.id) : null;
-
           }
 
         }
@@ -55,6 +54,7 @@ export class ViewDatasetPopupComponent implements OnInit {
       relativeTo: this.activatedRoute
     });
   }
+
 
   ngOnDestroy() {
     this.queryParamSubscription.unsubscribe();
