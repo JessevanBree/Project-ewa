@@ -43,7 +43,7 @@ class CMSTest {
     }
 
     @Test
-    void testObjectValues() {
+    void testObjectValues_501() {
         Assert.hasText(cms2.getLocation());
         Assert.hasText(cms1.getLocation());
         assertFalse(cms2.getLocation().equals(cms1.getLocation()));
