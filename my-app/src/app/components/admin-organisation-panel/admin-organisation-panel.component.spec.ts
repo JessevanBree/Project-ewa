@@ -5,6 +5,7 @@ import {AddMemberPopupComponent} from "./add-member-popup/add-member-popup.compo
 import {CreateMemberPopupComponent} from "./create-member-popup/create-member-popup.component";
 import {HttpClient, HttpHandler} from "@angular/common/http";
 
+import {ViewMetadataComponent} from "../view-metadata/view-metadata.component";
 import {ViewDatasetPopupComponent} from "../view-dataset-popup/view-dataset-popup.component";
 import {UserFilterPipe} from "./pipes/user-filter-pipe";
 import {FormsModule} from "@angular/forms";
@@ -13,29 +14,27 @@ import {ChartsModule} from "ng2-charts";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {OrganisationService} from "../../services/organisation.service";
+import {DebugElement} from "@angular/core";
+import {By} from "@angular/platform-browser";
+
 
 describe('AdminOrganisationPanelComponent', () => {
 
   let adminOrganisationComponent: AdminOrganisationPanelComponent;
   let adminOrganisationFixture: ComponentFixture<AdminOrganisationPanelComponent>;
-
-  let addMemberPopupComponent: AddMemberPopupComponent;
-  let addMemberPopupFixture: ComponentFixture<AddMemberPopupComponent>;
-
-  let createMemberPopupComponent: CreateMemberPopupComponent;
-  let createMemberPopupFixture: ComponentFixture<CreateMemberPopupComponent>;
+  let adminOrganisationElement: DebugElement;
 
   let organisationService: OrganisationService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AdminOrganisationPanelComponent , AddMemberPopupComponent,
-      CreateMemberPopupComponent, ViewDatasetPopupComponent,
-      UserFilterPipe],
+        CreateMemberPopupComponent, ViewDatasetPopupComponent, ViewMetadataComponent,
+        UserFilterPipe],
       imports: [FormsModule, ChartsModule, PdfViewerModule, RouterTestingModule, HttpClientTestingModule],
       providers: []
     })
-    .compileComponents();
+      .compileComponents(); // Compile the components HTML and CSS
   }));
 
   // Set everything up and create the components
@@ -43,37 +42,51 @@ describe('AdminOrganisationPanelComponent', () => {
     // Setup the admin organisation component
     adminOrganisationFixture = TestBed.createComponent(AdminOrganisationPanelComponent);
     adminOrganisationComponent = adminOrganisationFixture.componentInstance;
-    adminOrganisationFixture.detectChanges();
+    adminOrganisationElement = adminOrganisationFixture.debugElement;
+    adminOrganisationFixture.autoDetectChanges();
 
-    // Setup the add member popup component
-    addMemberPopupFixture = TestBed.createComponent(AddMemberPopupComponent);
-    addMemberPopupComponent = addMemberPopupFixture.componentInstance;
-    addMemberPopupFixture.detectChanges();
-
-    // Setup the create member popup component
-    createMemberPopupFixture = TestBed.createComponent(CreateMemberPopupComponent);
-    createMemberPopupComponent = createMemberPopupFixture.componentInstance;
-    createMemberPopupFixture.detectChanges();
-
-    // Setup the services of the components
+    // Setup the services of the component
     organisationService = adminOrganisationFixture.debugElement.injector.get(OrganisationService);
   });
 
-  // Actual frontend tests
+  // Check if the component has been compiled successfully
   it('should create the admin organisation component', () => {
     expect(adminOrganisationComponent).toBeTruthy();
   });
 
-  it('it should create the add member popup component', () => {
-    expect(addMemberPopupComponent).toBeTruthy();
+  // Check if the componentLink property contains the text "org_panel"
+  it('componentLink property should contain `org_panel`', () => {
+    expect(adminOrganisationComponent.componentLink).toBe('org_panel');
   });
 
-  it('it should create the create member popup component', () => {
-    expect(createMemberPopupComponent).toBeTruthy();
+  // Check if the boolean toggles to open the popups are working correctly
+  it('should toggle the `addMemberToggle` boolean (to open the add member popup)', () => {
+    expect(adminOrganisationComponent.addMemberToggle).toBeFalsy();
+    adminOrganisationComponent.onAddNewMember();
+    expect(adminOrganisationComponent.addMemberToggle).toBeTruthy();
   });
+
+  it('should toggle the `createMemberToggle` boolean (to open the create member popup)', () => {
+    expect(adminOrganisationComponent.createMemberToggle).toBeFalsy();
+    adminOrganisationComponent.onCreateNewMember();
+    expect(adminOrganisationComponent.createMemberToggle).toBeTruthy();
+  });
+
+  it('should toggle the `viewDatasetToggle` boolean (to open the view dataset popup)', () => {
+    expect(adminOrganisationComponent.viewDatasetToggle).toBeFalsy();
+    adminOrganisationComponent.onViewDataset(0);
+    expect(adminOrganisationComponent.viewDatasetToggle).toBeTruthy();
+  });
+
+  // TODO getting HTML elements does not work, (TypeError: Cannot read property 'nativeElement' of null)
+
+  // Check if elements rendered properly in the DOM
+  // it('should have an H4 tag of `Select an organisation`', () => {
+  //   expect(adminOrganisationElement.query(By.css('.selectAnOrg')).nativeElement.innerText).toBe('Select an organisation');
+  // });
 
   // Example of how to test a service of a component
-  // it('should get organisations from the backened', () =>{
+  // it('should get organisations from the backend', () =>{
   //   // expect(organisationService.getAllOrganisations().length).not.toEqual(0);
   // });
 

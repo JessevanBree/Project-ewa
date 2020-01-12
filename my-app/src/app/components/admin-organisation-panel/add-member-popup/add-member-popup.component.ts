@@ -36,7 +36,7 @@ export class AddMemberPopupComponent implements OnInit {
   userSelected(user: User) {
     //Checks whether an organisation already contains the given user
     if (this.receivedSelectedOrg.users.find(u => u.id == user.id)) {
-      return this.errorMessage = "Error: selected user " + user.email + " is already in the organisation"
+      return this.errorMessage = "Error, selected user: " + user.email + " is already in the organisation"
     }
     // Checks whether the logged in organisation admin clicks on itself
     else if (this.receivedSelectedOrg.organisationAdmin.email == user.email){
@@ -49,8 +49,6 @@ export class AddMemberPopupComponent implements OnInit {
         alert("Adding new member has been canceled");
       }
     }
-
-    this.closingToggle.emit(true);
   }
 
   checkIfListEmpty(): void {

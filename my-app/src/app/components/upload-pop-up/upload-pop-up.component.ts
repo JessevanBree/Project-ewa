@@ -145,7 +145,7 @@ export class UploadPopUpComponent implements OnInit {
   onAddXAxes(): void {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs[1] = 0;
-      console.log(this.xAxisInputs[0]);
+      // console.log(this.xAxisInputs[0]);
       this.chartType = 'bar';
       this.removeXAxesToggle = true;
       this.validationToggle = false;

@@ -22,4 +22,8 @@ describe('OrganisationService', () => {
 		const service: OrganisationService = TestBed.get(OrganisationService);
 		expect(service).toBeTruthy();
 	});
+
+  it('should get organisations', () =>{
+    // expect(organisationService.getAllOrganisations().length).not.toEqual(0);
+  });
 });

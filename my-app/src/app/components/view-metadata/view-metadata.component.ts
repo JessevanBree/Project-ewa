@@ -32,7 +32,7 @@ export class ViewMetadataComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log("IS INITED");
+    // console.log("IS INITED");
     this.queryParams = this.route.queryParams.subscribe(
       (params) => {
         let id: number = params.id;

@@ -9,8 +9,9 @@ import {OrganisationService} from "../../../services/organisation.service";
 import {UserService} from "../../../services/user.service";
 
 describe('AddMemberPopupComponent', () => {
-  let component: AddMemberPopupComponent;
-  let fixture: ComponentFixture<AddMemberPopupComponent>;
+
+  let addMemberPopupComponent: AddMemberPopupComponent;
+  let addMemberPopupFixture: ComponentFixture<AddMemberPopupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -22,12 +23,14 @@ describe('AddMemberPopupComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddMemberPopupComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Setup the add member popup component
+    addMemberPopupFixture = TestBed.createComponent(AddMemberPopupComponent);
+    addMemberPopupComponent = addMemberPopupFixture.componentInstance;
+    addMemberPopupFixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(addMemberPopupComponent).toBeTruthy();
   });
+
 });

@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewMetadataComponent } from './view-metadata.component';
+import {FormsModule} from "@angular/forms";
+import {RouterTestingModule} from "@angular/router/testing";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('ViewMetadataComponent', () => {
   let component: ViewMetadataComponent;
@@ -8,7 +11,9 @@ describe('ViewMetadataComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewMetadataComponent ]
+      declarations: [ ViewMetadataComponent ],
+      imports: [FormsModule, RouterTestingModule, HttpClientTestingModule],
+      providers: []
     })
     .compileComponents();
   }));

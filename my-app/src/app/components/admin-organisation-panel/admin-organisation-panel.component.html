@@ -25,7 +25,7 @@
     <div class="col-md-5 col-sm-12">
       <div class="card" id="Org-details">
         <div class="card-header">
-          <h4> Select an organisation </h4>
+          <h4 class="selectAnOrg"> Select an organisation </h4>
           <br>
           <!-- Select box for the admin to select an organisation -->
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
@@ -53,10 +53,9 @@ the user to the orgnanisation">
               </button>
             </div>
           </div>
-          <label for="searchFilter" id="searchEmailFilter">Search user by email</label>
-          <input id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+          <label *ngIf="members.length != 0" for="searchFilter" id="searchEmailFilter">Search user by email</label>
+          <input *ngIf="members.length != 0" id="searchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
                  (ngModelChange)="checkIfListEmpty()">
-
         </div>
         <div class="card-body">
           <h5>Members of organisation</h5>
@@ -83,7 +82,7 @@ the user to the orgnanisation">
     <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h4>Shared datasets</h4>
+          <h4 class="shared-datasets">Shared datasets</h4>
         </div>
 
         <div class="card-body" style="max-height: 600px !important; overflow-y: scroll !important;">

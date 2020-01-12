@@ -22,7 +22,7 @@
         </select>
       </div>
       <!--      <select *ngIf="this.sessionService.userEmail" class="custom-select" style="cursor: pointer">-->
-      <div class="col-sm-12 col-md-4 float-left">
+      <div class="col-sm-12 col-md-4 float-left" *ngIf="sessionService.getToken() != null || undefined">
         <label for="publicityFilter" class="text-green-secondary">{{CMSContent['HOME_PUBLICITY_FILTER']}}</label>
         <select name="publicitySelectBox" id="publicityFilter" class="custom-select" style="cursor: pointer" ngForm
                 [(ngModel)]="this.publicitySearch">

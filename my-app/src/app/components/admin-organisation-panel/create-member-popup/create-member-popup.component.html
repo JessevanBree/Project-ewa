@@ -11,6 +11,7 @@
       </div>
       <div class="modal-body">
         <form autocomplete="off" #formElement="ngForm" (keydown.enter)="$event.preventDefault()" novalidate>
+          <div class="form-row">
           <label for="firstName">First name</label><br>
           <input type="text"
                  required minlength="2"
@@ -19,11 +20,12 @@
                  id="firstName"
                  #firstName="ngModel"
                  ngModel>
+          </div>
           <br>
           <div *ngIf="!firstName.valid && firstName.touched" class="alert alert-danger">
             <p><span>Please enter a valid first name</span></p>
           </div>
-
+          <div class="form-row">
           <label for="surName">Surname</label><br>
           <input type="text"
                  required minlength="2"
@@ -32,12 +34,13 @@
                  id="surName"
                  #surName="ngModel"
                  ngModel>
+          </div>
           <br>
           <div *ngIf="!surName.valid && surName.touched" class="alert alert-danger">
             <p><span>Please enter a valid surname</span></p>
           </div>
-
-          <label for="email">Email address</label><br>
+          <div class="form-row">
+          <label for="email">Email address*</label><br>
           <input type="search"
                  class="form-control"
                  name="email"
@@ -47,6 +50,7 @@
                  #email="ngModel"
                  ngModel
                  required>
+          </div>
           <br>
           <div class="alert alert-danger" [hidden]="email.valid || email.untouched">
             <div  *ngIf="email.errors && email.errors.required">
@@ -56,7 +60,8 @@
               <p><span>Email is invalid</span></p>
             </div>
           </div>
-          <label for="password">Password</label><br>
+          <div class="form-row">
+          <label for="password">Password*</label><br>
           <input type="password"
                  required minlength="6"
                  class="form-control"
@@ -65,12 +70,14 @@
                  autocomplete="new-password"
                  #password="ngModel"
                  ngModel>
+          </div>
           <br>
           <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
             <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
           </div>
 
-          <label for="password">Confirm password</label><br>
+          <div class="form-row">
+          <label for="password">Confirm password*</label><br>
           <input type="password"
                  required minlength="6"
                  class="form-control"
@@ -78,6 +85,7 @@
                  id="passwordCheck"
                  #passwordCheck="ngModel"
                  ngModel>
+          </div>
           <br>
           <br>
 
