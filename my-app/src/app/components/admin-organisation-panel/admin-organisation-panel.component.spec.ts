@@ -17,7 +17,9 @@ import {OrganisationService} from "../../services/organisation.service";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
-
+/**
+ * @Author Ferran Tombal
+ */
 describe('AdminOrganisationPanelComponent', () => {
 
   let adminOrganisationComponent: AdminOrganisationPanelComponent;
