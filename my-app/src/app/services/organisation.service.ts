@@ -103,7 +103,7 @@ export class OrganisationService {
     organisation.users.push(user);
     this.http.post(this.REST_ORGANISATIONS_URL + "/" + orgId + "/" + userId, null).subscribe(
       response => {
-        // console.log(response);
+         // console.log(response);
       },
       error => console.log(error),
       () => {
@@ -183,7 +183,7 @@ export class OrganisationService {
   // and deletes the member from the org in the database
   public deleteMemberFromOrg(orgId: number, userId: number) {
     let organisation = this.organisations.find(org => org.id == orgId);
-    console.log(organisation);
+    // console.log(organisation);
     organisation.users = organisation.users.filter(user => user.id != userId);
     // Doesn't work properly
     /*let user: User = this.userService.getUserById(userId);
