@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DatasetOverviewComponent } from './dataset-overview.component';
+import {DatasetOverviewComponent} from './dataset-overview.component';
 import {DatasetDetailComponent} from "../dataset-detail/dataset-detail.component";
 import {RegionFiltersPipe} from "../pipes/region-filters.pipe";
 import {SearchArrayNamePipe} from "../../../pipes/search-array.pipe";
@@ -20,18 +20,18 @@ describe('DatasetOverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatasetOverviewComponent, DatasetDetailComponent, RegionFiltersPipe,
+      declarations: [DatasetOverviewComponent, DatasetDetailComponent, RegionFiltersPipe,
         SearchArrayNamePipe],
       imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, ChartsModule,
         NgxPaginationModule, PdfViewerModule, PapaParseModule],
       providers: []
     })
-    .compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatasetOverviewComponent);
     component = fixture.componentInstance;
+    componentHTML = fixture.nativeElement;
     fixture.detectChanges();
   });
 
@@ -40,8 +40,8 @@ describe('DatasetOverviewComponent', () => {
   });
 
   it('should have a dataset table', () => {
-    componentHTML = fixture.nativeElement;
     let table: HTMLTableElement = componentHTML.querySelector("table");
     expect(table).toBeDefined();
+    expect(table)
   })
 });
