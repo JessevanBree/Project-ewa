@@ -5,6 +5,7 @@ import {AddMemberPopupComponent} from "./add-member-popup/add-member-popup.compo
 import {CreateMemberPopupComponent} from "./create-member-popup/create-member-popup.component";
 import {HttpClient, HttpHandler} from "@angular/common/http";
 
+import {ViewMetadataComponent} from "../view-metadata/view-metadata.component";
 import {ViewDatasetPopupComponent} from "../view-dataset-popup/view-dataset-popup.component";
 import {UserFilterPipe} from "./pipes/user-filter-pipe";
 import {FormsModule} from "@angular/forms";
@@ -16,20 +17,21 @@ import {OrganisationService} from "../../services/organisation.service";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
 
+/**
+ * @Author Ferran Tombal
+ */
 describe('AdminOrganisationPanelComponent', () => {
 
   let adminOrganisationComponent: AdminOrganisationPanelComponent;
   let adminOrganisationFixture: ComponentFixture<AdminOrganisationPanelComponent>;
   let adminOrganisationElement: DebugElement;
-  let htmlElement: HTMLElement;
-
 
   let organisationService: OrganisationService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AdminOrganisationPanelComponent , AddMemberPopupComponent,
-        CreateMemberPopupComponent, ViewDatasetPopupComponent,
+        CreateMemberPopupComponent, ViewDatasetPopupComponent, ViewMetadataComponent,
         UserFilterPipe],
       imports: [FormsModule, ChartsModule, PdfViewerModule, RouterTestingModule, HttpClientTestingModule],
       providers: []
@@ -43,7 +45,7 @@ describe('AdminOrganisationPanelComponent', () => {
     adminOrganisationFixture = TestBed.createComponent(AdminOrganisationPanelComponent);
     adminOrganisationComponent = adminOrganisationFixture.componentInstance;
     adminOrganisationElement = adminOrganisationFixture.debugElement;
-    adminOrganisationFixture.detectChanges();
+    adminOrganisationFixture.autoDetectChanges();
 
     // Setup the services of the component
     organisationService = adminOrganisationFixture.debugElement.injector.get(OrganisationService);
