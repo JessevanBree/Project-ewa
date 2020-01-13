@@ -69,8 +69,10 @@ If everything went succesfully until this point, you are ready to start the Spri
 ## Tests
 | Studentcode | Team member    | Angular / Spring | Test class |
 | ----------- | -------------  | ---------------- | :--------------: |
-| 500801418   | Jesse van Bree | Spring | CMSDefaults |
+| 500801418   | Jesse van Bree | Spring | CMSDefaultsTest |
+| 500801418   | Jesse van Bree | Spring | JPACMSRepositoryTest |
+| 500801418   | Jesse van Bree | Spring | CMSTest |
 | 500801418   | Jesse van Bree | Angular | admin-cms.component.spec.ts |
-| 500801418   | Jesse van Bree | Angular | admin-dataset.component.spec.ts |
-| 500801418   | Jesse van Bree | Angular | admin-organisation.component.spec.ts |
-| 500801418   | Jesse van Bree | Angular | admin-organisation.component.spec.ts |
+| 500801418   | Jesse van Bree | Angular | admin-panel.component.spec.ts |
+| 500801418   | Jesse van Bree | Angular | CMS.spec.ts |
+| 500801418   | Jesse van Bree | Angular | cms.service.spec.ts |
