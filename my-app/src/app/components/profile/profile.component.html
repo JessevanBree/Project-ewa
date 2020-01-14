@@ -37,7 +37,7 @@
                 <input type="text" id="surName" name="surname" class="form-control float-left" style="max-width: 100px"
                        [(ngModel)]="userCopy.surName" (ngModelChange)="_updateButtonToggle = false"
                        [placeholder]="CMSContent['PROFILE_SURNAME_EDIT']">
-                <button *ngIf="!this.updateButtonToggle" type="button"
+                <button *ngIf="!this.updateButtonToggle" type="button" id="cancelButton"
                         class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
                         [disabled]="this.updateButtonToggle" (click)="_updateButtonToggle = true"><i
                   class="fa fa-times-circle"></i>

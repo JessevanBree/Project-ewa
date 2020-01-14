@@ -15,7 +15,6 @@ import {By} from "@angular/platform-browser";
  *
  * 7 boundaries which are applied in the test cases:
  *    - Each test uses less than 200ms to run
- *    - Each test
  */
 
 describe('NavbarComponent', () => {

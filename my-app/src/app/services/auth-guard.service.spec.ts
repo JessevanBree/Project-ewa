@@ -6,7 +6,10 @@ import {Router} from "@angular/router";
 import {SpringSessionService} from "./session/spring-session.service";
 
 /**
- * @author Abdul Vahip Zor
+ * @author: Abdul Vahip Zor
+ *
+ * 7 boundaries which are applied in the test cases:
+ *    - Each test uses less than 200ms to run
  */
 
 describe('AuthGuardService', () => {

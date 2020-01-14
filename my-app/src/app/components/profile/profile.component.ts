@@ -18,6 +18,9 @@ import {CmsService} from 'src/app/services/cms.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  set updateButtonToggle(value: boolean) {
+    this._updateButtonToggle = value;
+  }
   set userCopy(value: User) {
     this._userCopy = value;
   }
