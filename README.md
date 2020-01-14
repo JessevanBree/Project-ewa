@@ -77,6 +77,7 @@ If everything went succesfully until this point, you are ready to start the Spri
 | 500801418   | Jesse van Bree | Angular | CMS.spec.ts |
 | 500801418   | Jesse van Bree | Angular | cms.service.spec.ts |
 
+| Studentcode | Team member    | Angular / Spring | Test class |
 | ----------- | -------------  | ---------------- | :--------------: |
 | 500799742   | Abdul Vahip Zor | Spring | UserDefaultsTest |
 | 500799742   | Abdul Vahip Zor | Spring | JPAUserRepositoryTest |
