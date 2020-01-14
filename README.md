@@ -76,3 +76,14 @@ If everything went succesfully until this point, you are ready to start the Spri
 | 500801418   | Jesse van Bree | Angular | admin-panel.component.spec.ts |
 | 500801418   | Jesse van Bree | Angular | CMS.spec.ts |
 | 500801418   | Jesse van Bree | Angular | cms.service.spec.ts |
+
+| Studentcode | Team member    | Angular / Spring | Test class |
+| ----------- | -------------  | ---------------- | :--------------: |
+| 500799742   | Abdul Vahip Zor | Spring | UserDefaultsTest |
+| 500799742   | Abdul Vahip Zor | Spring | JPAUserRepositoryTest |
+| 500799742   | Abdul Vahip Zor | Spring | UserTest |
+| 500799742   | Abdul Vahip Zor | Angular | profile.component.spec.ts |
+| 500799742   | Abdul Vahip Zor | Angular | navbar.component.spec.ts |
+| 500799742   | Abdul Vahip Zor | Angular | dataset.spec.ts |
+| 500799742   | Abdul Vahip Zor | Angular | search-array.pipe.spec.ts |
+| 500799742   | Abdul Vahip Zor | Angular | auth-guard.service.spec.ts |

@@ -1,20 +1,16 @@
 import {async, TestBed} from '@angular/core/testing';
 
-import { FirebaseFileService } from './firebase-file.service';
-import {HttpClient, HttpHandler} from "@angular/common/http";
+import {FirebaseFileService} from './firebase-file.service';
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
 describe('FirebaseFileService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ],
+      declarations: [],
       imports: [RouterTestingModule, HttpClientTestingModule],
       providers: [FirebaseFileService],
     })
-      .compileComponents();
   }));
 
   it('should be created', () => {
