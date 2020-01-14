@@ -87,3 +87,14 @@ If everything went succesfully until this point, you are ready to start the Spri
 | 500799742   | Abdul Vahip Zor | Angular | dataset.spec.ts |
 | 500799742   | Abdul Vahip Zor | Angular | search-array.pipe.spec.ts |
 | 500799742   | Abdul Vahip Zor | Angular | auth-guard.service.spec.ts |
+
+| Studentcode | Team member    | Angular / Spring | Test class |
+| ----------- | -------------  | ---------------- | :--------------: |
+| 500804036  | Mohamed Ben Ali | Spring | DatasetTest |
+| 500804036  | Mohamed Ben Ali | Spring | MockChartDatasets |
+| 500804036  | Mohamed Ben Ali | Spring | JPADatasetRepositoryTest |
+| 500804036  | Mohamed Ben Ali | Spring | DatasetsControllerTest |
+| 500804036  | Mohamed Ben Ali | Angular | dataset.service.spec.ts |
+| 500804036  | Mohamed Ben Ali | Angular | dataset-overview.spec.ts |
+| 500804036  | Mohamed Ben Ali | Angular | myuploads.component.spec.ts |
+| 500804036  | Mohamed Ben Ali| Angular | upload-pop-up.component.spec.ts |
