@@ -50,7 +50,10 @@ describe('UploadPopUpComponent', () => {
     uploadComponent.fileTypeUploaded = "csv";
     uploadFixture.detectChanges();
     let chartConfiguration: HTMLDivElement = uploadComponentHtml.querySelector("#chartConfiguration");
+    let chartConfigurationTitle: HTMLHeadElement = uploadComponentHtml.querySelector("#chartConfiguration div.card-header h5");
+    expect(chartConfiguration).not.toBeUndefined();
     expect(chartConfiguration).toBeTruthy();
+    expect(chartConfigurationTitle.textContent).toMatch("Chart configuration");
   });
 
   it("should not open chart configuration window when pdf type file uploaded", () => {

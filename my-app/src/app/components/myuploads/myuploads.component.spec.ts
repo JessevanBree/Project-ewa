@@ -132,6 +132,7 @@ describe('MyuploadsComponent', () => {
     testDatasets.forEach(d => datasetService.getDatasets().push(d));
     let userDatasetsList: HTMLUListElement = myUploadsHtml.querySelector("ul");
     myUploadsfixture.detectChanges();
+    expect(userDatasetsList).toBeDefined();
     expect(userDatasetsList.children.length).toEqual(3);
     expect(datasetService.getDatasets().length).toEqual(3);
     /*console.log(datasetService.getDatasets().length);
