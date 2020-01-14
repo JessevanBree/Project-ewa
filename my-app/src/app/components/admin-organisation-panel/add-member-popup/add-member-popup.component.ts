@@ -14,7 +14,7 @@ export class AddMemberPopupComponent implements OnInit {
 
   @Output() closingToggle: EventEmitter<boolean>;
   @Output() userAdded: EventEmitter<User>;
-  @Input() private receivedSelectedOrg: Organisation;
+  @Input() receivedSelectedOrg: Organisation;
 
   private users: User[];
 

@@ -74,16 +74,4 @@ public class OrganisationTest {
         testOrg.setOrganisationAdmin(user1);
         assertThat("Failed to set user as the organisation admin", testOrg.getOrganisationAdmin(), equalTo(user1));
     }
-
-    // Forced error test
-    @Test
-    public void shouldThrowIndexOutOfBoundsExceptionWhenAccessingWrongIndex_003() {
-        assertThrows(IndexOutOfBoundsException.class,
-                ()->{
-            Organisation org = new Organisation();
-            org.addUser(new User("test@gmail.com", "test", "test", "test", false));
-                    org.getUsers().get(1); // org has one user so the only index in the list would be 0
-                });
-    }
-
 }

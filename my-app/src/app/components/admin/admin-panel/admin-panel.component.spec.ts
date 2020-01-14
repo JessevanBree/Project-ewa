@@ -21,6 +21,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ChartsModule } from 'ng2-charts';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+/**
+ * @Author Jesse van Bree
+ */
 describe('AdminPanelComponent', () => {
 	let component: AdminPanelComponent;
 	let fixture: ComponentFixture<AdminPanelComponent>;

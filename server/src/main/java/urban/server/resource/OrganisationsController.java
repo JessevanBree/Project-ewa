@@ -111,7 +111,6 @@ public class OrganisationsController {
         return ResponseEntity.noContent().build();
     }
 
-
     @PutMapping()
     public ResponseEntity<Organisation> updateOrganisation(@RequestBody Organisation organisation) {
 
