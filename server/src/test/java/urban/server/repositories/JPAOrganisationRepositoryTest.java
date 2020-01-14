@@ -5,10 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 import urban.server.models.Organisation;
 import urban.server.models.User;
 import javax.persistence.EntityManager;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -49,12 +52,15 @@ public class JPAOrganisationRepositoryTest {
         entityManager.flush();
         entityManager.close();
         org1 = null;
+        org2 = null;
     }
 
     @Test
     void testBasics_000(){
         assertThat(jpaOrganisationRepository, instanceOf(OrganisationRepository.class));
         assertThat(jpaOrganisationRepository, instanceOf(EntityRepository.class));
+        assertThat(org1, instanceOf(Organisation.class));
+        assertThat(org2, instanceOf(Organisation.class));
     }
 
     @Test
@@ -82,7 +88,7 @@ public class JPAOrganisationRepositoryTest {
         Organisation org = new Organisation("Test organisation");
         jpaOrganisationRepository.save(org);
         jpaOrganisationRepository.delete(org);
-        assertNull(jpaOrganisationRepository.findById(org.getId())); // If the findById method returns 0, the Organisation object has been deleted
+        assertNull(jpaOrganisationRepository.findById(org.getId())); // org has been deleted if the findById method returns null
     }
 
     @Test
@@ -92,20 +98,27 @@ public class JPAOrganisationRepositoryTest {
     }
 
     @Test
-    void testFindOrgByName_005(){
+    void testFindOrgByUser_005(){
+        User user1 = new User("Testuser", "Test", "Test", "Test", false);
+        user1 = jpaUserRepository.save(user1);
+        org1.addUser(user1);
+
+        // Tests if the findByUser method returns an organisation list of size one which user1 is part of
+        assertThat(jpaOrganisationRepository.findByUser(user1.getId()).size(), comparesEqualTo(1));
+    }
+
+    @Test
+    void testFindOrgByName_006(){
         Organisation org = jpaOrganisationRepository.findByName(org1.getName());
         assertNotNull(org);
         assertEquals(org, org1);
     }
 
     @Test
-    void testFindOrgByUser_006(){
-        User user1 = new User("Testuser", "Test", "Test", "Test", false);
-        user1 = jpaUserRepository.save(user1);
-        org1.addUser(user1);
-
-        assertThat(jpaOrganisationRepository.findByUser(user1.getId()), notNullValue()); // Tests if the findByUser method returns a list of organisations (not null)
+    void testFindWrongOrgByName_007() {
+        assertThrows(EmptyResultDataAccessException.class,
+                ()->{
+                jpaOrganisationRepository.findByName("Wrong-org-name");
+                });
     }
-
-
 }

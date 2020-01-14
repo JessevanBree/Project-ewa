@@ -19,21 +19,20 @@ export class AdminOrganisationPanelComponent implements OnInit {
   public readonly componentLink = "org_panel";
 
   // The current selected organisation in the panel
-  private currentSelectedOrg: Organisation;
+  currentSelectedOrg: Organisation;
   // All the orgs the logged in user is member of
-  private userOrganisations: Organisation[];
+  userOrganisations: Organisation[];
   // List of members of the current org
-  private members: User[];
+  members: User[];
   private selectedUser: User;
-  private organisationDatasets: Dataset[];
-  private userIsAdminOfOrgs: boolean;
+  organisationDatasets: Dataset[];
+  userIsAdminOfOrgs: boolean;
   private downloadUrl: string;
 
   public addMemberToggle: boolean;
   public createMemberToggle: boolean;
   public viewDatasetToggle: boolean;
   private viewMetaDataToggle: boolean;
-
 
   private searchFilter: String;
   private emptyList: boolean;
