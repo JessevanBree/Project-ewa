@@ -38,7 +38,6 @@ public class JPADatasetRepository implements EntityRepository<Dataset> {
 
     @Override
     public Dataset findById(Long id) {
-
         return em.find(Dataset.class, id);
     }
 
