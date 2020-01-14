@@ -147,8 +147,7 @@ export class MyuploadsComponent implements OnInit {
 
   //Function to delete a dataset
   onDelete(datasetIndex: number) {
-    let selectedDataset: Dataset;
-    selectedDataset = this._userDatasets[datasetIndex];
+    let selectedDataset: Dataset = this._userDatasets[datasetIndex];
     // console.log(selectedDataset);
     if (confirm("Are you sure to delete this dataset?")) {
       this.datasetService.deleteDataset(selectedDataset);

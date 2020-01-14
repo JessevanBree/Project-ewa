@@ -1,6 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DatasetOverviewComponent } from './dataset-overview.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {DatasetOverviewComponent} from './dataset-overview.component';
 import {DatasetDetailComponent} from "../dataset-detail/dataset-detail.component";
 import {RegionFiltersPipe} from "../pipes/region-filters.pipe";
 import {SearchArrayNamePipe} from "../../../pipes/search-array.pipe";
@@ -11,37 +10,65 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {PapaParseModule} from "ngx-papaparse";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import * as firebase from "firebase";
+import {Dataset} from "../../../models/dataset";
+import {DatasetService} from "../../../services/dataset.service";
 
+/**
+ * Author: Mohamed Ben Ali
+ * */
 describe('DatasetOverviewComponent', () => {
-  let component: DatasetOverviewComponent;
-  let componentHTML: HTMLElement;
-  let fixture: ComponentFixture<DatasetOverviewComponent>;
+  let datasetOverviewComponent: DatasetOverviewComponent;
+  let datasetOverviewHtml: HTMLElement;
+  let datasetOverviewFixture: ComponentFixture<DatasetOverviewComponent>;
+
+  let datasetService: DatasetService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatasetOverviewComponent, DatasetDetailComponent, RegionFiltersPipe,
+      declarations: [DatasetOverviewComponent, DatasetDetailComponent, RegionFiltersPipe,
         SearchArrayNamePipe],
       imports: [HttpClientTestingModule, RouterTestingModule, FormsModule, ChartsModule,
         NgxPaginationModule, PdfViewerModule, PapaParseModule],
       providers: []
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatasetOverviewComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    datasetOverviewFixture = TestBed.createComponent(DatasetOverviewComponent);
+    datasetOverviewComponent = datasetOverviewFixture.componentInstance;
+    datasetOverviewHtml = datasetOverviewFixture.debugElement.nativeElement;
+    datasetOverviewFixture.detectChanges();
+    datasetService = TestBed.get(DatasetService);
+
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(datasetOverviewComponent).toBeTruthy();
   });
 
   it('should have a dataset table', () => {
-    componentHTML = fixture.nativeElement;
-    let table: HTMLTableElement = componentHTML.querySelector("table");
+    datasetOverviewHtml = datasetOverviewFixture.nativeElement;
+    let table: HTMLTableElement = datasetOverviewHtml.querySelector("table");
     expect(table).toBeDefined();
-  })
+  });
+
+  it("should select datasets in table rows", () => {
+    let testDatasets: Dataset[] = [datasetService.generateRandomDataset(),
+      datasetService.generateRandomDataset(), datasetService.generateRandomDataset()];
+    // testDatasets.forEach(d => datasetService.getDatasets().push(d));
+    testDatasets.forEach(d => datasetOverviewComponent['copyDatasets'].push(d));
+    datasetOverviewFixture.detectChanges();
+    let datasetTable: HTMLTableElement = datasetOverviewHtml.querySelector("table.table.table-bordered");
+
+    datasetOverviewFixture.detectChanges();
+    expect(datasetTable.rows.length - 2).toEqual(testDatasets.length); // -2 in order to remove 2 default rows
+    let datasetItem: HTMLTableRowElement = datasetOverviewHtml.querySelector("tr.mt-auto.mb-auto");
+    spyOn(datasetOverviewComponent, "onSelection");
+    datasetItem.click();
+    datasetOverviewFixture.detectChanges();
+    expect(datasetTable.rows.item(datasetItem.rowIndex)).toBe(datasetItem);
+    expect(datasetOverviewComponent.onSelection).toHaveBeenCalledWith(0, testDatasets[0]);
+  });
+
 });

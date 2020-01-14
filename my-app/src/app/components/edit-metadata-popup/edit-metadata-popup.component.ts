@@ -59,7 +59,7 @@ export class EditMetadataPopupComponent implements OnInit {
     // console.log(this.editingDataset.organisations);
     //Makes sure the organisations list is empty of the dataset if another publicity has been selected
     // other than GROUP
-    if(this.originalDataset.publicity != this.editingDataset.publicity && this.editingDataset.publicity != "GROUP") {
+    if (this.originalDataset.publicity != this.editingDataset.publicity && this.editingDataset.publicity != "GROUP") {
       this.editingDataset.organisations = [];
     }
     this.savedDataset.emit(this.editingDataset);
@@ -110,9 +110,6 @@ export class EditMetadataPopupComponent implements OnInit {
       }
     )
   }
-
-
-
 
 
 }
