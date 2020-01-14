@@ -111,7 +111,6 @@ If everything went succesfully until this point, you are ready to start the Spri
 
 | Studentcode | Team member    | Angular / Spring | Test class |
 | ----------- | -------------  | ---------------- | :--------------: |
-
 | 500799894   | Ferran Tombal | Spring | JPAOrganisationRepositoryTest |
 | 500799894   | Ferran Tombal | Spring | OrganisationTest |
 | 500799894   | Ferran Tombal | Angular| admin-organisation-panel.component.spec.ts |
