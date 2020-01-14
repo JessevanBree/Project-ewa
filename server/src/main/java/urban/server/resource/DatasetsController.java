@@ -36,8 +36,7 @@ public class DatasetsController {
     }
 
     @GetMapping("/{id}")
-    public Dataset getDatasetById(
-            @PathVariable Long id) {
+    public Dataset getDatasetById(@PathVariable Long id) {
 
         Dataset datasetById = datasetRepository.findById(id);
 
