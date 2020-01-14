@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import urban.server.models.ChartDataSets;
 import urban.server.models.Dataset;
 import urban.server.models.helpers.PublicityEnum;
@@ -81,9 +82,9 @@ public class JPADatasetRepositoryTest {
 
     @Test
     public void retrieveNonExistentDatasetThrowsException_403() throws Exception,
-            RuntimeException, LazyInitializationException {
-        assertThrows(LazyInitializationException.class, () -> {
-            List<Dataset> datasets = datasetRepo.findAll();
+            RuntimeException, EmptyResultDataAccessException {
+        assertThrows(EmptyResultDataAccessException.class, () -> {
+            Dataset dataset = datasetRepo.findByName("invalid name");
         });
 
     }

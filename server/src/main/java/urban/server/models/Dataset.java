@@ -16,7 +16,10 @@ import java.util.*;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "find_all_datasets", query = "select d from Dataset d")
+        @NamedQuery(name = "find_all_datasets", query = "select d from Dataset d"),
+        @NamedQuery(name = "find_dataset_by_name", query = "select d from Dataset d" +
+                " where d.name = ?1")
+
 })
 public class Dataset {
     @Id

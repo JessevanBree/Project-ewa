@@ -41,6 +41,14 @@ public class JPADatasetRepository implements EntityRepository<Dataset> {
         return em.find(Dataset.class, id);
     }
 
+
+    public Dataset findByName(String name){
+        TypedQuery<Dataset> namedQuery = em.createNamedQuery("find_dataset_by_name", Dataset.class);
+        namedQuery.setParameter(1, name);
+
+        return namedQuery.getSingleResult();
+    }
+
     @Override
     public List<Dataset> findAll() {
         TypedQuery<Dataset> namedQuery = em.createNamedQuery("find_all_datasets", Dataset.class);

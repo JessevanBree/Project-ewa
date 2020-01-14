@@ -15,5 +15,6 @@ public interface EntityRepository<T> {
 
     T findById(Long id);
 
+
     List<T> findAll();
 }
