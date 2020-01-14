@@ -13,12 +13,15 @@ export class SearchArrayNamePipe implements PipeTransform {
       pageControls.setCurrent(1);
     }
     // only if dataset array exists filter the dataset array
-    if (array && args) {
+    // only if dataset array exists filter the dataset array
+    if (array) {
       return array.filter(item => {
-        return item.name.toLowerCase().includes(args[0].toLowerCase()) || item.year == parseInt(args[0]) ||
-        item.description ? item.description.toLowerCase().includes(args[0].toLowerCase()) : null;
+        if (item.description) {
+          return item.name.toLowerCase().includes(args[0].toLowerCase()) || item.year == parseInt(args[0]) ||
+            item.description.toLowerCase().includes(args[0].toLowerCase());
+        } else return item.name.toLowerCase().includes(args[0].toLowerCase());
+
       });
-    } else
-      return array;
+    }
   }
 }

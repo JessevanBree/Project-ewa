@@ -39,7 +39,7 @@ describe('searchArrayPipe', () => {
 
   it('should return array if array with data is provided without argument(s)', () => {
     datasetArray.push(testDataset1, testDataset2, testDataset3);
-    let pipeResult = pipe.transform(datasetArray, null);
+    let pipeResult = pipe.transform(datasetArray, [""]);
     expect(pipeResult).toEqual(datasetArray);
   });
 
