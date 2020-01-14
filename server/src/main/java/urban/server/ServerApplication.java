@@ -47,7 +47,7 @@ public class ServerApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        this.createInitialUserData();
+//        this.createInitialUserData();
         this.createInitialCMSData();
     }
 
