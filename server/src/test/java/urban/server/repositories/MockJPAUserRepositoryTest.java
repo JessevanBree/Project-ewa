@@ -36,6 +36,8 @@ public class MockJPAUserRepositoryTest {
     public void mockFindAll_103() {
         when(mockUserRepository.findById(1L)).thenReturn(userMock);
         assertEquals(userMock, mockUserRepository.findById(1L));
+
+        verify(mockUserRepository).findById(1L);
     }
 
 }
