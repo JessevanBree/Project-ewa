@@ -117,6 +117,8 @@ If everything went succesfully until this point, you are ready to start the Spri
 | 500799894   | Ferran Tombal | Angular | organisation.service.spec.ts |
 | 500799894   | Ferran Tombal | Angular | add-member-popup.component.ts |
 
+| Studentcode | Team member    | Angular / Spring | Test class |
+| ----------- | -------------  | ---------------- | :--------------: |
 | 500804036  | Mohamed Ben Ali | Spring | DatasetTest |
 | 500804036  | Mohamed Ben Ali | Spring | MockChartDatasets |
 | 500804036  | Mohamed Ben Ali | Spring | JPADatasetRepositoryTest |
