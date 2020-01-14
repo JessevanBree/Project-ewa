@@ -126,11 +126,11 @@ describe('NavbarComponent', () => {
       spyOn(sessionService, "getUserIsAdmin").and.returnValue(false);
       tick();
       fixture.detectChanges();
-      expect(componentHTML.querySelector("#myuploads-nav").innerHTML).toEqual("My upload");
-      expect(componentHTML.querySelector("#profile-nav").innerHTML).toEqual("Profile");
-      expect(componentHTML.querySelector("#organisation-nav").innerHTML).toEqual("Organisation panel");
+      expect(componentHTML.querySelector("#myuploads-nav").innerHTML).toContain("My upload");
+      expect(componentHTML.querySelector("#profile-nav").innerHTML).toContain("Profile");
+      expect(componentHTML.querySelector("#organisation-nav").innerHTML).toContain("Organisation panel");
       expect(componentHTML.querySelector("#admin-nav")).toBeFalsy();
-      expect(componentHTML.querySelector("#logout-nav").innerHTML).toEqual("Log out");
-      expect(componentHTML.querySelector("#user-email-nav").innerHTML).toEqual("(User: testmail@test.nl)");
+      expect(componentHTML.querySelector("#logout-nav").innerHTML).toContain("Log out");
+      expect(componentHTML.querySelector("#user-email-nav").innerHTML).toContain("(User: testmail@test.nl)");
     }));
 });

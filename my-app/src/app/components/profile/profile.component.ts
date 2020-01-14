@@ -18,6 +18,12 @@ import {CmsService} from 'src/app/services/cms.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  set userCopy(value: User) {
+    this._userCopy = value;
+  }
+  get updateButtonToggle(): boolean {
+    return this._updateButtonToggle;
+  }
   public CMSContent: Object;
   public readonly componentLink = "profile";
 
@@ -26,10 +32,10 @@ export class ProfileComponent implements OnInit {
   private readonly DB_USERS = this.DB_URL + '/Users';*/
 
   private userId: string;
-  protected user: User;
-  protected userCopy: User;
+  private _user: User;
+  private _userCopy: User;
 
-  protected updateButtonToggle: boolean;
+  private _updateButtonToggle: boolean;
 
   @ViewChild('myProfile', {static: false}) myProfile;
 
@@ -38,7 +44,7 @@ export class ProfileComponent implements OnInit {
               private datasetService: DatasetService,
               private sessionService: SpringSessionService,
               private cmsService: CmsService) {
-    this.updateButtonToggle = true;
+    this._updateButtonToggle = true;
     this.CMSContent = {
       "PROFILE_FIRSTNAME_EDIT": "",
       "PROFILE_SURNAME_EDIT": "",
@@ -49,30 +55,29 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.userService.getLoggedInUser();
-    this.userCopy = null;
-    if (this.user == null || undefined) {
+    this._user = this.userService.getLoggedInUser();
+    this._userCopy = null;
+    if (this._user == null || undefined) {
       let usersList: User[];
       this.userService.getAllUsers().subscribe((users: User[]) => {
           usersList = users;
         },
         (error => console.log(error)),
         () => {
-          this.user = usersList.find((user: User) => {
+          this._user = usersList.find((user: User) => {
               return user.id == JSON.parse(sessionStorage.getItem("id"));
           });
-          this.userCopy = User.trueCopy(this.user);
-          if (!this.user.firstName && !this.user.surName) {
-            this.updateButtonToggle = false;
+          this._userCopy = User.trueCopy(this._user);
+          if (!this._user.firstName && !this._user.surName) {
+            this._updateButtonToggle = false;
           }
-          console.log(this.userCopy);
         });
     } else {
-      this.user = this.userService.getLoggedInUser();
-      this.userCopy = User.trueCopy(this.user);
+      this._user = this.userService.getLoggedInUser();
+      this._userCopy = User.trueCopy(this._user);
       // console.log(this.userCopy);
-      if (!this.user.firstName && !this.user.surName) {
-        this.updateButtonToggle = false;
+      if (!this._user.firstName && !this._user.surName) {
+        this._updateButtonToggle = false;
       }
 
     }
@@ -81,10 +86,10 @@ export class ProfileComponent implements OnInit {
   onUpdateUser() {
     //this.httpClient.put.
     let formControls = this.myProfile.controls;
-    if (formControls.firstname.dirty || formControls.surname.dirty || !(this.user.firstName === this.userCopy.firstName) ||
-      !(this.user.surName === this.userCopy.surName)) {
-      this.user = this.userCopy;
-      this.httpClient.put(this.REST_USERS_URL, this.user).subscribe(
+    if (formControls.firstname.dirty || formControls.surname.dirty || !(this._user.firstName === this._userCopy.firstName) ||
+      !(this._user.surName === this._userCopy.surName)) {
+      this._user = this._userCopy;
+      this.httpClient.put(this.REST_USERS_URL, this._user).subscribe(
         (user) => {
           // console.log("User being sent")
         },
@@ -92,13 +97,20 @@ export class ProfileComponent implements OnInit {
           console.log(error)
         },
         () => {
-          this.user = User.trueCopy(this.userCopy);
-          this.userService.setLoggedInUser(this.user);
-          this.updateButtonToggle = true;
+          this._user = User.trueCopy(this._userCopy);
+          this.userService.setLoggedInUser(this._user);
+          this.myProfile.form.markAsPristine();
+          this._updateButtonToggle = true;
         }
       )
     }
   }
 
+  get user(): User {
+    return this._user;
+  }
+  get userCopy(): User {
+    return this._userCopy;
+  }
 }
 
