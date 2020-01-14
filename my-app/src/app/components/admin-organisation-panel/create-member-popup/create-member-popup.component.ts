@@ -52,7 +52,8 @@ export class CreateMemberPopupComponent implements OnInit {
         this.userService.createUser(newMember).subscribe(
           (user: User) => {
             newMember = user; // Assign returned user to also get the ID
-            console.log(user);
+            // console.log(user);
+            // console.log(newMember);
           },
           (error: any) => console.log(error)
         );

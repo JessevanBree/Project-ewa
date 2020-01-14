@@ -55,6 +55,7 @@ export class UserService {
   }
 
   public createUser(user: User) {
+    this.users.push(user);
     return this.httpClient.post(this.REST_USERS_URL, user);
   }
 

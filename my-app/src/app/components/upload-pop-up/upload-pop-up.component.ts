@@ -52,7 +52,7 @@ export class UploadPopUpComponent implements OnInit {
   private chartLabels: string[];
 
   private file: File;
-  private fileTypeUploaded: string;
+  public fileTypeUploaded: string;
 
   @Output() closingToggle: EventEmitter<boolean>;
 
@@ -145,7 +145,7 @@ export class UploadPopUpComponent implements OnInit {
   onAddXAxes(): void {
     if (this.xAxisInputs.length < 2) {
       this.xAxisInputs[1] = 0;
-      console.log(this.xAxisInputs[0]);
+      // console.log(this.xAxisInputs[0]);
       this.chartType = 'bar';
       this.removeXAxesToggle = true;
       this.validationToggle = false;
@@ -160,7 +160,7 @@ export class UploadPopUpComponent implements OnInit {
     let arrayOfObjects = [];
     this.file = file.target.files.item(0);
     // console.log(file.target.files.item(0));
-
+    console.log(file);
     if (this.isValidPDFFile(this.file)) {
       this.fileTypeUploaded = "pdf";
       this.validationToggle = true;
