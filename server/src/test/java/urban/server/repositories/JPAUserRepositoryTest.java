@@ -89,10 +89,4 @@ public class JPAUserRepositoryTest {
             User user = userRepository.findByEmail("Wrong@email.com");
         });
     }
-
-    @Test
-    public void mockFindAll_103() {
-
-    }
-
 }
