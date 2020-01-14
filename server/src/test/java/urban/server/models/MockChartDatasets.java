@@ -25,13 +25,11 @@ public class MockChartDatasets {
     public void setUp(){
         dataset = Dataset.generateRandomDataset();
         chartDataSets = mock(ChartDataSets.class);
-        chartDataSets.setData(List.of(10, 11));
-        chartDataSets.setType("bar");
         dataset.setChart(chartDataSets);
     }
 
     @Test
-    public void testSetterAndGetter(){
+    public void datasetChartDatasetsMock_400(){
         when(chartDataSets.getDataset()).thenReturn(dataset);
 
         Assert.assertEquals(dataset.getChart(), chartDataSets);

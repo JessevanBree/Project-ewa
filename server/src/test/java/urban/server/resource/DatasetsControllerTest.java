@@ -159,8 +159,9 @@ public class DatasetsControllerTest {
         assertNotEquals(originalDataset.getRegion(), dataset2.getRegion());
     }
 
+    // Rest template does not throw errors
     @Test
-    public void datasetNotFoundThrowsHttpStatus404() {
+    public void datasetNotFoundThrowsHttpStatus404_405() {
         ResponseEntity<Dataset> responseEntity =
                 this.restTemplate.getForEntity("/datasets/" + 0, Dataset.class);
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
