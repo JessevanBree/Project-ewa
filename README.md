@@ -108,3 +108,11 @@ If everything went succesfully until this point, you are ready to start the Spri
 | 500799742   | Abdul Vahip Zor | Angular | dataset.spec.ts |
 | 500799742   | Abdul Vahip Zor | Angular | search-array.pipe.spec.ts |
 | 500799742   | Abdul Vahip Zor | Angular | auth-guard.service.spec.ts |
+
+| Studentcode | Team member    | Angular / Spring | Test class |
+| ----------- | -------------  | ---------------- | :--------------: |
+| 500799894   | Ferran Tombal | Spring | JPAOrganisationRepositoryTest |
+| 500799894   | Ferran Tombal | Spring | OrganisationTest |
+| 500799894   | Ferran Tombal | Angular| admin-organisation-panel.component.spec.ts |
+| 500799894   | Ferran Tombal | Angular | organisation.service.spec.ts |
+| 500799894   | Ferran Tombal | Angular | add-member-popup.component.ts |
