@@ -15,7 +15,6 @@ import {DatasetService} from "../../services/dataset.service";
 import {User} from "../../models/user";
 import {ChartDataSets} from "chart.js";
 import {UserService} from "../../services/user.service";
-import {Router} from "@angular/router";
 
 /**
  * Author: Mohamed Ben Ali

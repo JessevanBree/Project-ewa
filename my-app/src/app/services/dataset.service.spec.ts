@@ -9,7 +9,9 @@ import {Dataset} from "../models/dataset";
 import {Organisation} from "../models/organisation";
 import {User} from "../models/user";
 
-/*Author: Mohamed Ben Ali*/
+/**
+ * Author: Mohamed Ben Ali
+ * */
 describe('DatasetService', () => {
 
   let datasetService: DatasetService;

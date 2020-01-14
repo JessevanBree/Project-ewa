@@ -7,6 +7,9 @@ import {PapaParseModule} from "ngx-papaparse";
 import {RouterTestingModule} from "@angular/router/testing";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
+/**
+ * Author: Mohamed Ben Ali
+ * */
 describe('UploadPopUpComponent', () => {
   let uploadComponent: UploadPopUpComponent;
   let uploadComponentHtml: HTMLElement;
