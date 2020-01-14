@@ -25,7 +25,7 @@
     <div class="col-md-5 col-sm-12">
       <div class="card" id="Org-details">
         <div class="card-header">
-          <h4 class="selectAnOrg"> Select an organisation </h4>
+          <h4 class="selectAnOrg" id="selectOrganisation">Select an organisation</h4>
           <br>
           <!-- Select box for the admin to select an organisation -->
           <select name="organisationSelectBox" id="selectOrg" class="custom-select" style="cursor: pointer"
@@ -36,21 +36,17 @@
           </select>
           <br>
           <span class="d-inline"><p class="p1" *ngIf="this.userOrganisations != null">
-            <strong>Selected organisation:</strong> {{this.currentSelectedOrg?.name}}<br>
-            <strong>Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
+            <strong id="selectedOrganisation">Selected organisation: {{this.currentSelectedOrg?.name}}<br> </strong>
+            <strong id="organisationAdmin">Organisation admin:</strong> {{this.currentSelectedOrg?.organisationAdmin?.email}}<br>
             <strong id="amountOfMembers">Amount of members:</strong> {{ members.length }}</p></span>
           <div *ngIf="userIsAdminOfOrgs">
-            <button type="button" class="btn btn-danger btn-sm mr-2" (click)="onDeleteOrganisation()">Delete organisation
-            </button>
+            <button type="button" class="btn btn-danger btn-sm mr-2" id="deleteOrganisationButton" (click)="onDeleteOrganisation()">Delete organisation</button>
             <div class="btn-group btn-group-sm">
               <button type="button" id="addMemberButton" class="btn btn-primary" data-toggle="modal"
-                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing user
-              </button>
+                      data-target="#addMemberModal" (click)="onAddNewMember()">Add existing user</button>
               <button type="button" id="createMemberButton" class="btn btn-primary" data-toggle="modal"
                       data-target="#createMemberModal" (click)="onCreateNewMember()" title="Creates a user and adds
-the user to the orgnanisation">
-                Create new user
-              </button>
+the user to the orgnanisation">Create new user</button>
             </div>
           </div>
           <label *ngIf="members.length != 0" for="searchFilter" id="searchEmailFilter">Search user by email</label>
@@ -82,14 +78,14 @@ the user to the orgnanisation">
     <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="shared-datasets">Shared datasets</h4>
+          <h4 class="shared-datasets" id="shared-datasets">Shared datasets</h4>
         </div>
 
         <div class="card-body" style="max-height: 600px !important; overflow-y: scroll !important;">
           <ul class="list-group">
             <!-- show this block if the user does have uploaded datasets -->
             <li class="list-group-item" id="noDatasetMessage" *ngIf="organisationDatasets.length == 0">
-            <span class="row mx-1 align-middle">
+            <span class="row mx-1 align-middle" id="noDatasetSpanMessage">
               The current selected organisation doesn't have any shared datasets
             </span>
             </li>

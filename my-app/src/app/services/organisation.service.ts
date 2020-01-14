@@ -14,8 +14,8 @@ import {catchError} from "rxjs/operators";
   providedIn: 'root'
 })
 export class OrganisationService {
-  private readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
-  private readonly REST_ORGANISATIONS_URL = "http://localhost:8080/organisations";
+  readonly REST_ORGANISATIONS_URL = "http://localhost:8080/organisations";
+  readonly REST_ORG_USERS_URL = "http://localhost:8080/organisations/orgMembers";
   private organisations: Organisation[];
   private myOrganisations: Organisation[];
 
@@ -55,7 +55,7 @@ export class OrganisationService {
       if(org.users.find(user  => user.id == this.userService.getLoggedInUser().id) ||
       org.organisationAdmin.id == this.userService.getLoggedInUser().id) return org;
       }
-    );
+    );t
     return this.myOrganisations;*/
     let userId: number;
     if(this.userService.getLoggedInUser()){
@@ -79,22 +79,21 @@ export class OrganisationService {
         console.log("Finished retrieving datasets of organisation with id: " + orgId);
       }
     );*/
-
-
   }
 
-  public addOrganisation(org: Organisation) {
-    /*this.organisations.push(org);
-    return this.organisations[this.organisations.length - 1].equals(org);*/
+  public addOrganisation(org: Organisation): Organisation {
     this.http.post(this.REST_ORGANISATIONS_URL, org).subscribe(
       (data: Organisation) => {
         this.organisations.push(data);
+        return data;
       },
       error => console.log(error),
       () => {
+        return null;
         // console.log("Finished posting organisation");
       }
     );
+    return org;
   }
 
   public addMemberToOrg(orgId: number, userId: number) {

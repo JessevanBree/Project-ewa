@@ -33,7 +33,28 @@ The other dependency that is required is Maven and can be install [here](https:/
 If everything went succesfully until this point, you are ready to start the Spring Boot application. You can start the Spring application by running the ***main*** thread in the
 *ServerApplication* class.
 
+# Running the unit tests
+*We recommend to finish the installation guide before trying to run the test
 
+#### To run the front-end unit tests: 
+1. make sure you have the angular CLI installed(See step 1 of the installation guide)
+2. Open a commandline tool(e.g. CMD, Powershell, git bash)
+3. Change the working directory to the location of the angular application(e.g. cd cd C:/projects/project-ewa/my-app/)
+4. Type 'ng test' in the commandline and press enter
+
+#### To run the back-end unit tests: 
+1. make sure their is a Java version 11 or above is installed
+
+##### Intelij
+2. Open the server map as a intelij project
+3. Make sure the maven pom.xml dependencies are installed
+4. Expand the file structure until src>test>java is visible
+5. Right click on the java folder and click  'run all tests'
+
+##### Commandline
+2. Open a commandline tool(e.g. CMD, Powershell, git bash)
+3. Change the working directory to the location of the spring application(e.g. cd cd C:/projects/project-ewa/server/)
+4. When using CMD or Powershell Type '.\mvnw test' in the commandline and press enter
 
 # Work division
 ## Classes
