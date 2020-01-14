@@ -45,7 +45,7 @@ describe('CmsService', () => {
 			(data) => expect(data["LANDING_TITLE"].length).toBeGreaterThan(0),
 			(err) => console.log(err)
 		)
-	})
+	});
 
 	it('should get all cms content ', () => {
 		expect(service.getAllCMSContent).toBeTruthy();
@@ -57,7 +57,7 @@ describe('CmsService', () => {
 			},
 			(err) => console.log(err)
 		)
-	})
+	});
 
 	it('should be able to save cms content ', () => {
 		expect(service.saveAllCMSContent).toBeTruthy();
