@@ -159,7 +159,7 @@ public class DatasetsControllerTest {
         assertNotEquals(originalDataset.getRegion(), dataset2.getRegion());
     }
 
-    // Rest template does not throw errors
+    // Rest template does not throw errors so assertErrors not possible
     @Test
     public void datasetNotFoundThrowsHttpStatus404_405() {
         ResponseEntity<Dataset> responseEntity =
