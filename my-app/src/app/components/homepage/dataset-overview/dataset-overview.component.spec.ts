@@ -71,4 +71,12 @@ describe('DatasetOverviewComponent', () => {
     expect(datasetOverviewComponent.onSelection).toHaveBeenCalledWith(0, testDatasets[0]);
   });
 
+  it("should initialize the overview with an empty search bar", () => {
+    let searchBar: HTMLInputElement = datasetOverviewHtml.querySelector("div input");
+    expect(searchBar).toBeTruthy();
+    expect(searchBar.textContent).toBe("");
+    expect(searchBar).toHaveClass("form-control");
+
+  });
+
 });

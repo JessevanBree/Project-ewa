@@ -165,8 +165,10 @@ describe('MyuploadsComponent', () => {
     myUploadsfixture.detectChanges();
 
     let deleteButton: HTMLButtonElement = myUploadsHtml.querySelector("#deleteButton");
+    spyOn(window, 'confirm').and.callFake(function () {
+      return true;
+    });
     deleteButton.click();
-
     myUploadsfixture.detectChanges();
 
     expect(myUploads.userDatasets.length).toEqual(2);
