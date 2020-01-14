@@ -6,7 +6,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { CMS } from '../models/CMS';
 
-fdescribe('CmsService', () => {
+describe('CmsService', () => {
 	let service: CmsService;
 
 	beforeEach(() => TestBed.configureTestingModule({

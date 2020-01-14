@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { RouterTestingModule } from "@angular/router/testing";
 import { SearchCMSArrayPipe } from "../../../pipes/search-cms-array.pipe";
 
-fdescribe('AdminCmsComponent', () => {
+describe('AdminCmsComponent', () => {
 	let component: AdminCmsComponent;
 	let fixture: ComponentFixture<AdminCmsComponent>;
 	let componentHTML: HTMLElement;

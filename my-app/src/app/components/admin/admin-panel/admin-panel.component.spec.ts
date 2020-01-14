@@ -21,15 +21,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ChartsModule } from 'ng2-charts';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
-fdescribe('AdminPanelComponent', () => {
+describe('AdminPanelComponent', () => {
 	let component: AdminPanelComponent;
 	let fixture: ComponentFixture<AdminPanelComponent>;
 	let componentHTML: HTMLElement;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [AdminPanelComponent, AdminUsersComponent, AdminOrganisationsComponent, 
-				AdminDatasetsComponent, AdminCmsComponent, CreateUserPopupComponent, 
+			declarations: [AdminPanelComponent, AdminUsersComponent, AdminOrganisationsComponent,
+				AdminDatasetsComponent, AdminCmsComponent, CreateUserPopupComponent,
 				EditUserPopupComponent, SearchCMSArrayPipe, SearchUserArrayPipe, SearchArrayNamePipe,
 			CreateOrganisationPopupComponent, EditMetadataPopupComponent, EditOrganisationPopupComponent,
 		ViewDatasetPopupComponent],
