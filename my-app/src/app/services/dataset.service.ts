@@ -98,7 +98,7 @@ export class DatasetService {
     dataset.fileName = fileName;
     return this.httpClient.post<Dataset>(this.REST_DATASETS_URL + "/upload", dataset).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.datasets.push(data);
         this.fileService.saveFile(file, data.id);
       },

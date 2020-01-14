@@ -31,19 +31,20 @@
                 <i class="fa fa-user-circle float-left mt-1 mr-1"></i>
                 <input type="text" id="firstName" name="firstname" class="form-control float-left "
                        style="max-width: 100px" [(ngModel)]="userCopy.firstName"
-                       (ngModelChange)="updateButtonToggle = false"
+                       (ngModelChange)="_updateButtonToggle = false"
                        [placeholder]="CMSContent['PROFILE_FIRSTNAME_EDIT']">
                 <label for="surName"></label>
                 <input type="text" id="surName" name="surname" class="form-control float-left" style="max-width: 100px"
-                       [(ngModel)]="userCopy.surName" (ngModelChange)="updateButtonToggle = false"
+                       [(ngModel)]="userCopy.surName" (ngModelChange)="_updateButtonToggle = false"
                        [placeholder]="CMSContent['PROFILE_SURNAME_EDIT']">
-                <button *ngIf="!this.updateButtonToggle" type="button"
+                <button *ngIf="!this.updateButtonToggle" type="button" id="cancelButton"
                         class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
-                        [disabled]="this.updateButtonToggle" (click)="updateButtonToggle = true"><i
+                        [disabled]="this.updateButtonToggle" (click)="_updateButtonToggle = true"><i
                   class="fa fa-times-circle"></i>
                 </button>
                 <button *ngIf="!this.updateButtonToggle" type="button" class="btn btn-primary float-left ml-1"
-                        [disabled]="this.updateButtonToggle"
+                        id="updateButton"
+                        [disabled]="this.updateButtonToggle || this.myProfile.pristine"
                         (click)="onUpdateUser()">{{CMSContent['PROFILE_UPDATE_BUTTON']}}
                 </button>
               </div>
@@ -51,7 +52,7 @@
                 <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}
                 <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
                 <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
-                        (click)="this.updateButtonToggle = false">
+                        (click)="this._updateButtonToggle = false">
                   <i class="fa fa-edit" style="font-size: 18px">Edit</i>
                 </button>
               </div>
