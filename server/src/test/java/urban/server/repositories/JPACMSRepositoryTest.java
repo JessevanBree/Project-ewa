@@ -17,6 +17,9 @@ import static org.hamcrest.Matchers.*;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+/**
+ * @Author Jesse van Bree
+ */
 @SpringBootTest()
 @Transactional
 public class JPACMSRepositoryTest {

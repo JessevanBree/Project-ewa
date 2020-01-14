@@ -1,5 +1,8 @@
 import { CMS } from './CMS';
 
+/**
+ * @Author Jesse van Bree
+ */
 describe('CMS', () => {
 	let cms: CMS = null;
 	let cmsCopy: CMS = null;
